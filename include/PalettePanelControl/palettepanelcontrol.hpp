@@ -1,0 +1,9 @@
+#ifndef PALETTEPANELCONTROL_HPP
+#define PALETTEPANELCONTROL_HPP
+
+class PalettePanelControl
+{
+
+};
+
+#endif // PALETTEPANELCONTROL_HPP

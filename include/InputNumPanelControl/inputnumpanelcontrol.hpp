@@ -1,0 +1,10 @@
+#ifndef INPUTNUMPANELCONTROL_HPP
+#define INPUTNUMPANELCONTROL_HPP
+
+class InputNumPanelControl
+{
+
+};
+
+
+#endif // INPUTNUMPANELCONTROL_HPP

@@ -1,0 +1,9 @@
+#ifndef PANTILTPANELCONTROL_HPP
+#define PANTILTPANELCONTROL_HPP
+
+class PantiltPanelControl
+{
+
+};
+
+#endif // PANTILTPANELCONTROL_HPP
