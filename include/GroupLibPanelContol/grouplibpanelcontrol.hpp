@@ -1,0 +1,10 @@
+#ifndef GROUPLIBPANELCONTROL_HPP
+#define GROUPLIBPANELCONTROL_HPP
+
+class GroupLibPanelContol
+{
+
+};
+
+
+#endif // GROUPLIBPANELCONTROL_HPP
