@@ -1,9 +1,0 @@
-#ifndef ENCODERPANELCONTROL_HPP
-#define ENCODERPANELCONTROL_HPP
-
-class EncoderPanelControl
-{
-
-};
-
-#endif // ENCODERPANELCONTROL_HPP

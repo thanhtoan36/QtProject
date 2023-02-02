@@ -9,37 +9,37 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/ColorFilterPanelControl/colorfilterpanelcontrol.cpp \
-    src/ColorPickerPanelControl/colorpickerpanelcontrol.cpp \
-    src/EncoderPanelControl/encoderpanelcontrol.cpp \
-    src/GroupLibPanelContol/grouplibpanelcontrol.cpp \
-    src/InputNumPanelControl/inputnumpanelcontrol.cpp \
-    src/IntensityControl/intensitycontrol.cpp \
-    src/PalettePanelControl/palettepanelcontrol.cpp \
-    src/PantiltPanelControl/pantiltpanelcontrol.cpp \
-    src/PlaybackPanelControl/playbackpanelcontrol.cpp \
+    src/colorFilterControl/colorFilterControl.cpp \
+    src/colorPickerControl/colorPickerControl.cpp \
+    src/encoderControl/encodeControl.cpp \
+    src/groupLibControl/groupLibControl.cpp \
+    src/inputNumControl/inputNumControl.cpp \
+    src/intensityControl/intensityControl.cpp \
+    src/paletteControl/paletteControl.cpp \
+    src/pantiltControl/pantiltControl.cpp \
+    src/playbackControl/playbackControl.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
-    include/ColorFilterPanelControl/colorfilterpanelcontrol.hpp \
-    include/ColorFilterPanelControl/define.hpp \
-    include/ColorPickerPanelControl/colorpickerpanelcontrol.hpp \
-    include/ColorPickerPanelControl/define.hpp \
-    include/EncoderPanelControl/define.hpp \
-    include/EncoderPanelControl/encoderpanelcontrol.hpp \
-    include/GroupLibPanelContol/define.hpp \
-    include/GroupLibPanelContol/grouplibpanelcontrol.hpp \
-    include/InputNumPanelControl/define.hpp \
-    include/InputNumPanelControl/inputnumpanelcontrol.hpp \
-    include/IntensityControl/define.hpp \
-    include/IntensityControl/intensitycontrol.hpp \
-    include/PalettePanelControl/define.hpp \
-    include/PalettePanelControl/palettepanelcontrol.hpp \
-    include/PantiltPanelControl/define.hpp \
-    include/PantiltPanelControl/pantiltpanelcontrol.hpp \
-    include/PlaybackPanelControl/define.hpp \
-    include/PlaybackPanelControl/playbackpanelcontrol.hpp \
+    include/colorFilterControl/colorFilterControl.hpp \
+    include/colorFilterControl/colorFilterControl_define.hpp \
+    include/colorPickerControl/colorPickerControl.hpp \
+    include/colorPickerControl/colorPickerControl_define.hpp \
+    include/encoderControl/encoderControl.hpp \
+    include/encoderControl/encoderControl_define.hpp \
+    include/groupLibContol/groupLibControl.hpp \
+    include/groupLibContol/groupLibControl_define.hpp \
+    include/inputNumControl/inputNumControl.hpp \
+    include/inputNumControl/inputNumControl_define.hpp \
+    include/intensityControl/intensityControl.hpp \
+    include/intensityControl/intensityControl_define.hpp \
+    include/paletteControl/paletteControl.hpp \
+    include/paletteControl/paletteControl_define.hpp \
+    include/pantiltControl/pantiltControl.hpp \
+    include/pantiltControl/pantiltControl_define.hpp \
+    include/playbackControl/playbackControl.hpp \
+    include/playbackControl/playbackControl_define.hpp \
     include/mainwindow.h
 
 INCLUDEPATH += \

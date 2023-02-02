@@ -1,9 +1,0 @@
-#ifndef PLAYBACKPANELCONTROL_HPP
-#define PLAYBACKPANELCONTROL_HPP
-
-class PlaybackPanelControl
-{
-
-};
-
-#endif // PLAYBACKPANELCONTROL_HPP
