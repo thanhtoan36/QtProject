@@ -6,15 +6,483 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>954</width>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>511</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>ColorPickerControl</string>
+    </property>
+    <widget class="QPushButton" name="ColorPickerControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>20</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="ColorPickerControl_Fake_Type">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>COLOR_PICKER_TYPE_XY</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>COLOR_PICKER_TYPE_RGB</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>911</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>EncoderControl</string>
+    </property>
+    <widget class="QComboBox" name="EncoderControl_Fake_Mode">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>ENCODER_MODE_PERCENT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ENCODER_MODE_255</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ENCODER_MODE_ANGLE</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="EncoderControl_Fake_Type">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>ENCODER_TYPE_COLOR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ENCODER_TYPE_POSITION</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ENCODER_TYPE_GOBO</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ENCODER_TYPE_BEAM_SHUTTER</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ENCODER_TYPE_CONTROL</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="EncoderControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>50</y>
+      <width>391</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>ColorFilterControl</string>
+    </property>
+    <widget class="QPushButton" name="ColorFilterControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>210</y>
+      <width>911</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>InputNumControl</string>
+    </property>
+    <widget class="QComboBox" name="InputNumControl_Fake_Mode">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_MODE_PERCENT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_MODE_255</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_MODE_ANGLE</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="InputNumControl_Fake_Type">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_TYPE_COLOR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_TYPE_POSITION</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_TYPE_GOBO</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_TYPE_BEAM_SHUTTER</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_NUM_TYPE_CONTROL</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="InputNumControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>290</y>
+      <width>911</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>TrackControl</string>
+    </property>
+    <widget class="QComboBox" name="TrackControl_Fake_Mode">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>TRACK_MODE_PERCENT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TRACK_MODE_255</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TRACK_MODE_ANGLE</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="TrackControl_Fake_ValueMode">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>20</y>
+       <width>331</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>TRACK_MODE_RELATIVE</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TRACK_MODE_ABSOLUTE </string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="TrackControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_6">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>370</y>
+      <width>171</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>PaletteControl</string>
+    </property>
+    <widget class="QPushButton" name="PalletControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_7">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>370</y>
+      <width>181</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>GroupPanelControl</string>
+    </property>
+    <widget class="QPushButton" name="GroupPanelControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_8">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>370</y>
+      <width>191</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>LibraryControl</string>
+    </property>
+    <widget class="QPushButton" name="LibraryControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_9">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>370</y>
+      <width>191</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>IntensityControl</string>
+    </property>
+    <widget class="QPushButton" name="IntensityControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_10">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>370</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>PlaybackControl</string>
+    </property>
+    <widget class="QPushButton" name="PlaybackControl_Fake_Open">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_HorizontalLayout">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>181</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Horizontal Layout</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>954</width>
+     <height>17</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
