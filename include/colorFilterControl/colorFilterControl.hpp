@@ -1,8 +1,12 @@
 #ifndef COLORFILTERCONTROL_H
 #define COLORFILTERCONTROL_H
 
-class ColorFilterControl
+#include "../baseComponent/panelControlBase.h"
+
+class ColorFilterControl : public PanelControlBase
 {
+public:
+    ColorFilterControl();
 
 };
 
