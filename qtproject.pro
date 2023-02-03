@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/baseComponent/panelWidgetBase.cpp \
     src/colorFilterControl/colorFilterControl.cpp \
     src/colorPickerControl/colorPickerControl.cpp \
     src/encoderControl/encodeControl.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     src/mainwindow.cpp
 
 HEADERS += \
+    include/baseComponent/panelWidgetBase.h \
     include/colorFilterControl/colorFilterControl.hpp \
     include/colorFilterControl/colorFilterControl_define.hpp \
     include/colorPickerControl/colorPickerControl.hpp \
