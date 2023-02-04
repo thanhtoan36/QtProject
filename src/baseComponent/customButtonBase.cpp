@@ -44,7 +44,7 @@ void CustomButtonBase::SetTextColor(const QColor &newText_color)
 
 void CustomButtonBase::SetStyleButton()
 {
-    QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);border-style: solid}")
+    QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);border-style: solid;border-width: 1px;border-color: gray}")
             .arg(m_background_color.red()).arg(m_background_color.green()).arg(m_background_color.blue())
             .arg(m_text_color.red()).arg(m_text_color.green()).arg(m_text_color.blue());
 

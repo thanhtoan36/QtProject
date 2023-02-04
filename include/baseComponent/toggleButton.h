@@ -27,7 +27,7 @@ protected:
 
 private:
     QLabel m_check_label;
-    bool m_is_check_mark_enable = false;
+    bool m_is_check_mark_enable = true;
     bool m_check_mark_visible = false;
 };
 
