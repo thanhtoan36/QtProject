@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "colorFilterControl/colorFilterControl.hpp"
+#include "include/utility.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,8 +17,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 {
-    m_panel_window->AttachPanelControl(
-                QSharedPointer<PanelControlBase>(new ColorFilterControl(), &QObject::deleteLater)
-                );
+    m_panel_window->AttachPanelControl( MakeSharedQObject<ColorFilterControl>() );
 }
 
