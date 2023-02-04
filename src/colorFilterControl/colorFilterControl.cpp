@@ -17,7 +17,9 @@ void ColorFilterControl::SetupUiComponents()
 
     m_label_title->setGeometry(CFC_TITLE_GEOMETRY);
     m_label_title->setAlignment(Qt::AlignCenter);
-    m_label_title->setFont(QFont("MS PGothic", 9, QFont::Bold));
+
+    auto f = GetDefaultFont();
+    m_label_title->setFont(f);
 
     auto palette = QPalette();
     palette.setColor(QPalette::Foreground, Qt::white);

@@ -15,7 +15,7 @@ PanelWindow::PanelWindow(QWidget *parent)
     setPalette(palette);
 }
 
-void PanelWindow::AttachPanelControl(QPointer<PanelControlBase> panel)
+void PanelWindow::AttachPanelControl(QSharedPointer<PanelControlBase> panel)
 {
     DetachPanelControl();
 

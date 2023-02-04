@@ -1,8 +1,10 @@
 #include "include/baseComponent/panelControlBase.h"
+#include <QFont>
 
 PanelControlBase::PanelControlBase(QWidget *parent)
     : QWidget{parent}
 {
+    SetDefaultFont(QFont("MS PGothic", 12, QFont::Bold));
 }
 
 void PanelControlBase::PrepareUi()
@@ -13,4 +15,14 @@ void PanelControlBase::PrepareUi()
 
     SetupUiComponents();
     SetupUiEvents();
+}
+
+void PanelControlBase::SetDefaultFont(const QFont &font)
+{
+    setFont(font);
+}
+
+QFont PanelControlBase::GetDefaultFont() const
+{
+    return font();
 }

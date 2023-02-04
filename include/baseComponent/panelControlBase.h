@@ -11,6 +11,9 @@ public:
 
     void PrepareUi();
 
+    void SetDefaultFont(const QFont &font);
+    QFont GetDefaultFont() const;
+
 protected:
     // Place UI components into this panel
     virtual void SetupUiComponents() = 0;
