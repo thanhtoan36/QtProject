@@ -1,47 +1,70 @@
 #include "baseComponent/customButtonBase.h"
+#include <QDebug>
 
+CustomButtonBase::CustomButtonBase(QWidget *parent) : QPushButton(parent)
+{
+    QObject::connect(this, &QPushButton::clicked,this, &CustomButtonBase::HandleButtonClicked);
+}
 
 CustomButtonBase::CustomButtonBase(QString text, QWidget *parent) : QPushButton(parent)
 {
     setText(text);
+    QObject::connect(this, &QPushButton::clicked,this, &CustomButtonBase::HandleButtonClicked);
 }
 
 CustomButtonBase::CustomButtonBase(QString text, int fontSize, QColor backgroundColor, QColor textColor, QWidget *parent):
     QPushButton(parent),
-    m_fontSize(fontSize),
     m_background_color(backgroundColor),
     m_text_color(textColor)
 {
     setText(text);
-    QFont font = this->font();
-    font.setPointSize(m_fontSize);
-    setFont(font);
-    setBackgroundColor(backgroundColor);
-    setTextColor(textColor);
+    SetFontSize(fontSize);
+    CustomButtonBase::SetStyleButton();
+    QObject::connect(this, &QPushButton::clicked,this, &CustomButtonBase::HandleButtonClicked);
 }
 
-void CustomButtonBase::setFontSize(int newFont_size)
+void CustomButtonBase::SetFontSize(int fontSize)
 {
-    m_fontSize = newFont_size;
+    m_fontSize = fontSize;
     QFont font = this->font();
-    font.setPointSize(newFont_size);
+    font.setPixelSize(fontSize);
     setFont(font);
 }
 
-void CustomButtonBase::setBackgroundColor(const QColor &newBackground_color)
+void CustomButtonBase::SetBackgroundColor(const QColor &backgroundColor)
 {
-    m_background_color = newBackground_color;
-    QString style = "background:rgb(%1,%2,%3);";
-    setStyleSheet(style.arg(m_background_color.red()).arg(m_background_color.green()).arg(m_background_color.blue()));
+    m_background_color = backgroundColor;
+    SetStyleButton();
 }
 
-void CustomButtonBase::setTextColor(const QColor &newText_color)
+void CustomButtonBase::SetTextColor(const QColor &newText_color)
 {
     m_text_color = newText_color;
-    QPalette pal = this->palette();
-    pal.setColor(QPalette::ButtonText, m_text_color);
-    this->setPalette(pal);
-    this->repaint();
+    SetStyleButton();
+}
+
+void CustomButtonBase::SetStyleButton()
+{
+    QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")
+            .arg(m_background_color.red()).arg(m_background_color.green()).arg(m_background_color.blue())
+            .arg(m_text_color.red()).arg(m_text_color.green()).arg(m_text_color.blue());
+
+    setStyleSheet(style);
+}
+
+int CustomButtonBase::fontSize() const
+{
+    return m_fontSize;
+}
+
+const QColor &CustomButtonBase::BackgroundColor() const
+{
+    return m_background_color;
+}
+
+const QColor &CustomButtonBase::TextColor() const
+{
+    return m_text_color;
 }
 
 

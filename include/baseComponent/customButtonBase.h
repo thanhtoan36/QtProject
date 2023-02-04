@@ -7,15 +7,29 @@ class CustomButtonBase : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit CustomButtonBase(QString text, QWidget *parent = nullptr);
+    explicit CustomButtonBase(QWidget *parent = nullptr);
+
+    CustomButtonBase(QString text, QWidget *parent = nullptr);
 
     CustomButtonBase(QString text, int fontSize, QColor backgroundColor, QColor textColor, QWidget *parent = nullptr);
 
-    void setFontSize(int newFont_size);
+    void SetFontSize(int fontSize);
 
-    void setBackgroundColor(const QColor &newBackground_color);
+    void SetBackgroundColor(const QColor &backgroundColor);
 
-    void setTextColor(const QColor &newText_color);
+    void SetTextColor(const QColor &newText_color);
+
+    int fontSize() const;
+
+    const QColor &BackgroundColor() const;
+
+    const QColor &TextColor() const;
+
+public slots:
+    virtual void HandleButtonClicked() = 0;
+
+protected:
+    virtual void SetStyleButton();
 
 private:
     int m_fontSize;
