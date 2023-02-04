@@ -13,7 +13,6 @@ CustomToggleButtonBase::CustomToggleButtonBase(QString text, QWidget *parent) : 
 CustomToggleButtonBase::CustomToggleButtonBase(QString text, int fontSize, QColor backgroundColor, QColor textColor, QWidget *parent):
      CustomButtonBase(text,fontSize,backgroundColor,textColor,parent)
 {
-    CustomToggleButtonBase::SetStyleButton();
     connect(this,&CustomToggleButtonBase::ButtonStateChange,this,&CustomToggleButtonBase::HandleButtonStateChanged);
 }
 
@@ -38,7 +37,6 @@ const QColor &CustomToggleButtonBase::PressBackgroundColor() const
 void CustomToggleButtonBase::SetPressBackgroundColor(const QColor &backgroundColor)
 {
     m_press_background_color = backgroundColor;
-    SetStyleButton();
 }
 
 const QColor &CustomToggleButtonBase::PressTextColor() const
@@ -49,7 +47,6 @@ const QColor &CustomToggleButtonBase::PressTextColor() const
 void CustomToggleButtonBase::SetPressTextColor(const QColor &textColor)
 {
     m_press_text_color = textColor;
-    SetStyleButton();
 }
 
 CustomToggleButtonBase::ToggleButtonState CustomToggleButtonBase::ButtonState() const

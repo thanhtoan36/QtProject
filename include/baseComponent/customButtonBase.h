@@ -25,6 +25,8 @@ public:
 
     const QColor &TextColor() const;
 
+    void PrepareUI();
+
 public slots:
     virtual void HandleButtonClicked() = 0;
 

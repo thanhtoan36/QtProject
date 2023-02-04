@@ -19,7 +19,6 @@ CustomButtonBase::CustomButtonBase(QString text, int fontSize, QColor background
 {
     setText(text);
     SetFontSize(fontSize);
-    CustomButtonBase::SetStyleButton();
     QObject::connect(this, &QPushButton::clicked,this, &CustomButtonBase::HandleButtonClicked);
 }
 
@@ -45,7 +44,7 @@ void CustomButtonBase::SetTextColor(const QColor &newText_color)
 
 void CustomButtonBase::SetStyleButton()
 {
-    QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")
+    QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);border-style: solid}")
             .arg(m_background_color.red()).arg(m_background_color.green()).arg(m_background_color.blue())
             .arg(m_text_color.red()).arg(m_text_color.green()).arg(m_text_color.blue());
 
@@ -65,6 +64,11 @@ const QColor &CustomButtonBase::BackgroundColor() const
 const QColor &CustomButtonBase::TextColor() const
 {
     return m_text_color;
+}
+
+void CustomButtonBase::PrepareUI()
+{
+    SetStyleButton();
 }
 
 

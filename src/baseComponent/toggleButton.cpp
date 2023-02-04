@@ -25,16 +25,15 @@ ToggleButton::ToggleButton(QString text, bool isCheckMark, QWidget *parent):
     m_check_label.setGeometry(2,2,10,10);
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
 
-    ToggleButton::SetStyleButton();
 }
 
 void ToggleButton::SetStyleButton()
 {
-    QString style_enable = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")
+    QString style_enable = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6); border-style: solid}")
             .arg(BackgroundColor().red()).arg(BackgroundColor().green()).arg(BackgroundColor().blue())
             .arg(TextColor().red()).arg(TextColor().green()).arg(TextColor().blue());
 
-    QString style_disable = QString(" QPushButton:disabled { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")
+    QString style_disable = QString(" QPushButton:disabled { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6); border-style: solid}")
             .arg(SELECT_BUTTON_BG_COLOR_DISABLE.red()).arg(SELECT_BUTTON_BG_COLOR_DISABLE.green()).arg(SELECT_BUTTON_BG_COLOR_DISABLE.blue())
             .arg(SELECT_BUTTON_TEXT_COLOR_DISABLE.red()).arg(SELECT_BUTTON_TEXT_COLOR_DISABLE.green()).arg(SELECT_BUTTON_TEXT_COLOR_DISABLE.blue());
 
