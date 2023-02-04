@@ -1,4 +1,4 @@
-#include "panelWindow.h"
+#include "include/baseComponent/panelWindow.h"
 
 #define SCREEN_BACKGROUND_COLOR qRgb(34, 43, 53)  // background color of panels
 
@@ -15,12 +15,13 @@ PanelWindow::PanelWindow(QWidget *parent)
     setPalette(palette);
 }
 
-void PanelWindow::AttachPanelControl(PanelControlBase *panel)
+void PanelWindow::AttachPanelControl(QPointer<PanelControlBase> panel)
 {
     DetachPanelControl();
 
     if (panel) {
         panel->setParent(this);
+        panel->PrepareUi();
         m_current_panel_control = panel;
         show();
     }

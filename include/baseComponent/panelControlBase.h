@@ -9,8 +9,18 @@ class PanelControlBase : public QWidget
 public:
     explicit PanelControlBase(QWidget *parent = nullptr);
 
+    void PrepareUi();
+
+protected:
+    // Place UI components into this panel
+    virtual void SetupUiComponents() = 0;
+    // Connect signals / slots to the UI components
+    virtual void SetupUiEvents() {};
+
 signals:
 
+private:
+    bool m_ui_initialized {false};
 };
 
 #endif // PANELCONTROLBASE_H

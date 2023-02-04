@@ -1,6 +1,7 @@
 #ifndef PANELWINDOW_H
 #define PANELWINDOW_H
 
+#include <QPointer>
 #include <QDialog>
 
 #include "panelControlBase.h"
@@ -12,13 +13,13 @@ class PanelWindow : public QDialog
 public:
     explicit PanelWindow(QWidget *parent = nullptr);
 
-    void AttachPanelControl(PanelControlBase *panel);
+    void AttachPanelControl(QPointer<PanelControlBase> panel);
     void DetachPanelControl();
 
 signals:
 
 private:
-    PanelControlBase *m_current_panel_control {};
+    QPointer<PanelControlBase> m_current_panel_control {};
 
 };
 
