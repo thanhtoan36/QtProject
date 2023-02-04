@@ -12,6 +12,7 @@ public:
     void PrepareUi();
 
     void SetDefaultFont(const QFont &font);
+
     QFont GetDefaultFont() const;
 
 protected:
