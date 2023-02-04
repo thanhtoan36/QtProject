@@ -1,6 +1,8 @@
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "colorPickerControl/colorPickerControl_define.hpp"
-
+#include "baseComponent/designPolicyDefine.h"
+#include "colorPickerControl/customColorPickerXY.h"
+#include "colorPickerControl/customColorPickerXY.h"
 
 ColorPickerControl::ColorPickerControl(QWidget *parent)
     : PanelControlBase(parent),
@@ -23,6 +25,10 @@ void ColorPickerControl::SetupUiComponents()
 
     auto f = GetDefaultFont();
     m_label_title.setFont(f);
+
+    CustomColorPickerXY * chart = new CustomColorPickerXY(this);
+    chart->SetColor(QColor(Qt::blue));
+    chart->setGeometry(CPC_XY_PICKER_GEOMETRY);
 
     auto palette = QPalette();
     palette.setColor(QPalette::Foreground, Qt::white);

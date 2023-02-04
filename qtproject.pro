@@ -9,6 +9,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/colorPickerControl/cieaux.cpp \
+    src/colorPickerControl/ciemaker.cpp \
+    src/colorPickerControl/customColorPickerXY.cpp \
     src/libraryControl/libraryControl.cpp \
     src/baseComponent/customToggleButtonBase.cpp \
     src/baseComponent/panelControlBase.cpp \
@@ -43,9 +46,12 @@ HEADERS += \
     include/colorFilterControl/colorFilterControl.hpp \
     include/colorFilterControl/colorFilterControl_datatypes.h \
     include/colorFilterControl/colorFilterControl_define.hpp \
+    include/colorPickerControl/cieaux.h \
+    include/colorPickerControl/ciemaker.h \
     include/colorPickerControl/colorPickerControl.hpp \
     include/colorPickerControl/colorPickerControl_datatypes.h \
     include/colorPickerControl/colorPickerControl_define.hpp \
+    include/colorPickerControl/customColorPickerXY.h \
     include/encoderControl/encoderControl.hpp \
     include/encoderControl/encoderControl_datatypes.h \
     include/encoderControl/encoderControl_define.hpp \
@@ -82,3 +88,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    img.qrc
