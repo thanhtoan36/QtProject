@@ -57,7 +57,8 @@ HEADERS += \
     include/pantiltControl/pantiltControl_define.hpp \
     include/playbackControl/playbackControl.hpp \
     include/playbackControl/playbackControl_define.hpp \
-    include/mainwindow.h
+    include/mainwindow.h \
+    include/utility.h
 
 INCLUDEPATH += \
     include/
