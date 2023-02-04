@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "colorFilterControl/colorFilterControl.hpp"
+#include "colorPickerControl/colorPickerControl.hpp"
 #include "include/utility.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +18,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 {
-    m_panel_window->AttachPanelControl( MakeSharedQObject<ColorFilterControl>() );
+    auto color_picker_control = MakeSharedQObject<ColorPickerControl>();
+
+    COLOR_PICKER_DISP_PARAM params;
+    params.type = (ColorPickerType)ui->ColorPickerControl_Fake_Type->currentIndex();
+    params.color = Qt::red;
+
+    color_picker_control->SetDispParamData(&params);
+
+    m_panel_window->AttachPanelControl(color_picker_control);
 }
 
