@@ -1,4 +1,5 @@
 #include "colorPickerControl/customColorPickerXY.h"
+#include "colorPickerControl/colorPickerControl_define.hpp"
 #include <QPainter>
 #include <QDebug>
 #include <QMouseEvent>
@@ -11,11 +12,14 @@
     (((t) <= 0.0404482362771076) ? \
     ((t)/12.92) : pow(((t) + 0.055)/1.055, 2.4))
 
+#define PICKER_XY_WIDTH  CPC_PICKER_XY_GEOMETRY.width()
+#define PICKER_XY_HIEGHT CPC_PICKER_XY_GEOMETRY.height()
+
 CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
-    m_plotArea(QRectF(36, 0,240, 240))
+    m_plotArea(QRectF(36, 0,PICKER_XY_HIEGHT, PICKER_XY_HIEGHT))
 {
     QImage img(":/img/cie_img.png");
-    m_img = img.scaled(240, 240, Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    m_img = img.scaled(PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio,Qt::SmoothTransformation);
     setMouseTracking(true);
 }
 
