@@ -23,12 +23,12 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
     COLOR_PICKER_DISP_PARAM params;
     params.type = (ColorPickerType)ui->ColorPickerControl_Fake_Type->currentIndex();
-    params.color = Qt::red;
+    params.color = QColor::fromHsv(25,26,255);
 
     color_picker_control->SetDispParamData(&params);
 
     m_panel_window->AttachPanelControl(color_picker_control);
-    m_panel_window->move(1000, 1000);
+//    m_panel_window->move(1000, 1000);
     m_panel_window->show();
     m_panel_window->raise();
 }

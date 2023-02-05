@@ -7,6 +7,7 @@
 #include "../baseComponent/selectButton.h"
 #include "../baseComponent/customPushButton.h"
 #include "colorPickerControl/customColorPickerXY.h"
+#include "colorPickerControl/customColorPickerRGB.h"
 
 #include <QLabel>
 #include <QSlider>
@@ -36,6 +37,9 @@ protected:
 
     // XY tab
     CustomColorPickerXY m_picker_xy;
+
+    // RGB tab
+    CustomColorPickerRGB m_picker_rgb;
 
     QLabel m_label_title_x;
     QLabel m_label_value_x;

@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     src/colorPickerControl/cieaux.cpp \
     src/colorPickerControl/ciemaker.cpp \
+    src/colorPickerControl/customColorPickerRGB.cpp \
     src/colorPickerControl/customColorPickerXY.cpp \
     src/libraryControl/libraryControl.cpp \
     src/baseComponent/customToggleButtonBase.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     include/colorPickerControl/colorPickerControl.hpp \
     include/colorPickerControl/colorPickerControl_datatypes.h \
     include/colorPickerControl/colorPickerControl_define.hpp \
+    include/colorPickerControl/customColorPickerRGB.h \
     include/colorPickerControl/customColorPickerXY.h \
     include/encoderControl/encoderControl.hpp \
     include/encoderControl/encoderControl_datatypes.h \

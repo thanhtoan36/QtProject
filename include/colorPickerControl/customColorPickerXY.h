@@ -32,12 +32,12 @@ private:
     QRectF m_plotArea;
     QSize m_offset;
     QPointF m_xy;
-    bool m_pointer_visible = false;
     QPixmap m_ciePic;
     QImage m_img;
     CIEMaker m_cie_maker;
 
     QPointF m_pointer;
+    bool m_pointer_visible = false;
 };
 
 #endif // CUSTOMCOLORPICKERXY_H
