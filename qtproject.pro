@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     src/colorPickerControl/cieaux.cpp \
     src/colorPickerControl/ciemaker.cpp \
+    src/colorPickerControl/colorPickerControlHorizon.cpp \
     src/colorPickerControl/customColorPickerRGB.cpp \
     src/colorPickerControl/customColorPickerXY.cpp \
     src/libraryControl/libraryControl.cpp \
@@ -50,6 +51,8 @@ HEADERS += \
     include/colorPickerControl/cieaux.h \
     include/colorPickerControl/ciemaker.h \
     include/colorPickerControl/colorPickerControl.hpp \
+    include/colorPickerControl/colorPickerControlHorizon.h \
+    include/colorPickerControl/colorPickerControlHorizon_define.h \
     include/colorPickerControl/colorPickerControl_datatypes.h \
     include/colorPickerControl/colorPickerControl_define.hpp \
     include/colorPickerControl/customColorPickerRGB.h \

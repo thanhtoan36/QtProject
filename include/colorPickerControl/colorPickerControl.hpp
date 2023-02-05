@@ -25,7 +25,6 @@ protected:
 protected:
     COLOR_PICKER_DISP_PARAM m_disp_param;
 
-    QLabel m_control_background;
     QLabel m_label_title;
     SelectButton m_button_xy;
     SelectButton m_button_rgb;

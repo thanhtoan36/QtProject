@@ -30,6 +30,8 @@ void PanelWindow::AttachPanelControl(QSharedPointer<PanelControlBase> panel)
         // connect(panel.get(), &QWidget::windowIconChanged, this, &QWidget::setWindowIcon);
 
         setWindowTitle(panel->windowTitle());
+
+        setFixedSize(panel->size());
         // setWindowIcon(panel->windowIcon());
 
         // show();

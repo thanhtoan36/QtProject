@@ -4,7 +4,6 @@
 ColorPickerControl::ColorPickerControl(QWidget *parent)
     : PanelControlBase(parent),
       m_disp_param(),
-      m_control_background(this),
       m_label_title(this),
       m_button_xy(this),
       m_button_rgb(this),
@@ -31,7 +30,7 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
       m_children_xy{&m_picker_xy, &m_label_value_x, &m_label_value_y, &m_label_title_x, &m_label_title_y, &m_slider_x, &m_slider_y},
       m_children_rgb{&m_picker_rgb, &m_label_value_h, &m_label_title_h, &m_slider_h, &m_label_value_s, &m_label_title_s, &m_slider_s, &m_label_value_v, &m_label_title_v, &m_slider_v}
 {
-    resize(CPC_SCREENSIZE);
+    setFixedSize(CPC_SCREENSIZE);
     m_slider_x.setRange(0, 1000);
     m_slider_y.setRange(0, 1000);
     m_slider_h.setRange(0, 359);
@@ -67,13 +66,6 @@ void ColorPickerControl::SetupUiComponents()
     m_label_setting.setGeometry(CPC_LABEL_SETTING_GEOMETRY);
     m_label_setting.setText("設定");
 
-    m_control_background.setObjectName("control_background");
-    m_control_background.setGeometry(QRect(
-                                         0,
-                                         m_label_setting.geometry().bottom(),
-                                         this->width(),
-                                         this->height() - m_label_setting.geometry().bottom()
-                                         ));
     // XY tab
     m_picker_xy.SetColor(m_disp_param.color);
     m_picker_xy.setGeometry(CPC_PICKER_XY_GEOMETRY);

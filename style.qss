@@ -25,3 +25,15 @@ QSlider::handle:horizontal {
     border: 1px solid gray;
     background: #4472c4;
 }
+
+QSlider::groove:vertical {
+    width: 10px;
+    background: #adb9ca;
+}
+QSlider::handle:vertical {
+    height: 20px;
+    margin: 0 -6px;
+    border-radius: 11px;
+    border: 1px solid gray;
+    background: #4472c4;
+}
