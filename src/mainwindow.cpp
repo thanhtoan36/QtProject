@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    on_ColorPickerControl_Fake_Open_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -27,5 +28,8 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
     color_picker_control->SetDispParamData(&params);
 
     m_panel_window->AttachPanelControl(color_picker_control);
+    m_panel_window->move(1000, 1000);
+    m_panel_window->show();
+    m_panel_window->raise();
 }
 

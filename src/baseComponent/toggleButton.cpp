@@ -1,6 +1,7 @@
 #include "baseComponent/toggleButton.h"
 #include "baseComponent/designPolicyDefine.h"
 #include <QDebug>
+#include <QTimer>
 
 ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent) ,m_check_label(this)
 {
@@ -8,9 +9,10 @@ ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent) ,m_
     m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
     m_check_label.setGeometry(2,2,10,10);
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
-    SetBackgroundColor(SELECT_BUTTON_BG_COLOR_UNSELECTED);
-    SetTextColor(SELECT_BUTTON_TEXT_COLOR_UNSELECTED);
-    SetFontSize(18);
+
+    connect(this, &QAbstractButton::toggled, this,
+            &ToggleButton::HandleToggled);
+
 }
 
 ToggleButton::ToggleButton(QString text, QWidget *parent):
@@ -21,8 +23,6 @@ ToggleButton::ToggleButton(QString text, QWidget *parent):
     m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
     m_check_label.setGeometry(2,2,10,10);
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
-    SetBackgroundColor(SELECT_BUTTON_BG_COLOR_UNSELECTED);
-    SetTextColor(SELECT_BUTTON_TEXT_COLOR_UNSELECTED);
     SetFontSize(18);
 }
 
@@ -31,23 +31,19 @@ ToggleButton::ToggleButton(QString text, bool isCheckMark, QWidget *parent):
     m_check_label(this),
     m_is_check_mark_enable(isCheckMark)
 {
-
     m_check_label.setText("✓");
     m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
     m_check_label.setGeometry(2,2,10,10);
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
-
 }
 
-void ToggleButton::SetStyleButton()
+void ToggleButton::UpdateButtonStyles()
 {
-    QString style_enable = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6); border-style: solid; border-width: 1px;border-color: gray}")
-            .arg(BackgroundColor().red()).arg(BackgroundColor().green()).arg(BackgroundColor().blue())
-            .arg(TextColor().red()).arg(TextColor().green()).arg(TextColor().blue());
+    QString style_enable = QString("QPushButton { background-color:rgb(13,13,13); color:rgb(128,128,128); border-style: solid; border-width: 1px;border-color: gray;}");
+    QString style_disable = QString(" QPushButton:disabled { background-color:rgb(22,22,22); color:rgb(191,191,191); border-style: solid; border-width: 1px;border-color: gray; }");
+    QString style_checked = QString(" QPushButton:checked { background-color:rgb(89, 89, 89); color: white; border-style: solid; border-width: 1px;border-color: rgb(0,176,80);}");
 
-    QString style_disable = QString(" QPushButton:disabled { background-color:rgb(22,22,22); color:rgb(191,191,191); border-style: solid; border-width: 1px;border-color: gray}");
-
-    setStyleSheet(style_enable + style_disable);
+    setStyleSheet(style_enable + style_disable + style_checked);
 }
 
 bool ToggleButton::IsCheckMarkEnable() const
@@ -61,32 +57,19 @@ void ToggleButton::setIsCheckMarkEnable(bool isCheckMark)
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
 }
 
-void ToggleButton::HandleButtonClicked()
+void ToggleButton::HandleToggled(bool checked)
 {
-    qDebug() << "ToggleButton::handleButtonClicked";
-    if (ButtonState() == CustomToggleButtonBase::TOGGLE_BUTTON_STATE_OFF)
+    qDebug() << "ToggleButton::HandleButtonStateChanged " <<checked;
+    if (!checked)
     {
-        SetButtonState(CustomToggleButtonBase::TOGGLE_BUTTON_STATE_ON);
-    }
-    else
-    {
-        SetButtonState(CustomToggleButtonBase::TOGGLE_BUTTON_STATE_OFF);
-    }
-}
-
-void ToggleButton::HandleButtonStateChanged(uint8_t state)
-{
-    qDebug() << "ToggleButton::HandleButtonStateChanged " <<state;
-    if (state == CustomToggleButtonBase::TOGGLE_BUTTON_STATE_OFF)
-    {
-        SetBackgroundColor(SELECT_BUTTON_BG_COLOR_UNSELECTED);
-        SetTextColor(SELECT_BUTTON_TEXT_COLOR_UNSELECTED);
+        // SetBackgroundColor(SELECT_BUTTON_BG_COLOR_UNSELECTED);
+        // SetTextColor(SELECT_BUTTON_TEXT_COLOR_UNSELECTED);
         SetCheckMarkVisible(false);
     }
     else
     {
-        SetBackgroundColor(SELECT_BUTTON_BG_COLOR_SELECTED);
-        SetTextColor(SELECT_BUTTON_TEXT_COLOR_SELECTED);
+        // SetBackgroundColor(SELECT_BUTTON_BG_COLOR_SELECTED);
+        // SetTextColor(SELECT_BUTTON_TEXT_COLOR_SELECTED);
         SetCheckMarkVisible(true);
     }
 }

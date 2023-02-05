@@ -10,6 +10,7 @@ PanelWindow::PanelWindow(QWidget *parent)
 
     QPalette palette {};
     palette.setColor(QPalette::Window, SCREEN_BACKGROUND_COLOR);
+    palette.setColor(QPalette::Foreground, Qt::white);
 
     setAutoFillBackground(true);
     setPalette(palette);
@@ -21,9 +22,17 @@ void PanelWindow::AttachPanelControl(QSharedPointer<PanelControlBase> panel)
 
     if (panel) {
         panel->setParent(this);
+
         panel->PrepareUi();
         m_current_panel_control = panel;
-        show();
+
+        connect(panel.get(), &QWidget::windowTitleChanged, this, &QWidget::setWindowTitle);
+        // connect(panel.get(), &QWidget::windowIconChanged, this, &QWidget::setWindowIcon);
+
+        setWindowTitle(panel->windowTitle());
+        // setWindowIcon(panel->windowIcon());
+
+        // show();
     }
 }
 

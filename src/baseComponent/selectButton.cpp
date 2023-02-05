@@ -13,10 +13,6 @@ SelectButton::SelectButton(QString text, bool isCheckMark, QWidget *parent):
 
 void SelectButton::HandleButtonClicked()
 {
-    qDebug() << "SelectButton::handleButtonClicked";
-    if (ButtonState() == CustomToggleButtonBase::TOGGLE_BUTTON_STATE_OFF)
-    {
-        SetButtonState(CustomToggleButtonBase::TOGGLE_BUTTON_STATE_ON);
-    }
+    setChecked(true);
 }
 

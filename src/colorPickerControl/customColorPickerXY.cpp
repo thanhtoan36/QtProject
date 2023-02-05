@@ -16,56 +16,30 @@ CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
 {
     QImage img(":/img/cie_img.png");
     m_img = img.scaled(240, 240, Qt::KeepAspectRatio,Qt::SmoothTransformation);
-
-    m_mousePos.setParent(this);
-    m_mousePos.setGeometry(0, 0, 200, 50);
-    m_mousePos.show();
-
     setMouseTracking(true);
-}
-
-float CustomColorPickerXY::PointerX() const
-{
-    return m_pointer_x;
-}
-
-void CustomColorPickerXY::SetPointerX(float x)
-{
-    if (m_pointer_x != x)
-    {
-        m_pointer_x = x;
-        emit PointerXChanged(x);
-    }
-}
-
-float CustomColorPickerXY::PointerY() const
-{
-    return m_pointer_y;
-}
-
-void CustomColorPickerXY::SetPointerY(float y)
-{
-    if (m_pointer_y != y)
-    {
-        m_pointer_y = y;
-        emit PointerYChanged(y);
-    }
 }
 
 void CustomColorPickerXY::SetColor(const QColor &color)
 {
     float x,y;
     RBG2XY(color.red(),color.green(),color.blue(),x,y);
-    if (m_cie_maker.isPointInsideBound(CPointF(x,y)))
+    SetXy(QPointF(x, y));
+}
+
+void CustomColorPickerXY::SetXy(const QPointF &xy)
+{
+    if (m_cie_maker.isPointInsideBound(CPointF(xy.x(), xy.y())))
     {
         qDebug() << "SetColor\n";
-        SetPointerX(x);
-        SetPointerX(y);
-        QPointF pos = mapToPosition(QPointF(x,y));
-        m_pointer.setX(pos.x());
-        m_pointer.setY(pos.y());
+        m_pointer = mapToPosition(xy);
         m_pointer_visible = true;
         update();
+
+        if (xy != m_xy) {
+            m_xy = xy;
+            emit XyChanged(xy);
+            emit ColorChanged(Color());
+        }
     }
     else
     {
@@ -73,9 +47,19 @@ void CustomColorPickerXY::SetColor(const QColor &color)
     }
 }
 
+QPointF CustomColorPickerXY::Xy() const
+{
+    return m_xy;
+}
+
+QColor CustomColorPickerXY::Color() const
+{
+    // TODO: add conversions
+    return QColor();
+}
+
 void CustomColorPickerXY::paintEvent(QPaintEvent *)
 {
-    qDebug()<< "paint";
     QPainter p(this);
     p.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
 
@@ -92,13 +76,10 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
     }
 
     p.drawImage(m_plotArea, m_img);
-    if (m_pointer_visible)
-    {
+    if (m_pointer_visible) {
         p.setPen(QPen(Qt::white, 1));
         p.drawEllipse(m_pointer, 5, 5);
-
     }
-
 }
 
 void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
@@ -107,13 +88,7 @@ void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
         QPointF p = mapToValue(event->pos());
         CPointF curP(p.x(),p.y());
         if(m_cie_maker.isPointInsideBound(curP)){
-            m_mousePos.setText(QString("x:%1\ny:%2").arg(QString::number(p.x(), 'f', 3)).arg(QString::number(p.y(), 'f', 3)));
-            SetPointerX(p.x());
-            SetPointerX(p.y());
-            m_pointer.setX(event->pos().x());
-            m_pointer.setY(event->pos().y());
-            m_pointer_visible = true;
-            update();
+            SetXy(p);
         }
     }
 }

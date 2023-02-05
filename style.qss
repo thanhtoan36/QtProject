@@ -1,0 +1,27 @@
+QWidget {
+    font-family: MS PGothic;
+    font-size: 22px;
+    font-weight: bold;
+}
+QLabel, QButton {
+    color: white;
+}
+QLabel {
+    qproperty-alignment: AlignCenter;
+}
+
+QLabel#control_background {
+    background: #595959;
+}
+
+QSlider::groove:horizontal {
+    height: 10px;
+    background: #adb9ca;
+}
+QSlider::handle:horizontal {
+    width: 20px;
+    margin: -6px 0;
+    border-radius: 11px;
+    border: 1px solid gray;
+    background: #4472c4;
+}

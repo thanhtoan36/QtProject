@@ -25,13 +25,11 @@ public:
 
     const QColor &TextColor() const;
 
-    void PrepareUI();
-
 public slots:
-    virtual void HandleButtonClicked() = 0;
+    virtual void HandleButtonClicked() {};
 
 protected:
-    virtual void SetStyleButton();
+    virtual void UpdateButtonStyles();
 
 private:
     int m_fontSize;

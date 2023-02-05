@@ -13,17 +13,14 @@ public:
     ToggleButton(QString text, bool isCheckMark, QWidget *parent = nullptr);
 
     bool IsCheckMarkEnable() const;
-
     void setIsCheckMarkEnable(bool isCheckMark);
-
     void SetCheckMarkVisible(bool visible);
 
 public slots:
-    virtual void HandleButtonClicked() override;
-    virtual void HandleButtonStateChanged(uint8_t state) override;
+    virtual void HandleToggled(bool checked);
 
 protected:
-    virtual void SetStyleButton() override;
+    virtual void UpdateButtonStyles() override;
 
 private:
     QLabel m_check_label;

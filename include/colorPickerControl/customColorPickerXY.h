@@ -10,16 +10,14 @@ class CustomColorPickerXY : public QWidget
 public:
     explicit CustomColorPickerXY(QWidget *parent = nullptr);
 
-    float PointerX() const;
-    void SetPointerX(const float x);
-
-    float PointerY() const;
-    void SetPointerY(const float y);
-
     void SetColor(const QColor& color);
+    void SetXy(const QPointF& xy);
+    QPointF Xy() const;
+    QColor Color() const;
+
 signals:
-    void PointerXChanged(float value);
-    void PointerYChanged(float value);
+    void XyChanged(QPointF xy);
+    void ColorChanged(QColor color);
 
 private:
     QPointF mapToPosition(const QPointF &p);
@@ -33,15 +31,13 @@ protected:
 private:
     QRectF m_plotArea;
     QSize m_offset;
-    QLabel m_mousePos;
-    QPointF m_pointer;
+    QPointF m_xy;
     bool m_pointer_visible = false;
     QPixmap m_ciePic;
     QImage m_img;
     CIEMaker m_cie_maker;
 
-    float m_pointer_x;
-    float m_pointer_y;
+    QPointF m_pointer;
 };
 
 #endif // CUSTOMCOLORPICKERXY_H

@@ -14,7 +14,7 @@ public slots:
     virtual void HandleButtonClicked() override;
 
 protected:
-    virtual void SetStyleButton() override;
+    virtual void UpdateButtonStyles() override;
 };
 
 #endif // CUSTOMPUSHBUTTON_H
