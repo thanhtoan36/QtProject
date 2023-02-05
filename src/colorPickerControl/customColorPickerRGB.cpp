@@ -49,6 +49,9 @@ void CustomColorPickerRGB::SetHSV(const int h, const int s, const int v)
 
 void CustomColorPickerRGB::SetColor(const QColor &color)
 {
+    if (m_color == color)
+        return;
+
     int h,s,v;
     color.getHsv(&h,&s,&v);
     SetHSV(h,s,v);
@@ -82,9 +85,9 @@ void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
          QColor c(m_img.pixel( pos.x(), pos.y() ));
          int h,s,v;
          c.getHsv(&h,&s,&v);
-         qDebug() << "h: " << h <<"\n";
-         qDebug() << "s: " << s <<"\n";
-         qDebug() << "v: " << v <<"\n";
+         qDebug() << "h: " << h << ", "
+                  << "s: " << s << ", "
+                  << "v: " << v << ", ";
          SetHSV(h,s,m_hsv.v);
          update();
     }

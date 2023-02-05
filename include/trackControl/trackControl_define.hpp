@@ -1,4 +1,15 @@
 #ifndef TRACKCONTROL_DEFINE_H
 #define TRACKCONTROL_DEFINE_H
 
+#define TC_SCREENSIZE                           QSize(324, 320)
+
+#define TC_LABEL_TITLE_GEOMETRY                 QRect(6, 0, 312, 32)
+#define TC_BUTTON_MODE_PERCENT_GEOMETRY         QRect(6, 32, 78, 24)
+#define TC_BUTTON_MODE_255_GEOMETRY             QRect(6, 56, 78, 24)
+#define TC_BUTTON_MODE_ANGLE_GEOMETRY           QRect(84, 32, 78, 48)
+#define TC_BUTTON_VALUEMODE_RELATIVE_GEOMETRY   QRect(162, 32, 78, 24)
+#define TC_BUTTON_VALUEMODE_ABSOLUTE_GEOMETRY   QRect(162, 56, 78, 24)
+#define TC_BUTTON_EMPTY_1_GEOMETRY              QRect(240, 32, 78, 48)
+#define TC_PANTILTCONTROL_GEOMETRY              QRect(6, 80, 312, 240)
+
 #endif // TRACKCONTROL_DEFINE_H

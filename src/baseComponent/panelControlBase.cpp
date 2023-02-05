@@ -1,11 +1,11 @@
-#include "include/baseComponent/panelControlBase.h"
+#include "baseComponent/panelControlBase.h"
 #include <QFile>
 
 PanelControlBase::PanelControlBase(QWidget *parent)
     : QWidget{parent},
       m_ui_initialized(false)
 {
-    QFile style(":/style.qss");
+    QFile style(":/style.css");
     style.open(QFile::ReadOnly);
 
     setStyleSheet(style.readAll());
@@ -17,6 +17,6 @@ void PanelControlBase::PrepareUi()
         return;
     m_ui_initialized = true;
 
-    // SetupUiComponents();
+    SetupUiComponents();
     SetupUiEvents();
 }

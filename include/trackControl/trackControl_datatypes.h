@@ -37,7 +37,7 @@ typedef struct
     TrackMode           mode;       // トラック表示モード
     TrackValueMode      valueMode;  // トラック表示値モード
     unsigned short      count;      // 個数 ※最大8個まで
-    TRACK_PARAM_GROUP   data;       // トラックパラメータグループ
+    TRACK_PARAM_GROUP   *data;      // トラックパラメータグループ
 } TRACK_DISP_PARAM;
 
 #endif // TRACKCONTROL_DATATYPES_H

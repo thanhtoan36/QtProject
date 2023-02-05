@@ -19,6 +19,8 @@ public:
 private slots:
     void on_ColorPickerControl_Fake_Open_clicked();
 
+    void on_TrackControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();

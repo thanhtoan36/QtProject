@@ -1,4 +1,4 @@
-#include "include/libraryControl/libraryControl.hpp"
+#include "libraryControl/libraryControl.hpp"
 
 LibraryControl::LibraryControl()
 {

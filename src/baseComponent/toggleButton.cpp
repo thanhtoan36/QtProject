@@ -59,7 +59,6 @@ void ToggleButton::setIsCheckMarkEnable(bool isCheckMark)
 
 void ToggleButton::HandleToggled(bool checked)
 {
-    qDebug() << "ToggleButton::HandleButtonStateChanged " <<checked;
     if (!checked)
     {
         // SetBackgroundColor(SELECT_BUTTON_BG_COLOR_UNSELECTED);

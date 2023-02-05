@@ -3,7 +3,7 @@
 
 ColorPickerControl::ColorPickerControl(QWidget *parent)
     : PanelControlBase(parent),
-      m_disp_param(),
+      m_pickerType(), m_pickerColor(),
       m_label_title(this),
       m_button_xy(this),
       m_button_rgb(this),
@@ -36,20 +36,20 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_h.setRange(0, 359);
     m_slider_s.setRange(0, 255);
     m_slider_v.setRange(0, 255);
+
+    qRegisterMetaType<ColorPickerType>("ColorPickerType");
 }
 
 void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
-    m_disp_param = *param;
-    SetupUiComponents();
+    setPickerType(param->type);
+    setPickerColor(param->color);
 }
 
 void ColorPickerControl::SetupUiComponents()
 {
     m_label_title.setGeometry(CPC_TITLE_GEOMETRY);
-    m_label_title.setText("ピッカー xy");
-    setWindowTitle(m_label_title.text());
 
     m_button_xy.setGeometry(CPC_BUTTON_XY_GEOMETRY);
     m_button_xy.setText("xy");
@@ -66,69 +66,99 @@ void ColorPickerControl::SetupUiComponents()
     m_label_setting.setGeometry(CPC_LABEL_SETTING_GEOMETRY);
     m_label_setting.setText("設定");
 
-    // XY tab
-    m_picker_xy.SetColor(m_disp_param.color);
     m_picker_xy.setGeometry(CPC_PICKER_XY_GEOMETRY);
-    const auto xy = m_picker_xy.Xy();
-
-    // RGB tab
-    m_picker_rgb.SetColor(m_disp_param.color);
     m_picker_rgb.setGeometry(CPC_PICKER_RGB_GEOMETRY);
-    const auto hsv = m_picker_rgb.HSV();
 
     m_label_title_x.setGeometry(CPC_LABEL_TITLE_X_GEOMETRY);
     m_label_title_x.setText("x");
 
     m_label_value_x.setGeometry(CPC_LABEL_VALUE_X_GEOMETRY);
-    m_label_value_x.setText(QString::asprintf("%.03f", xy.x()));
 
     m_slider_x.setGeometry(CPC_SLIDER_X_GEOMETRY);
     m_slider_x.setOrientation(Qt::Horizontal);
-    m_slider_x.setValue(xy.x() * 1000);
 
     m_label_title_y.setGeometry(CPC_LABEL_TITLE_Y_GEOMETRY);
     m_label_title_y.setText("y");
 
     m_label_value_y.setGeometry(CPC_LABEL_VALUE_Y_GEOMETRY);
-    m_label_value_y.setText(QString::asprintf("%.03f", xy.y()));
 
     m_slider_y.setGeometry(CPC_SLIDER_Y_GEOMETRY);
     m_slider_y.setOrientation(Qt::Horizontal);
-    m_slider_y.setValue(xy.y() * 1000);
 
     // RGB Tab
     m_label_title_h.setGeometry(CPC_LABEL_TITLE_H_GEOMETRY);
     m_label_title_h.setText("H");
 
     m_label_value_h.setGeometry(CPC_LABEL_VALUE_H_GEOMETRY);
-    m_label_value_h.setText(QString::number(hsv.h));
 
     m_slider_h.setGeometry(CPC_SLIDER_X_GEOMETRY);
     m_slider_h.setOrientation(Qt::Horizontal);
-    m_slider_h.setValue(hsv.h);
 
     m_label_title_s.setGeometry(CPC_LABEL_TITLE_S_GEOMETRY);
     m_label_title_s.setText("S");
 
     m_label_value_s.setGeometry(CPC_LABEL_VALUE_S_GEOMETRY);
-    m_label_value_s.setText(QString::number(hsv.s));
 
     m_slider_s.setGeometry(CPC_SLIDER_S_GEOMETRY);
     m_slider_s.setOrientation(Qt::Horizontal);
-    m_slider_s.setValue(hsv.s);
 
     m_label_title_v.setGeometry(CPC_LABEL_TITLE_V_GEOMETRY);
     m_label_title_v.setText("V");
 
     m_label_value_v.setGeometry(CPC_LABEL_VALUE_V_GEOMETRY);
-    m_label_value_v.setText(QString::number(hsv.v));
 
     m_slider_v.setGeometry(CPC_SLIDER_V_GEOMETRY);
     m_slider_v.setOrientation(Qt::Horizontal);
-    m_slider_v.setValue(hsv.v);
+}
 
+void ColorPickerControl::SetupUiEvents()
+{
+    //xy picker event
+    connect(&m_picker_xy, &CustomColorPickerXY::XyChanged, this, [&](QPointF xy) {
+        setPickerColor(m_picker_xy.Color());
+    });
+    connect(&m_slider_x, &QSlider::valueChanged, this, [&](int) {
+        m_picker_xy.SetXy(QPointF(m_slider_x.value() / 1000.0, m_slider_y.value() / 1000.0));
+        setPickerColor(m_picker_xy.Color());
+    });
+    connect(&m_slider_y, &QSlider::valueChanged, this, [&](int) {
+        m_picker_xy.SetXy(QPointF(m_slider_x.value() / 1000.0, m_slider_y.value() / 1000.0));
+        setPickerColor(m_picker_xy.Color());
+    });
 
-    if (m_disp_param.type == COLOR_PICKER_TYPE_XY) {
+    //rgb picker event
+    connect(&m_picker_rgb, &CustomColorPickerRGB::HSVChanged, this, [&](hsv_t hsv) {
+        setPickerColor(m_picker_rgb.Color());
+    });
+    connect(&m_slider_h, &QSlider::valueChanged, this, [&](int) {
+        m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
+        setPickerColor(m_picker_rgb.Color());
+    });
+    connect(&m_slider_s, &QSlider::valueChanged, this, [&](int) {
+       m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
+        setPickerColor(m_picker_rgb.Color());
+    });
+    connect(&m_slider_v, &QSlider::valueChanged, this, [&](int) {
+        m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
+        setPickerColor(m_picker_rgb.Color());
+    });
+
+    connect(&m_button_xy, &QAbstractButton::clicked, this, [&]() {
+        setPickerType(COLOR_PICKER_TYPE_XY);
+    });
+    connect(&m_button_rgb, &QAbstractButton::clicked, this, [&]() {
+        setPickerType(COLOR_PICKER_TYPE_RGB);
+    });
+}
+
+ColorPickerType ColorPickerControl::pickerType() const
+{
+    return m_pickerType;
+}
+
+void ColorPickerControl::setPickerType(ColorPickerType newPickerType)
+{
+    if (newPickerType == COLOR_PICKER_TYPE_XY) {
         foreach(auto &child, m_children_xy)
             child->setVisible(true);
         foreach(auto &child, m_children_rgb)
@@ -136,8 +166,12 @@ void ColorPickerControl::SetupUiComponents()
 
         m_button_xy.setChecked(true);
         m_button_rgb.setChecked(false);
+
+        m_label_title.setText("ピッカー xy");
+        setWindowTitle(m_label_title.text());
     }
-    if (m_disp_param.type == COLOR_PICKER_TYPE_RGB) {
+
+    if (newPickerType == COLOR_PICKER_TYPE_RGB) {
         foreach(auto &child, m_children_xy)
             child->setVisible(false);
         foreach(auto &child, m_children_rgb)
@@ -145,52 +179,45 @@ void ColorPickerControl::SetupUiComponents()
 
         m_button_xy.setChecked(false);
         m_button_rgb.setChecked(true);
+
+        m_label_title.setText("ピッカー RGB");
+        setWindowTitle(m_label_title.text());
     }
+
+    if (m_pickerType == newPickerType)
+        return;
+    m_pickerType = newPickerType;
+    emit pickerTypeChanged();
 }
 
-void ColorPickerControl::SetupUiEvents()
+QColor ColorPickerControl::pickerColor() const
 {
-    //xy picker event
-    connect(&m_picker_xy, &CustomColorPickerXY::XyChanged, this, [&](QPointF xy) {
-        m_slider_x.setValue(xy.x() * 1000);
-        m_slider_y.setValue(xy.y() * 1000);
-        m_label_value_x.setText(QString::asprintf("%.03f", xy.x()));
-        m_label_value_y.setText(QString::asprintf("%.03f", xy.y()));
-        //m_disp_param.color = m_picker_xy.Color();
-    });
-    connect(&m_slider_x, &QSlider::valueChanged, this, [&](int) {
-        m_picker_xy.SetXy(QPointF(m_slider_x.value() / 1000.0, m_slider_y.value() / 1000.0));
-    });
-    connect(&m_slider_y, &QSlider::valueChanged, this, [&](int) {
-        m_picker_xy.SetXy(QPointF(m_slider_x.value() / 1000.0, m_slider_y.value() / 1000.0));
-    });
+    return m_pickerColor;
+}
 
-    //rgb picker event
-    connect(&m_picker_rgb, &CustomColorPickerRGB::HSVChanged, this, [&](hsv_t hsv) {
-        m_slider_h.setValue(hsv.h);
-        m_slider_s.setValue(hsv.s);
-        m_slider_v.setValue(hsv.v);
-        m_label_value_h.setText(QString::number(hsv.h));
-        m_label_value_s.setText(QString::number(hsv.s));
-        m_label_value_v.setText(QString::number(hsv.v));
-        //m_disp_param.color = m_picker_rgb.Color();
-    });
-    connect(&m_slider_h, &QSlider::valueChanged, this, [&](int) {
-        m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
-    });
-    connect(&m_slider_s, &QSlider::valueChanged, this, [&](int) {
-       m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
-    });
-    connect(&m_slider_v, &QSlider::valueChanged, this, [&](int) {
-        m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
-    });
+void ColorPickerControl::setPickerColor(const QColor &newPickerColor)
+{
+    m_picker_xy.SetColor(newPickerColor);
+    m_picker_rgb.SetColor(newPickerColor);
 
-    connect(&m_button_xy, &QAbstractButton::clicked, this, [&]() {
-        m_disp_param.type = COLOR_PICKER_TYPE_XY;
-        SetDispParamData(&m_disp_param);
-    });
-    connect(&m_button_rgb, &QAbstractButton::clicked, this, [&]() {
-        m_disp_param.type = COLOR_PICKER_TYPE_RGB;
-        SetDispParamData(&m_disp_param);
-    });
+    auto xy = m_picker_xy.Xy();
+    m_label_value_x.setText(QString::asprintf("%.03f", xy.x()));
+    m_label_value_y.setText(QString::asprintf("%.03f", xy.y()));
+
+    m_slider_x.setValue(xy.x() * 1000);
+    m_slider_y.setValue(xy.y() * 1000);
+
+    auto hsv = m_picker_rgb.HSV();
+    m_slider_h.setValue(hsv.h);
+    m_slider_s.setValue(hsv.s);
+    m_slider_v.setValue(hsv.v);
+
+    m_label_value_h.setText(QString::number(hsv.h));
+    m_label_value_s.setText(QString::number(hsv.s));
+    m_label_value_v.setText(QString::number(hsv.v));
+
+    if (m_pickerColor == newPickerColor)
+        return;
+    m_pickerColor = newPickerColor;
+    emit pickerColorChanged();
 }

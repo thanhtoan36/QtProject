@@ -8,9 +8,9 @@
 /**
  * @brief Inverse sRGB gamma correction, transforms R' to R
  */
-#define INVGAMMACORRECTION(t)	\
-    (((t) <= 0.0404482362771076) ? \
-    ((t)/12.92) : pow(((t) + 0.055)/1.055, 2.4))
+#define INV_GAMMA_CORRECTION(t)                                                \
+  (((t) <= 0.0404482362771076) ? ((t) / 12.92)                                 \
+                               : pow(((t) + 0.055) / 1.055, 2.4))
 
 #define PICKER_XY_WIDTH  CPC_PICKER_XY_GEOMETRY.width()
 #define PICKER_XY_HIEGHT CPC_PICKER_XY_GEOMETRY.height()
@@ -25,16 +25,18 @@ CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
 
 void CustomColorPickerXY::SetColor(const QColor &color)
 {
-    float x,y;
-    RBG2XY(color.red(),color.green(),color.blue(),x,y);
+    qDebug() << color;
+    float x,y,z;
+    RBG2XY(color.red(),color.green(),color.blue(),x,y,z);
     SetXy(QPointF(x, y));
+    m_z = z;
 }
 
 void CustomColorPickerXY::SetXy(const QPointF &xy)
 {
+    qDebug() << "SetColor" << xy;
     if (m_cie_maker.isPointInsideBound(CPointF(xy.x(), xy.y())))
     {
-        qDebug() << "SetColor\n";
         m_pointer = mapToPosition(xy);
         m_pointer_visible = true;
         update();
@@ -47,7 +49,7 @@ void CustomColorPickerXY::SetXy(const QPointF &xy)
     }
     else
     {
-        qDebug() << "Color out of Boundary\n";
+        qDebug() << "Color out of Boundary";
     }
 }
 
@@ -58,8 +60,14 @@ QPointF CustomColorPickerXY::Xy() const
 
 QColor CustomColorPickerXY::Color() const
 {
-    // TODO: add conversions
-    return QColor();
+    double R, G, B;
+    double X = m_xy.x(), Y = m_xy.y(), Z = m_z;
+    R =  3.2404542*X - 1.5371385*Y - 0.4985314*Z;
+    G = -0.9692660*X + 1.8760108*Y + 0.0415560*Z;
+    B =  0.0556434*X - 0.2040259*Y + 1.0572252*Z;
+    QColor c = QColor::fromRgb(R, G, B);
+    qWarning() << c;
+    return c;
 }
 
 void CustomColorPickerXY::paintEvent(QPaintEvent *)
@@ -67,6 +75,8 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
     QPainter p(this);
     p.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
 
+    // Black background
+    p.fillRect(QRect(QPoint(0, 0), geometry().size()), QBrush(Qt::black));
 
     p.setPen(QPen(Qt::gray, 1));
     p.drawLine(m_plotArea.bottomLeft(), m_plotArea.topLeft());
@@ -74,7 +84,7 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
 
     for (int i = 1; i <= 10; i++)
     {
-        p.setPen(QPen(Qt::lightGray, 0.1));
+        p.setPen(QPen(Qt::lightGray, 0.5));
         p.drawLine(QPointF(m_plotArea.bottomLeft().rx() +24*i,m_plotArea.bottomLeft().ry()), QPointF(m_plotArea.topLeft().rx() +24*i,m_plotArea.topLeft().ry()));
         p.drawLine(QPointF(m_plotArea.topLeft().rx() ,m_plotArea.topLeft().ry()+24*(i-1)), QPointF(m_plotArea.topRight().rx(),m_plotArea.topRight().ry() +24*(i-1)));
     }
@@ -109,11 +119,11 @@ QPointF CustomColorPickerXY::mapToValue(const QPoint &p)
                    1.0f*(m_plotArea.y()+m_plotArea.height()-p.y())/m_plotArea.height());
 }
 
-void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y)
+void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, float &z)
 {
-    R = INVGAMMACORRECTION(R);
-    G = INVGAMMACORRECTION(G);
-    B = INVGAMMACORRECTION(B);
+    R = INV_GAMMA_CORRECTION(R);
+    G = INV_GAMMA_CORRECTION(G);
+    B = INV_GAMMA_CORRECTION(B);
 
     float X,Y,Z;
     X = (float)(0.4123955889674142161*R + 0.3575834307637148171*G + 0.1804926473817015735*B);

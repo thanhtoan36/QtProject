@@ -1,0 +1,43 @@
+QWidget {
+    font-family: MS PGothic;
+    font-size: 22px;
+    font-weight: bold;
+}
+QLabel, QButton {
+    color: white;
+}
+QLabel {
+    qproperty-alignment: AlignCenter;
+}
+QLabel#graph_axis_label {
+    font-size: 16px;
+    color: lightgray;
+}
+
+QLabel#control_background {
+    background: #595959;
+}
+
+QSlider::groove:horizontal {
+    height: 10px;
+    background: #adb9ca;
+}
+QSlider::handle:horizontal {
+    width: 28px;
+    margin: -11px 0;
+    border-radius: 15px;
+    border: 1px solid gray;
+    background: #4472c4;
+}
+QSlider::groove:vertical {
+    width: 10px;
+    background: #adb9ca;
+}
+QSlider::handle:vertical {
+    height: 20px;
+    margin: 0 -6px;
+    border-radius: 11px;
+    border: 1px solid gray;
+    background: #4472c4;
+}
+

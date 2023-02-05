@@ -318,7 +318,7 @@
     <widget class="QPushButton" name="TrackControl_Fake_Open">
      <property name="geometry">
       <rect>
-       <x>690</x>
+       <x>790</x>
        <y>20</y>
        <width>111</width>
        <height>41</height>
@@ -326,6 +326,31 @@
      </property>
      <property name="text">
       <string>Open</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="TrackControl_Fake_PointCount">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>20</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Number of points</string>
+     </property>
+     <property name="statusTip">
+      <string/>
+     </property>
+     <property name="inputMask">
+      <string/>
+     </property>
+     <property name="text">
+      <string>3</string>
+     </property>
+     <property name="maxLength">
+      <number>3</number>
      </property>
     </widget>
    </widget>
