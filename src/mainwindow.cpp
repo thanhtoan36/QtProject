@@ -3,6 +3,7 @@
 #include "colorPickerControl/colorPickerControlHorizon.h"
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "trackControl/trackControl.hpp"
+#include "intensityControl/intensityControl.hpp"
 #include "utility.h"
 
 #include <QDebug>
@@ -85,6 +86,16 @@ void MainWindow::on_TrackControl_Fake_Open_clicked()
     track_control->SetDispParamData(&params);
 
     m_panel_window->AttachPanelControl(track_control);
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
+
+void MainWindow::on_IntensityControl_Fake_Open_clicked()
+{
+    auto intensity_control = MakeSharedQObject<IntensityControl>();
+    intensity_control->PrepareUi();
+    m_panel_window->AttachPanelControl(intensity_control);
     m_panel_window->show();
     m_panel_window->raise();
 }

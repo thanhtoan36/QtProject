@@ -1,4 +1,31 @@
 #ifndef INTENSITYCONTROL_DEFINE_H
 #define INTENSITYCONTROL_DEFINE_H
 
+#define ISC_SCREENSIZE QSize(312,320)
+
+#define ISC_TITLE_GOEMETRY      QRect(0	,0	,312	,32)
+#define ISC_EMPTY_1_GOEMETRY    QRect(0	,32	,78	,48)
+#define ISC_EMPTY_2_GOEMETRY    QRect(78,32	,78	,48)
+#define ISC_EMPTY_3_GOEMETRY    QRect(156	,32	,78	,48)
+#define ISC_EMPTY_4_GOEMETRY    QRect(234	,32	,78	,48)
+#define ISC_FF_GOEMETRY         QRect(0	,80	,78	,48)
+#define ISC_P10_GOEMETRY        QRect(78	,80	,78	,48)
+#define ISC_P5_GOEMETRY         QRect(156	,80	,78	,48)
+#define ISC_P1_GOEMETRY         QRect(234	,80	,78	,48)
+#define ISC_00_GOEMETRY         QRect(0	,128	,78	,48)
+#define ISC_N10_GOEMETRY        QRect(78	,128	,78	,48)
+#define ISC_N5_GOEMETRY         QRect(156	,128	,78	,48)
+#define ISC_N1_GOEMETRY         QRect(234	,128	,78	,48)
+#define ISC_70_GOEMETRY         QRect(0	,176	,78	,48)
+#define ISC_80_GOEMETRY         QRect(78	,176	,78	,48)
+#define ISC_90_GOEMETRY         QRect(156	,176	,78	,48)
+#define ISC_EMPTY_5_GOEMETRY    QRect(234	,176	,78	,48)
+#define ISC_40_GOEMETRY         QRect(0	,224	,78	,48)
+#define ISC_50_GOEMETRY         QRect(78	,224	,78	,48)
+#define ISC_60_GOEMETRY         QRect(156	,224	,78	,48)
+#define ISC_EMPTY_6_GOEMETRY    QRect(234	,224	,78	,48)
+#define ISC_10_GOEMETRY         QRect(0	,272	,78	,48)
+#define ISC_20_GOEMETRY         QRect(78	,272	,78	,48)
+#define ISC_30_GOEMETRY         QRect(156	,272	,78	,48)
+#define ISC_RETURN_GOEMETRY     QRect(234	,272	,78	,48)
 #endif // INTENSITYCONTROL_DEFINE_H
