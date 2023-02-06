@@ -25,16 +25,14 @@ CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
 
 void CustomColorPickerXY::SetColor(const QColor &color)
 {
-    qDebug() << color;
     float x,y,z;
     RBG2XY(color.red(),color.green(),color.blue(),x,y,z);
     SetXy(QPointF(x, y));
-    m_z = z;
 }
 
 void CustomColorPickerXY::SetXy(const QPointF &xy)
 {
-    qDebug() << "SetColor" << xy;
+    // qDebug() << "SetColor" << xy;
     if (m_cie_maker.isPointInsideBound(CPointF(xy.x(), xy.y())))
     {
         m_pointer = mapToPosition(xy);
@@ -49,7 +47,7 @@ void CustomColorPickerXY::SetXy(const QPointF &xy)
     }
     else
     {
-        qDebug() << "Color out of Boundary";
+        qWarning() << "Color out of Boundary";
     }
 }
 
@@ -60,14 +58,12 @@ QPointF CustomColorPickerXY::Xy() const
 
 QColor CustomColorPickerXY::Color() const
 {
-    double R, G, B;
-    double X = m_xy.x(), Y = m_xy.y(), Z = m_z;
-    R =  3.2404542*X - 1.5371385*Y - 0.4985314*Z;
-    G = -0.9692660*X + 1.8760108*Y + 0.0415560*Z;
-    B =  0.0556434*X - 0.2040259*Y + 1.0572252*Z;
-    QColor c = QColor::fromRgb(R, G, B);
-    qWarning() << c;
-    return c;
+    return getColor(m_xy);
+}
+
+QColor CustomColorPickerXY::getColor(QPointF xy) const
+{
+    return m_cie_maker.getColor(xy);
 }
 
 void CustomColorPickerXY::paintEvent(QPaintEvent *)
@@ -103,6 +99,7 @@ void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
         CPointF curP(p.x(),p.y());
         if(m_cie_maker.isPointInsideBound(curP)){
             SetXy(p);
+            emit picked();
         }
     }
 }

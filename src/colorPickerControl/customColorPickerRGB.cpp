@@ -83,6 +83,8 @@ void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
          m_pointer = pos;
          m_pointer_visible = true;
          QColor c(m_img.pixel( pos.x(), pos.y() ));
+         SetColor(c);
+         /*
          int h,s,v;
          c.getHsv(&h,&s,&v);
          qDebug() << "h: " << h << ", "
@@ -90,5 +92,7 @@ void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
                   << "v: " << v << ", ";
          SetHSV(h,s,m_hsv.v);
          update();
+         */
+         emit picked();
     }
 }

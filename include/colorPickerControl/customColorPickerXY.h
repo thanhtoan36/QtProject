@@ -14,8 +14,10 @@ public:
     void SetXy(const QPointF& xy);
     QPointF Xy() const;
     QColor Color() const;
+    QColor getColor(QPointF xy) const;
 
 signals:
+    void picked();
     void XyChanged(QPointF xy);
     void ColorChanged(QColor color);
 
@@ -32,7 +34,6 @@ private:
     QRectF m_plotArea;
     QSize m_offset;
     QPointF m_xy;
-    double m_z;
     QPixmap m_ciePic;
     QImage m_img;
     CIEMaker m_cie_maker;

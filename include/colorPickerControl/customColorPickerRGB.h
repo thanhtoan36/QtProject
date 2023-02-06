@@ -25,6 +25,7 @@ public:
 signals:
     void HSVChanged(const hsv_t& value);
     void ColorChanged(const QColor& color);
+    void picked();
 
 protected:
     void paintEvent(QPaintEvent *event) override;

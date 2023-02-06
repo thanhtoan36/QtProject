@@ -1,6 +1,7 @@
 ﻿#include "colorPickerControl/ciemaker.h"
 
 #include <cmath>
+#include <QDebug>
 
 std::vector<CPointF> g_cieCurve{{0.172787,0.004800},{0.170806,0.005472},{0.170085,0.005976},{0.160343,0.014496},{0.146958,0.026643},{0.139149,0.035211},{0.133536,0.042704},
                                  {0.126688,0.053441/*blue*/},{0.115830,0.073601},{0.109616,0.086866},{0.099146,0.112037},{0.091310,0.132737},{0.078130,0.170464},{0.068717,0.200773},
@@ -66,6 +67,40 @@ void CIEMaker::initData()
     CLineF::addSegment(CLineF(g_cieCurve.back(), g_cieCurve.front()), m_cieCurvePoints, m_colorLines[4], bottomPointNum);
 }
 
+QColor CIEMaker::getColor(QPointF xy) const {
+    const auto picSize = 300;
+    QColor out;
+    const auto x = xy.x(), y = xy.y();
+    // CPointF curP(1.0 * x / picSize, 1.0 - 1.0 * y / picSize);
+    CPointF curP(x, y);
+    if (isPointInsideBound(curP)) {
+        CLineF whiteP(m_whitePt, curP);
+        CPointF crossPoint;
+        areaFlag areaflag = crossArea(curP);
+        switch (areaflag) {
+        case leftA:
+          crossPoint = getCrossPoint(whiteP, m_colorPointIdx[bottom], m_colorPointIdx[top]);
+          break;
+        case rightA:
+          crossPoint = getCrossPoint(whiteP, m_colorPointIdx[top], m_colorPointIdx[right]);
+          break;
+        default:
+          crossPoint = getCrossPoint(whiteP, m_colorPointIdx[right], m_cieCurvePoints.size());
+          break;
+        }
+        CLineF whiteToBoundLine(m_whitePt, crossPoint);
+        rgb_t c = whiteToBoundLine.getInterColor(curP);
+        out = QColor::fromRgb(cBound(0, int(c.r * 255), 255),
+                              cBound(0, int(c.g * 255), 255),
+                              cBound(0, int(c.b * 255), 255), 255);
+    } else {
+        qWarning() << "outside bound" << curP.X() << curP.Y();
+        out = QColor::fromRgb(255, 255, 255, 0);
+    }
+
+    return out;
+}
+
 uint8_t* CIEMaker::drawCIEDiagram(int picSize)
 {
     int width = (picSize+3)>>2<<2;
@@ -109,11 +144,11 @@ uint8_t* CIEMaker::drawCIEDiagram(int picSize)
     return buf;
 }
 
-CPointF CIEMaker::getCrossPoint(const CLineF &l, int start, int end){
+CPointF CIEMaker::getCrossPoint(const CLineF &l, int start, int end) const {
     double minDist = INT_MAX;
     int minIdx = 0;
     for(int i=start;i<end;i++){
-        CPointF &p = m_cieCurvePoints[i];
+        const CPointF &p = m_cieCurvePoints[i];
         double tmpDist = std::abs(p.Y()-l.k()*p.X()-l.b());
         if(tmpDist<minDist){
             minDist = tmpDist;
@@ -124,7 +159,7 @@ CPointF CIEMaker::getCrossPoint(const CLineF &l, int start, int end){
     return m_cieCurvePoints[minIdx];
 }
 
-CIEMaker::areaFlag CIEMaker::crossArea(const CPointF &p){
+CIEMaker::areaFlag CIEMaker::crossArea(const CPointF &p) const {
     if     (p.Y() >= m_whiteLines[0].Y(p.X()) && p.Y() <= m_whiteLines[1].Y(p.X()))
         return leftA;
     else if(p.Y() >= m_whiteLines[1].Y(p.X()) && p.Y() >= m_whiteLines[2].Y(p.X()))
@@ -132,7 +167,7 @@ CIEMaker::areaFlag CIEMaker::crossArea(const CPointF &p){
     else return bottomA;
 }
 
-bool CIEMaker::isPointInsideBound(const CPointF &p){
+bool CIEMaker::isPointInsideBound(const CPointF &p) const {
     bool rectCondition = p.Y() < m_colorPoints[top].Y() &&
                          p.X() > m_colorPoints[left].X() &&
                          p.X() < m_colorPoints[right].X();
@@ -146,14 +181,14 @@ bool CIEMaker::isPointInsideBound(const CPointF &p){
     else         return rectCondition && _isPointInsideBound(p, m_colorPointIdx[bottom], m_colorPointIdx[right]);
 }
 
-bool CIEMaker::_isPointInsideBound(const CPointF &p, int start, int end){
+bool CIEMaker::_isPointInsideBound(const CPointF &p, int start, int end) const {
     double minDist1 = INT_MAX;
     double minDist2 = INT_MAX;
     int minIdx1 = 0;
     int minIdx2 = 0;
     double tmpDist = 0;
     for(int i=start;i<end;i++){
-        CPointF &q = m_cieCurvePoints[i];
+        const CPointF &q = m_cieCurvePoints[i];
         tmpDist = powf(p.Y()-q.Y(),2)+powf(p.X()-q.X(),2);
         if(tmpDist<minDist1 && q.Y()<p.Y()){
             minDist1 = tmpDist;

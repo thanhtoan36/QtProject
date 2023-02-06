@@ -2,6 +2,8 @@
 #define CIEMAKER_H
 
 #include "cieaux.h"
+#include <QColor>
+#include <QPointF>
 
 // cie painter
 using uint8_t = unsigned char;
@@ -18,15 +20,16 @@ public:
 
     uint8_t* drawCIEDiagram(int picSize = 500);
     std::vector<CPointF> getCieCurvePoints() const{return m_cieCurvePoints;};
-    bool isPointInsideBound(const CPointF &p);
+    bool isPointInsideBound(const CPointF &p) const;
+    QColor getColor(QPointF xy) const;
 
 private:
     void initData();
 
-    areaFlag crossArea(const CPointF &p);
-    CPointF getCrossPoint(const CLineF &l, int start, int end);
+    areaFlag crossArea(const CPointF &p) const;
+    CPointF getCrossPoint(const CLineF &l, int start, int end) const;
 
-    bool _isPointInsideBound(const CPointF &p, int start, int end);
+    bool _isPointInsideBound(const CPointF &p, int start, int end) const;
 
 private:
     int m_interpNum;
