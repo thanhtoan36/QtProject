@@ -2,6 +2,7 @@
 #include "colorPickerControl/colorPickerControl_define.hpp"
 
 #include <QDebug>
+#include <QColorDialog>
 
 ColorPickerControl::ColorPickerControl(QWidget *parent)
     : PanelControlBase(parent),
@@ -13,13 +14,13 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
       m_button_next_tab(this),
       m_label_setting(this),
       m_picker_xy(this),
-      m_picker_rgb(this),
       m_label_title_x(this),
       m_label_value_x(this),
       m_slider_x(this),
       m_label_title_y(this),
       m_label_value_y(this),
       m_slider_y(this),
+      m_picker_rgb(this),
       m_label_title_h(this),
       m_label_value_h(this),
       m_slider_h(this),
@@ -63,9 +64,11 @@ void ColorPickerControl::SetupUiComponents()
 
     m_button_previous_tab.setGeometry(CPC_BUTTON_PREVIOUS_TAB_GEOMETRY);
     m_button_previous_tab.setText("◀");
+    m_button_previous_tab.setVisible(false);
 
     m_button_next_tab.setGeometry(CPC_BUTTON_NEXT_TAB_GEOMETRY);
     m_button_next_tab.setText("▶");
+    m_button_next_tab.setVisible(false);
 
     m_label_setting.setGeometry(CPC_LABEL_SETTING_GEOMETRY);
     m_label_setting.setText("設定");
