@@ -4,26 +4,12 @@
 
 TitleSelectButton::TitleSelectButton(QWidget *parent) : SelectButton(parent) , m_title_label(this)
 {
-
-}
-
-TitleSelectButton::TitleSelectButton(QString text, bool checkMarkEnable, bool titleEnable, QString title, QWidget *parent) :
-    SelectButton(text, checkMarkEnable, parent),
-    m_title_label(this),
-    m_is_title_enable(titleEnable)
-{
-    if (titleEnable)
-    {
-        m_title_label.setText(title);
-    }
-    else
-    {
-        m_title_label.setText("");
-    }
+    m_title_label.setText("");
     SetTitleFontSize(12);
     SetTitleTextColor();
     m_title_label.setAlignment(Qt::AlignCenter);
 }
+
 
 void TitleSelectButton::SetTitleGeometry(int width, int height)
 {
@@ -42,5 +28,13 @@ void TitleSelectButton::SetTitleTextColor()
     QString style_enable = QString("QLabel { background-color:rgb(51,63,79); color:rgb(217,217,217);}");
 
     m_title_label.setStyleSheet(style_enable);
+}
+
+void TitleSelectButton::SetTitleText(const QString &text)
+{
+    if (m_is_title_enable)
+    {
+        m_title_label.setText(text);
+    }
 }
 

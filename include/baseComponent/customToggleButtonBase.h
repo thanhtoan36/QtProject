@@ -9,10 +9,6 @@ class CustomToggleButtonBase : public CustomButtonBase
 public:
     explicit CustomToggleButtonBase(QWidget *parent = nullptr);
 
-    CustomToggleButtonBase(QString text, QWidget *parent = nullptr);
-
-    CustomToggleButtonBase(QString text, int fontSize, QColor backgroundColor, QColor textColor, QWidget *parent = nullptr);
-
     const QColor &PressBackgroundColor() const;
     void SetPressBackgroundColor(const QColor &backgroundColor);
 

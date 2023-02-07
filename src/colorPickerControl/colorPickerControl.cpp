@@ -40,6 +40,9 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_s.setRange(0, 255);
     m_slider_v.setRange(0, 255);
 
+    m_label_title.setObjectName("title_label");
+    m_label_setting.setObjectName("title_label");
+
     qRegisterMetaType<ColorPickerType>("ColorPickerType");
 }
 

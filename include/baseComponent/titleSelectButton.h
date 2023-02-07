@@ -7,13 +7,13 @@ class TitleSelectButton : public SelectButton
 public:
     explicit TitleSelectButton(QWidget *parent = nullptr);
 
-    TitleSelectButton(QString text, bool checkMarkEnable, bool titleEnable, QString title, QWidget *parent = nullptr);
-
     void SetTitleGeometry(int width, int height);
 
     void SetTitleFontSize(int size);
 
     void SetTitleTextColor();
+
+    void SetTitleText(const QString& text);
 
 private:
     QLabel m_title_label;

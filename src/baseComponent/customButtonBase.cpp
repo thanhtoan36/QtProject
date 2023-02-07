@@ -8,24 +8,6 @@ CustomButtonBase::CustomButtonBase(QWidget *parent) : QPushButton(parent)
     QTimer::singleShot(0, [&](){ UpdateButtonStyles(); });
 }
 
-CustomButtonBase::CustomButtonBase(QString text, QWidget *parent) : QPushButton(parent)
-{
-    setText(text);
-    QObject::connect(this, &QPushButton::clicked,this, &CustomButtonBase::HandleButtonClicked);
-    QTimer::singleShot(0, [&](){ UpdateButtonStyles(); });
-}
-
-CustomButtonBase::CustomButtonBase(QString text, int fontSize, QColor backgroundColor, QColor textColor, QWidget *parent):
-    QPushButton(parent),
-    m_background_color(backgroundColor),
-    m_text_color(textColor)
-{
-    setText(text);
-    SetFontSize(fontSize);
-    QObject::connect(this, &QPushButton::clicked,this, &CustomButtonBase::HandleButtonClicked);
-    QTimer::singleShot(0, [&](){ UpdateButtonStyles(); });
-}
-
 void CustomButtonBase::SetFontSize(int fontSize)
 {
     m_fontSize = fontSize;

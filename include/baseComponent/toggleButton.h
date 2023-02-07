@@ -9,8 +9,6 @@ class ToggleButton : public CustomToggleButtonBase
     Q_OBJECT
 public:
     explicit ToggleButton(QWidget *parent = nullptr);
-    ToggleButton(QString text, QWidget *parent = nullptr);
-    ToggleButton(QString text, bool isCheckMark, QWidget *parent = nullptr);
 
     bool IsCheckMarkEnable() const;
     void setIsCheckMarkEnable(bool isCheckMark);

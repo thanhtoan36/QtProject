@@ -6,35 +6,19 @@
 ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent) ,m_check_label(this)
 {
     m_check_label.setText("✓");
-    m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
+
+    m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; font-size: 12px; }");
+    QFont f = m_check_label.font();
+    qDebug() << "font size: " << f.pixelSize();
+    f.setPixelSize(10);
+    m_check_label.setFont(f);
+    qDebug() << "font size: " << m_check_label.font().pixelSize();
     m_check_label.setGeometry(2,2,10,10);
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
 
     connect(this, &QAbstractButton::toggled, this,
             &ToggleButton::HandleToggled);
 
-}
-
-ToggleButton::ToggleButton(QString text, QWidget *parent):
-    CustomToggleButtonBase(text,parent),
-    m_check_label(this)
-{
-    m_check_label.setText("✓");
-    m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
-    m_check_label.setGeometry(2,2,10,10);
-    m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
-    SetFontSize(18);
-}
-
-ToggleButton::ToggleButton(QString text, bool isCheckMark, QWidget *parent):
-    CustomToggleButtonBase(text, 18, SELECT_BUTTON_BG_COLOR_UNSELECTED, SELECT_BUTTON_TEXT_COLOR_UNSELECTED,parent),
-    m_check_label(this),
-    m_is_check_mark_enable(isCheckMark)
-{
-    m_check_label.setText("✓");
-    m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
-    m_check_label.setGeometry(2,2,10,10);
-    m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
 }
 
 void ToggleButton::UpdateButtonStyles()

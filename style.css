@@ -1,9 +1,15 @@
 QWidget {
     font-family: MS PGothic;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: bold;
 }
-QLabel, QButton {
+QLabel#title_label{
+    font-size: 22px;
+}
+QAbstractButton{
+    font-size: 16px;
+}
+QLabel, QAbstractButton {
     color: white;
 }
 QLabel {
@@ -34,9 +40,9 @@ QSlider::groove:vertical {
     background: #adb9ca;
 }
 QSlider::handle:vertical {
-    height: 20px;
-    margin: 0 -6px;
-    border-radius: 11px;
+    height: 28px;
+    margin: 0 -11px;
+    border-radius: 15px;
     border: 1px solid gray;
     background: #4472c4;
 }

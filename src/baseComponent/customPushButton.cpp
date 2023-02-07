@@ -8,12 +8,6 @@ CustomPushButton::CustomPushButton(QWidget *parent) : CustomButtonBase(parent)
     SetFontSize(18);
 }
 
-CustomPushButton::CustomPushButton(QString text, QWidget *parent) :
-    CustomButtonBase(text,18,QColor::fromRgb(0,0,0),QColor::fromRgb(191,191,191),parent)
-{
-
-}
-
 void CustomPushButton::HandleButtonClicked()
 {
 

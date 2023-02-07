@@ -5,17 +5,6 @@ CustomToggleButtonBase::CustomToggleButtonBase(QWidget *parent) : CustomButtonBa
     setCheckable(true);
 }
 
-CustomToggleButtonBase::CustomToggleButtonBase(QString text, QWidget *parent) : CustomButtonBase(text,parent)
-{
-    setCheckable(true);
-}
-
-CustomToggleButtonBase::CustomToggleButtonBase(QString text, int fontSize, QColor backgroundColor, QColor textColor, QWidget *parent):
-     CustomButtonBase(text,fontSize,backgroundColor,textColor,parent)
-{
-    setCheckable(true);
-}
-
 void CustomToggleButtonBase::UpdateButtonStyles()
 {
     QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")

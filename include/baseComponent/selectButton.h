@@ -8,7 +8,6 @@ class SelectButton : public ToggleButton
     Q_OBJECT
 public:
     explicit SelectButton(QWidget *parent = nullptr);
-    SelectButton(QString text, bool isCheckMark, QWidget *parent = nullptr);
 
 public slots:
     virtual void HandleButtonClicked() override;
