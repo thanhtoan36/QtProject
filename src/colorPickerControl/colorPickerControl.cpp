@@ -51,8 +51,18 @@ void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
     Q_ASSERT(param);
     setPickerType(param->type);
     setPickerColor(param->color);
+
     m_picker_xy.SetColor(pickerColor());
     m_picker_rgb.SetColor(pickerColor());
+
+    auto xy = m_picker_xy.Xy();
+    m_slider_x.setValue(xy.x() * 1000);
+    m_slider_y.setValue(xy.y() * 1000);
+
+    auto hsv = m_picker_rgb.HSV();
+    m_slider_h.setValue(hsv.h);
+    m_slider_s.setValue(hsv.s);
+    m_slider_v.setValue(hsv.v);
 }
 
 void ColorPickerControl::SetupUiComponents()
@@ -127,24 +137,20 @@ void ColorPickerControl::SetupUiEvents()
     connect(&m_picker_xy, &CustomColorPickerXY::XyChanged, this, [&](QPointF xy) {
         m_label_value_x.setText(QString::asprintf("%.03f", xy.x()));
         m_label_value_y.setText(QString::asprintf("%.03f", xy.y()));
-        m_slider_x.setValue(xy.x() * 1000);
-        m_slider_y.setValue(xy.y() * 1000);
     });
     connect(&m_picker_xy, &CustomColorPickerXY::picked, this, [&]() {
         setPickerColor(m_picker_xy.Color());
-        m_picker_rgb.SetColor(pickerColor());
+        auto xy = m_picker_xy.Xy();
+        m_slider_x.setValue(xy.x() * 1000);
+        m_slider_y.setValue(xy.y() * 1000);
     });
 
     connect(&m_slider_x, &QSlider::valueChanged, this, [&](int) {
-        if (!m_slider_x.isSliderDown())
-            return;
         m_picker_xy.SetXy(QPointF(m_slider_x.value() / 1000.0, m_slider_y.value() / 1000.0));
         setPickerColor(m_picker_xy.Color());
         // m_picker_rgb.SetColor(pickerColor());
     });
     connect(&m_slider_y, &QSlider::valueChanged, this, [&](int) {
-        if (!m_slider_y.isSliderDown())
-            return;
         m_picker_xy.SetXy(QPointF(m_slider_x.value() / 1000.0, m_slider_y.value() / 1000.0));
         setPickerColor(m_picker_xy.Color());
         // m_picker_rgb.SetColor(pickerColor());
@@ -152,10 +158,6 @@ void ColorPickerControl::SetupUiEvents()
 
     //rgb picker event
     connect(&m_picker_rgb, &CustomColorPickerRGB::HSVChanged, this, [&](hsv_t hsv) {
-        m_slider_h.setValue(hsv.h);
-        m_slider_s.setValue(hsv.s);
-        m_slider_v.setValue(hsv.v);
-
         m_label_value_h.setText(QString::number(hsv.h));
         m_label_value_s.setText(QString::number(hsv.s));
         m_label_value_v.setText(QString::number(hsv.v));
@@ -163,25 +165,23 @@ void ColorPickerControl::SetupUiEvents()
     connect(&m_picker_rgb, &CustomColorPickerRGB::picked, this, [&]() {
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
+        auto hsv = m_picker_rgb.HSV();
+        m_slider_h.setValue(hsv.h);
+        m_slider_s.setValue(hsv.s);
+        m_slider_v.setValue(hsv.v);
     });
     // TODO: update picker xy on without recursion
     connect(&m_slider_h, &QSlider::valueChanged, this, [&](int) {
-        if (!m_slider_h.isSliderDown())
-            return;
         m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
     });
     connect(&m_slider_s, &QSlider::valueChanged, this, [&](int) {
-        if (!m_slider_s.isSliderDown())
-            return;
         m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
     });
     connect(&m_slider_v, &QSlider::valueChanged, this, [&](int) {
-        if (!m_slider_v.isSliderDown())
-            return;
         m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
