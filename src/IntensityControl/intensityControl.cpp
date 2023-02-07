@@ -31,6 +31,7 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
 
 {
     setFixedSize(ISC_SCREENSIZE);
+    m_label_title.setObjectName("title_label");
 }
 
 void IntensityControl::SetupUiComponents()

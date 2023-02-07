@@ -6,6 +6,10 @@ QWidget {
 QLabel#title_label{
     font-size: 22px;
 }
+QLabel#title_label_horizon{
+    font-size: 22px;
+    border: 1px solid gray;
+}
 QAbstractButton{
     font-size: 16px;
 }

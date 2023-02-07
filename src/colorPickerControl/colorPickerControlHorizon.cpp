@@ -7,6 +7,7 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     m_button_3(this)
 {
     setFixedSize(CPC_HORIZON_SCREENSIZE);
+    m_label_title.setObjectName("title_label_horizon");
 }
 
 void ColorPickerControlHorizon::SetDispParamDataHorizon(COLOR_PICKER_DISP_PARAM *param)

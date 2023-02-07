@@ -38,6 +38,9 @@ protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
 
+    QVector<TRACK_PARAM_GROUP> mapToScreen(const QVector<TRACK_PARAM_GROUP> &points);
+    QVector<TRACK_PARAM_GROUP> mapToValue(const QVector<TRACK_PARAM_GROUP> &points);
+
 protected:
   QLabel m_label_title;
 

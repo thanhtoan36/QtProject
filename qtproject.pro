@@ -9,7 +9,8 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    include/trackControl/pantiltControl.cpp \
+    src/trackControl/pantiltControl.cpp \
+    src/trackControl/trackControlHorizon.cpp \
     src/colorPickerControl/cieaux.cpp \
     src/colorPickerControl/ciemaker.cpp \
     src/colorPickerControl/colorPickerControlHorizon.cpp \
@@ -79,6 +80,7 @@ HEADERS += \
     include/paletteControl/paletteControl_define.hpp \
     include/trackControl/pantiltControl.h \
     include/trackControl/trackControl.hpp \
+    include/trackControl/trackControlHorizon.h \
     include/trackControl/trackControl_datatypes.h \
     include/trackControl/trackControl_define.hpp \
     include/playbackControl/playbackControl.hpp \

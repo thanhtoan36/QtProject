@@ -1,4 +1,4 @@
-#include "pantiltControl.h"
+#include "trackControl/pantiltControl.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -77,6 +77,13 @@ PantiltControl::PantiltControl(QWidget *parent)
     m_label_pan.setObjectName("graph_axis_label");
 }
 
+void PantiltControl::setMode(TrackMode mode)
+{
+    if (mode == m_mode)
+        return;
+    float scale = mode == TRACK_MODE_255 ? (255.0 / 100.0) : (100.0 / 255.0);
+}
+
 void PantiltControl::SetTrackPoints(TrackMode mode, TrackValueMode value_mode, const QVector<TRACK_PARAM_GROUP> &points)
 {
     m_mode = mode;
@@ -93,6 +100,15 @@ void PantiltControl::SetTrackPoints(TrackMode mode, TrackValueMode value_mode, c
 
         m_track_points.push_back(data);
     }
+}
+
+QVector<TRACK_PARAM_GROUP> PantiltControl::trackPoints() const
+{
+    QVector<TRACK_PARAM_GROUP>  result;
+    for (const auto &p : m_track_points) {
+        result.append(p.param_group);
+    }
+    return result;
 }
 
 void PantiltControl::paintEvent(QPaintEvent *event)
@@ -126,6 +142,13 @@ void PantiltControl::mousePressEvent(QMouseEvent *event)
 {
     m_pressed = true;
     m_last_pos = event->pos();
+
+    if (m_value_mode == TRACK_MODE_ABSOLUTE) {
+        for (auto &p : m_track_points) {
+            MovePointWithConstraints(p, ConvertCoordinateToValue(event->pos()));
+        }
+        emit trackPointsUpdated();
+    }
 }
 
 void PantiltControl::mouseReleaseEvent(QMouseEvent *event)
@@ -147,30 +170,28 @@ void PantiltControl::mouseMoveEvent(QMouseEvent *event)
             MovePointWithConstraints(p, ConvertCoordinateToValue(new_coordinate));
         }
 
+        emit trackPointsUpdated();
+
         m_last_pos = event->pos();
     }
 }
 
 QPointF PantiltControl::ConvertValueToCoordinate(QPointF value)
 {
-    const float max_value = m_mode == TrackMode::TRACK_MODE_PERCENT ? 100 : 255;
+    value.setY(TC_TRACK_RESOLUTION - value.y());
 
-    value.setY(max_value - value.y());
-
-    QPointF coordinate(value.x() * geometry().width() / max_value,
-                       value.y() * geometry().height() / max_value);
+    QPointF coordinate(value.x() * geometry().width() / TC_TRACK_RESOLUTION,
+                       value.y() * geometry().height() / TC_TRACK_RESOLUTION);
 
     return coordinate;
 }
 
 QPointF PantiltControl::ConvertCoordinateToValue(QPointF coordinate)
 {
-    const float max_value = m_mode == TrackMode::TRACK_MODE_PERCENT ? 100 : 255;
+    QPointF value(coordinate.x() * TC_TRACK_RESOLUTION / geometry().width(),
+                  coordinate.y() * TC_TRACK_RESOLUTION / geometry().height());
 
-    QPointF value(coordinate.x() * max_value / geometry().width(),
-                  coordinate.y() * max_value / geometry().height());
-
-    value.setY(max_value - value.y());
+    value.setY(TC_TRACK_RESOLUTION - value.y());
 
     return value;
 }

@@ -3,6 +3,7 @@
 #include "colorPickerControl/colorPickerControlHorizon.h"
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "trackControl/trackControl.hpp"
+#include "trackControl/trackControlHorizon.h"
 #include "intensityControl/intensityControl.hpp"
 #include "utility.h"
 
@@ -53,9 +54,6 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
 void MainWindow::on_TrackControl_Fake_Open_clicked()
 {
-    auto track_control = MakeSharedQObject<TrackControl>();
-    track_control->PrepareUi();
-
     TRACK_DISP_PARAM params;
     params.mode = (TrackMode)ui->TrackControl_Fake_Mode->currentIndex();
     params.valueMode = (TrackValueMode)ui->TrackControl_Fake_ValueMode->currentIndex();
@@ -83,9 +81,19 @@ void MainWindow::on_TrackControl_Fake_Open_clicked()
     params.count = points.size();
     params.data = points.data();
 
-    track_control->SetDispParamData(&params);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        auto track_control = MakeSharedQObject<TrackControlHorizon>();
+        track_control->PrepareUi();
+        track_control->SetDispParamDataHorizon(&params);
+        m_panel_window->AttachPanelControl(track_control);
+    }
+    else {
+        auto track_control = MakeSharedQObject<TrackControl>();
+        track_control->PrepareUi();
+        track_control->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(track_control);
+    }
 
-    m_panel_window->AttachPanelControl(track_control);
     m_panel_window->show();
     m_panel_window->raise();
 }
