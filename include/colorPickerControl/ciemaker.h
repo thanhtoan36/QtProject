@@ -4,6 +4,7 @@
 #include "cieaux.h"
 #include <QColor>
 #include <QPointF>
+#include <QImage>
 
 // cie painter
 using uint8_t = unsigned char;
@@ -18,7 +19,7 @@ private:
 public:
     CIEMaker(int interpNum=20, double brightness=1.0);
 
-    uint8_t* drawCIEDiagram(int picSize = 500);
+    QImage drawCIEDiagram(int picSize = 500);
     std::vector<CPointF> getCieCurvePoints() const{return m_cieCurvePoints;};
     bool isPointInsideBound(const CPointF &p) const;
     QColor getColor(QPointF xy) const;

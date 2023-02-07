@@ -18,9 +18,9 @@
 CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
     m_plotArea(QRectF(36, 0,PICKER_XY_HIEGHT, PICKER_XY_HIEGHT))
 {
-    QImage img(":/img/cie_img.png");
-    m_img = img.scaled(PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    setMouseTracking(true);
+    // QImage img(":/img/cie_img.png");
+    QImage img = m_cie_maker.drawCIEDiagram(200);
+    m_img = img.scaled(PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
 void CustomColorPickerXY::SetColor(const QColor &color)
@@ -89,6 +89,8 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
     if (m_pointer_visible) {
         p.setPen(QPen(Qt::white, 1));
         p.drawEllipse(m_pointer, 5, 5);
+        p.setPen(QPen(Qt::gray, 1));
+        p.drawEllipse(m_pointer, 6, 6);
     }
 }
 

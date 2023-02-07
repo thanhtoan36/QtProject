@@ -73,6 +73,8 @@ void CustomColorPickerRGB::paintEvent(QPaintEvent *)
     if (m_pointer_visible) {
         p.setPen(QPen(Qt::white, 1));
         p.drawEllipse(m_pointer, 5, 5);
+        p.setPen(QPen(Qt::gray, 1));
+        p.drawEllipse(m_pointer, 6, 6);
     }
 }
 

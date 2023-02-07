@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <QDebug>
+#include <QImage>
 
 std::vector<CPointF> g_cieCurve{{0.172787,0.004800},{0.170806,0.005472},{0.170085,0.005976},{0.160343,0.014496},{0.146958,0.026643},{0.139149,0.035211},{0.133536,0.042704},
                                  {0.126688,0.053441/*blue*/},{0.115830,0.073601},{0.109616,0.086866},{0.099146,0.112037},{0.091310,0.132737},{0.078130,0.170464},{0.068717,0.200773},
@@ -68,11 +69,8 @@ void CIEMaker::initData()
 }
 
 QColor CIEMaker::getColor(QPointF xy) const {
-    const auto picSize = 300;
     QColor out;
-    const auto x = xy.x(), y = xy.y();
-    // CPointF curP(1.0 * x / picSize, 1.0 - 1.0 * y / picSize);
-    CPointF curP(x, y);
+    CPointF curP(xy.x(), xy.y());
     if (isPointInsideBound(curP)) {
         CLineF whiteP(m_whitePt, curP);
         CPointF crossPoint;
@@ -94,54 +92,24 @@ QColor CIEMaker::getColor(QPointF xy) const {
                               cBound(0, int(c.g * 255), 255),
                               cBound(0, int(c.b * 255), 255), 255);
     } else {
-        qWarning() << "outside bound" << curP.X() << curP.Y();
         out = QColor::fromRgb(255, 255, 255, 0);
     }
 
     return out;
 }
 
-uint8_t* CIEMaker::drawCIEDiagram(int picSize)
+QImage CIEMaker::drawCIEDiagram(int picSize)
 {
-    int width = (picSize+3)>>2<<2;
-    int byteCountPerLine = width*4;
-    int height = picSize;
-    uint8_t *buf = new uint8_t[width*height*4];
+    QImage image (QSize(picSize, picSize), QImage::Format_ARGB32);
 
-    for(int y=0;y<picSize;y++){
-        uint8_t *line = buf+y*byteCountPerLine;
-        for(int x=0;x<picSize;x++){
-            CPointF curP(1.0*x/picSize,1.0-1.0*y/picSize);
-            if(isPointInsideBound(curP)){
-                CLineF whiteP(m_whitePt, curP);
-                CPointF crossPoint;
-                areaFlag areaflag = crossArea(curP);
-                switch (areaflag) {
-                case leftA:
-                    crossPoint = getCrossPoint(whiteP, m_colorPointIdx[bottom], m_colorPointIdx[top]);
-                    break;
-                case rightA:
-                    crossPoint = getCrossPoint(whiteP, m_colorPointIdx[top], m_colorPointIdx[right]);
-                    break;
-                default:
-                    crossPoint = getCrossPoint(whiteP, m_colorPointIdx[right], m_cieCurvePoints.size());
-                    break;
-                }
-                CLineF whiteToBoundLine(m_whitePt, crossPoint);
-                rgb_t c = whiteToBoundLine.getInterColor(curP);
-                line[x*4] = cBound(0, int(c.b*255), 255);
-                line[x*4+1] = cBound(0, int(c.g*255), 255);
-                line[x*4+2] = cBound(0, int(c.r*255), 255);
-                line[x*4+3] = 255;
-            }else{
-                line[x*4] = 255;
-                line[x*4+1] = 255;
-                line[x*4+2] = 255;
-                line[x*4+3] = 0;
-            }
+    for (int y = 0; y < picSize; y++) {
+        for (int x = 0; x < picSize; x++) {
+          QPointF xy = QPointF(1.0 * x / picSize, 1.0 - 1.0 * y / picSize);
+          auto color = getColor(xy);
+          image.setPixel(x, y, color.rgba());
         }
     }
-    return buf;
+    return image;
 }
 
 CPointF CIEMaker::getCrossPoint(const CLineF &l, int start, int end) const {

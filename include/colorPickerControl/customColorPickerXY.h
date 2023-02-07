@@ -34,7 +34,6 @@ private:
     QRectF m_plotArea;
     QSize m_offset;
     QPointF m_xy;
-    QPixmap m_ciePic;
     QImage m_img;
     CIEMaker m_cie_maker;
 
