@@ -25,6 +25,7 @@ private:
     QPointF mapToPosition(const QPointF &p);
     QPointF mapToValue(const QPoint &p);
     void RBG2XY(float R,float G, float B, float& x, float& y, float &z);
+    QPointF findNearestXy(QPointF target);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -33,7 +34,8 @@ protected:
 private:
     QRectF m_plotArea;
     QSize m_offset;
-    QPointF m_xy;
+    QPointF m_valid_xy;
+    QPointF m_white_xy;
     QImage m_img;
     CIEMaker m_cie_maker;
 

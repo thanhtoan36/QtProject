@@ -21,6 +21,8 @@ CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
     // QImage img(":/img/cie_img.png");
     QImage img = m_cie_maker.drawCIEDiagram(200);
     m_img = img.scaled(PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    SetColor(Qt::white);
+    m_white_xy = m_valid_xy;
 }
 
 void CustomColorPickerXY::SetColor(const QColor &color)
@@ -32,33 +34,26 @@ void CustomColorPickerXY::SetColor(const QColor &color)
 
 void CustomColorPickerXY::SetXy(const QPointF &xy)
 {
-    // qDebug() << "SetColor" << xy;
-    if (m_cie_maker.isPointInsideBound(CPointF(xy.x(), xy.y())))
-    {
-        m_pointer = mapToPosition(xy);
-        m_pointer_visible = true;
-        update();
+    QPointF nearest = findNearestXy(xy);
+    m_pointer = mapToPosition(nearest);
+    m_pointer_visible = true;
+    update();
 
-        if (xy != m_xy) {
-            m_xy = xy;
-            emit XyChanged(xy);
-            emit ColorChanged(Color());
-        }
-    }
-    else
-    {
-        qWarning() << "Color out of Boundary";
+    if (nearest != m_valid_xy) {
+        m_valid_xy = nearest;
+        emit XyChanged(nearest);
+        emit ColorChanged(Color());
     }
 }
 
 QPointF CustomColorPickerXY::Xy() const
 {
-    return m_xy;
+    return m_valid_xy;
 }
 
 QColor CustomColorPickerXY::Color() const
 {
-    return getColor(m_xy);
+    return getColor(m_valid_xy);
 }
 
 QColor CustomColorPickerXY::getColor(QPointF xy) const
@@ -131,5 +126,21 @@ void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, 
 
     x = X / (X + Y + Z);
     y = Y / (X + Y + Z);
+}
+
+QPointF CustomColorPickerXY::findNearestXy(QPointF target)
+{
+    if (m_cie_maker.isPointInsideBound(CPointF(target.x(), target.y())))
+        return target;
+
+    // find nearest valid point from white center pont
+    QPointF nearest = m_white_xy;
+    auto diff = target - nearest;
+
+    for (auto i = nearest; m_cie_maker.isPointInsideBound(CPointF(i.x(), i.y())); i += diff * 0.001) {
+        nearest = i;
+    }
+
+    return nearest;
 }
 
