@@ -41,5 +41,5 @@ void CustomToggleButtonBase::SetPressTextColor(const QColor &textColor)
 void CustomToggleButtonBase::HandleButtonClicked()
 {
     qDebug() << "CustomToggleButtonBase::handleButtonClicked";
-    toggle();
+    //toggle();
 }

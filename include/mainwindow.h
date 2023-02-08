@@ -23,6 +23,8 @@ private slots:
 
     void on_IntensityControl_Fake_Open_clicked();
 
+    void on_ColorFilterControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();

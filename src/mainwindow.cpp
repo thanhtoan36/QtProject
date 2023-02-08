@@ -5,6 +5,7 @@
 #include "trackControl/trackControl.hpp"
 #include "trackControl/trackControlHorizon.h"
 #include "intensityControl/intensityControl.hpp"
+#include "colorFilterControl/colorFilterControl.hpp"
 #include "utility.h"
 
 #include <QDebug>
@@ -104,6 +105,30 @@ void MainWindow::on_IntensityControl_Fake_Open_clicked()
     auto intensity_control = MakeSharedQObject<IntensityControl>();
     intensity_control->PrepareUi();
     m_panel_window->AttachPanelControl(intensity_control);
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
+
+void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
+{
+    auto control = MakeSharedQObject<ColorFilterControl>();
+    control->PrepareUi();
+    COLOR_FILTER_DISP_PARAM param;
+    param.tb.select = true;
+    param.custom.select = false;
+    param.history.select = false;
+    param.tb.count = 50;
+    param.tb.color_filter = (COLOR_FILTER_PARAM*)malloc(50*sizeof(COLOR_FILTER_PARAM));
+    for (int i = 0; i< 50;i++)
+    {
+        qsrand(time(0));param.tb.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
+        strncpy(param.tb.color_filter[i].name, QString(QString("T")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
+    }
+    param.custom.count = 0;
+    param.history.count = 0;
+    control->setDispParamData(&param);
+    m_panel_window->AttachPanelControl(control);
     m_panel_window->show();
     m_panel_window->raise();
 }

@@ -6,16 +6,11 @@
 ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent) ,m_check_label(this)
 {
     m_check_label.setText("✓");
-
-    m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; font-size: 12px; }");
-    QFont f = m_check_label.font();
-    qDebug() << "font size: " << f.pixelSize();
-    f.setPixelSize(10);
-    m_check_label.setFont(f);
-    qDebug() << "font size: " << m_check_label.font().pixelSize();
+    m_check_label.setStyleSheet("QLabel { background-color : transparent; color : white; }");
     m_check_label.setGeometry(2,2,10,10);
     m_check_label.setVisible(m_check_mark_visible && m_is_check_mark_enable);
-
+    SetBackgroundColor(QColor::fromRgb(13,13,13));
+    SetTextColor(QColor::fromRgb(128,128,128));
     connect(this, &QAbstractButton::toggled, this,
             &ToggleButton::HandleToggled);
 
@@ -23,7 +18,9 @@ ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent) ,m_
 
 void ToggleButton::UpdateButtonStyles()
 {
-    QString style_enable = QString("QPushButton { background-color:rgb(13,13,13); color:rgb(128,128,128); border-style: solid; border-width: 1px;border-color: gray;}");
+    QString style_enable = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6); border-style: solid; border-width: 1px;border-color: gray;}")
+            .arg(BackgroundColor().red()).arg(BackgroundColor().green()).arg(BackgroundColor().blue())
+            .arg(TextColor().red()).arg(TextColor().green()).arg(TextColor().blue());
     QString style_disable = QString(" QPushButton:disabled { background-color:rgb(22,22,22); color:rgb(191,191,191); border-style: solid; border-width: 1px;border-color: gray; }");
     QString style_checked = QString(" QPushButton:checked { background-color:rgb(89, 89, 89); color: white; border-style: solid; border-width: 1px;border-color: rgb(0,176,80);}");
 
@@ -43,6 +40,7 @@ void ToggleButton::setIsCheckMarkEnable(bool isCheckMark)
 
 void ToggleButton::HandleToggled(bool checked)
 {
+    qDebug() << __func__ << checked;
     if (!checked)
     {
         // SetBackgroundColor(SELECT_BUTTON_BG_COLOR_UNSELECTED);
