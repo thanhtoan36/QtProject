@@ -2,25 +2,25 @@
 
 #include <QPainter>
 #include <QMouseEvent>
+#include "utility.h"
 
 #define EC_WIDTH_PADDING 10
 #define EC_BUTTON_HEIGHT 25
 
 Encoder::Encoder(QWidget *parent)
-    : QWidget(parent),
-      m_orientation(Qt::Orientation::Vertical),
-      m_sliderBoundary(),
-      m_value(0.0f),
-      m_step(0.1f),
+    : QAbstractSlider(parent),
       m_button_decrease(this),
       m_button_increase(this)
 {
+    // FIXME: if orientation is set after constructor is called, since it has no signal, we can re-setup the geometries
+    setOrientation(Qt::Vertical);
     setupGeometries();
+
     connect(&m_button_decrease, &QAbstractButton::clicked, this, [&](){
-        setValue(value() - step());
+        setValue(value() - singleStep());
     });
     connect(&m_button_increase, &QAbstractButton::clicked, this, [&](){
-        setValue(value() + step());
+        setValue(value() + singleStep());
     });
 }
 
@@ -36,12 +36,14 @@ void Encoder::paintEvent(QPaintEvent *event)
     p.drawRect(m_sliderBoundary);
 
     const int EC_YELLOW_SLIDER_WIDTH = 10;
-    const int gridLines = 13;
+    const int GRID_LINES = 13;
+
+    float normalizedValue = map(value(), minimum(), maximum(), 0.0f, 1.0f);
 
     if (orientation() == Qt::Vertical) {
         // Draw grid lines
-        const float gridSpacing = m_sliderBoundary.height() * 1.0f / gridLines;
-        for (int i = 0; i < gridLines; i++) {
+        const float gridSpacing = m_sliderBoundary.height() * 1.0f / GRID_LINES;
+        for (int i = 0; i < GRID_LINES; i++) {
             const int y = m_sliderBoundary.top() + i * gridSpacing;
             p.drawLine(m_sliderBoundary.left() + EC_YELLOW_SLIDER_WIDTH, y, m_sliderBoundary.right(), y);
         }
@@ -49,15 +51,15 @@ void Encoder::paintEvent(QPaintEvent *event)
         p.setBrush(QColor::fromRgb(34, 43, 53)); // blue gray (background of the yellow bar)
         p.drawRect(QRect(m_sliderBoundary.left(), m_sliderBoundary.top(), EC_YELLOW_SLIDER_WIDTH, m_sliderBoundary.height()));
 
-        const int yellowBarHeight = m_sliderBoundary.height() * value();
+        const int yellowBarHeight = m_sliderBoundary.height() * normalizedValue;
         p.setBrush(QColor::fromRgb(255, 192, 0)); // yellow
         p.drawRect(QRect(m_sliderBoundary.left(), m_sliderBoundary.bottom() - yellowBarHeight, EC_YELLOW_SLIDER_WIDTH, yellowBarHeight));
     }
 
     if (orientation() == Qt::Horizontal) {
         // Draw grid lines
-        const float gridSpacing = m_sliderBoundary.width() * 1.0f / gridLines;
-        for (int i = 0; i < gridLines; i++) {
+        const float gridSpacing = m_sliderBoundary.width() * 1.0f / GRID_LINES;
+        for (int i = 0; i < GRID_LINES; i++) {
             const int x = m_sliderBoundary.left() + i * gridSpacing;
             p.drawLine(x, m_sliderBoundary.top() + EC_YELLOW_SLIDER_WIDTH, x, m_sliderBoundary.bottom());
         }
@@ -65,7 +67,7 @@ void Encoder::paintEvent(QPaintEvent *event)
         p.setBrush(QColor::fromRgb(34, 43, 53)); // blue gray (background of the yellow bar)
         p.drawRect(QRect(m_sliderBoundary.left(), m_sliderBoundary.top(), m_sliderBoundary.width(), EC_YELLOW_SLIDER_WIDTH));
 
-        const int yellowBarWidth = m_sliderBoundary.width() * value();
+        const int yellowBarWidth = m_sliderBoundary.width() * normalizedValue;
         p.setBrush(QColor::fromRgb(255, 192, 0)); // yellow
         p.drawRect(QRect(m_sliderBoundary.left(), m_sliderBoundary.top(), yellowBarWidth, EC_YELLOW_SLIDER_WIDTH));
     }
@@ -79,18 +81,19 @@ void Encoder::mousePressEvent(QMouseEvent *event)
     const auto p = event->pos() - m_sliderBoundary.topLeft();
 
     if (orientation() == Qt::Vertical) {
-        setValue((m_sliderBoundary.height() - p.y()) * 1.0f / m_sliderBoundary.height());
+        setValue(map(p.y(), m_sliderBoundary.height(), 0.0f, minimum(), maximum()));
     }
     if (orientation() == Qt::Horizontal) {
-        setValue(p.x() * 1.0f / m_sliderBoundary.width());
+        setValue(map(p.x(), 0.0f, m_sliderBoundary.width(), minimum(), maximum()));
     }
-    emit picked();
+
+    emit sliderMoved(value());
 }
 
 void Encoder::resizeEvent(QResizeEvent *event)
 {
     setupGeometries();
-    QWidget::resizeEvent(event);
+    QAbstractSlider::resizeEvent(event);
 }
 
 void Encoder::setupGeometries()
@@ -122,48 +125,4 @@ void Encoder::setupGeometries()
         m_sliderBoundary = QRect(QPoint(EC_BUTTON_HEIGHT, EC_WIDTH_PADDING),
                                  QSize(width() - EC_BUTTON_HEIGHT * 2, height() - EC_WIDTH_PADDING * 2));
     }
-}
-
-Qt::Orientation Encoder::orientation() const
-{
-    return m_orientation;
-}
-
-void Encoder::setOrientation(Qt::Orientation newOrientation)
-{
-    if (m_orientation == newOrientation)
-        return;
-    m_orientation = newOrientation;
-    emit orientationChanged();
-    setupGeometries();
-    update();
-}
-
-float Encoder::value() const
-{
-    return m_value;
-}
-
-void Encoder::setValue(float newValue)
-{
-    if (newValue < 0.0) newValue = 0.0;
-    if (newValue > 1.0) newValue = 1.0;
-    if (qFuzzyCompare(m_value, newValue))
-        return;
-    m_value = newValue;
-    emit valueChanged();
-    update();
-}
-
-float Encoder::step() const
-{
-    return m_step;
-}
-
-void Encoder::setStep(float newStep)
-{
-    if (qFuzzyCompare(m_step, newStep))
-        return;
-    m_step = newStep;
-    emit stepChanged();
 }
