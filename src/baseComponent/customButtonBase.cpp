@@ -19,13 +19,13 @@ void CustomButtonBase::SetFontSize(int fontSize)
 void CustomButtonBase::SetBackgroundColor(const QColor &backgroundColor)
 {
     m_background_color = backgroundColor;
-    QTimer::singleShot(0, [&](){ UpdateButtonStyles(); });
+    UpdateButtonStyles();
 }
 
 void CustomButtonBase::SetTextColor(const QColor &newText_color)
 {
     m_text_color = newText_color;
-    QTimer::singleShot(0, [&](){ UpdateButtonStyles(); });
+    UpdateButtonStyles();
 }
 
 void CustomButtonBase::UpdateButtonStyles()

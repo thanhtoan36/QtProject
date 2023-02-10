@@ -86,18 +86,16 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
     if (param->tb.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB1);
-        updateTBTabPage();
     }
     else if (param->custom.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB2);
-        updateCustomTabPage();
     }
     else if (param->history.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB2);
-        updateHistoryPage();
     }
+    onModeChanged();
 
 }
 
