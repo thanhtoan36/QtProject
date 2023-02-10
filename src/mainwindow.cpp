@@ -1,12 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "colorPickerControl/colorPickerControlHorizon.h"
-#include "colorPickerControl/colorPickerControl.hpp"
-#include "trackControl/trackControl.hpp"
-#include "trackControl/trackControlHorizon.h"
-#include "intensityControl/intensityControl.hpp"
 #include "utility.h"
 
+#include <cstring>
+#include <cmath>
 #include <QDebug>
 #include <QRandomGenerator>
 
@@ -17,6 +14,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    m_color_picker_control = MakeSharedQObject<ColorPickerControl>();
+    m_color_picker_control->PrepareUi();
+
+    m_color_picker_control_horizon = MakeSharedQObject<ColorPickerControlHorizon>();
+    m_color_picker_control_horizon->PrepareUi();
+
+    m_track_control = MakeSharedQObject<TrackControl>();
+    m_track_control->PrepareUi();
+
+    m_track_control_horizon = MakeSharedQObject<TrackControlHorizon>();
+    m_track_control_horizon->PrepareUi();
+
+    m_intensity_control = MakeSharedQObject<IntensityControl>();
+    m_intensity_control->PrepareUi();
+
+    m_encoder_control = MakeSharedQObject<EncoderPanelControl>();
+    m_encoder_control->PrepareUi();
 }
 
 MainWindow::~MainWindow()
@@ -32,19 +47,12 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
     if (ui->checkBox_HorizontalLayout->isChecked())
     {
-        auto color_picker_control = MakeSharedQObject<ColorPickerControlHorizon>();
-        color_picker_control->PrepareUi();
-        color_picker_control->SetDispParamData(&params);
-
-        m_panel_window->AttachPanelControl(color_picker_control);
+        m_color_picker_control->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_color_picker_control);
     }
-
-    else{
-        auto color_picker_control = MakeSharedQObject<ColorPickerControl>();
-        color_picker_control->PrepareUi();
-        color_picker_control->SetDispParamData(&params);
-
-        m_panel_window->AttachPanelControl(color_picker_control);
+    else {
+        m_color_picker_control->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_color_picker_control);
     }
 
     m_panel_window->show();
@@ -82,16 +90,13 @@ void MainWindow::on_TrackControl_Fake_Open_clicked()
     params.data = points.data();
 
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        auto track_control = MakeSharedQObject<TrackControlHorizon>();
-        track_control->PrepareUi();
-        track_control->SetDispParamDataHorizon(&params);
-        m_panel_window->AttachPanelControl(track_control);
+        m_track_control_horizon->SetDispParamDataHorizon(&params);
+        m_panel_window->AttachPanelControl(m_track_control_horizon);
     }
     else {
-        auto track_control = MakeSharedQObject<TrackControl>();
-        track_control->PrepareUi();
-        track_control->SetDispParamData(&params);
-        m_panel_window->AttachPanelControl(track_control);
+        m_track_control->PrepareUi();
+        m_track_control->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_track_control);
     }
 
     m_panel_window->show();
@@ -101,9 +106,31 @@ void MainWindow::on_TrackControl_Fake_Open_clicked()
 
 void MainWindow::on_IntensityControl_Fake_Open_clicked()
 {
-    auto intensity_control = MakeSharedQObject<IntensityControl>();
-    intensity_control->PrepareUi();
-    m_panel_window->AttachPanelControl(intensity_control);
+    m_panel_window->AttachPanelControl(m_intensity_control);
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
+
+void MainWindow::on_EncoderControl_Fake_Open_clicked()
+{
+    ENCODER_DISP_PARAM params;
+    params.type = (EncoderType)ui->EncoderControl_Fake_Type->currentIndex();
+    params.mode = (EncoderMode)ui->EncoderControl_Fake_Mode->currentIndex();
+    params.count = gRandom.bounded(0, 10);
+    QVector<ENCODER_PARAM> data;
+    for (int i = 0; i < params.count; ++i) {
+        ENCODER_PARAM p;
+        p.maxLevel = gRandom.bounded(100, 255);
+        p.level = gRandom.bounded(0, p.maxLevel);
+        QString randomName = QString("Test%1").arg(gRandom.bounded(1, 50));
+        std::strncpy(p.name, (const char*)randomName.toLocal8Bit().data(), sizeof(p.name) - 1);
+        data.push_back(p);
+    }
+    params.param = data.data();
+
+    m_encoder_control->SetDispParamData(&params);
+    m_panel_window->AttachPanelControl(m_encoder_control);
     m_panel_window->show();
     m_panel_window->raise();
 }

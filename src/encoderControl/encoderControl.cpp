@@ -1,7 +1,9 @@
 #include "encoderControl/encoderControl.hpp"
 #include "encoderControl/encoderControl_define.hpp"
+#include "utility.h"
 
 #include <QDebug>
+#include <cmath>
 
 EncoderPanelControl::EncoderPanelControl(QWidget *parent)
     : PanelControlBase(parent),
@@ -10,7 +12,12 @@ EncoderPanelControl::EncoderPanelControl(QWidget *parent)
       m_button_mode_percent(this),
       m_button_mode_255(this),
       m_button_empty1(this),
-      m_test_encoder(this)
+      m_button_previous_tab(this),
+      m_button_next_tab(this),
+      m_encoders(),
+      m_currentEncoderPage(0),
+      m_encodersPerPage(1),
+      m_mode()
 {
     setFixedSize(EC_SCREENSIZE);
 }
@@ -18,6 +25,33 @@ EncoderPanelControl::EncoderPanelControl(QWidget *parent)
 void EncoderPanelControl::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
+
+    setMode(param->mode);
+
+    m_encoders.clear();
+    for (int i = 0; i < param->count; ++i) {
+        auto slider = MakeSharedQObject<EncoderSlider>(this);
+        slider->setVisible(false);
+        slider->setFixedSize(EC_ENCODER_SIZE);
+
+        slider->setRange(0, 255);
+        slider->setSingleStep(1);
+        slider->setEncoderName(QString::fromLocal8Bit(param->param[i].name));
+        slider->setValue(param->param[i].level);
+        slider->setUpperRestrictValue(param->param[i].maxLevel);
+
+        connect(slider.get(), &EncoderSlider::sliderMoved, this, [&](int value){
+           qDebug() <<  ((EncoderSlider*)sender())->encoderName() << value;
+        });
+
+        m_encoders.append(slider);
+    }
+
+    setEncodersPerPage(EC_MAX_ENCODER_ITEMS);
+    setCurrentEncoderPage(0);
+    setMaxEncoderPages(calulateNumberOfPages(m_encoders.length(), EC_MAX_ENCODER_ITEMS));
+
+    updateEncoders();
 }
 
 void EncoderPanelControl::SetupUiComponents()
@@ -33,10 +67,100 @@ void EncoderPanelControl::SetupUiComponents()
     m_button_empty1.setGeometry(EC_BUTTON_EMPTY_1_GEOMETRY);
     m_button_empty1.setEnabled(false);
 
-    m_test_encoder.setFixedSize(EC_ENCODER_SIZE);
-    m_test_encoder.move(EC_ENCODER_PLACEMENT_START);
+    m_button_previous_tab.setGeometry(EC_BUTTON_PREVIOUS_GEOMETRY);
+    m_button_previous_tab.setText("◀");
+    m_button_previous_tab.setVisible(true);
+
+    m_button_next_tab.setGeometry(EC_BUTTON_NEXT_GEOMETRY);
+    m_button_next_tab.setText("▶");
+    m_button_next_tab.setVisible(true);
 }
 
 void EncoderPanelControl::SetupUiEvents()
 {
+    connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
+        qDebug("previous");
+        setCurrentEncoderPage(currentEncoderPage() - 1);
+    });
+    connect(&m_button_next_tab, &QPushButton::clicked, this, [&](){
+        qDebug("next");
+        setCurrentEncoderPage(currentEncoderPage() + 1);
+    });
+    connect(&m_button_mode_percent, &QPushButton::clicked, this, [&](){
+        setMode(ENCODER_MODE_PERCENT);
+    });
+    connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
+        setMode(ENCODER_MODE_255);
+    });
+}
+
+void EncoderPanelControl::updateEncoders()
+{
+    updateChildrenVisibility(m_encoders, currentEncoderPage(), encodersPerPage());
+    placeChildrenIntoPanel(m_encoders, EC_ENCODER_SIZE, EC_ENCODER_PLACEMENT_START, encodersPerPage());
+
+    m_button_previous_tab.setEnabled(currentEncoderPage() > 0);
+    m_button_next_tab.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
+}
+
+int EncoderPanelControl::currentEncoderPage() const
+{
+    return m_currentEncoderPage;
+}
+
+void EncoderPanelControl::setCurrentEncoderPage(int newCurrentEncoderPage)
+{
+    newCurrentEncoderPage = bounded(newCurrentEncoderPage, 0, maxEncoderPages() - 1);
+    if (m_currentEncoderPage == newCurrentEncoderPage)
+        return;
+    m_currentEncoderPage = newCurrentEncoderPage;
+    emit currentEncoderPageChanged();
+    updateEncoders();
+}
+
+int EncoderPanelControl::maxEncoderPages() const
+{
+    return m_maxEncoderPages;
+}
+
+void EncoderPanelControl::setMaxEncoderPages(int newMaxEncoderPages)
+{
+    if (m_maxEncoderPages == newMaxEncoderPages)
+        return;
+    m_maxEncoderPages = newMaxEncoderPages;
+    emit maxEncoderPagesChanged();
+
+    setCurrentEncoderPage(0);
+    updateEncoders();
+}
+
+int EncoderPanelControl::encodersPerPage() const
+{
+    return m_encodersPerPage;
+}
+
+void EncoderPanelControl::setEncodersPerPage(int newEncodersPerPage)
+{
+    // minimum 1 item per page
+    newEncodersPerPage = bounded(newEncodersPerPage, 1, newEncodersPerPage);
+    if (m_encodersPerPage == newEncodersPerPage)
+        return;
+    m_encodersPerPage = newEncodersPerPage;
+    emit encodersPerPageChanged();
+}
+
+EncoderMode EncoderPanelControl::mode() const
+{
+    return m_mode;
+}
+
+void EncoderPanelControl::setMode(EncoderMode newMode)
+{
+    m_button_mode_percent.setChecked(newMode == ENCODER_MODE_PERCENT);
+    m_button_mode_255.setChecked(newMode == ENCODER_MODE_255);
+
+    if (m_mode == newMode)
+        return;
+    m_mode = newMode;
+    emit modeChanged();
 }

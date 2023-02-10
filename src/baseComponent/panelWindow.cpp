@@ -22,16 +22,14 @@ void PanelWindow::AttachPanelControl(QSharedPointer<PanelControlBase> panel)
 
     if (panel) {
         panel->setParent(this);
-        panel->setFixedSize(panel->size());
         m_current_panel_control = panel;
 
         connect(panel.get(), &QWidget::windowTitleChanged, this, &QWidget::setWindowTitle);
         // connect(panel.get(), &QWidget::windowIconChanged, this, &QWidget::setWindowIcon);
 
         setWindowTitle(panel->windowTitle());
-
-        setFixedSize(panel->size());
         // setWindowIcon(panel->windowIcon());
+        setFixedSize(panel->size());
 
         // show();
     }
@@ -41,6 +39,7 @@ void PanelWindow::DetachPanelControl()
 {
     if(m_current_panel_control) {
         m_current_panel_control->disconnect(this);
+        m_current_panel_control->setParent(nullptr);
     }
     m_current_panel_control = nullptr;
     close();

@@ -10,6 +10,7 @@
 class TrackPoint : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit TrackPoint(QWidget *parent = nullptr);
     void SetCoordinate(QPoint pos);

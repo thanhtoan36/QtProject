@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     src/encoderControl/encoderSlider.cpp \
+    src/encoderControl/encoderControl.cpp \
     src/trackControl/pantiltControl.cpp \
     src/trackControl/trackControlHorizon.cpp \
     src/colorPickerControl/cieaux.cpp \
@@ -28,7 +29,6 @@ SOURCES += \
     src/baseComponent/toggleButton.cpp \
     src/colorFilterControl/colorFilterControl.cpp \
     src/colorPickerControl/colorPickerControl.cpp \
-    src/encoderControl/encodeControl.cpp \
     src/groupLibControl/groupLibControl.cpp \
     src/inputNumControl/inputNumControl.cpp \
     src/intensityControl/intensityControl.cpp \
@@ -37,7 +37,7 @@ SOURCES += \
     src/trackControl/trackControl.cpp \
     src/playbackControl/playbackControl.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
     src/ultility.cpp
 
 HEADERS += \

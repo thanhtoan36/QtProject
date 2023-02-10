@@ -6,6 +6,7 @@
 #include "utility.h"
 
 #define TRACK_POINT_SIZE QSize(12, 12)
+#define TRACK_UI_PADDING 10
 
 TrackPoint::TrackPoint(QWidget *parent)
     : QWidget{parent},
