@@ -4,6 +4,7 @@
 
 class TitleSelectButton : public SelectButton
 {
+    Q_OBJECT
 public:
     explicit TitleSelectButton(QWidget *parent = nullptr);
 

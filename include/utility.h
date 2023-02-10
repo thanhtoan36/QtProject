@@ -28,7 +28,7 @@ T bounded(T value, T min, T max) {
 int calulateNumberOfPages(int itemCount, int itemsPerPage);
 
 template <class T>
-void placeChildrenIntoPanel(QVector<QSharedPointer<T>> &children, QSize childSize, QPoint topLeft, int itemsPerRow, int maxColumns = 1) {
+void placeChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize childSize, QPoint topLeft, int itemsPerRow, int maxColumns = 1) {
     for (int i  = 0; i < children.length(); ++i) {
         const int visualIndex = i % (itemsPerRow * maxColumns);
         const int row = visualIndex / itemsPerRow;
@@ -40,7 +40,7 @@ void placeChildrenIntoPanel(QVector<QSharedPointer<T>> &children, QSize childSiz
 }
 
 template <class T>
-void updateChildrenVisibility(QVector<QSharedPointer<T>> children, int currentPage, int itemsPerPage) {
+void updateChildrenVisibility(const QVector<QSharedPointer<T>> &children, int currentPage, int itemsPerPage) {
     int pageBeginIndex = currentPage * itemsPerPage;
     int pageEndIndex = (currentPage + 1) * itemsPerPage;
 

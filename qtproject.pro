@@ -12,6 +12,7 @@ SOURCES += \
     src/encoderControl/encoderControlHorizon.cpp \
     src/encoderControl/encoderSlider.cpp \
     src/encoderControl/encoderControl.cpp \
+    src/intensityControl/intensityControlHorizon.cpp \
     src/trackControl/pantiltControl.cpp \
     src/trackControl/trackControlHorizon.cpp \
     src/colorPickerControl/cieaux.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     include/intensityControl/intensityControl.hpp \
     include/intensityControl/intensityControl_datatypes.h \
     include/intensityControl/intensityControl_define.hpp \
+    include/intensityControl/intensityControlHorizon.h \
     include/libraryControl/libraryControl.hpp \
     include/libraryControl/libraryControl_datatypes.h \
     include/libraryControl/libraryControl_define.h \

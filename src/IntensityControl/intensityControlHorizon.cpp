@@ -1,39 +1,36 @@
-#include "intensityControl/intensityControl.hpp"
+#include "intensityControl/intensityControlHorizon.h"
 #include "intensityControl/intensityControl_define.hpp"
 #include "utility.h"
 #include <QDebug>
 
-IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
-    m_label_title(this),
-    m_menu_buttons(),
-    m_intensity_buttons(),
-    m_return_button(this)
-
+IntensityControlHorizon::IntensityControlHorizon(QWidget *parent)
+    : IntensityControl(parent)
 {
-    setFixedSize(ISC_SCREENSIZE);
+    setFixedSize(ISC_SCREENSIZE_HORIZON);
     m_label_title.setObjectName("title_label");
 }
 
-void IntensityControl::SetupUiComponents()
+void IntensityControlHorizon::SetupUiComponents()
 {
-    m_label_title.setGeometry(ISC_TITLE_GOEMETRY);
+    m_label_title.setGeometry(ISC_TITLE_GOEMETRY_HORIZON);
     m_label_title.setText("数値入力");
+    m_label_title.setObjectName("title_label_horizon");
 
-    m_return_button.setGeometry(ISC_RETURN_GOEMETRY);
+    m_return_button.setGeometry(ISC_RETURN_GOEMETRY_HORIZON);
     m_return_button.setText("戻す");
 
     QStringList intensityModel = {
-        "FF", "+10", "+5", "+1",
-        "00", "-10", "-5", "-1",
-        "70", "80", "90", "",
-        "40", "50", "60", "",
-        "10", "20", "30",
+        "FF", "+10", "+5", "+1", "",
+        "00", "-10", "-5", "-1", "",
+        "70", "80", "90", "", "",
+        "40", "50", "60", "", "",
+        "10", "20", "30", "",
     };
 
     m_intensity_buttons.clear();
     for (const QString &b : intensityModel) {
         auto button = MakeSharedQObject<CustomPushButton>(this);
-        button->setFixedSize(ISC_INTENSITY_BUTTON_SIZE);
+        button->setFixedSize(ISC_INTENSITY_BUTTON_SIZE_HORIZON);
         button->setVisible(true);
         button->setText(b);
 
@@ -47,16 +44,16 @@ void IntensityControl::SetupUiComponents()
         m_intensity_buttons.append(button);
     }
 
-    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE, ISC_INTENSITY_BUTTON_TOPLEFT, 4, 5);
+    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE_HORIZON, ISC_INTENSITY_BUTTON_TOPLEFT_HORIZON, 5, 5);
 
 
     QStringList menuModel = {
-        "", "", "", "",
+        "", "", "", "", ""
     };
     m_menu_buttons.clear();
     for (const QString &b : menuModel) {
         auto button = MakeSharedQObject<CustomPushButton>(this);
-        button->setFixedSize(ISC_MENU_BUTTON_SIZE);
+        button->setFixedSize(ISC_MENU_BUTTON_SIZE_HORIZON);
         button->setVisible(true);
         button->setText(b);
 
@@ -66,5 +63,5 @@ void IntensityControl::SetupUiComponents()
         m_menu_buttons.append(button);
     }
 
-    placeChildrenIntoPanel(m_menu_buttons, ISC_MENU_BUTTON_SIZE, ISC_MENU_BUTTON_TOPLEFT, 4, 1);
+    placeChildrenIntoPanel(m_menu_buttons, ISC_MENU_BUTTON_SIZE_HORIZON, ISC_MENU_BUTTON_TOPLEFT_HORIZON, 1, 5);
 }
