@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/encoderControl/encoderControlHorizon.cpp \
     src/encoderControl/encoderSlider.cpp \
     src/encoderControl/encoderControl.cpp \
     src/trackControl/pantiltControl.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     include/colorPickerControl/customColorPickerRGB.h \
     include/colorPickerControl/customColorPickerXY.h \
     include/encoderControl/encoderControl.hpp \
+    include/encoderControl/encoderControlHorizon.h \
     include/encoderControl/encoderControl_datatypes.h \
     include/encoderControl/encoderControl_define.hpp \
     include/encoderControl/encoderSlider.h \

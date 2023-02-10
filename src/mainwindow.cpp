@@ -30,8 +30,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_intensity_control = MakeSharedQObject<IntensityControl>();
     m_intensity_control->PrepareUi();
 
-    m_encoder_control = MakeSharedQObject<EncoderPanelControl>();
+    m_encoder_control = MakeSharedQObject<EncoderControl>();
     m_encoder_control->PrepareUi();
+
+    m_encoder_control_horizon = MakeSharedQObject<EncoderControlHorizon>();
+    m_encoder_control_horizon->PrepareUi();
 }
 
 MainWindow::~MainWindow()
@@ -47,10 +50,9 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
     if (ui->checkBox_HorizontalLayout->isChecked())
     {
-        m_color_picker_control->SetDispParamData(&params);
-        m_panel_window->AttachPanelControl(m_color_picker_control);
-    }
-    else {
+        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
+        m_panel_window->AttachPanelControl(m_color_picker_control_horizon);
+    } else {
         m_color_picker_control->SetDispParamData(&params);
         m_panel_window->AttachPanelControl(m_color_picker_control);
     }
@@ -129,8 +131,13 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
     }
     params.param = data.data();
 
-    m_encoder_control->SetDispParamData(&params);
-    m_panel_window->AttachPanelControl(m_encoder_control);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_encoder_control_horizon->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_encoder_control_horizon);
+    } else {
+        m_encoder_control->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_encoder_control);
+    }
     m_panel_window->show();
     m_panel_window->raise();
 }

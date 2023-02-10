@@ -13,6 +13,7 @@
 #include "intensityControl/intensityControl.hpp"
 
 #include "encoderControl/encoderControl.hpp"
+#include "encoderControl/encoderControlHorizon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -44,6 +45,8 @@ private:
     QSharedPointer<TrackControlHorizon> m_track_control_horizon;
 
     QSharedPointer<IntensityControl> m_intensity_control;
-    QSharedPointer<EncoderPanelControl> m_encoder_control;
+
+    QSharedPointer<EncoderControl> m_encoder_control;
+    QSharedPointer<EncoderControlHorizon> m_encoder_control_horizon;
 };
 #endif // MAINWINDOW_H

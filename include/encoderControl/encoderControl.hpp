@@ -9,7 +9,7 @@
 #include <QLabel>
 #include <QVector>
 
-class EncoderPanelControl : public PanelControlBase
+class EncoderControl : public PanelControlBase
 {
     Q_OBJECT
     Q_PROPERTY(int currentEncoderPage READ currentEncoderPage WRITE setCurrentEncoderPage NOTIFY currentEncoderPageChanged)
@@ -17,7 +17,7 @@ class EncoderPanelControl : public PanelControlBase
     Q_PROPERTY(EncoderMode mode READ mode WRITE setMode NOTIFY modeChanged)
 
 public:
-    EncoderPanelControl(QWidget *parent = nullptr);
+    EncoderControl(QWidget *parent = nullptr);
     void SetDispParamData(ENCODER_DISP_PARAM *param);
 
     int currentEncoderPage() const;
@@ -39,12 +39,12 @@ signals:
 protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
-    void setupEncoderPages();
+    virtual void setupEncoderPages();
 
 protected slots:
     void onModeChanged();
 
-private:
+protected:
   QLabel m_label_title;
 
   SelectButton m_button_mode_percent;
