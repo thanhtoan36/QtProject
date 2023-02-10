@@ -36,8 +36,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_intensity_control = MakeSharedQObject<IntensityControl>();
     m_intensity_control->PrepareUi();
 
-    m_encoder_control = MakeSharedQObject<EncoderPanelControl>();
+    m_encoder_control = MakeSharedQObject<EncoderControl>();
     m_encoder_control->PrepareUi();
+
+    m_encoder_control_horizon = MakeSharedQObject<EncoderControlHorizon>();
+    m_encoder_control_horizon->PrepareUi();
 }
 
 MainWindow::~MainWindow()
@@ -53,10 +56,9 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
     if (ui->checkBox_HorizontalLayout->isChecked())
     {
-        m_color_picker_control->SetDispParamData(&params);
-        m_panel_window->AttachPanelControl(m_color_picker_control);
-    }
-    else {
+        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
+        m_panel_window->AttachPanelControl(m_color_picker_control_horizon);
+    } else {
         m_color_picker_control->SetDispParamData(&params);
         m_panel_window->AttachPanelControl(m_color_picker_control);
     }
@@ -135,8 +137,13 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
     }
     params.param = data.data();
 
-    m_encoder_control->SetDispParamData(&params);
-    m_panel_window->AttachPanelControl(m_encoder_control);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_encoder_control_horizon->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_encoder_control_horizon);
+    } else {
+        m_encoder_control->SetDispParamData(&params);
+        m_panel_window->AttachPanelControl(m_encoder_control);
+    }
     m_panel_window->show();
     m_panel_window->raise();
 }
@@ -150,15 +157,27 @@ void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
     param.tb.select = true;
     param.custom.select = false;
     param.history.select = false;
-    param.tb.count = 50;
-    param.tb.color_filter = (COLOR_FILTER_PARAM*)malloc(50*sizeof(COLOR_FILTER_PARAM));
-    for (int i = 0; i< 50;i++)
+    param.tb.count = QRandomGenerator::global()->generate()%100;
+    param.tb.color_filter = (COLOR_FILTER_PARAM*)malloc(param.tb.count*sizeof(COLOR_FILTER_PARAM));
+    for (int i = 0; i< param.tb.count;i++)
     {
         qsrand(time(0));param.tb.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
         strncpy(param.tb.color_filter[i].name, QString(QString("T")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
     }
-    param.custom.count = 0;
-    param.history.count = 0;
+    param.custom.count = QRandomGenerator::global()->generate()%100;
+    param.custom.color_filter = (COLOR_FILTER_PARAM*)malloc(param.custom.count*sizeof(COLOR_FILTER_PARAM));
+    for (int i = 0; i< param.custom.count;i++)
+    {
+        qsrand(time(0));param.custom.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
+        strncpy(param.custom.color_filter[i].name, QString(QString("C")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
+    }
+    param.history.count = QRandomGenerator::global()->generate()%100;
+    param.history.color_filter = (COLOR_FILTER_PARAM*)malloc(param.history.count*sizeof(COLOR_FILTER_PARAM));
+    for (int i = 0; i< param.history.count;i++)
+    {
+        qsrand(time(0));param.history.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
+        strncpy(param.history.color_filter[i].name, QString(QString("H")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
+    }
     control->setDispParamData(&param);
     m_panel_window->AttachPanelControl(control);
     m_panel_window->show();

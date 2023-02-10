@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <cmath>
 
-EncoderPanelControl::EncoderPanelControl(QWidget *parent)
+EncoderControl::EncoderControl(QWidget *parent)
     : PanelControlBase(parent),
       m_label_title(this),
 
@@ -19,9 +19,10 @@ EncoderPanelControl::EncoderPanelControl(QWidget *parent)
       m_mode()
 {
     setFixedSize(EC_SCREENSIZE);
+    setEncoderMatrixSize(QSize(EC_MAX_ENCODER_ITEMS, 1));
 }
 
-void EncoderPanelControl::SetDispParamData(ENCODER_DISP_PARAM *param)
+void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
 
@@ -47,13 +48,17 @@ void EncoderPanelControl::SetDispParamData(ENCODER_DISP_PARAM *param)
         m_encoders.append(slider);
     }
 
-    setEncoderMatrixSize(QSize(EC_MAX_ENCODER_ITEMS, 1));
-    setCurrentEncoderPage(0);
+    const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
+    placeChildrenIntoPanel(m_encoders, EC_ENCODER_SIZE, EC_ENCODER_PLACEMENT_START, encodersPerPage);
 
+    setCurrentEncoderPage(0);
     setupEncoderPages();
+
+    m_button_next_tab.setVisible(maxEncoderPages() > 1);
+    m_button_previous_tab.setVisible(maxEncoderPages() > 1);
 }
 
-void EncoderPanelControl::SetupUiComponents()
+void EncoderControl::SetupUiComponents()
 {
     m_label_title.setGeometry(EC_LABEL_TITLE_GEOMETRY);
     m_label_title.setObjectName("title_label");
@@ -68,14 +73,12 @@ void EncoderPanelControl::SetupUiComponents()
 
     m_button_previous_tab.setGeometry(EC_BUTTON_PREVIOUS_GEOMETRY);
     m_button_previous_tab.setText("◀");
-    m_button_previous_tab.setVisible(true);
 
     m_button_next_tab.setGeometry(EC_BUTTON_NEXT_GEOMETRY);
     m_button_next_tab.setText("▶");
-    m_button_next_tab.setVisible(true);
 }
 
-void EncoderPanelControl::SetupUiEvents()
+void EncoderControl::SetupUiEvents()
 {
     connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
         qDebug("previous");
@@ -91,37 +94,39 @@ void EncoderPanelControl::SetupUiEvents()
     connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
         setMode(ENCODER_MODE_255);
     });
-    connect(this, &EncoderPanelControl::encoderMatrixSizeChanged, this, [&](){
+    connect(this, &EncoderControl::encoderMatrixSizeChanged, this, [&](){
         setCurrentEncoderPage(0);
         setupEncoderPages();
     });
-    connect(this, &EncoderPanelControl::encoderMatrixSizeChanged, this, [&](){ setupEncoderPages(); });
-    connect(this, &EncoderPanelControl::currentEncoderPageChanged, this, [&](){ setupEncoderPages(); });
-    connect(this, &EncoderPanelControl::modeChanged, this, &EncoderPanelControl::onModeChanged);
+    connect(this, &EncoderControl::encoderMatrixSizeChanged, this, [&](){
+        setupEncoderPages();
+    });
+    connect(this, &EncoderControl::currentEncoderPageChanged, this, [&](){
+        setupEncoderPages();
+        m_button_previous_tab.setEnabled(currentEncoderPage() > 0);
+        m_button_next_tab.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
+    });
+    connect(this, &EncoderControl::modeChanged, this, &EncoderControl::onModeChanged);
 }
 
-void EncoderPanelControl::setupEncoderPages()
+void EncoderControl::setupEncoderPages()
 {
     const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
     updateChildrenVisibility(m_encoders, currentEncoderPage(), encodersPerPage);
-    placeChildrenIntoPanel(m_encoders, EC_ENCODER_SIZE, EC_ENCODER_PLACEMENT_START, encodersPerPage);
-
-    m_button_previous_tab.setEnabled(currentEncoderPage() > 0);
-    m_button_next_tab.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
 }
 
-void EncoderPanelControl::onModeChanged()
+void EncoderControl::onModeChanged()
 {
     m_button_mode_percent.setChecked(mode() == ENCODER_MODE_PERCENT);
     m_button_mode_255.setChecked(mode() == ENCODER_MODE_255);
 }
 
-int EncoderPanelControl::currentEncoderPage() const
+int EncoderControl::currentEncoderPage() const
 {
     return m_currentEncoderPage;
 }
 
-void EncoderPanelControl::setCurrentEncoderPage(int newCurrentEncoderPage)
+void EncoderControl::setCurrentEncoderPage(int newCurrentEncoderPage)
 {
     newCurrentEncoderPage = bounded(newCurrentEncoderPage, 0, maxEncoderPages() - 1);
     if (m_currentEncoderPage == newCurrentEncoderPage)
@@ -130,17 +135,17 @@ void EncoderPanelControl::setCurrentEncoderPage(int newCurrentEncoderPage)
     emit currentEncoderPageChanged();
 }
 
-int EncoderPanelControl::maxEncoderPages() const
+int EncoderControl::maxEncoderPages() const
 {
     return calulateNumberOfPages(m_encoders.length(), encoderMatrixSize().width() * encoderMatrixSize().height());
 }
 
-EncoderMode EncoderPanelControl::mode() const
+EncoderMode EncoderControl::mode() const
 {
     return m_mode;
 }
 
-void EncoderPanelControl::setMode(EncoderMode newMode)
+void EncoderControl::setMode(EncoderMode newMode)
 {
     if (m_mode == newMode)
         return;
@@ -148,12 +153,12 @@ void EncoderPanelControl::setMode(EncoderMode newMode)
     emit modeChanged();
 }
 
-QSize EncoderPanelControl::encoderMatrixSize() const
+QSize EncoderControl::encoderMatrixSize() const
 {
     return m_encoderMatrixSize;
 }
 
-void EncoderPanelControl::setEncoderMatrixSize(const QSize &newEncoderMatrixSize)
+void EncoderControl::setEncoderMatrixSize(const QSize &newEncoderMatrixSize)
 {
     if (m_encoderMatrixSize == newEncoderMatrixSize)
         return;
