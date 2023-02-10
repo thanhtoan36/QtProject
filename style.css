@@ -1,12 +1,8 @@
-QWidget {
-    font-family: MS PGothic;
-    font-size: 15px;
+QLabel#title_label {
+    font-size: 22px;
     font-weight: bold;
 }
-QLabel#title_label{
-    font-size: 22px;
-}
-QLabel#title_label_horizon{
+QLabel#title_label_horizon {
     font-size: 22px;
     border: 1px solid gray;
 }

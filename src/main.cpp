@@ -12,5 +12,11 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
+    font.setPixelSize(16);
+
+    QApplication::setFont(font);
+
     return a.exec();
 }

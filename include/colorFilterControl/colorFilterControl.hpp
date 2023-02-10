@@ -9,9 +9,23 @@
 #include "utility.h"
 #include <QLabel>
 
+#define PAGE_SIZE 16
+enum COLOR_FILTER_MODE
+{
+    COLOR_FILTER_MODE_TAB1,
+    COLOR_FILTER_MODE_TAB2,
+    COLOR_FILTER_MODE_HISTORY
+};
+
 class ColorFilterControl : public PanelControlBase
 {
+    Q_OBJECT
+    Q_PROPERTY(int currentTab1Page READ currentTab1Page WRITE setCurrentTab1Page NOTIFY currentTab1PageChanged)
+    Q_PROPERTY(int currentTab2Page READ currentTab2Page WRITE setCurrentTab2Page NOTIFY currentTab2PageChanged)
+    Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
+    Q_PROPERTY(COLOR_FILTER_MODE mode READ mode WRITE setMode NOTIFY modeChanged)
 public:
+
     explicit ColorFilterControl(QWidget* parent = nullptr);
 
     void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
@@ -19,6 +33,27 @@ public:
     void ScrollUp();
 
     void ScrollDown();
+
+    int currentTab1Page() const;
+    void setCurrentTab1Page(int newCurrentTab1Page);
+
+    int currentTab2Page() const;
+    void setCurrentTab2Page(int newCurrentTab2Page);
+
+    int currentHistoryPage() const;
+    void setCurrentHistoryPage(int newCurrentHistoryPage);
+
+    COLOR_FILTER_MODE mode() const;
+    void setMode(COLOR_FILTER_MODE newMode);
+
+signals:
+    void currentTab1PageChanged();
+
+    void currentTab2PageChanged();
+
+    void currentHistoryPageChanged();
+
+    void modeChanged();
 
 protected:
     virtual void SetupUiComponents();
@@ -50,6 +85,11 @@ protected:
 
     uint32_t m_current_scroll_step = 0;
 
+private:
+    int m_currentTab1Page;
+    int m_currentTab2Page;
+    int m_currentHistoryPage;
+    COLOR_FILTER_MODE m_mode;
 };
 
 #endif // COLORFILTERCONTROL_H
