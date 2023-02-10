@@ -16,7 +16,6 @@ EncoderPanelControl::EncoderPanelControl(QWidget *parent)
       m_button_next_tab(this),
       m_encoders(),
       m_currentEncoderPage(0),
-      m_encodersPerPage(1),
       m_mode()
 {
     setFixedSize(EC_SCREENSIZE);
@@ -27,6 +26,7 @@ void EncoderPanelControl::SetDispParamData(ENCODER_DISP_PARAM *param)
     Q_ASSERT(param);
 
     setMode(param->mode);
+    onModeChanged();
 
     m_encoders.clear();
     for (int i = 0; i < param->count; ++i) {
@@ -47,11 +47,10 @@ void EncoderPanelControl::SetDispParamData(ENCODER_DISP_PARAM *param)
         m_encoders.append(slider);
     }
 
-    setEncodersPerPage(EC_MAX_ENCODER_ITEMS);
+    setEncoderMatrixSize(QSize(EC_MAX_ENCODER_ITEMS, 1));
     setCurrentEncoderPage(0);
-    setMaxEncoderPages(calulateNumberOfPages(m_encoders.length(), EC_MAX_ENCODER_ITEMS));
 
-    updateEncoders();
+    setupEncoderPages();
 }
 
 void EncoderPanelControl::SetupUiComponents()
@@ -92,15 +91,29 @@ void EncoderPanelControl::SetupUiEvents()
     connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
         setMode(ENCODER_MODE_255);
     });
+    connect(this, &EncoderPanelControl::encoderMatrixSizeChanged, this, [&](){
+        setCurrentEncoderPage(0);
+        setupEncoderPages();
+    });
+    connect(this, &EncoderPanelControl::encoderMatrixSizeChanged, this, [&](){ setupEncoderPages(); });
+    connect(this, &EncoderPanelControl::currentEncoderPageChanged, this, [&](){ setupEncoderPages(); });
+    connect(this, &EncoderPanelControl::modeChanged, this, &EncoderPanelControl::onModeChanged);
 }
 
-void EncoderPanelControl::updateEncoders()
+void EncoderPanelControl::setupEncoderPages()
 {
-    updateChildrenVisibility(m_encoders, currentEncoderPage(), encodersPerPage());
-    placeChildrenIntoPanel(m_encoders, EC_ENCODER_SIZE, EC_ENCODER_PLACEMENT_START, encodersPerPage());
+    const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
+    updateChildrenVisibility(m_encoders, currentEncoderPage(), encodersPerPage);
+    placeChildrenIntoPanel(m_encoders, EC_ENCODER_SIZE, EC_ENCODER_PLACEMENT_START, encodersPerPage);
 
     m_button_previous_tab.setEnabled(currentEncoderPage() > 0);
     m_button_next_tab.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
+}
+
+void EncoderPanelControl::onModeChanged()
+{
+    m_button_mode_percent.setChecked(mode() == ENCODER_MODE_PERCENT);
+    m_button_mode_255.setChecked(mode() == ENCODER_MODE_255);
 }
 
 int EncoderPanelControl::currentEncoderPage() const
@@ -115,38 +128,11 @@ void EncoderPanelControl::setCurrentEncoderPage(int newCurrentEncoderPage)
         return;
     m_currentEncoderPage = newCurrentEncoderPage;
     emit currentEncoderPageChanged();
-    updateEncoders();
 }
 
 int EncoderPanelControl::maxEncoderPages() const
 {
-    return m_maxEncoderPages;
-}
-
-void EncoderPanelControl::setMaxEncoderPages(int newMaxEncoderPages)
-{
-    if (m_maxEncoderPages == newMaxEncoderPages)
-        return;
-    m_maxEncoderPages = newMaxEncoderPages;
-    emit maxEncoderPagesChanged();
-
-    setCurrentEncoderPage(0);
-    updateEncoders();
-}
-
-int EncoderPanelControl::encodersPerPage() const
-{
-    return m_encodersPerPage;
-}
-
-void EncoderPanelControl::setEncodersPerPage(int newEncodersPerPage)
-{
-    // minimum 1 item per page
-    newEncodersPerPage = bounded(newEncodersPerPage, 1, newEncodersPerPage);
-    if (m_encodersPerPage == newEncodersPerPage)
-        return;
-    m_encodersPerPage = newEncodersPerPage;
-    emit encodersPerPageChanged();
+    return calulateNumberOfPages(m_encoders.length(), encoderMatrixSize().width() * encoderMatrixSize().height());
 }
 
 EncoderMode EncoderPanelControl::mode() const
@@ -156,11 +142,21 @@ EncoderMode EncoderPanelControl::mode() const
 
 void EncoderPanelControl::setMode(EncoderMode newMode)
 {
-    m_button_mode_percent.setChecked(newMode == ENCODER_MODE_PERCENT);
-    m_button_mode_255.setChecked(newMode == ENCODER_MODE_255);
-
     if (m_mode == newMode)
         return;
     m_mode = newMode;
     emit modeChanged();
+}
+
+QSize EncoderPanelControl::encoderMatrixSize() const
+{
+    return m_encoderMatrixSize;
+}
+
+void EncoderPanelControl::setEncoderMatrixSize(const QSize &newEncoderMatrixSize)
+{
+    if (m_encoderMatrixSize == newEncoderMatrixSize)
+        return;
+    m_encoderMatrixSize = newEncoderMatrixSize;
+    emit encoderMatrixSizeChanged();
 }

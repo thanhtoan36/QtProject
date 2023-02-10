@@ -34,8 +34,8 @@ void placeChildrenIntoPanel(QVector<QSharedPointer<T>> &children, QSize childSiz
         const int row = visualIndex / itemsPerRow;
         const int col = visualIndex % itemsPerRow;
 
-        auto &slider = children[i];
-        slider->move(topLeft + QPoint(col * childSize.width(), row * childSize.height()));
+        auto &child = children[i];
+        child->move(topLeft + QPoint(col * childSize.width(), row * childSize.height()));
     }
 }
 

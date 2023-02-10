@@ -13,8 +13,7 @@ class EncoderPanelControl : public PanelControlBase
 {
     Q_OBJECT
     Q_PROPERTY(int currentEncoderPage READ currentEncoderPage WRITE setCurrentEncoderPage NOTIFY currentEncoderPageChanged)
-    Q_PROPERTY(int maxEncoderPages READ maxEncoderPages WRITE setMaxEncoderPages NOTIFY maxEncoderPagesChanged)
-    Q_PROPERTY(int encodersPerPage READ encodersPerPage WRITE setEncodersPerPage NOTIFY encodersPerPageChanged)
+    Q_PROPERTY(QSize encoderMatrixSize READ encoderMatrixSize WRITE setEncoderMatrixSize NOTIFY encoderMatrixSizeChanged)
     Q_PROPERTY(EncoderMode mode READ mode WRITE setMode NOTIFY modeChanged)
 
 public:
@@ -25,25 +24,25 @@ public:
     void setCurrentEncoderPage(int newCurrentEncoderPage);
 
     int maxEncoderPages() const;
-    void setMaxEncoderPages(int newMaxEncoderPages);
-
-    int encodersPerPage() const;
-    void setEncodersPerPage(int newEncodersPerPage);
 
     EncoderMode mode() const;
     void setMode(EncoderMode newMode);
 
+    QSize encoderMatrixSize() const;
+    void setEncoderMatrixSize(const QSize &newEncoderMatrixSize);
+
 signals:
     void currentEncoderPageChanged();
-    void maxEncoderPagesChanged();
-    void encodersPerPageChanged();
-
     void modeChanged();
+    void encoderMatrixSizeChanged();
 
 protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
-    void updateEncoders();
+    void setupEncoderPages();
+
+protected slots:
+    void onModeChanged();
 
 private:
   QLabel m_label_title;
@@ -57,9 +56,8 @@ private:
 
   QVector<QSharedPointer<EncoderSlider>> m_encoders;
   int m_currentEncoderPage;
-  int m_maxEncoderPages;
-  int m_encodersPerPage;
   EncoderMode m_mode;
+  QSize m_encoderMatrixSize;
 };
 
 #endif // ENCODERCONTROL_H
