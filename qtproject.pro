@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     src/baseComponent/selectColorButton.cpp \
+    src/colorFilterControl/colorFilterControlHorizon.cpp \
     src/encoderControl/encoderControlHorizon.cpp \
     src/encoderControl/encoderSlider.cpp \
     src/encoderControl/encoderControl.cpp \
@@ -54,6 +55,8 @@ HEADERS += \
     include/baseComponent/titleSelectButton.h \
     include/baseComponent/toggleButton.h \
     include/colorFilterControl/colorFilterControl.hpp \
+    include/colorFilterControl/colorFilterControlHorizon.h \
+    include/colorFilterControl/colorFilterControlHorizon_define.h \
     include/colorFilterControl/colorFilterControl_datatypes.h \
     include/colorFilterControl/colorFilterControl_define.hpp \
     include/colorPickerControl/cieaux.h \

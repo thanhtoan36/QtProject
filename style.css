@@ -3,7 +3,7 @@ QLabel#title_label {
     font-weight: bold;
 }
 QLabel#title_label_horizon {
-    font-size: 22px;
+    font-size: 16px;
     border: 1px solid gray;
 }
 QAbstractButton{

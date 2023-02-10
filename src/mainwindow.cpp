@@ -5,7 +5,6 @@
 #include "trackControl/trackControl.hpp"
 #include "trackControl/trackControlHorizon.h"
 #include "intensityControl/intensityControl.hpp"
-#include "colorFilterControl/colorFilterControl.hpp"
 #include "utility.h"
 
 #include <cstring>
@@ -41,6 +40,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_encoder_control_horizon = MakeSharedQObject<EncoderControlHorizon>();
     m_encoder_control_horizon->PrepareUi();
+
+    m_color_filter_control= MakeSharedQObject<ColorFilterControl>();
+    m_color_filter_control->PrepareUi();
+
+    m_color_filter_control_horizon = MakeSharedQObject<ColorFilterControlHorizon>();
+    m_color_filter_control_horizon->PrepareUi();
 }
 
 MainWindow::~MainWindow()
@@ -151,8 +156,6 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
 
 void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
 {
-    auto control = MakeSharedQObject<ColorFilterControl>();
-    control->PrepareUi();
     COLOR_FILTER_DISP_PARAM param;
     param.tb.select = true;
     param.custom.select = false;
@@ -178,8 +181,14 @@ void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
         qsrand(time(0));param.history.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
         strncpy(param.history.color_filter[i].name, QString(QString("H")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
     }
-    control->setDispParamData(&param);
-    m_panel_window->AttachPanelControl(control);
+
+    if (!ui->checkBox_HorizontalLayout->isChecked()) {
+        m_color_filter_control->setDispParamData(&param);
+        m_panel_window->AttachPanelControl(m_color_filter_control);
+    } else {
+        m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+        m_panel_window->AttachPanelControl(m_color_filter_control_horizon);
+    }
     m_panel_window->show();
     m_panel_window->raise();
 }

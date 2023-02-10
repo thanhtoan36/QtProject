@@ -15,6 +15,9 @@
 #include "encoderControl/encoderControl.hpp"
 #include "encoderControl/encoderControlHorizon.h"
 
+#include "colorFilterControl/colorFilterControl.hpp"
+#include "colorFilterControl/colorFilterControlHorizon.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -52,5 +55,9 @@ private:
 
     QSharedPointer<EncoderControl> m_encoder_control;
     QSharedPointer<EncoderControlHorizon> m_encoder_control_horizon;
+
+    QSharedPointer<ColorFilterControl> m_color_filter_control;
+    QSharedPointer<ColorFilterControlHorizon> m_color_filter_control_horizon;
+
 };
 #endif // MAINWINDOW_H

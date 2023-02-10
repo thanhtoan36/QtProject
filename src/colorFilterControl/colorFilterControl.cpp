@@ -52,10 +52,6 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setText(param->tb.color_filter[i].name);
         button->SetBackgroundColor(param->tb.color_filter[i].color);
         button->setGeometry(a);
-        if (i > PAGE_SIZE - 1)
-        {
-            button->setVisible(false);
-        }
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onTBTabButtonChecked(i,sender());
         });
@@ -69,10 +65,6 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setText(param->custom.color_filter[i].name);
         button->SetBackgroundColor(param->custom.color_filter[i].color);
         button->setGeometry(a);
-        if (i > PAGE_SIZE - 1)
-        {
-            button->setVisible(false);
-        }
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onCustomTabButtonChecked(i,sender());
         });
@@ -86,10 +78,6 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->SetBackgroundColor(param->history.color_filter[i].color);
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
         button->setGeometry(a);
-        if (i > PAGE_SIZE - 1)
-        {
-            button->setVisible(false);
-        }
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onHistoryButtonChecked(i,sender());
         });
@@ -98,14 +86,17 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
     if (param->tb.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB1);
+        updateTBTabPage();
     }
     else if (param->custom.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB2);
+        updateCustomTabPage();
     }
     else if (param->history.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB2);
+        updateHistoryPage();
     }
 
 }
@@ -237,7 +228,7 @@ void ColorFilterControl::SetupUiEvents()
         if (m_history_button.isChecked())
         {
             setMode(COLOR_FILTER_MODE_HISTORY);
-            m_title_label.setText("カラーフィルタ (最近使った\nもの)");
+            m_title_label.setText("カラーフィルタ (最近使ったもの)");
         }
         else
         {
@@ -327,6 +318,7 @@ void ColorFilterControl::onModeChanged()
         updateTBTabPage();
         m_tb_tab_button.setChecked(true);
         m_custom_tab_button.setChecked(false);
+        m_history_button.setChecked(false);
         m_up_button.setEnabled(currentTBTabPage() > 0);
         m_down_button.setEnabled(currentTBTabPage() < maxTBTabPages() - 1);
     }
@@ -352,6 +344,7 @@ void ColorFilterControl::onModeChanged()
         updateCustomTabPage();
         m_tb_tab_button.setChecked(false);
         m_custom_tab_button.setChecked(true);
+        m_history_button.setChecked(false);
         m_up_button.setEnabled(currentCustomTabPage() > 0);
         m_down_button.setEnabled(currentCustomTabPage() < maxCustomTabPages() - 1);
     }
@@ -375,7 +368,14 @@ void ColorFilterControl::onModeChanged()
             btn->setVisible(false);
         }
 
+        for(auto& btn : m_children_history)
+        {
+            btn->setVisible(true);
+        }
+
         updateHistoryPage();
+        m_tb_tab_button.setChecked(false);
+        m_custom_tab_button.setChecked(false);
         m_up_button.setEnabled(currentHistoryPage() > 0);
         m_down_button.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
     }
