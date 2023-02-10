@@ -10,7 +10,9 @@
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "trackControl/trackControl.hpp"
 #include "trackControl/trackControlHorizon.h"
+
 #include "intensityControl/intensityControl.hpp"
+#include "intensityControl/intensityControlHorizon.h"
 
 #include "encoderControl/encoderControl.hpp"
 #include "encoderControl/encoderControlHorizon.h"
@@ -52,6 +54,7 @@ private:
     QSharedPointer<TrackControlHorizon> m_track_control_horizon;
 
     QSharedPointer<IntensityControl> m_intensity_control;
+    QSharedPointer<IntensityControlHorizon> m_intensity_control_horizon;
 
     QSharedPointer<EncoderControl> m_encoder_control;
     QSharedPointer<EncoderControlHorizon> m_encoder_control_horizon;

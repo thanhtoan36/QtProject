@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_intensity_control = MakeSharedQObject<IntensityControl>();
     m_intensity_control->PrepareUi();
 
+    m_intensity_control_horizon = MakeSharedQObject<IntensityControlHorizon>();
+    m_intensity_control_horizon->PrepareUi();
+
     m_encoder_control = MakeSharedQObject<EncoderControl>();
     m_encoder_control->PrepareUi();
 
@@ -119,7 +122,11 @@ void MainWindow::on_TrackControl_Fake_Open_clicked()
 
 void MainWindow::on_IntensityControl_Fake_Open_clicked()
 {
-    m_panel_window->AttachPanelControl(m_intensity_control);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_panel_window->AttachPanelControl(m_intensity_control_horizon);
+    } else {
+        m_panel_window->AttachPanelControl(m_intensity_control);
+    }
     m_panel_window->show();
     m_panel_window->raise();
 }

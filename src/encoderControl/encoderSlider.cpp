@@ -25,9 +25,11 @@ EncoderSlider::EncoderSlider(QWidget *parent)
 
     connect(&m_button_decrease, &QAbstractButton::clicked, this, [&](){
         setValue(value() - singleStep());
+        emit sliderMoved(value());
     });
     connect(&m_button_increase, &QAbstractButton::clicked, this, [&](){
         setValue(value() + singleStep());
+        emit sliderMoved(value());
     });
     connect(this, &QAbstractSlider::valueChanged, this, [&](){
         // limit the slider movement
