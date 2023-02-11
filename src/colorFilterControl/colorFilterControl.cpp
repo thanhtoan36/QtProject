@@ -17,6 +17,7 @@
 #define BASE_BUTTON_HEIGHT CFC_BUTTON1_GEOMETRY.height()
 
 ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(parent),
+    m_grid(this),
     m_title_label(this),
     m_tb_tab_button(this),
     m_custom_tab_button(this),
@@ -44,6 +45,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
 void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
+    m_tb_tab_buttons.clear();
     for (uint16_t i = 0; i < param->tb.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
@@ -57,6 +59,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         });
 
     }
+    m_custom_tab_buttons.clear();
     for (uint16_t i = 0; i < param->custom.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
@@ -70,6 +73,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         });
 
     }
+    m_history_buttons.clear();
     for (uint16_t i = 0; i < param->history.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
@@ -97,6 +101,9 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
     }
     onModeChanged();
 
+    m_grid.setGridSize(QSize(6, 6));
+    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.move(0, 32);
 }
 
 void ColorFilterControl::ScrollUp()

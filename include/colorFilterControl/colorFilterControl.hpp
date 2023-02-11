@@ -5,6 +5,7 @@
 #include "baseComponent/selectColorButton.h"
 #include "baseComponent/selectButton.h"
 #include "baseComponent/customPushButton.h"
+#include "baseComponent/gridBackground.h"
 #include "colorFilterControl_datatypes.h"
 #include "utility.h"
 #include <QLabel>
@@ -108,6 +109,7 @@ protected:
     virtual void SetupUiEvents();
 
 protected:
+    GridBackground m_grid;
     QLabel m_title_label;
     SelectButton m_tb_tab_button;
     SelectButton m_custom_tab_button;

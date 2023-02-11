@@ -24,6 +24,7 @@ ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFil
 void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
+    m_tb_tab_buttons.clear();
     for (uint16_t i = 0; i < param->tb.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
@@ -41,6 +42,7 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         });
 
     }
+    m_custom_tab_buttons.clear();
     for (uint16_t i = 0; i < param->custom.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
@@ -58,6 +60,7 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         });
 
     }
+    m_history_buttons.clear();
     for (uint16_t i = 0; i < param->history.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
@@ -87,6 +90,9 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
     {
         setMode(COLOR_FILTER_MODE_TAB2);
     }
+    m_grid.setGridSize(QSize(7, 5));
+    m_grid.setCellSize(QSize(78, 48));
+    m_grid.move(0, 34);
 }
 
 void ColorFilterControlHorizon::SetupUiComponents()
