@@ -2,19 +2,19 @@
 #include "baseComponent/designPolicyDefine.h"
 #include <QDebug>
 
+#define TITLE_PADDING 1
+
 TitleSelectButton::TitleSelectButton(QWidget *parent) : SelectButton(parent),
     m_titleVisible(true),
     m_title(),
     m_title_label(this)
 {
-    m_title_label.resize(width(), 15);
-    m_title_label.move(0, height() - m_title_label.height());
+    m_title_label.resize(width() - 2 * TITLE_PADDING, 12);
+    m_title_label.move(TITLE_PADDING, height() - m_title_label.height() - TITLE_PADDING);
     m_title_label.setObjectName("select_button_title_label");
 
     setBackgroundColor(Qt::black);
     setSelectedBackgroundColor(Qt::black);
-
-    setTitle("test");
 }
 
 bool TitleSelectButton::titleVisible() const
@@ -50,6 +50,6 @@ void TitleSelectButton::setTitle(const QString &newTitle)
 void TitleSelectButton::resizeEvent(QResizeEvent *event)
 {
     SelectButton::resizeEvent(event);
-    m_title_label.setGeometry(0, height() - m_title_label.height(),
-                              width(), m_title_label.height());
+    m_title_label.setGeometry(TITLE_PADDING, height() - m_title_label.height() - TITLE_PADDING,
+                              width() - 2 * TITLE_PADDING, m_title_label.height());
 }

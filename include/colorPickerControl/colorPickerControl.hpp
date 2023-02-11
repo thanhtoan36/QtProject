@@ -43,7 +43,7 @@ protected:
     QColor m_pickerColor;
 
     QLabel m_label_title;
-    TitleSelectButton m_button_xy;
+    SelectButton m_button_xy;
     SelectButton m_button_rgb;
 
     CustomPushButton m_button_previous_tab; // ◀

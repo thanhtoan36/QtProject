@@ -1,6 +1,5 @@
 QLabel {
     font-size: 16px;
-    background-color: rgb(22,22,22);
     color: rgb(191,191,191);
     qproperty-alignment: AlignCenter;
 }
@@ -20,7 +19,7 @@ QLabel#graph_axis_label {
     color: lightgray;
 }
 QLabel#select_button_title_label {
-    font-size: 16px;
+    font-size: 11px;
     color: rgb(217, 217, 217);
     background-color: rgb(87, 87, 87);
 }

@@ -8,7 +8,6 @@
 static const char * stylesheetTemplate = R"~(
 
 CustomToggleButtonBase:checked {
-    border-width: 2px;
     border-style: inset;
 
     background: )~" CSS_BG_COLOR_CHECKED R"~(;
