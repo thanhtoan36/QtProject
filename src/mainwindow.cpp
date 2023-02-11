@@ -50,8 +50,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_color_filter_control_horizon = MakeSharedQObject<ColorFilterControlHorizon>();
     m_color_filter_control_horizon->PrepareUi();
 
-    m_input_num_control = MakeSharedQObject<InputNumPanelControl>();
+    m_input_num_control = MakeSharedQObject<InputNumControl>();
     m_input_num_control->PrepareUi();
+
+    m_input_num_control_horizon = MakeSharedQObject<InputNumControlHorizon>();
+    m_input_num_control_horizon->PrepareUi();
 }
 
 MainWindow::~MainWindow()
@@ -249,7 +252,8 @@ void MainWindow::on_InputNumControl_Fake_Open_clicked()
         m_input_num_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_input_num_control);
     } else {
-        //m_panel_window->AttachPanelControl(m_color_filter_control_horizon);
+        m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+        m_panel_window->AttachPanelControl(m_input_num_control_horizon);
     }
     m_panel_window->show();
     m_panel_window->raise();

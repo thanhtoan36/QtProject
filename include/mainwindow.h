@@ -21,6 +21,7 @@
 #include "colorFilterControl/colorFilterControlHorizon.h"
 
 #include "inputNumControl/inputNumControl.hpp"
+#include "inputNumControl/inputNumControlHorizon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -66,6 +67,7 @@ private:
     QSharedPointer<ColorFilterControl> m_color_filter_control;
     QSharedPointer<ColorFilterControlHorizon> m_color_filter_control_horizon;
 
-    QSharedPointer<InputNumPanelControl> m_input_num_control;
+    QSharedPointer<InputNumControl> m_input_num_control;
+    QSharedPointer<InputNumControlHorizon> m_input_num_control_horizon;
 };
 #endif // MAINWINDOW_H

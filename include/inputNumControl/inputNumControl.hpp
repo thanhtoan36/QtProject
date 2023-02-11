@@ -8,7 +8,7 @@
 #include "baseComponent/gridBackground.h"
 #include <QLabel>
 
-class InputNumPanelControl : public PanelControlBase
+class InputNumControl : public PanelControlBase
 {
     Q_OBJECT
     Q_PROPERTY(InputNumMode mode READ mode WRITE setMode NOTIFY modeChanged)
@@ -16,7 +16,7 @@ class InputNumPanelControl : public PanelControlBase
     Q_PROPERTY(int currentButtonModePage READ currentButtonModePage WRITE setCurrentButtonModePage NOTIFY currentButtonModePageChanged)
 
 public:
-    explicit InputNumPanelControl(QWidget* parent = nullptr);
+    explicit InputNumControl(QWidget* parent = nullptr);
     void SetDispParamData(INPUT_NUM_DISP_PARAM *param);
 
     InputNumMode mode() const;
@@ -46,9 +46,9 @@ protected:
     void onButtonModeControlCheck(const int index, QObject* sender);
 
 protected slots:
-    void onModeChanged();
-    void onTypeChanged();
-    void onCurrentButtonModePageChanged();
+    virtual void onModeChanged();
+    virtual void onTypeChanged();
+    virtual void onCurrentButtonModePageChanged();
     void onButtonMode255Clicked(const bool check);
     void onButtonModeAngelClicked(const bool check);
     void onButtonModePercentClicked(const bool check);

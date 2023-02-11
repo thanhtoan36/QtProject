@@ -15,6 +15,7 @@ SOURCES += \
     src/encoderControl/encoderControlHorizon.cpp \
     src/encoderControl/encoderSlider.cpp \
     src/encoderControl/encoderControl.cpp \
+    src/inputNumControl/inputNumControlHorizon.cpp \
     src/intensityControl/intensityControlHorizon.cpp \
     src/trackControl/pantiltControl.cpp \
     src/trackControl/trackControlHorizon.cpp \
@@ -79,6 +80,8 @@ HEADERS += \
     include/groupLibContol/groupLibControl.hpp \
     include/groupLibContol/groupLibControl_define.hpp \
     include/inputNumControl/inputNumControl.hpp \
+    include/inputNumControl/inputNumControlHorizon.h \
+    include/inputNumControl/inputNumControlHorizon_define.h \
     include/inputNumControl/inputNumControl_datatypes.h \
     include/inputNumControl/inputNumControl_define.hpp \
     include/intensityControl/intensityControl.hpp \
