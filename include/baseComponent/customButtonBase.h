@@ -51,7 +51,6 @@ signals:
     void borderColorChanged();
 
     void disabledBackgroundColorChanged();
-
     void disabledBorderColorChanged();
 
     void disabledTextColorChanged();

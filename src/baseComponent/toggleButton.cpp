@@ -10,12 +10,13 @@ ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent), m_
     m_check_label.setGeometry(2,2,10,10);
 
 
-    connect(this, &QAbstractButton::toggled, this, [&](bool checked) {
+    connect(this, &QAbstractButton::toggled, this, [&](bool) {
        m_check_label.setVisible(isChecked() && checkMarkVisible());
     });
     connect(this, &ToggleButton::checkMarkVisibleChanged, this, [&]() {
        m_check_label.setVisible(isChecked() && checkMarkVisible());
     });
+
     setCheckMarkVisible(false);
     m_check_label.setVisible(isChecked() && checkMarkVisible());
 }
