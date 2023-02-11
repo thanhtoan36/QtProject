@@ -23,7 +23,7 @@
 #include "inputNumControl/inputNumControl.hpp"
 #include "inputNumControl/inputNumControlHorizon.h"
 
-#include "groupControl/groupControl.hpp"
+#include "groupControl/groupControlHorizon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -75,5 +75,6 @@ private:
     QSharedPointer<InputNumControlHorizon> m_input_num_control_horizon;
 
     QSharedPointer<GroupControl> m_group_control;
+    QSharedPointer<GroupControlHorizon> m_group_control_horizon;
 };
 #endif // MAINWINDOW_H

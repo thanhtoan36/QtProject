@@ -23,11 +23,7 @@ public:
     int currentHistoryPage() const;
     void setCurrentHistoryPage(int newCurrentHistoryPage);
 
-    void updateGroupPage();
-    void updateHistoryPage();
 
-    int maxGroupPages() const;
-    int maxHistoryPages() const;
 
     void onButtonGroupCheck(const uint32_t index, QObject* sender);
     void onButtonHistoryCheck(const uint32_t index, QObject* sender);
@@ -40,6 +36,12 @@ signals:
 protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
+
+    virtual void updateGroupPage();
+    virtual void updateHistoryPage();
+
+    virtual int maxGroupPages() const;
+    virtual int maxHistoryPages() const;
 
 protected:
     GridBackground m_grid;

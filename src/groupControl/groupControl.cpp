@@ -33,6 +33,7 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
     Q_ASSERT(param);
     m_group_buttons.clear();
     m_history_buttons.clear();
+    setCurrentGroupPage(0);
     for (int i = 0; i< param->group.count;i++)
     {
         auto button =  MakeSharedQObject<TitleSelectButton>(this);

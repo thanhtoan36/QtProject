@@ -59,6 +59,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_group_control = MakeSharedQObject<GroupControl>();
     m_group_control->PrepareUi();
 
+    m_group_control_horizon = MakeSharedQObject<GroupControlHorizon>();
+    m_group_control_horizon->PrepareUi();
+
 }
 
 MainWindow::~MainWindow()
@@ -274,11 +277,13 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
     qDebug() << param.group.count;
     for (int i=0;i< param.group.count;i++)
     {
+        param.group.group_param[i].select = false;
         strncpy(param.group.group_param[i].title, ("tG"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
         strncpy(param.group.group_param[i].group_no, ("G"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
     }
     for (int i=0;i< param.history.count;i++)
     {
+        param.history.group_param[i].select = false;
         strncpy(param.history.group_param[i].title, ("tH"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
         strncpy(param.history.group_param[i].group_no, ("H"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
     }
@@ -286,7 +291,9 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
         m_group_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_group_control);
     } else {
-        //m_panel_window->AttachPanelControl(m_input_num_control_horizon);
+        m_group_control_horizon->SetDispParamDataHorizon(&param);
+        m_panel_window->AttachPanelControl(m_group_control_horizon);
+
     }
     m_panel_window->show();
     m_panel_window->raise();
