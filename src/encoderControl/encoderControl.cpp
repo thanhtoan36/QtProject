@@ -8,7 +8,6 @@
 EncoderControl::EncoderControl(QWidget *parent)
     : PanelControlBase(parent),
       m_label_title(this),
-
       m_button_mode_percent(this),
       m_button_mode_255(this),
       m_button_empty1(this),

@@ -20,6 +20,8 @@
 #include "colorFilterControl/colorFilterControl.hpp"
 #include "colorFilterControl/colorFilterControlHorizon.h"
 
+#include "inputNumControl/inputNumControl.hpp"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -43,6 +45,8 @@ private slots:
     void on_EncoderControl_Fake_Open_clicked();
 
 
+    void on_InputNumControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();
@@ -62,5 +66,6 @@ private:
     QSharedPointer<ColorFilterControl> m_color_filter_control;
     QSharedPointer<ColorFilterControlHorizon> m_color_filter_control_horizon;
 
+    QSharedPointer<InputNumPanelControl> m_input_num_control;
 };
 #endif // MAINWINDOW_H

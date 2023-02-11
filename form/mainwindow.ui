@@ -218,6 +218,9 @@
        <height>41</height>
       </rect>
      </property>
+     <property name="maxVisibleItems">
+      <number>23</number>
+     </property>
      <item>
       <property name="text">
        <string>INPUT_NUM_TYPE_COLOR</string>

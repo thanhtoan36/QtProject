@@ -49,6 +49,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_color_filter_control_horizon = MakeSharedQObject<ColorFilterControlHorizon>();
     m_color_filter_control_horizon->PrepareUi();
+
+    m_input_num_control = MakeSharedQObject<InputNumPanelControl>();
+    m_input_num_control->PrepareUi();
 }
 
 MainWindow::~MainWindow()
@@ -195,6 +198,58 @@ void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
     } else {
         m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
         m_panel_window->AttachPanelControl(m_color_filter_control_horizon);
+    }
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
+
+void MainWindow::on_InputNumControl_Fake_Open_clicked()
+{
+    INPUT_NUM_DISP_PARAM param;
+    QString start;
+    if (ui->InputNumControl_Fake_Type->currentIndex() == 0)
+    {
+        param.type = INPUT_NUM_TYPE_COLOR;
+        start = "Color";
+    }
+    else if(ui->InputNumControl_Fake_Type->currentIndex() == 1)
+    {
+        param.type = INPUT_NUM_TYPE_POSITION;
+        start = "Pos";
+    }
+    else if(ui->InputNumControl_Fake_Type->currentIndex() == 2)
+    {
+        param.type = INPUT_NUM_TYPE_GOBO;
+        start = "Gobo";
+    }
+    else if(ui->InputNumControl_Fake_Type->currentIndex() == 3)
+    {
+        param.type = INPUT_NUM_TYPE_BEAM_SHUTTER;
+        start = "Shutter";
+    }
+    else if(ui->InputNumControl_Fake_Type->currentIndex() == 4)
+    {
+        param.type = INPUT_NUM_TYPE_CONTROL;
+        start = "Control";
+    }
+    param.mode  = INPUT_NUM_MODE_255;
+    param.count = QRandomGenerator::global()->generate()%10;
+    param.param = (INPUT_NUM_PARAM*)malloc(param.count * sizeof(INPUT_NUM_PARAM));
+
+    qDebug() << param.count ;
+
+    for (int i=0 ; i< param.count ; i++)
+    {
+        param.param[i].select = false;
+        strncpy(param.param[i].name, (start+QString::number(i)).toLocal8Bit().data(), INPUT_NUM_NAME_SIZE);
+    }
+
+    if (!ui->checkBox_HorizontalLayout->isChecked()) {
+        m_input_num_control->SetDispParamData(&param);
+        m_panel_window->AttachPanelControl(m_input_num_control);
+    } else {
+        //m_panel_window->AttachPanelControl(m_color_filter_control_horizon);
     }
     m_panel_window->show();
     m_panel_window->raise();
