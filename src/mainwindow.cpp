@@ -55,6 +55,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_input_num_control_horizon = MakeSharedQObject<InputNumControlHorizon>();
     m_input_num_control_horizon->PrepareUi();
+
+    m_group_control = MakeSharedQObject<GroupControl>();
+    m_group_control->PrepareUi();
+
 }
 
 MainWindow::~MainWindow()
@@ -254,6 +258,35 @@ void MainWindow::on_InputNumControl_Fake_Open_clicked()
     } else {
         m_input_num_control_horizon->SetDispParamDataHorizon(&param);
         m_panel_window->AttachPanelControl(m_input_num_control_horizon);
+    }
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
+
+void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
+{
+    GROUP_DISP_PARAM param;
+    param.group.count = QRandomGenerator::global()->generate()%100;
+    param.history.count = QRandomGenerator::global()->generate()%100;
+    param.group.group_param = (GROUP_PARAM*)malloc(param.group.count*sizeof(GROUP_PARAM));
+    param.history.group_param = (GROUP_PARAM*)malloc(param.history.count*sizeof(GROUP_PARAM));
+    qDebug() << param.group.count;
+    for (int i=0;i< param.group.count;i++)
+    {
+        strncpy(param.group.group_param[i].title, ("tG"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
+        strncpy(param.group.group_param[i].group_no, ("G"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
+    }
+    for (int i=0;i< param.history.count;i++)
+    {
+        strncpy(param.history.group_param[i].title, ("tH"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
+        strncpy(param.history.group_param[i].group_no, ("H"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
+    }
+    if (!ui->checkBox_HorizontalLayout->isChecked()) {
+        m_group_control->SetDispParamData(&param);
+        m_panel_window->AttachPanelControl(m_group_control);
+    } else {
+        //m_panel_window->AttachPanelControl(m_input_num_control_horizon);
     }
     m_panel_window->show();
     m_panel_window->raise();

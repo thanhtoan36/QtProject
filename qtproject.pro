@@ -36,7 +36,7 @@ SOURCES += \
     src/baseComponent/toggleButton.cpp \
     src/colorFilterControl/colorFilterControl.cpp \
     src/colorPickerControl/colorPickerControl.cpp \
-    src/groupLibControl/groupLibControl.cpp \
+    src/groupControl/groupControl.cpp \
     src/inputNumControl/inputNumControl.cpp \
     src/intensityControl/intensityControl.cpp \
     src/loghandler.cpp \
@@ -78,8 +78,9 @@ HEADERS += \
     include/encoderControl/encoderControl_datatypes.h \
     include/encoderControl/encoderControl_define.hpp \
     include/encoderControl/encoderSlider.h \
-    include/groupLibContol/groupLibControl.hpp \
-    include/groupLibContol/groupLibControl_define.hpp \
+    include/groupControl/groupControl.hpp \
+    include/groupControl/groupControl_datatypes.h \
+    include/groupControl/groupControl_define.hpp \
     include/inputNumControl/inputNumControl.hpp \
     include/inputNumControl/inputNumControlHorizon.h \
     include/inputNumControl/inputNumControlHorizon_define.h \

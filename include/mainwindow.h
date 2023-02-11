@@ -23,6 +23,8 @@
 #include "inputNumControl/inputNumControl.hpp"
 #include "inputNumControl/inputNumControlHorizon.h"
 
+#include "groupControl/groupControl.hpp"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -48,6 +50,8 @@ private slots:
 
     void on_InputNumControl_Fake_Open_clicked();
 
+    void on_GroupPanelControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();
@@ -69,5 +73,7 @@ private:
 
     QSharedPointer<InputNumControl> m_input_num_control;
     QSharedPointer<InputNumControlHorizon> m_input_num_control_horizon;
+
+    QSharedPointer<GroupControl> m_group_control;
 };
 #endif // MAINWINDOW_H
