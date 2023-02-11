@@ -10,10 +10,8 @@ public:
     explicit CustomPushButton(QWidget *parent = nullptr);
 
 public slots:
-    virtual void HandleButtonClicked() override;
 
 protected:
-    virtual void UpdateButtonStyles() override;
 };
 
 #endif // CUSTOMPUSHBUTTON_H

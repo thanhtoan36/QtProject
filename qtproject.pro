@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/baseComponent/dynamicStyleSheet.cpp \
     src/baseComponent/gridBackground.cpp \
     src/baseComponent/selectColorButton.cpp \
     src/colorFilterControl/colorFilterControlHorizon.cpp \
@@ -104,7 +105,8 @@ HEADERS += \
     include/playbackControl/playbackControl_datatypes.h \
     include/playbackControl/playbackControl_define.hpp \
     include/mainwindow.h \
-    include/utility.h
+    include/utility.h \
+    include/baseComponent/dynamicStyleSheet.h
 
 INCLUDEPATH += \
     include/

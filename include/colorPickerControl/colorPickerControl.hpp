@@ -5,6 +5,7 @@
 #include "colorPickerControl_datatypes.h"
 
 #include "../baseComponent/selectButton.h"
+#include "../baseComponent/titleSelectButton.h"
 #include "../baseComponent/customPushButton.h"
 #include "colorPickerControl/customColorPickerXY.h"
 #include "colorPickerControl/customColorPickerRGB.h"
@@ -42,7 +43,7 @@ protected:
     QColor m_pickerColor;
 
     QLabel m_label_title;
-    SelectButton m_button_xy;
+    TitleSelectButton m_button_xy;
     SelectButton m_button_rgb;
 
     CustomPushButton m_button_previous_tab; // ◀

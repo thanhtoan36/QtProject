@@ -23,6 +23,9 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
 {
     setFixedSize(IC_SCREEN_SIZE);
     setCurrentButtonModePage(0);
+    m_return_button.setTextColor(Qt::yellow);
+    m_button_mode_255.setCheckMarkVisible(true);
+    m_button_mode_percent.setCheckMarkVisible(true);
 }
 
 void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
@@ -44,6 +47,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
                 button->setText(param->param[i].name);
                 button->setChecked(param->param[i].select);
                 button->setVisible(false);
+                button->setCheckMarkVisible(true);
                 connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
                     onButtonModeColorCheck(i,sender());
                 });
@@ -61,6 +65,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
                 button->setText(param->param[i].name);
                 button->setChecked(param->param[i].select);
                 button->setVisible(false);
+                button->setCheckMarkVisible(true);
                 connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
                     onButtonModeGoboCheck(i,sender());
                 });
@@ -78,6 +83,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
                 button->setText(param->param[i].name);
                 button->setChecked(param->param[i].select);
                 button->setVisible(false);
+                button->setCheckMarkVisible(true);
                 connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
                     onButtonModeShutterCheck(i,sender());
                 });

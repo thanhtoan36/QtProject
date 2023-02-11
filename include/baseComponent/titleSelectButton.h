@@ -5,20 +5,31 @@
 class TitleSelectButton : public SelectButton
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool titleVisible READ titleVisible WRITE setTitleVisible NOTIFY titleVisibleChanged)
+    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+
 public:
     explicit TitleSelectButton(QWidget *parent = nullptr);
 
-    void SetTitleGeometry(int width, int height);
+    bool titleVisible() const;
+    void setTitleVisible(bool newTitleVisible);
 
-    void SetTitleFontSize(int size);
+    QString title() const;
+    void setTitle(const QString &newTitle);
 
-    void SetTitleTextColor();
+signals:
+    void titleVisibleChanged();
+    void titleChanged();
 
-    void SetTitleText(const QString& text);
+protected:
+    virtual void resizeEvent(QResizeEvent *event) override;
 
 private:
+    bool m_titleVisible;
+    QString m_title;
+
     QLabel m_title_label;
-    bool m_is_title_enable = false;
 };
 
 #endif // TITLESELECTBUTTON_H

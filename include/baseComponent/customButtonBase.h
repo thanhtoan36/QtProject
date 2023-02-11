@@ -2,35 +2,73 @@
 #define CUSTOMBUTTONBASE_H
 
 #include <QPushButton>
+#include "baseComponent/dynamicStyleSheet.h"
 
 class CustomButtonBase : public QPushButton
 {
     Q_OBJECT
+
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor NOTIFY borderColorChanged)
+    Q_PROPERTY(QColor textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
+
+    Q_PROPERTY(QColor disabledBackgroundColor READ disabledBackgroundColor WRITE setDisabledBackgroundColor NOTIFY disabledBackgroundColorChanged)
+    Q_PROPERTY(QColor disabledBorderColor READ disabledBorderColor WRITE setDisabledBorderColor NOTIFY disabledBorderColorChanged)
+    Q_PROPERTY(QColor disabledTextColor READ disabledTextColor WRITE setDisabledTextColor NOTIFY disabledTextColorChanged)
+
+    Q_PROPERTY(int textPixelSize READ textPixelSize WRITE setTextPixelSize NOTIFY textPixelSizeChanged)
+
 public:
     explicit CustomButtonBase(QWidget *parent = nullptr);
 
-    void SetFontSize(int fontSize);
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor &newBackgroundColor);
 
-    void SetBackgroundColor(const QColor &backgroundColor);
+    QColor textColor() const;
+    void setTextColor(const QColor &newTextColor);
 
-    void SetTextColor(const QColor &newText_color);
+    int textPixelSize() const;
+    void setTextPixelSize(int newTextPixelSize);
 
-    int fontSize() const;
+    QColor borderColor() const;
+    void setBorderColor(const QColor &newBorderColor);
 
-    const QColor &BackgroundColor() const;
+    QColor disabledBackgroundColor() const;
+    void setDisabledBackgroundColor(const QColor &newDisabledBackgroundColor);
 
-    const QColor &TextColor() const;
+    QColor disabledBorderColor() const;
+    void setDisabledBorderColor(const QColor &newDisabledBorderColor);
+
+    QColor disabledTextColor() const;
+    void setDisabledTextColor(const QColor &newDisabledTextColor);
 
 public slots:
-    virtual void HandleButtonClicked() {};
+
+signals:
+    void backgroundColorChanged();
+    void textColorChanged();
+    void textPixelSizeChanged();
+    void borderColorChanged();
+
+    void disabledBackgroundColorChanged();
+
+    void disabledBorderColorChanged();
+
+    void disabledTextColorChanged();
 
 protected:
-    virtual void UpdateButtonStyles();
+    DynamicStyleSheet &cssStyler();
 
 private:
-    int m_fontSize;
-    QColor m_background_color;
-    QColor m_text_color;
+    DynamicStyleSheet m_styler;
+    QString m_stylesheetTemplate;
+    QColor m_backgroundColor;
+    QColor m_borderColor;
+    QColor m_textColor;
+    QColor m_disabledBackgroundColor;
+    QColor m_disabledBorderColor;
+    QColor m_disabledTextColor;
+    int m_textPixelSize;
 };
 
 #endif // CUSTOMBUTTONBASE_H

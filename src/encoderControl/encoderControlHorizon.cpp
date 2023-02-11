@@ -39,15 +39,12 @@ void EncoderControlHorizon::SetupUiComponents()
     m_button_1.setGeometry(EC_HORIZON_BUTTON_1_GEOMETRY_HORIZON);
     m_button_1.setText("ピッカー");
     m_button_1.setChecked(true);
-    m_button_1.SetFontSize(10);
 
     m_button_2.setGeometry(EC_HORIZON_BUTTON_2_GEOMETRY_HORIZON);
     m_button_2.setText("エンコーダ");
-    m_button_2.SetFontSize(18);
 
     m_button_3.setGeometry(EC_HORIZON_BUTTON_3_GEOMETRY_HORIZON);
     m_button_3.setText("数値");
-    m_button_3.SetFontSize(18);
 }
 
 void EncoderControlHorizon::setupEncoderPages()

@@ -1,45 +1,81 @@
-#include "baseComponent/customToggleButtonBase.h"
 #include <QDebug>
-CustomToggleButtonBase::CustomToggleButtonBase(QWidget *parent) : CustomButtonBase(parent)
+#include "baseComponent/customToggleButtonBase.h"
+
+#define CSS_BG_COLOR_CHECKED         "CSS_BG_COLOR_SELECTED"
+#define CSS_BORDER_COLOR_CHECKED     "CSS_BORDER_COLOR_SELECTED"
+#define CSS_TEXT_COLOR_CHECKED       "CSS_TEXT_COLOR_SELECTED"
+
+static const char * stylesheetTemplate = R"~(
+
+CustomToggleButtonBase:checked {
+    border-width: 2px;
+    border-style: inset;
+
+    background: )~" CSS_BG_COLOR_CHECKED R"~(;
+    border-color: )~" CSS_BORDER_COLOR_CHECKED R"~(;
+    color: )~" CSS_TEXT_COLOR_CHECKED R"~(;
+}
+
+)~";
+
+CustomToggleButtonBase::CustomToggleButtonBase(QWidget *parent) : CustomButtonBase(parent),
+    m_selectedBackgroundColor(),
+    m_selectedBorderColor(),
+    m_selectedTextColor()
 {
     setCheckable(true);
+
+    cssStyler().appendStyleSheetTemplate(stylesheetTemplate);
+
+    setBackgroundColor(QColor::fromRgb(13, 13, 13));
+    setTextColor(QColor::fromRgb(128, 128, 128));
+
+    setSelectedBackgroundColor(QColor::fromRgb(89, 89, 89));
+    setSelectedTextColor(QColor::fromRgb(255, 255, 255));
+    setSelectedBorderColor(QColor::fromRgb(0, 176, 80));
+
+    setDisabledBackgroundColor(QColor::fromRgb(22, 22, 22));
+    setDisabledTextColor(QColor::fromRgb(191, 191, 191));
 }
 
-void CustomToggleButtonBase::UpdateButtonStyles()
+QColor CustomToggleButtonBase::selectedBorderColor() const
 {
-    QString style = QString("QPushButton { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")
-            .arg(BackgroundColor().red()).arg(BackgroundColor().green()).arg(BackgroundColor().blue())
-            .arg(TextColor().red()).arg(TextColor().green()).arg(TextColor().blue());
-
-    QString style_press = QString(" QPushButton:pressed { background-color:rgb(%1,%2,%3); color:rgb(%4,%5,%6);}")
-            .arg(m_press_background_color.red()).arg(m_press_background_color.green()).arg(m_press_background_color.blue())
-            .arg(m_press_text_color.red()).arg(m_press_text_color.green()).arg(m_press_text_color.blue());
-
-    setStyleSheet(style + style_press);
+    return m_selectedBorderColor;
 }
 
-const QColor &CustomToggleButtonBase::PressBackgroundColor() const
+void CustomToggleButtonBase::setSelectedBorderColor(const QColor &newSelectedBorderColor)
 {
-    return m_press_background_color;
+    cssStyler().setTemplateParam(CSS_BORDER_COLOR_CHECKED, newSelectedBorderColor.name());
+    if (m_selectedBorderColor == newSelectedBorderColor)
+        return;
+    m_selectedBorderColor = newSelectedBorderColor;
+    emit selectedBorderColorChanged();
 }
 
-void CustomToggleButtonBase::SetPressBackgroundColor(const QColor &backgroundColor)
+QColor CustomToggleButtonBase::selectedTextColor() const
 {
-    m_press_background_color = backgroundColor;
+    return m_selectedTextColor;
 }
 
-const QColor &CustomToggleButtonBase::PressTextColor() const
+void CustomToggleButtonBase::setSelectedTextColor(const QColor &newSelectedTextColor)
 {
-    return m_press_text_color;
+    cssStyler().setTemplateParam(CSS_TEXT_COLOR_CHECKED, newSelectedTextColor.name());
+    if (m_selectedTextColor == newSelectedTextColor)
+        return;
+    m_selectedTextColor = newSelectedTextColor;
+    emit selectedTextColorChanged();
 }
 
-void CustomToggleButtonBase::SetPressTextColor(const QColor &textColor)
+QColor CustomToggleButtonBase::selectedBackgroundColor() const
 {
-    m_press_text_color = textColor;
+    return m_selectedBackgroundColor;
 }
 
-void CustomToggleButtonBase::HandleButtonClicked()
+void CustomToggleButtonBase::setSelectedBackgroundColor(const QColor &newSelectedBackgroundColor)
 {
-    qDebug() << "CustomToggleButtonBase::handleButtonClicked";
-    //toggle();
+    cssStyler().setTemplateParam(CSS_BG_COLOR_CHECKED, newSelectedBackgroundColor.name());
+    if (m_selectedBackgroundColor == newSelectedBackgroundColor)
+        return;
+    m_selectedBackgroundColor = newSelectedBackgroundColor;
+    emit selectedBackgroundColorChanged();
 }

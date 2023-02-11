@@ -6,27 +6,36 @@
 class CustomToggleButtonBase : public CustomButtonBase
 {
     Q_OBJECT
+    Q_PROPERTY(QColor selectedBackgroundColor READ selectedBackgroundColor WRITE setSelectedBackgroundColor NOTIFY selectedBackgroundColorChanged)
+    Q_PROPERTY(QColor selectedBorderColor READ selectedBorderColor WRITE setSelectedBorderColor NOTIFY selectedBorderColorChanged)
+    Q_PROPERTY(QColor selectedTextColor READ selectedTextColor WRITE setSelectedTextColor NOTIFY selectedTextColorChanged)
+
 public:
     explicit CustomToggleButtonBase(QWidget *parent = nullptr);
 
-    const QColor &PressBackgroundColor() const;
-    void SetPressBackgroundColor(const QColor &backgroundColor);
+    QColor selectedBorderColor() const;
+    void setSelectedBorderColor(const QColor &newSelectedBorderColor);
 
-    const QColor &PressTextColor() const;
-    void SetPressTextColor(const QColor &textColor);
+    QColor selectedTextColor() const;
+    void setSelectedTextColor(const QColor &newSelectedTextColor);
+
+    QColor selectedBackgroundColor() const;
+    void setSelectedBackgroundColor(const QColor &newSelectedBackgroundColor);
 
 public slots:
-    virtual void HandleButtonClicked() override;
 
 signals:
-    void ButtonStateChange(uint8_t newValue);
+
+    void selectedBorderColorChanged();
+    void selectedTextColorChanged();
+    void selectedBackgroundColorChanged();
 
 protected:
-    virtual void UpdateButtonStyles() override;
 
 private:
-    QColor m_press_background_color;
-    QColor m_press_text_color;
+    QColor m_selectedBackgroundColor;
+    QColor m_selectedBorderColor;
+    QColor m_selectedTextColor;
 };
 
 #endif // CUSTOMTOGGLEBUTTONBASE_H

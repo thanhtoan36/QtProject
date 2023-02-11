@@ -40,6 +40,9 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     setCurrentCustomTabPage(0);
     setCurrentHistoryPage(0);
     m_up_button.setEnabled(false);
+    m_back_button.setTextColor(Qt::yellow);
+    m_tb_tab_button.setCheckMarkVisible(true);
+    m_custom_tab_button.setCheckMarkVisible(true);
 }
 
 void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
@@ -51,9 +54,15 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         auto button = MakeSharedQObject<SelectColorButton>(this);
         m_tb_tab_buttons.push_back(button);
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
-        button->setText(param->tb.color_filter[i].name);
-        button->SetBackgroundColor(param->tb.color_filter[i].color);
         button->setGeometry(a);
+
+        button->setText(param->tb.color_filter[i].name);
+
+        button->setBackgroundColor(param->tb.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
+        button->setCheckMarkVisible(true);
+        button->setChecked(false);
+
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onTBTabButtonChecked(i,sender());
         });
@@ -66,8 +75,11 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         m_custom_tab_buttons.push_back(button);
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
         button->setText(param->custom.color_filter[i].name);
-        button->SetBackgroundColor(param->custom.color_filter[i].color);
+        button->setBackgroundColor(param->custom.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
         button->setGeometry(a);
+        button->setCheckMarkVisible(true);
+        button->setChecked(false);
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onCustomTabButtonChecked(i,sender());
         });
@@ -79,9 +91,12 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         auto button = MakeSharedQObject<SelectColorButton>(this);
         m_history_buttons.push_back(button);
         button->setText(param->history.color_filter[i].name);
-        button->SetBackgroundColor(param->history.color_filter[i].color);
+        button->setBackgroundColor(param->history.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
         button->setGeometry(a);
+        button->setCheckMarkVisible(true);
+        button->setChecked(false);
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onHistoryButtonChecked(i,sender());
         });
@@ -160,7 +175,6 @@ void ColorFilterControl::SetupUiComponents()
 
     m_history_button.setGeometry(CFC_HISTORY_GEOMETRY);
     m_history_button.setText("最近使った\nもの");
-    m_history_button.setIsCheckMarkEnable(false);
 
     m_up_button.setGeometry(CFC_UP_BUTTON_GEOMETRY);
     m_up_button.setText("▲");
@@ -430,8 +444,8 @@ void ColorFilterControl::onTBTabButtonChecked(const int index, QObject *sender)
     if (button != nullptr)
     {
         qDebug() << index;
-        qDebug() << button->BackgroundColor();
-        setCurrentTBTabButtonCheck({button->text(),button->BackgroundColor()});
+        qDebug() << button->backgroundColor();
+        setCurrentTBTabButtonCheck({button->text(),button->backgroundColor()});
     }
 }
 
@@ -448,8 +462,8 @@ void ColorFilterControl::onCustomTabButtonChecked(const int index, QObject *send
     if (button != nullptr)
     {
         qDebug() << index;
-        qDebug() << button->BackgroundColor();
-        setCurrentCustomTabButtonCheck({button->text(),button->BackgroundColor()});
+        qDebug() << button->backgroundColor();
+        setCurrentCustomTabButtonCheck({button->text(),button->backgroundColor()});
     }
 }
 
@@ -466,8 +480,8 @@ void ColorFilterControl::onHistoryButtonChecked(const int index, QObject *sender
     if (button != nullptr)
     {
         qDebug() << index;
-        qDebug() << button->BackgroundColor();
-        setCurrentHistoryTabButtonCheck({button->text(),button->BackgroundColor()});
+        qDebug() << button->backgroundColor();
+        setCurrentHistoryTabButtonCheck({button->text(),button->backgroundColor()});
     }
 }
 

@@ -1,11 +1,12 @@
 #include <QApplication>
 #include "mainwindow.h"
 #include "loghandler.h"
+#include <windows.h>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, false);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
 
     initLog();
 
@@ -13,7 +14,7 @@ int main(int argc, char *argv[])
     w.show();
 
     QFont font("Monospace");
-    font.setStyleHint(QFont::TypeWriter);
+    font.setStyleHint(QFont::Monospace);
     font.setPixelSize(16);
 
     QApplication::setFont(font);

@@ -4,6 +4,7 @@
 #include <QTime>
 #include <stdio.h>
 #include <cstring>
+#include <iostream>
 
 #include "loghandler.h"
 #define TIME_FORMAT "HH:mm:ss.zzz"
@@ -35,10 +36,8 @@ QString trimFunctionName(const QString &longName) {
 
 void logHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    const QByteArray localMsg = msg.toLocal8Bit();
     const char *file = getFileName(context.file);
     const QString qfunc = trimFunctionName(context.function ? context.function : "");
-    const QByteArray bfunc = qfunc.toLocal8Bit();
 
     const auto time = QTime::currentTime().toString(TIME_FORMAT).toStdString();
     const auto timeStr = time.c_str();
@@ -59,7 +58,7 @@ void logHandler(QtMsgType type, const QMessageLogContext &context, const QString
         default:
             return;
     }
-    fprintf(stream, "\x1b[36m%s [%c] \x1b[0m%s \x1b[36m(%s, %s:%u)\x1b[0m\n", timeStr, level, localMsg.constData(), bfunc.constData(), file, context.line);
+    fprintf(stream, "\x1b[36m%s [%c] \x1b[0m%s \x1b[36m(%s, %s:%u)\x1b[0m\n", timeStr, level, qPrintable(msg), qPrintable(qfunc), file, context.line);
     fflush(stream);
 }
 

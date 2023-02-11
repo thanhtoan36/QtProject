@@ -23,6 +23,11 @@ TrackControl::TrackControl(QWidget *parent)
     qRegisterMetaType<QVector<TRACK_PARAM_GROUP>>("QVector<TRACK_PARAM_GROUP>");
 
     m_label_title.setObjectName("title_label");
+    m_button_mode_255.setCheckMarkVisible(true);
+    m_button_mode_percent.setCheckMarkVisible(true);
+    m_button_mode_angle.setCheckMarkVisible(true);
+    m_button_value_mode_absolute.setCheckMarkVisible(true);
+    m_button_value_mode_relative.setCheckMarkVisible(true);
 }
 
 void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)

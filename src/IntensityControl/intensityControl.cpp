@@ -12,6 +12,7 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
 {
     setFixedSize(ISC_SCREENSIZE);
     m_label_title.setObjectName("title_label");
+    m_return_button.setTextColor(Qt::yellow);
 }
 
 void IntensityControl::SetupUiComponents()

@@ -2,39 +2,54 @@
 #include "baseComponent/designPolicyDefine.h"
 #include <QDebug>
 
-TitleSelectButton::TitleSelectButton(QWidget *parent) : SelectButton(parent) , m_title_label(this)
+TitleSelectButton::TitleSelectButton(QWidget *parent) : SelectButton(parent),
+    m_titleVisible(true),
+    m_title(),
+    m_title_label(this)
 {
-    m_title_label.setText("");
-    SetTitleFontSize(12);
-    SetTitleTextColor();
-    m_title_label.setAlignment(Qt::AlignCenter);
+    m_title_label.resize(width(), 15);
+    m_title_label.move(0, height() - m_title_label.height());
+    m_title_label.setObjectName("select_button_title_label");
+
+    setBackgroundColor(Qt::black);
+    setSelectedBackgroundColor(Qt::black);
+
+    setTitle("test");
 }
 
-
-void TitleSelectButton::SetTitleGeometry(int width, int height)
+bool TitleSelectButton::titleVisible() const
 {
-    m_title_label.setGeometry(0,3*height/4,width,height/4);
+    return m_titleVisible;
 }
 
-void TitleSelectButton::SetTitleFontSize(int size)
+void TitleSelectButton::setTitleVisible(bool newTitleVisible)
 {
-    QFont font = m_title_label.font();
-    font.setPixelSize(size);
-    m_title_label.setFont(font);
+    if (m_titleVisible == newTitleVisible)
+        return;
+    m_titleVisible = newTitleVisible;
+    emit titleVisibleChanged();
+
+    m_title_label.setVisible(newTitleVisible);
 }
 
-void TitleSelectButton::SetTitleTextColor()
+QString TitleSelectButton::title() const
 {
-    QString style_enable = QString("QLabel { background-color:rgb(51,63,79); color:rgb(217,217,217);}");
-
-    m_title_label.setStyleSheet(style_enable);
+    return m_title;
 }
 
-void TitleSelectButton::SetTitleText(const QString &text)
+void TitleSelectButton::setTitle(const QString &newTitle)
 {
-    if (m_is_title_enable)
-    {
-        m_title_label.setText(text);
-    }
+    if (m_title == newTitle)
+        return;
+    m_title = newTitle;
+    emit titleChanged();
+
+    m_title_label.setText(newTitle);
 }
 
+void TitleSelectButton::resizeEvent(QResizeEvent *event)
+{
+    SelectButton::resizeEvent(event);
+    m_title_label.setGeometry(0, height() - m_title_label.height(),
+                              width(), m_title_label.height());
+}

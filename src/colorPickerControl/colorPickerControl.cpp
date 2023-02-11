@@ -44,6 +44,8 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_label_setting.setObjectName("title_label");
 
     qRegisterMetaType<ColorPickerType>("ColorPickerType");
+    m_button_rgb.setCheckMarkVisible(true);
+    m_button_xy.setCheckMarkVisible(true);
 }
 
 void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)

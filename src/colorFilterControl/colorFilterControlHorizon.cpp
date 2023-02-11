@@ -30,9 +30,15 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         auto button = MakeSharedQObject<SelectColorButton>(this);
         m_tb_tab_buttons.push_back(button);
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
-        button->setText(param->tb.color_filter[i].name);
-        button->SetBackgroundColor(param->tb.color_filter[i].color);
         button->setGeometry(a);
+
+        button->setText(param->tb.color_filter[i].name);
+
+        button->setBackgroundColor(param->tb.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
+        button->setCheckMarkVisible(true);
+
+        button->setChecked(false);
         if (i > PAGE_SIZE - 1)
         {
             button->setVisible(false);
@@ -49,8 +55,11 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         m_custom_tab_buttons.push_back(button);
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
         button->setText(param->custom.color_filter[i].name);
-        button->SetBackgroundColor(param->custom.color_filter[i].color);
+        button->setBackgroundColor(param->custom.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
         button->setGeometry(a);
+        button->setCheckMarkVisible(true);
+        button->setChecked(false);
         if (i > PAGE_SIZE - 1)
         {
             button->setVisible(false);
@@ -66,9 +75,12 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         auto button = MakeSharedQObject<SelectColorButton>(this);
         m_history_buttons.push_back(button);
         button->setText(param->history.color_filter[i].name);
-        button->SetBackgroundColor(param->history.color_filter[i].color);
+        button->setBackgroundColor(param->history.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
         QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
         button->setGeometry(a);
+        button->setCheckMarkVisible(true);
+        button->setChecked(false);
         if (i > PAGE_SIZE - 1)
         {
             button->setVisible(false);
@@ -111,7 +123,6 @@ void ColorFilterControlHorizon::SetupUiComponents()
 
     m_history_button.setGeometry(CFC_HORIZON_HISTORY_BUTTON_GEOMETRY);
     m_history_button.setText("最近使った\nもの");
-    m_history_button.setIsCheckMarkEnable(false);
 
     m_up_tab_button.setGeometry(CFC_HORIZON_UP_BUTTON_GEOMETRY);
     m_up_tab_button.setText("▲");

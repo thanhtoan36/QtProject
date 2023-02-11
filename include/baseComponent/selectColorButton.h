@@ -9,7 +9,6 @@ public:
     explicit SelectColorButton(QWidget *parent = nullptr);
 
 protected:
-    virtual void UpdateButtonStyles() override;
 
 };
 

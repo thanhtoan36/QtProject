@@ -1,23 +1,28 @@
-QLabel#title_label {
+QLabel {
     font-size: 16px;
-    font-weight: bold;
+    background-color: rgb(22,22,22);
+    color: rgb(191,191,191);
+    qproperty-alignment: AlignCenter;
 }
 QLabel#title_label_horizon {
-    font-size: 16px;
     border: 1px solid gray;
+    font-weight: bold;
+    background-color: rgb(51, 63, 79);
+    color: rgb(217, 217, 217);
 }
-QAbstractButton{
-    font-size: 14px;
-}
-QLabel, QAbstractButton {
-    color: white;
-}
-QLabel {
-    qproperty-alignment: AlignCenter;
+QLabel#title_label {
+    font-weight: bold;
+    background-color: rgb(51, 63, 79);
+    color: rgb(217, 217, 217);
 }
 QLabel#graph_axis_label {
     font-size: 16px;
     color: lightgray;
+}
+QLabel#select_button_title_label {
+    font-size: 16px;
+    color: rgb(217, 217, 217);
+    background-color: rgb(87, 87, 87);
 }
 
 QLabel#control_background {
@@ -46,4 +51,5 @@ QSlider::handle:vertical {
     border: 1px solid gray;
     background: #4472c4;
 }
+
 
