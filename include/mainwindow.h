@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include "baseComponent/panelWindow.h"
 
-#include "utility.h"
-
 #include "colorPickerControl/colorPickerControlHorizon.h"
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "trackControl/trackControl.hpp"
@@ -24,8 +22,9 @@
 #include "inputNumControl/inputNumControlHorizon.h"
 
 #include "groupControl/groupControlHorizon.h"
-
 #include "libraryControl/libraryControlHorizon.h"
+
+#include "playbackControl/playbackControl.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -65,6 +64,8 @@ private slots:
 
     void on_TrackControl_Fake_Set_clicked();
 
+    void on_PlaybackControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();
@@ -92,5 +93,7 @@ private:
 
     QSharedPointer<LibraryControl> m_library_control;
     QSharedPointer<LibraryControlHorizon> m_library_control_horizon;
+
+    QSharedPointer<PlaybackControl> m_playback_control;
 };
 #endif // MAINWINDOW_H

@@ -29,9 +29,7 @@ public:
 signals:
     void gridSizeChanged();
     void cellSizeChanged();
-
     void backgroundColorChanged();
-
     void gridLineColorChanged();
 
 public slots:

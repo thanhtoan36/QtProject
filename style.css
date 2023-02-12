@@ -1,8 +1,8 @@
 QWidget {
+    font-size: 16px;
     font-weight: bold;
 }
 QLabel {
-    font-size: 16px;
     color: rgb(191,191,191);
     qproperty-alignment: AlignCenter;
 }
@@ -58,4 +58,20 @@ QSlider::handle:vertical {
     background: #4472c4;
 }
 
+QListWidget#playback_list {
+    font-size: 18px;
+    border: 1px solid gray;
 
+    background-color: transparent;
+    alternate-background-color: rgb(51, 63, 89);
+
+    color: rgb(191,191,191);
+}
+QListWidget#playback_list::item:selected {
+    background-color: transparent;
+    border: 1px solid rgb(18, 110, 67);
+    color: rgb(198, 89, 21);
+}
+QLabel#playback_header {
+    color: rgb(191, 191, 191);
+}

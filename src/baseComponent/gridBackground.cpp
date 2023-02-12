@@ -13,6 +13,7 @@ GridBackground::GridBackground(QWidget *parent)
     connect(this, &GridBackground::cellSizeChanged, this, &GridBackground::updateGridSize);
     connect(this, &GridBackground::gridLineColorChanged, this, &GridBackground::updateGridSize);
     connect(this, &GridBackground::backgroundColorChanged, this, &GridBackground::updateGridSize);
+    setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 
 void GridBackground::paintEvent(QPaintEvent *e)
