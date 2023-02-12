@@ -145,9 +145,11 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
     params.mode = (EncoderMode)ui->EncoderControl_Fake_Mode->currentIndex();
     params.count = gRandom.bounded(0, 10);
     QVector<ENCODER_PARAM> data;
+
+    int max_value = params.mode == ENCODER_MODE_255 ? 255 : 100;
     for (int i = 0; i < params.count; ++i) {
         ENCODER_PARAM p;
-        p.maxLevel = gRandom.bounded(100, 255);
+        p.maxLevel = gRandom.bounded(50, max_value);
         p.level = gRandom.bounded(0, p.maxLevel);
         QString randomName = QString("Test%1").arg(gRandom.bounded(1, 50));
         std::strncpy(p.name, (const char*)randomName.toLocal8Bit().data(), sizeof(p.name) - 1);
@@ -156,7 +158,7 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
     params.param = data.data();
 
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_encoder_control_horizon->SetDispParamData(&params);
+        m_encoder_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_encoder_control_horizon);
     } else {
         m_encoder_control->SetDispParamData(&params);

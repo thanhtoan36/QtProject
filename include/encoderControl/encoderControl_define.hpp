@@ -1,6 +1,10 @@
 #ifndef ENCODERCONTROL_DEFINE_H
 #define ENCODERCONTROL_DEFINE_H
 
+#define EC_ENCODER_WIDTH_PADDING 10
+#define EC_CUSTOM_ENCODER_SIZE QSize(78, 204)
+#define EC_ENCODER_LABEL_SIZE  QSize(78, 36)
+
 #define EC_SCREENSIZE                       QSize(312, 320)
 
 #define EC_LABEL_TITLE_GEOMETRY             QRect(0, 0, 312, 32)
@@ -10,11 +14,10 @@
 #define EC_BUTTON_PREVIOUS_GEOMETRY         QRect(156, 32, 78, 48)
 #define EC_BUTTON_NEXT_GEOMETRY             QRect(234, 32, 78, 48)
 
-#define EC_ENCODER_SIZE                     QSize(78, 204 + 36)
-#define EC_ENCODER_PLACEMENT_START          QPoint(0, 82)
+#define EC_ENCODER_LABELS_TOPLEFT           QPoint(0, 82)
+#define EC_ENCODER_TOPLEFT                  QPoint(0, 118)
 
 #define EC_MAX_ENCODER_ITEMS                4
-
 
 
 
@@ -27,8 +30,9 @@
 #define EC_BUTTON_PREVIOUS_GEOMETRY_HORIZON         QRect(652, 34, 78, 48)
 #define EC_BUTTON_NEXT_GEOMETRY_HORIZON             QRect(730, 34, 78, 48)
 
-#define EC_ENCODER_SIZE_HORIZON                     QSize(78, 204 + 36)
-#define EC_ENCODER_PLACEMENT_START_HORIZON          QPoint(78, 34)
+#define EC_ENCODER_SIZE_HORIZON                     QSize(78, 204)
+#define EC_ENCODER_LABELS_TOPLEFT_HORIZON    QPoint(78, 34)
+#define EC_ENCODER_TOPLEFT_HORIZON           QPoint(78, 70)
 
 #define EC_HORIZON_BUTTON_1_GEOMETRY_HORIZON               QRect(0, 34, 78, 48)
 #define EC_HORIZON_BUTTON_2_GEOMETRY_HORIZON               QRect(0, 82, 78, 48)

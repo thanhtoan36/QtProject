@@ -10,7 +10,7 @@
 
 #define CSS_TEXT_SIZE               "CSS_TEXT_SIZE"
 
-// The R~() parts are to support writting string literals in multiple lines,
+// The R"~(  )~" parts are to support writting string literals in multiple lines,
 // see: https://linuxhint.com/c-multiline-string-literals/
 static const char * stylesheetTemplate = R"~(
 

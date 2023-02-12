@@ -10,11 +10,19 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
 {
     setFixedSize(EC_SCREENSIZE_HORIZON);
     setEncoderMatrixSize(QSize(EC_MAX_ENCODER_ITEMS_HORIZON, 1));
+
+    m_encoder_background.setVisible(false);
+    m_button_background.setGridSize(QSize(1, 5));
+    m_button_background.move(EC_HORIZON_BUTTON_1_GEOMETRY_HORIZON.topLeft());
 }
 
 void EncoderControlHorizon::SetDispParamDataHorizon(ENCODER_DISP_PARAM *param)
 {
     SetDispParamData(param);
+
+    const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
+    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT_HORIZON + QPoint(EC_ENCODER_WIDTH_PADDING, 0), encodersPerPage);
+    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, encodersPerPage);
 }
 
 void EncoderControlHorizon::SetupUiComponents()
@@ -50,6 +58,7 @@ void EncoderControlHorizon::SetupUiComponents()
 void EncoderControlHorizon::setupEncoderPages()
 {
     const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
+
     updateChildrenVisibility(m_encoders, currentEncoderPage(), encodersPerPage);
-    placeChildrenIntoPanel(m_encoders, EC_ENCODER_SIZE_HORIZON, EC_ENCODER_PLACEMENT_START_HORIZON, encodersPerPage);
+    updateChildrenVisibility(m_encoder_labels, currentEncoderPage(), encodersPerPage);
 }

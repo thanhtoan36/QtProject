@@ -1,7 +1,14 @@
+QWidget {
+    font-weight: bold;
+}
 QLabel {
     font-size: 16px;
     color: rgb(191,191,191);
     qproperty-alignment: AlignCenter;
+}
+QLabel#encoder_label {
+    background-color: black;
+    border: 1px solid gray;
 }
 QLabel#title_label_horizon {
     border: 1px solid gray;

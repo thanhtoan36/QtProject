@@ -13,8 +13,8 @@ SOURCES += \
     src/baseComponent/gridBackground.cpp \
     src/baseComponent/selectColorButton.cpp \
     src/colorFilterControl/colorFilterControlHorizon.cpp \
+    src/encoderControl/customEncoder.cpp \
     src/encoderControl/encoderControlHorizon.cpp \
-    src/encoderControl/encoderSlider.cpp \
     src/encoderControl/encoderControl.cpp \
     src/inputNumControl/inputNumControlHorizon.cpp \
     src/intensityControl/intensityControlHorizon.cpp \
@@ -73,11 +73,11 @@ HEADERS += \
     include/colorPickerControl/colorPickerControl_define.hpp \
     include/colorPickerControl/customColorPickerRGB.h \
     include/colorPickerControl/customColorPickerXY.h \
+    include/encoderControl/customEncoder.h \
     include/encoderControl/encoderControl.hpp \
     include/encoderControl/encoderControlHorizon.h \
     include/encoderControl/encoderControl_datatypes.h \
     include/encoderControl/encoderControl_define.hpp \
-    include/encoderControl/encoderSlider.h \
     include/groupLibContol/groupLibControl.hpp \
     include/groupLibContol/groupLibControl_define.hpp \
     include/inputNumControl/inputNumControl.hpp \

@@ -1,20 +1,16 @@
-#ifndef ENCODERSLIDER_H
-#define ENCODERSLIDER_H
+#ifndef CUSTOMENCODER_H
+#define CUSTOMENCODER_H
 
 #include <QAbstractSlider>
 #include <QLabel>
 #include "../baseComponent/customPushButton.h"
 
-class EncoderSlider : public QAbstractSlider {
+class CustomEncoder : public QAbstractSlider {
     Q_OBJECT
-    Q_PROPERTY(QString encoderName READ encoderName WRITE setEncoderName NOTIFY encoderNameChanged)
     Q_PROPERTY(int upperRestrictValue READ upperRestrictValue WRITE setUpperRestrictValue NOTIFY upperRestrictValueChanged)
 
 public:
-    EncoderSlider(QWidget *parent = nullptr);
-
-    QString encoderName() const;
-    void setEncoderName(const QString &newEncoderName);
+    CustomEncoder(QWidget *parent = nullptr);
 
     int upperRestrictValue() const;
     void setUpperRestrictValue(int newUpperRestrictValue);
@@ -34,13 +30,10 @@ protected:
     void setupChildComponents();
 
 private:
-    QLabel m_label_name;
-    QLabel m_label_value;
     QRect m_sliderBoundary;
     CustomPushButton m_button_decrease;
     CustomPushButton m_button_increase;
-    QString m_encoderName;
     int m_upperRestrictValue;
 };
 
-#endif // ENCODERSLIDER_H
+#endif // CUSTOMENCODER_H

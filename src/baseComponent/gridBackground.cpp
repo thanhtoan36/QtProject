@@ -1,5 +1,6 @@
 #include "baseComponent/gridBackground.h"
 #include <QPainter>
+#include <QDebug>
 
 GridBackground::GridBackground(QWidget *parent)
     : QWidget(parent),
@@ -24,10 +25,12 @@ void GridBackground::paintEvent(QPaintEvent *e)
 
     for (int i = 0; i <= gridSize().width(); ++i) {
         int x = i * cellSize().width();
+        if (i == gridSize().width()) x -= 1; // keep the last line inside boundary
         p.drawLine(x, 0, x, height());
     }
     for (int i = 0; i <= gridSize().height(); ++i) {
         int y = i * cellSize().height();
+        if (i == gridSize().height()) y -= 1; // keep the last line inside boundary
         p.drawLine(0, y, width(), y);
     }
 }
