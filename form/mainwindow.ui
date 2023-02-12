@@ -43,7 +43,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -58,32 +58,28 @@
        <attribute name="title">
         <string>ColorPickerControl</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
-         <widget class="QPushButton" name="ColorPickerControl_Fake_Open">
-          <property name="text">
-           <string>Open</string>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QPlainTextEdit" name="ColorPickerControl_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;type&quot;: &quot;COLOR_PICKER_TYPE_XY&quot;,
+    &quot;color&quot;: &quot;#00ff00&quot;
+}</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QComboBox" name="ColorPickerControl_Fake_Type">
-          <item>
-           <property name="text">
-            <string>COLOR_PICKER_TYPE_XY</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>COLOR_PICKER_TYPE_RGB</string>
-           </property>
-          </item>
+        <item>
+         <widget class="QPushButton" name="ColorPickerControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QPlainTextEdit" name="ColorPickerControl_RawInput">
-          <property name="plainText">
-           <string>#00FF00</string>
+        <item>
+         <widget class="QPushButton" name="ColorPickerControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
           </property>
          </widget>
         </item>
@@ -93,266 +89,184 @@
        <attribute name="title">
         <string>ColorFilterControl</string>
        </attribute>
-       <widget class="QPushButton" name="ColorFilterControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>30</y>
-          <width>151</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPlainTextEdit" name="ColorFilterControl_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;tb&quot;: {
+        &quot;select&quot;: false,
+        &quot;buttons&quot;: [
+            { &quot;name&quot;: &quot;T0&quot;, &quot;color&quot;: &quot;#00ff00&quot;, &quot;select&quot;: true },
+            { &quot;name&quot;: &quot;T1&quot;, &quot;color&quot;: &quot;#200f08&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T2&quot;, &quot;color&quot;: &quot;#fff2f2&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T3&quot;, &quot;color&quot;: &quot;#800ff2&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T4&quot;, &quot;color&quot;: &quot;#800000&quot;, &quot;select&quot;: false }
+        ]
+    },
+    &quot;custom&quot;: {
+        &quot;select&quot;: false,
+        &quot;buttons&quot;: [
+            { &quot;name&quot;: &quot;T2&quot;, &quot;color&quot;: &quot;#f0f202&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T3&quot;, &quot;color&quot;: &quot;#80ff30&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T4&quot;, &quot;color&quot;: &quot;#800000&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T0&quot;, &quot;color&quot;: &quot;#00ff00&quot;, &quot;select&quot;: true },
+            { &quot;name&quot;: &quot;T1&quot;, &quot;color&quot;: &quot;#200f08&quot;, &quot;select&quot;: false }
+        ]
+    },
+    &quot;history&quot;: {
+        &quot;select&quot;: true,
+        &quot;buttons&quot;: [
+            { &quot;name&quot;: &quot;T3&quot;, &quot;color&quot;: &quot;#001100&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T0&quot;, &quot;color&quot;: &quot;#00fff0&quot;, &quot;select&quot;: true },
+            { &quot;name&quot;: &quot;T1&quot;, &quot;color&quot;: &quot;#200f08&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T4&quot;, &quot;color&quot;: &quot;#222fff&quot;, &quot;select&quot;: false },
+            { &quot;name&quot;: &quot;T2&quot;, &quot;color&quot;: &quot;#40f202&quot;, &quot;select&quot;: false }
+        ]
+    }
+}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ColorFilterControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ColorFilterControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
         <string>EncoderControl</string>
        </attribute>
-       <widget class="QComboBox" name="EncoderControl_Fake_Type">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>331</width>
-          <height>41</height>
-         </rect>
-        </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <property name="text">
-          <string>ENCODER_TYPE_COLOR</string>
-         </property>
+         <widget class="QPlainTextEdit" name="EncoderControl_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;type&quot;: &quot;ENCODER_TYPE_COLOR&quot;,
+    &quot;mode&quot;: &quot;ENCODER_MODE_PERCENT&quot;,
+    &quot;encoders&quot;: [
+        { &quot;name&quot;: &quot;Enc 1&quot;, &quot;level&quot;: 50, &quot;maxLevel&quot;: 100 },
+        { &quot;name&quot;: &quot;Enc 2&quot;, &quot;level&quot;: 0, &quot;maxLevel&quot;: 100 },
+        { &quot;name&quot;: &quot;Enc 3&quot;, &quot;level&quot;: 20, &quot;maxLevel&quot;: 40 },
+        { &quot;name&quot;: &quot;Enc 4&quot;, &quot;level&quot;: 60, &quot;maxLevel&quot;: 100 },
+        { &quot;name&quot;: &quot;Enc 5&quot;, &quot;level&quot;: 80, &quot;maxLevel&quot;: 81 },
+        { &quot;name&quot;: &quot;Enc 6&quot;, &quot;level&quot;: 99, &quot;maxLevel&quot;: 100 },
+        { &quot;name&quot;: &quot;Enc 7&quot;, &quot;level&quot;: 2, &quot;maxLevel&quot;: 30 }
+    ]
+}</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>ENCODER_TYPE_POSITION</string>
-         </property>
+         <widget class="QPushButton" name="EncoderControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>ENCODER_TYPE_GOBO</string>
-         </property>
+         <widget class="QPushButton" name="EncoderControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>ENCODER_TYPE_BEAM_SHUTTER</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ENCODER_TYPE_CONTROL</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QComboBox" name="EncoderControl_Fake_Mode">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>60</y>
-          <width>331</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>ENCODER_MODE_PERCENT</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ENCODER_MODE_255</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ENCODER_MODE_ANGLE</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QPushButton" name="EncoderControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>100</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
-        <string>InputNumControl</string>
-       </attribute>
-       <widget class="QComboBox" name="InputNumControl_Fake_Type">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>331</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="maxVisibleItems">
-         <number>23</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_TYPE_COLOR</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_TYPE_POSITION</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_TYPE_GOBO</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_TYPE_BEAM_SHUTTER</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_TYPE_CONTROL</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QComboBox" name="InputNumControl_Fake_Mode">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>40</y>
-          <width>331</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_MODE_PERCENT</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_MODE_255</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>INPUT_NUM_MODE_ANGLE</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QPushButton" name="InputNumControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>80</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
         <string>TrackControl</string>
        </attribute>
-       <widget class="QComboBox" name="TrackControl_Fake_Mode">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>331</width>
-          <height>41</height>
-         </rect>
-        </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <property name="text">
-          <string>TRACK_MODE_PERCENT</string>
-         </property>
+         <widget class="QPlainTextEdit" name="TrackControl_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;mode&quot;: &quot;TRACK_MODE_PERCENT&quot;,
+    &quot;valueMode&quot;: &quot;TRACK_MODE_RELATIVE&quot;,
+    &quot;points&quot;: [
+        {
+            &quot;pan&quot;: { &quot;current&quot;: 20, &quot;min&quot;: 0, &quot;max&quot;: 100 },
+            &quot;tilt&quot;: { &quot;current&quot;: 30, &quot;min&quot;: 0, &quot;max&quot;: 100 }
+        },
+        {
+            &quot;pan&quot;: { &quot;current&quot;: 10, &quot;min&quot;: 0, &quot;max&quot;: 100 },
+            &quot;tilt&quot;: { &quot;current&quot;: 40, &quot;min&quot;: 0, &quot;max&quot;: 100 }
+        },
+        {
+            &quot;pan&quot;: { &quot;current&quot;: 90, &quot;min&quot;: 20, &quot;max&quot;: 100 },
+            &quot;tilt&quot;: { &quot;current&quot;: 80, &quot;min&quot;: 0, &quot;max&quot;: 100 }
+        }
+    ]
+}</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>TRACK_MODE_255</string>
-         </property>
+         <widget class="QPushButton" name="TrackControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>TRACK_MODE_ANGLE</string>
-         </property>
+         <widget class="QPushButton" name="TrackControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
         </item>
-       </widget>
-       <widget class="QComboBox" name="TrackControl_Fake_ValueMode">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>331</width>
-          <height>41</height>
-         </rect>
-        </property>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>InputNumControl</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <property name="text">
-          <string>TRACK_MODE_RELATIVE</string>
-         </property>
+         <widget class="QPlainTextEdit" name="InputNumControl_Fake_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;type&quot;: &quot;INPUT_NUM_TYPE_COLOR&quot;,
+    &quot;mode&quot;: &quot;INPUT_NUM_MODE_PERCENT&quot;,
+    &quot;buttons&quot;: [
+        { &quot;name&quot;: &quot;Test1&quot;, &quot;select&quot;: false },
+        { &quot;name&quot;: &quot;Test2&quot;, &quot;select&quot;: true },
+        { &quot;name&quot;: &quot;Test3&quot;, &quot;select&quot;: false },
+        { &quot;name&quot;: &quot;Test4&quot;, &quot;select&quot;: false },
+        { &quot;name&quot;: &quot;Test5&quot;, &quot;select&quot;: false },
+        { &quot;name&quot;: &quot;Test6&quot;, &quot;select&quot;: false }
+    ]
+}</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>TRACK_MODE_ABSOLUTE </string>
-         </property>
+         <widget class="QPushButton" name="InputNumControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
         </item>
-       </widget>
-       <widget class="QLineEdit" name="TrackControl_Fake_PointCount">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>91</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="toolTip">
-         <string>Number of points</string>
-        </property>
-        <property name="statusTip">
-         <string/>
-        </property>
-        <property name="inputMask">
-         <string/>
-        </property>
-        <property name="text">
-         <string>3</string>
-        </property>
-        <property name="maxLength">
-         <number>3</number>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="TrackControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>130</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+        <item>
+         <widget class="QPushButton" name="InputNumControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_6">
        <attribute name="title">
@@ -450,7 +364,7 @@
      <widget class="QPlainTextEdit" name="EventOutput"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="BtnClear">
       <property name="text">
        <string>Clear</string>
       </property>

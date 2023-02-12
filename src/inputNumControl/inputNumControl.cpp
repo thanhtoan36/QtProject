@@ -26,6 +26,7 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     m_return_button.setTextColor(Qt::yellow);
     m_button_mode_255.setCheckMarkVisible(true);
     m_button_mode_percent.setCheckMarkVisible(true);
+    m_button_mode_percent.setChecked(true);
     m_return_button.setTextColor(Qt::yellow);
 }
 

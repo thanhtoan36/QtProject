@@ -50,7 +50,7 @@ private slots:
 
     void CPC_OnColorChanged();
 
-    void on_pushButton_clicked();
+    void on_BtnClear_clicked();
 
 private:
     Ui::MainWindow *ui;
