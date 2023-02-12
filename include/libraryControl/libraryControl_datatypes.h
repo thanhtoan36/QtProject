@@ -8,6 +8,7 @@
 // ライブラリパラメータ
 typedef struct
 {
+    char    mode[LIBRARY_MODE_SIZE];        // モード名
     bool    select;                         // 選択状態
     char    library_no[LIBRARY_NO_SIZE];    // ライブラリNo
     char    title[LIBRARY_TITLE_SIZE];      // タイトル

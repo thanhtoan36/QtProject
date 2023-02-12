@@ -25,6 +25,8 @@
 
 #include "groupControl/groupControlHorizon.h"
 
+#include "libraryControl/libraryControl.hpp"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -52,6 +54,8 @@ private slots:
 
     void on_GroupPanelControl_Fake_Open_clicked();
 
+    void on_LibraryControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();
@@ -76,5 +80,7 @@ private:
 
     QSharedPointer<GroupControl> m_group_control;
     QSharedPointer<GroupControlHorizon> m_group_control_horizon;
+
+    QSharedPointer<LibraryControl> m_library_control;
 };
 #endif // MAINWINDOW_H

@@ -62,6 +62,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_group_control_horizon = MakeSharedQObject<GroupControlHorizon>();
     m_group_control_horizon->PrepareUi();
 
+    m_library_control = MakeSharedQObject<LibraryControl>();
+    m_library_control->PrepareUi();
+
 }
 
 MainWindow::~MainWindow()
@@ -300,4 +303,32 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
     m_panel_window->show();
     m_panel_window->raise();
 }
+
+
+void MainWindow::on_LibraryControl_Fake_Open_clicked()
+{
+    LIBRARY_DISP_PARAM param;
+    param.group.count = QRandomGenerator::global()->generate()%1000;
+    param.group.library_param = (LIBRARY_PARAM*)malloc(param.group.count*sizeof (LIBRARY_PARAM));
+    qDebug() <<param.group.count;
+    for (int i=0;i< param.group.count;i++)
+    {
+        param.group.library_param[i].select = false;
+        int mode = QRandomGenerator::global()->generate()%4;
+        strncpy(param.group.library_param[i].mode, (QString::number(mode)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+        strncpy(param.group.library_param[i].title, ("tL"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+        strncpy(param.group.library_param[i].library_no, (QString::number(mode)+"L"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+    }
+    if (!ui->checkBox_HorizontalLayout->isChecked()) {
+        m_library_control->SetDispParamData(&param);
+        m_panel_window->AttachPanelControl(m_library_control);
+    } else {
+
+        //m_panel_window->AttachPanelControl(m_group_control_horizon);
+
+    }
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
 
