@@ -25,6 +25,8 @@
 
 #include "groupControl/groupControlHorizon.h"
 
+#include "libraryControl/libraryControl.hpp"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -48,9 +50,20 @@ private slots:
     void on_InputNumControl_Fake_Open_clicked();
     void on_GroupPanelControl_Fake_Open_clicked();
 
+    void on_BtnClear_clicked();
+    void on_LibraryControl_Fake_Open_clicked();
+
     void CPC_OnColorChanged();
 
-    void on_BtnClear_clicked();
+    void on_InputNumControl_Fake_Set_clicked();
+
+    void on_ColorPickerControl_Fake_Set_clicked();
+
+    void on_ColorFilterControl_Fake_Set_clicked();
+
+    void on_EncoderControl_Fake_Set_clicked();
+
+    void on_TrackControl_Fake_Set_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -76,5 +89,7 @@ private:
 
     QSharedPointer<GroupControl> m_group_control;
     QSharedPointer<GroupControlHorizon> m_group_control_horizon;
+
+    QSharedPointer<LibraryControl> m_library_control;
 };
 #endif // MAINWINDOW_H

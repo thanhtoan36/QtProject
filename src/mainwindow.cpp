@@ -65,6 +65,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_group_control_horizon = MakeSharedQObject<GroupControlHorizon>();
     m_group_control_horizon->PrepareUi();
 
+    m_library_control = MakeSharedQObject<LibraryControl>();
+    m_library_control->PrepareUi();
+
     connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
 }
 
@@ -82,14 +85,10 @@ void MainWindow::logEvent(const QString &log)
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 {
-    COLOR_PICKER_DISP_PARAM params = CPC_ParseInput(ui->ColorPickerControl_RawInput->toPlainText());
-
     if (ui->checkBox_HorizontalLayout->isChecked())
     {
-        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_color_picker_control_horizon);
     } else {
-        m_color_picker_control->SetDispParamData(&params);
         m_panel_window->AttachPanelControl(m_color_picker_control);
     }
 
@@ -100,14 +99,9 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
 void MainWindow::on_TrackControl_Fake_Open_clicked()
 {
-    TRACK_DISP_PARAM params = TC_ParseInput(ui->TrackControl_RawInput->toPlainText());
-
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_track_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_track_control_horizon);
-    }
-    else {
-        m_track_control->SetDispParamData(&params);
+    } else {
         m_panel_window->AttachPanelControl(m_track_control);
     }
 
@@ -130,12 +124,9 @@ void MainWindow::on_IntensityControl_Fake_Open_clicked()
 
 void MainWindow::on_EncoderControl_Fake_Open_clicked()
 {
-    ENCODER_DISP_PARAM params = EC_ParseInput(ui->EncoderControl_RawInput->toPlainText());
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_encoder_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_encoder_control_horizon);
     } else {
-        m_encoder_control->SetDispParamData(&params);
         m_panel_window->AttachPanelControl(m_encoder_control);
     }
     m_panel_window->show();
@@ -145,14 +136,10 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
 
 void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
 {
-    COLOR_FILTER_DISP_PARAM param = CFC_ParseInput(ui->ColorFilterControl_RawInput->toPlainText());
-
-    if (!ui->checkBox_HorizontalLayout->isChecked()) {
-        m_color_filter_control->setDispParamData(&param);
-        m_panel_window->AttachPanelControl(m_color_filter_control);
-    } else {
-        m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
         m_panel_window->AttachPanelControl(m_color_filter_control_horizon);
+    } else {
+        m_panel_window->AttachPanelControl(m_color_filter_control);
     }
     m_panel_window->show();
     m_panel_window->raise();
@@ -161,14 +148,10 @@ void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
 
 void MainWindow::on_InputNumControl_Fake_Open_clicked()
 {
-    INPUT_NUM_DISP_PARAM param = IN_ParseInput(ui->InputNumControl_Fake_RawInput->toPlainText());
-
-    if (!ui->checkBox_HorizontalLayout->isChecked()) {
-        m_input_num_control->SetDispParamData(&param);
-        m_panel_window->AttachPanelControl(m_input_num_control);
-    } else {
-        m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
         m_panel_window->AttachPanelControl(m_input_num_control_horizon);
+    } else {
+        m_panel_window->AttachPanelControl(m_input_num_control);
     }
     m_panel_window->show();
     m_panel_window->raise();
@@ -216,5 +199,91 @@ void MainWindow::CPC_OnColorChanged()
 void MainWindow::on_BtnClear_clicked()
 {
     ui->EventOutput->clear();
+}
+
+void MainWindow::on_LibraryControl_Fake_Open_clicked()
+{
+    LIBRARY_DISP_PARAM param;
+    param.group.count = QRandomGenerator::global()->generate()%1000;
+    param.group.library_param = (LIBRARY_PARAM*)malloc(param.group.count*sizeof (LIBRARY_PARAM));
+    qDebug() <<param.group.count;
+    for (int i=0;i< param.group.count;i++)
+    {
+        param.group.library_param[i].select = false;
+        int mode = QRandomGenerator::global()->generate()%4;
+        strncpy(param.group.library_param[i].mode, (QString::number(mode)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+        strncpy(param.group.library_param[i].title, ("tL"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+        strncpy(param.group.library_param[i].library_no, (QString::number(mode)+"L"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+    }
+    if (!ui->checkBox_HorizontalLayout->isChecked()) {
+        m_library_control->SetDispParamData(&param);
+        m_panel_window->AttachPanelControl(m_library_control);
+    } else {
+
+        //m_panel_window->AttachPanelControl(m_group_control_horizon);
+
+    }
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
+void MainWindow::on_InputNumControl_Fake_Set_clicked()
+{
+    INPUT_NUM_DISP_PARAM param = IN_ParseInput(ui->InputNumControl_Fake_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+    } else {
+        m_input_num_control->SetDispParamData(&param);
+    }
+}
+
+
+void MainWindow::on_ColorPickerControl_Fake_Set_clicked()
+{
+    COLOR_PICKER_DISP_PARAM params = CPC_ParseInput(ui->ColorPickerControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
+    } else {
+        m_color_picker_control->SetDispParamData(&params);
+    }
+}
+
+
+void MainWindow::on_ColorFilterControl_Fake_Set_clicked()
+{
+    COLOR_FILTER_DISP_PARAM param = CFC_ParseInput(ui->ColorFilterControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+    } else {
+        m_color_filter_control->setDispParamData(&param);
+    }
+}
+
+
+void MainWindow::on_EncoderControl_Fake_Set_clicked()
+{
+    ENCODER_DISP_PARAM params = EC_ParseInput(ui->EncoderControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_encoder_control_horizon->SetDispParamDataHorizon(&params);
+    } else {
+        m_encoder_control->SetDispParamData(&params);
+    }
+}
+
+
+void MainWindow::on_TrackControl_Fake_Set_clicked()
+{
+    TRACK_DISP_PARAM params = TC_ParseInput(ui->TrackControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_track_control_horizon->SetDispParamDataHorizon(&params);
+    } else {
+        m_track_control->SetDispParamData(&params);
+    }
+
 }
 
