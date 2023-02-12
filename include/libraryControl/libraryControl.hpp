@@ -3,7 +3,6 @@
 
 #include "baseComponent/panelControlBase.h"
 #include "libraryControl_datatypes.h"
-#include "libraryControl_define.h"
 #include "baseComponent/titleSelectButton.h"
 #include "baseComponent/customPushButton.h"
 #include "baseComponent/gridBackground.h"
@@ -18,6 +17,27 @@ class LibraryControl : public PanelControlBase
 public:
     explicit LibraryControl(QWidget * parent = nullptr);
     void SetDispParamData(LIBRARY_DISP_PARAM *param);
+
+
+protected:
+    uint16_t column() const;
+    void setColumn(uint16_t newColumn);
+
+    uint16_t libRow() const;
+    void setLibRow(uint16_t newLibRow);
+
+    uint16_t modeRow() const;
+    void setModeRow(uint16_t newModeRow);
+
+    uint16_t libPageSize() const;
+    uint16_t modePageSize() const;
+
+    QPoint libStartPoint() const;
+    void setLibStartPoint(QPoint newLibStartPoint);
+
+    QPoint modeStartPoint() const;
+    void setModeStartPoint(QPoint newModeStartPoint);
+
 
 protected:
     virtual void SetupUiComponents() override;
@@ -56,6 +76,13 @@ protected:
     QVector<QSharedPointer<TitleSelectButton>> m_all_historty_buttons;
     QVector<uint32_t> m_current_history_indexs;
     uint32_t m_current_history_mode = 0; //default là ALL
+
+    uint16_t m_column;
+    uint16_t m_libRow;
+    uint16_t m_modeRow;
+
+    QPoint m_libStartPoint;
+    QPoint m_modeStartPoint;
 };
 
 #endif // LIBRARYCONTROL_HPP

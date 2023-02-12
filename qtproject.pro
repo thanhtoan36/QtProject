@@ -19,6 +19,7 @@ SOURCES += \
     src/groupControl/groupControlHorizon.cpp \
     src/inputNumControl/inputNumControlHorizon.cpp \
     src/intensityControl/intensityControlHorizon.cpp \
+    src/libraryControl/libraryControlHorizon.cpp \
     src/trackControl/pantiltControl.cpp \
     src/trackControl/trackControlHorizon.cpp \
     src/colorPickerControl/cieaux.cpp \
@@ -97,6 +98,8 @@ HEADERS += \
     include/intensityControl/intensityControl_define.hpp \
     include/intensityControl/intensityControlHorizon.h \
     include/libraryControl/libraryControl.hpp \
+    include/libraryControl/libraryControlHorizon.h \
+    include/libraryControl/libraryControlHorizon_define.h \
     include/libraryControl/libraryControl_datatypes.h \
     include/libraryControl/libraryControl_define.h \
     include/loghandler.h \

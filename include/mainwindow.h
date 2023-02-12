@@ -25,7 +25,7 @@
 
 #include "groupControl/groupControlHorizon.h"
 
-#include "libraryControl/libraryControl.hpp"
+#include "libraryControl/libraryControlHorizon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -82,5 +82,6 @@ private:
     QSharedPointer<GroupControlHorizon> m_group_control_horizon;
 
     QSharedPointer<LibraryControl> m_library_control;
+    QSharedPointer<LibraryControlHorizon> m_library_control_horizon;
 };
 #endif // MAINWINDOW_H

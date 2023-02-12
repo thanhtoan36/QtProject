@@ -1,15 +1,9 @@
 #include "libraryControl/libraryControl.hpp"
+#include "libraryControl/libraryControl_define.h"
 #include "utility.h"
 
 #define BASE_BUTTON_WIDTH LC_BUTTON1_GEOMETRY.width()
 #define BASE_BUTTON_HEIGHT LC_BUTTON1_GEOMETRY.height()
-
-#define ROW 4
-#define LIB_COLUMN 3
-#define MODE_COLUMN 3
-
-#define LIB_PAGE_SIZE (ROW*LIB_COLUMN)
-#define MODE_PAGE_SIZE (ROW*MODE_COLUMN)
 
 LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     m_grid(this),
@@ -26,11 +20,17 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
 {
     setFixedSize(LC_SCREEN_SIZE);
     m_return_button.setTextColor(Qt::yellow);
+    setColumn(4);
+    setLibRow(3);
+    setModeRow(2);
+    setLibStartPoint(LC_LIB_BUTTON_TOP_LEFT);
+    setModeStartPoint(LC_MODE_TOP_LEFT);
 }
 
 void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
 {
     Q_ASSERT(param);
+    //library
     for (int i = 0; i< m_library_buttons_list.size() ; i ++)
     {
         m_library_buttons_list[i].clear();
@@ -72,6 +72,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         }
 
     }
+    m_current_mode = 0;
     m_current_page_indexs = QVector<uint32_t>(m_mode_buttons.size(),0);
     m_library_buttons_list.resize(m_mode_buttons.size() - 1); // not for all;
     for (int i = 0 ; i < param->group.count; i++)
@@ -92,7 +93,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         }
     }
 
-
+    //history
     for (int i = 0; i< m_history_buttons_list.size() ; i ++)
     {
         m_history_buttons_list[i].clear();
@@ -136,6 +137,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         }
 
     }
+    m_current_history_mode = 0;
     m_current_history_indexs = QVector<uint32_t>(m_history_mode_buttons.size(),0);
     m_history_buttons_list.resize(m_history_mode_buttons.size() - 1); // not for all;
 
@@ -157,12 +159,12 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
             }
         }
     }
-    onButtonModeClicked(0,all_button.get());
 
-    placeChildrenIntoPanel(m_mode_buttons, LC_BUTTON_SIZE, LC_MODE_TOP_LEFT, ROW, MODE_COLUMN);
-    updateChildrenVisibility(m_mode_buttons,0,MODE_PAGE_SIZE);
+    placeChildrenIntoPanel(m_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), column(), modeRow());
+    updateChildrenVisibility(m_mode_buttons,0,modePageSize());
 
-    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, LC_MODE_TOP_LEFT, ROW, MODE_COLUMN);
+    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), column(), modeRow());
+    onButtonHistoryClicked(m_history_button.isChecked());
 }
 
 void LibraryControl::SetupUiComponents()
@@ -228,15 +230,15 @@ void LibraryControl::scrollUpLibraryPages()
         }
         if (m_current_history_mode == 0)
         {
-             updateChildrenVisibility(m_all_historty_buttons,m_current_history_indexs[m_current_history_mode],LIB_PAGE_SIZE);
+             updateChildrenVisibility(m_all_historty_buttons,m_current_history_indexs[m_current_history_mode],libPageSize());
              m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
-             m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_historty_buttons.size(), LIB_PAGE_SIZE));
+             m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_historty_buttons.size(), libPageSize()));
         }
         else
         {
-            updateChildrenVisibility(m_history_buttons_list[m_current_history_mode - 1],m_current_history_indexs[m_current_history_mode],LIB_PAGE_SIZE);
+            updateChildrenVisibility(m_history_buttons_list[m_current_history_mode - 1],m_current_history_indexs[m_current_history_mode],libPageSize());
             m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);
-            m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[m_current_history_mode - 1].size(), LIB_PAGE_SIZE));
+            m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[m_current_history_mode - 1].size(), libPageSize()));
 
         }
     }
@@ -249,16 +251,16 @@ void LibraryControl::scrollUpLibraryPages()
 
         if (m_current_mode == 0)
         {
-             updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],LIB_PAGE_SIZE);
+             updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],libPageSize());
              m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
-             m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), LIB_PAGE_SIZE));
+             m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
         }
         else
         {
-            updateChildrenVisibility(m_library_buttons_list[m_current_mode -1],m_current_page_indexs[m_current_mode],LIB_PAGE_SIZE);
+            updateChildrenVisibility(m_library_buttons_list[m_current_mode -1],m_current_page_indexs[m_current_mode],libPageSize());
             //set up down button enable
             m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
-            m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1 < calulateNumberOfPages(m_library_buttons_list[m_current_mode - 1].size(), LIB_PAGE_SIZE));
+            m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1 < calulateNumberOfPages(m_library_buttons_list[m_current_mode - 1].size(), libPageSize()));
         }
     }
 
@@ -271,15 +273,15 @@ void LibraryControl::scrollDownLibraryPages()
         m_current_history_indexs[m_current_history_mode] += 1;
         if (m_current_history_mode == 0)
         {
-             updateChildrenVisibility(m_all_historty_buttons,m_current_history_indexs[m_current_history_mode],LIB_PAGE_SIZE);
+             updateChildrenVisibility(m_all_historty_buttons,m_current_history_indexs[m_current_history_mode],libPageSize());
              m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
-             m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_historty_buttons.size(), LIB_PAGE_SIZE));
+             m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_historty_buttons.size(), libPageSize()));
         }
         else
         {
-            updateChildrenVisibility(m_history_buttons_list[m_current_history_mode - 1],m_current_history_indexs[m_current_history_mode],LIB_PAGE_SIZE);
+            updateChildrenVisibility(m_history_buttons_list[m_current_history_mode - 1],m_current_history_indexs[m_current_history_mode],libPageSize());
             m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);
-            m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[m_current_history_mode - 1].size(), LIB_PAGE_SIZE));
+            m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[m_current_history_mode - 1].size(), libPageSize()));
 
         }
     }
@@ -288,15 +290,15 @@ void LibraryControl::scrollDownLibraryPages()
         m_current_page_indexs[m_current_mode] += 1;
         if (m_current_mode == 0)
         {
-             updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],LIB_PAGE_SIZE);
+             updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],libPageSize());
              m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
-             m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), LIB_PAGE_SIZE));
+             m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
         }
         else
         {
-            updateChildrenVisibility(m_library_buttons_list[m_current_mode - 1],m_current_page_indexs[m_current_mode],LIB_PAGE_SIZE);
+            updateChildrenVisibility(m_library_buttons_list[m_current_mode - 1],m_current_page_indexs[m_current_mode],libPageSize());
             m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
-            m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_library_buttons_list[m_current_mode - 1].size(), LIB_PAGE_SIZE));
+            m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_library_buttons_list[m_current_mode - 1].size(), libPageSize()));
         }
     }
 }
@@ -319,10 +321,10 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
     //for ALL button
     if (index == 0)
     {
-        placeChildrenIntoPanel(m_all_lib_buttons, LC_BUTTON_SIZE, LC_LIB_BUTTON_TOP_LEFT, ROW, LIB_COLUMN);
-        updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],LIB_PAGE_SIZE);
+        placeChildrenIntoPanel(m_all_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+        updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],libPageSize());
         m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
-        m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), LIB_PAGE_SIZE));
+        m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
         return;
     }
 
@@ -330,10 +332,10 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
     {
         if (j == index -1)
         {
-            placeChildrenIntoPanel(m_library_buttons_list[j], LC_BUTTON_SIZE, LC_LIB_BUTTON_TOP_LEFT, ROW, LIB_COLUMN);
-            updateChildrenVisibility(m_library_buttons_list[j],m_current_page_indexs[m_current_mode],LIB_PAGE_SIZE);
+            placeChildrenIntoPanel(m_library_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+            updateChildrenVisibility(m_library_buttons_list[j],m_current_page_indexs[m_current_mode],libPageSize());
             m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
-            m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_library_buttons_list[j].size(), LIB_PAGE_SIZE));
+            m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_library_buttons_list[j].size(), libPageSize()));
         }
         else
         {
@@ -364,10 +366,10 @@ void LibraryControl::onButtonModeHistoryClicked(const int index, QObject *sender
     //for ALL button
     if (index == 0)
     {
-        placeChildrenIntoPanel(m_all_historty_buttons, LC_BUTTON_SIZE, LC_LIB_BUTTON_TOP_LEFT, ROW, LIB_COLUMN);
-        updateChildrenVisibility(m_all_historty_buttons,m_current_page_indexs[m_current_history_mode],LIB_PAGE_SIZE);
+        placeChildrenIntoPanel(m_all_historty_buttons, LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+        updateChildrenVisibility(m_all_historty_buttons,m_current_page_indexs[m_current_history_mode],libPageSize());
         m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
-        m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), LIB_PAGE_SIZE));
+        m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
         return;
     }
 
@@ -375,10 +377,10 @@ void LibraryControl::onButtonModeHistoryClicked(const int index, QObject *sender
     {
         if (j == index -1)
         {
-            placeChildrenIntoPanel(m_history_buttons_list[j], LC_BUTTON_SIZE, LC_LIB_BUTTON_TOP_LEFT, ROW, LIB_COLUMN);
-            updateChildrenVisibility(m_history_buttons_list[j],m_current_history_indexs[m_current_history_mode],LIB_PAGE_SIZE);
+            placeChildrenIntoPanel(m_history_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+            updateChildrenVisibility(m_history_buttons_list[j],m_current_history_indexs[m_current_history_mode],libPageSize());
             m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
-            m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[j].size(), LIB_PAGE_SIZE));
+            m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[j].size(), libPageSize()));
         }
         else
         {
@@ -403,8 +405,9 @@ void LibraryControl::onButtonHistoryClicked(const bool check)
         {
             btn->setVisible(false);
         }
-        updateChildrenVisibility(m_history_mode_buttons,0,MODE_PAGE_SIZE);
+        updateChildrenVisibility(m_history_mode_buttons,0,modePageSize());
         onButtonModeHistoryClicked(m_current_history_mode,nullptr);
+        m_title_label.setText("ライブラリ (最近使ったもの)");
 
     }
     else
@@ -417,7 +420,70 @@ void LibraryControl::onButtonHistoryClicked(const bool check)
         {
             btn->setVisible(false);
         }
-        updateChildrenVisibility(m_mode_buttons,0,MODE_PAGE_SIZE);
+        updateChildrenVisibility(m_mode_buttons,0,modePageSize());
         onButtonModeClicked(m_current_mode, nullptr);
+        m_title_label.setText("ライブラリ");
     }
 }
+
+QPoint LibraryControl::modeStartPoint() const
+{
+    return m_modeStartPoint;
+}
+
+void LibraryControl::setModeStartPoint(QPoint newModeStartPoint)
+{
+    m_modeStartPoint = newModeStartPoint;
+}
+
+QPoint LibraryControl::libStartPoint() const
+{
+    return m_libStartPoint;
+}
+
+void LibraryControl::setLibStartPoint(QPoint newLibStartPoint)
+{
+    m_libStartPoint = newLibStartPoint;
+}
+
+uint16_t LibraryControl::modeRow() const
+{
+    return m_modeRow;
+}
+
+void LibraryControl::setModeRow(uint16_t newModeRow)
+{
+    m_modeRow = newModeRow;
+}
+
+uint16_t LibraryControl::libPageSize() const
+{
+    return column()*libRow();
+}
+
+uint16_t LibraryControl::modePageSize() const
+{
+    return column()*modeRow();
+}
+
+uint16_t LibraryControl::libRow() const
+{
+    return m_libRow;
+}
+
+void LibraryControl::setLibRow(uint16_t newLibRow)
+{
+    m_libRow = newLibRow;
+}
+
+uint16_t LibraryControl::column() const
+{
+    return m_column;
+}
+
+void LibraryControl::setColumn(uint16_t newColumn)
+{
+    m_column = newColumn;
+}
+
+
