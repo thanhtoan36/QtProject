@@ -319,6 +319,19 @@ void MainWindow::on_LibraryControl_Fake_Open_clicked()
         strncpy(param.group.library_param[i].title, ("tL"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
         strncpy(param.group.library_param[i].library_no, (QString::number(mode)+"L"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
     }
+
+    param.history.count = QRandomGenerator::global()->generate()%1000;
+    param.history.library_param = (LIBRARY_PARAM*)malloc(param.history.count*sizeof (LIBRARY_PARAM));
+    qDebug() <<param.history.count;
+    for (int i=0;i< param.history.count;i++)
+    {
+        param.history.library_param[i].select = false;
+        int mode = QRandomGenerator::global()->generate()%4;
+        strncpy(param.history.library_param[i].mode, (QString::number(mode)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+        strncpy(param.history.library_param[i].title, ("tH"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+        strncpy(param.history.library_param[i].library_no, (QString::number(mode)+"H"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
+    }
+
     if (!ui->checkBox_HorizontalLayout->isChecked()) {
         m_library_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_library_control);

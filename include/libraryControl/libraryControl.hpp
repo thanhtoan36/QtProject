@@ -27,8 +27,8 @@ protected:
 
 protected slots:
     virtual void onButtonModeClicked(const int index, QObject* sender);
-
-    virtual void onButtonHistoryClicked();
+    virtual void onButtonModeHistoryClicked(const int index, QObject* sender);
+    virtual void onButtonHistoryClicked(const bool check);
 
 protected:
     GridBackground m_grid;
@@ -42,12 +42,20 @@ protected:
     CustomPushButton m_empty_button;
     SelectButton m_register_button;
     SelectButton m_delete_button;
+
+    //for library panel
     QVector<QVector<QSharedPointer<TitleSelectButton>>> m_library_buttons_list;
-    QVector<QSharedPointer<TitleSelectButton>> m_history_buttons;
     QVector<QSharedPointer<SelectButton>> m_mode_buttons; //already contain ALL Mode
     QVector<QSharedPointer<TitleSelectButton>> m_all_lib_buttons;
     QVector<uint32_t> m_current_page_indexs;
     uint32_t m_current_mode = 0; //default là ALL
+
+    //for history
+    QVector<QVector<QSharedPointer<TitleSelectButton>>> m_history_buttons_list;
+    QVector<QSharedPointer<SelectButton>> m_history_mode_buttons; //already contain ALL Mode
+    QVector<QSharedPointer<TitleSelectButton>> m_all_historty_buttons;
+    QVector<uint32_t> m_current_history_indexs;
+    uint32_t m_current_history_mode = 0; //default là ALL
 };
 
 #endif // LIBRARYCONTROL_HPP
