@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    include/testDataParser.cpp \
     src/baseComponent/dynamicStyleSheet.cpp \
     src/baseComponent/gridBackground.cpp \
     src/baseComponent/selectColorButton.cpp \
@@ -103,6 +104,7 @@ HEADERS += \
     include/paletteControl/paletteControl.hpp \
     include/paletteControl/paletteControl_datatypes.h \
     include/paletteControl/paletteControl_define.hpp \
+    include/testDataParser.h \
     include/trackControl/pantiltControl.h \
     include/trackControl/trackControl.hpp \
     include/trackControl/trackControlHorizon.h \

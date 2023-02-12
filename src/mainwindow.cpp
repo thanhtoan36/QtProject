@@ -12,6 +12,9 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
+#include "testDataParser.h"
+#include <QDateTime>
+
 QRandomGenerator gRandom;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -62,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_group_control_horizon = MakeSharedQObject<GroupControlHorizon>();
     m_group_control_horizon->PrepareUi();
 
+    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
 }
 
 MainWindow::~MainWindow()
@@ -69,11 +73,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::logEvent(const QString &log)
+{
+    const QString TIME_FORMAT = "HH:mm:ss.zzz";
+    const auto time = QTime::currentTime().toString(TIME_FORMAT);
+    ui->EventOutput->appendPlainText(QString("[%1] %2").arg(time).arg(log));
+}
+
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 {
-    COLOR_PICKER_DISP_PARAM params;
+    COLOR_PICKER_DISP_PARAM params = CPC_ParseInput(ui->ColorPickerControl_RawInput->toPlainText());
     params.type = (ColorPickerType)ui->ColorPickerControl_Fake_Type->currentIndex();
-    params.color = QColor::fromHsv(25, 26, 255);
 
     if (ui->checkBox_HorizontalLayout->isChecked())
     {
@@ -299,5 +309,16 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
     }
     m_panel_window->show();
     m_panel_window->raise();
+}
+
+void MainWindow::CPC_OnColorChanged()
+{
+    logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name()));
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->EventOutput->clear();
 }
 

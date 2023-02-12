@@ -34,6 +34,7 @@ EncoderControl::EncoderControl(QWidget *parent)
 
     m_encoder_background.setCellSize(EC_ENCODER_LABEL_SIZE + QSize(0, EC_CUSTOM_ENCODER_SIZE.height()));
     m_encoder_background.move(EC_ENCODER_LABELS_TOPLEFT);
+    m_encoder_background.setBackgroundColor(Qt::black);
     m_encoder_background.setGridLineColor(Qt::transparent);
 
     m_button_background.setGridSize(QSize(4, 1));
