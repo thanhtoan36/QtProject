@@ -39,22 +39,31 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void logEvent(const QString &log);
+
 private slots:
     void on_ColorPickerControl_Fake_Open_clicked();
     void on_TrackControl_Fake_Open_clicked();
     void on_IntensityControl_Fake_Open_clicked();
-
-
     void on_ColorFilterControl_Fake_Open_clicked();
-
     void on_EncoderControl_Fake_Open_clicked();
-
-
     void on_InputNumControl_Fake_Open_clicked();
-
     void on_GroupPanelControl_Fake_Open_clicked();
 
+    void on_BtnClear_clicked();
     void on_LibraryControl_Fake_Open_clicked();
+
+    void CPC_OnColorChanged();
+
+    void on_InputNumControl_Fake_Set_clicked();
+
+    void on_ColorPickerControl_Fake_Set_clicked();
+
+    void on_ColorFilterControl_Fake_Set_clicked();
+
+    void on_EncoderControl_Fake_Set_clicked();
+
+    void on_TrackControl_Fake_Set_clicked();
 
 private:
     Ui::MainWindow *ui;

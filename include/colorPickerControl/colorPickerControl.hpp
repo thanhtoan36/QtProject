@@ -38,6 +38,9 @@ protected:
     virtual void SetupUiComponents();
     virtual void SetupUiEvents();
 
+    void pauseSliderEvents();
+    void resumeSliderEvents();
+
 protected:
     ColorPickerType m_pickerType;
     QColor m_pickerColor;

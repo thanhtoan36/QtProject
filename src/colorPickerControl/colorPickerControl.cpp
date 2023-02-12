@@ -57,6 +57,7 @@ void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
     m_picker_xy.SetColor(pickerColor());
     m_picker_rgb.SetColor(pickerColor());
 
+    pauseSliderEvents();
     auto xy = m_picker_xy.Xy();
     m_slider_x.setValue(xy.x() * 1000);
     m_slider_y.setValue(xy.y() * 1000);
@@ -65,6 +66,7 @@ void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
     m_slider_h.setValue(hsv.h);
     m_slider_s.setValue(hsv.s);
     m_slider_v.setValue(hsv.v);
+    resumeSliderEvents();
 }
 
 void ColorPickerControl::SetupUiComponents()
@@ -141,10 +143,14 @@ void ColorPickerControl::SetupUiEvents()
         m_label_value_y.setText(QString::asprintf("%.03f", xy.y()));
     });
     connect(&m_picker_xy, &CustomColorPickerXY::picked, this, [&]() {
+        pauseSliderEvents();
+
         setPickerColor(m_picker_xy.Color());
         auto xy = m_picker_xy.Xy();
         m_slider_x.setValue(xy.x() * 1000);
         m_slider_y.setValue(xy.y() * 1000);
+
+        resumeSliderEvents();
     });
 
     connect(&m_slider_x, &QSlider::valueChanged, this, [&](int) {
@@ -165,12 +171,16 @@ void ColorPickerControl::SetupUiEvents()
         m_label_value_v.setText(QString::number(hsv.v));
     });
     connect(&m_picker_rgb, &CustomColorPickerRGB::picked, this, [&]() {
+        pauseSliderEvents();
+
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
         auto hsv = m_picker_rgb.HSV();
         m_slider_h.setValue(hsv.h);
         m_slider_s.setValue(hsv.s);
         m_slider_v.setValue(hsv.v);
+
+        resumeSliderEvents();
     });
     // TODO: update picker xy on without recursion
     connect(&m_slider_h, &QSlider::valueChanged, this, [&](int) {
@@ -195,6 +205,24 @@ void ColorPickerControl::SetupUiEvents()
     connect(&m_button_rgb, &QAbstractButton::clicked, this, [&]() {
         setPickerType(COLOR_PICKER_TYPE_RGB);
     });
+}
+
+void ColorPickerControl::pauseSliderEvents()
+{
+    m_slider_x.blockSignals(true);
+    m_slider_y.blockSignals(true);
+    m_slider_h.blockSignals(true);
+    m_slider_s.blockSignals(true);
+    m_slider_v.blockSignals(true);
+}
+
+void ColorPickerControl::resumeSliderEvents()
+{
+    m_slider_x.blockSignals(false);
+    m_slider_y.blockSignals(false);
+    m_slider_h.blockSignals(false);
+    m_slider_s.blockSignals(false);
+    m_slider_v.blockSignals(false);
 }
 
 ColorPickerType ColorPickerControl::pickerType() const

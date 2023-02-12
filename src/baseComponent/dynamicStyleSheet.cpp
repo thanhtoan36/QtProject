@@ -27,7 +27,6 @@ void DynamicStyleSheet::setStyleSheetTemplate(const QString &newStyleSheetTempla
 void DynamicStyleSheet::appendStyleSheetTemplate(const QString &styleSheet)
 {
     setStyleSheetTemplate(styleSheetTemplate() + "\n" + styleSheet);
-    emit styleSheetChanged();
 }
 
 void DynamicStyleSheet::polish()

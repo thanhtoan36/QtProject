@@ -37,6 +37,7 @@ void CustomColorPickerRGB::SetHSV(const int h, const int s, const int v)
         m_hsv.h = h;
         m_hsv.s = s;
         m_hsv.v = v;
+        m_color = QColor::fromHsv(h, s, v);
         int x = PICKER_RGB_WIDTH - 1 - (h * (PICKER_RGB_WIDTH - 1)) / H_MAX;
         int y = PICKER_RGB_HIEGHT - 1 - (s * (PICKER_RGB_HIEGHT - 1)) / S_MAX;
         m_pointer = QPointF(x,y);
@@ -55,7 +56,6 @@ void CustomColorPickerRGB::SetColor(const QColor &color)
     int h,s,v;
     color.getHsv(&h,&s,&v);
     SetHSV(h,s,v);
-    m_color = color;
     emit ColorChanged(m_color);
 }
 

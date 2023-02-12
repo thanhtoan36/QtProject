@@ -12,6 +12,9 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
+#include "testDataParser.h"
+#include <QDateTime>
+
 QRandomGenerator gRandom;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -65,8 +68,12 @@ MainWindow::MainWindow(QWidget *parent)
     m_library_control = MakeSharedQObject<LibraryControl>();
     m_library_control->PrepareUi();
 
+
     m_library_control_horizon = MakeSharedQObject<LibraryControlHorizon>();
     m_library_control_horizon->PrepareUi();
+
+    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+
 }
 
 MainWindow::~MainWindow()
@@ -74,18 +81,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::logEvent(const QString &log)
+{
+    const QString TIME_FORMAT = "HH:mm:ss.zzz";
+    const auto time = QTime::currentTime().toString(TIME_FORMAT);
+    ui->EventOutput->appendPlainText(QString("[%1] %2").arg(time).arg(log));
+}
+
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 {
-    COLOR_PICKER_DISP_PARAM params;
-    params.type = (ColorPickerType)ui->ColorPickerControl_Fake_Type->currentIndex();
-    params.color = QColor::fromHsv(25, 26, 255);
-
     if (ui->checkBox_HorizontalLayout->isChecked())
     {
-        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_color_picker_control_horizon);
     } else {
-        m_color_picker_control->SetDispParamData(&params);
         m_panel_window->AttachPanelControl(m_color_picker_control);
     }
 
@@ -96,40 +104,9 @@ void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
 
 void MainWindow::on_TrackControl_Fake_Open_clicked()
 {
-    TRACK_DISP_PARAM params;
-    params.mode = (TrackMode)ui->TrackControl_Fake_Mode->currentIndex();
-    params.valueMode = (TrackValueMode)ui->TrackControl_Fake_ValueMode->currentIndex();
-
-    QVector<TRACK_PARAM_GROUP> points{};
-
-    // Generate random points
-    int point_count = ui->TrackControl_Fake_PointCount->text().toInt();
-    for (int i = 0; i < point_count; i++) {
-        TRACK_PARAM_GROUP point;
-
-        const int max_value = params.mode == TrackMode::TRACK_MODE_PERCENT ? 100 : 255;
-
-        point.pan.current = gRandom.bounded(0, max_value);
-        point.pan.min = 0;
-        point.pan.max = max_value;
-
-        point.tilt.current = gRandom.bounded(0, max_value);
-        point.tilt.min = 0;
-        point.tilt.max = max_value;
-
-        points.push_back(point);
-    }
-
-    params.count = points.size();
-    params.data = points.data();
-
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_track_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_track_control_horizon);
-    }
-    else {
-        m_track_control->PrepareUi();
-        m_track_control->SetDispParamData(&params);
+    } else {
         m_panel_window->AttachPanelControl(m_track_control);
     }
 
@@ -152,28 +129,9 @@ void MainWindow::on_IntensityControl_Fake_Open_clicked()
 
 void MainWindow::on_EncoderControl_Fake_Open_clicked()
 {
-    ENCODER_DISP_PARAM params;
-    params.type = (EncoderType)ui->EncoderControl_Fake_Type->currentIndex();
-    params.mode = (EncoderMode)ui->EncoderControl_Fake_Mode->currentIndex();
-    params.count = gRandom.bounded(0, 10);
-    QVector<ENCODER_PARAM> data;
-
-    int max_value = params.mode == ENCODER_MODE_255 ? 255 : 100;
-    for (int i = 0; i < params.count; ++i) {
-        ENCODER_PARAM p;
-        p.maxLevel = gRandom.bounded(50, max_value);
-        p.level = gRandom.bounded(0, p.maxLevel);
-        QString randomName = QString("Test%1").arg(gRandom.bounded(1, 50));
-        std::strncpy(p.name, (const char*)randomName.toLocal8Bit().data(), sizeof(p.name) - 1);
-        data.push_back(p);
-    }
-    params.param = data.data();
-
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_encoder_control_horizon->SetDispParamDataHorizon(&params);
         m_panel_window->AttachPanelControl(m_encoder_control_horizon);
     } else {
-        m_encoder_control->SetDispParamData(&params);
         m_panel_window->AttachPanelControl(m_encoder_control);
     }
     m_panel_window->show();
@@ -183,38 +141,10 @@ void MainWindow::on_EncoderControl_Fake_Open_clicked()
 
 void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
 {
-    COLOR_FILTER_DISP_PARAM param;
-    param.tb.select = true;
-    param.custom.select = false;
-    param.history.select = false;
-    param.tb.count = QRandomGenerator::global()->generate()%100;
-    param.tb.color_filter = (COLOR_FILTER_PARAM*)malloc(param.tb.count*sizeof(COLOR_FILTER_PARAM));
-    for (int i = 0; i< param.tb.count;i++)
-    {
-        qsrand(time(0));param.tb.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
-        strncpy(param.tb.color_filter[i].name, QString(QString("T")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
-    }
-    param.custom.count = QRandomGenerator::global()->generate()%100;
-    param.custom.color_filter = (COLOR_FILTER_PARAM*)malloc(param.custom.count*sizeof(COLOR_FILTER_PARAM));
-    for (int i = 0; i< param.custom.count;i++)
-    {
-        qsrand(time(0));param.custom.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
-        strncpy(param.custom.color_filter[i].name, QString(QString("C")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
-    }
-    param.history.count = QRandomGenerator::global()->generate()%100;
-    param.history.color_filter = (COLOR_FILTER_PARAM*)malloc(param.history.count*sizeof(COLOR_FILTER_PARAM));
-    for (int i = 0; i< param.history.count;i++)
-    {
-        qsrand(time(0));param.history.color_filter[i].color = QColor( QRandomGenerator::global()->generate()%255,  QRandomGenerator::global()->generate()%255, QRandomGenerator::global()->generate()%255);
-        strncpy(param.history.color_filter[i].name, QString(QString("H")+QString::number(i)).toLocal8Bit().data(), COLOR_FILTER_NAME_SIZE);
-    }
-
-    if (!ui->checkBox_HorizontalLayout->isChecked()) {
-        m_color_filter_control->setDispParamData(&param);
-        m_panel_window->AttachPanelControl(m_color_filter_control);
-    } else {
-        m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
         m_panel_window->AttachPanelControl(m_color_filter_control_horizon);
+    } else {
+        m_panel_window->AttachPanelControl(m_color_filter_control);
     }
     m_panel_window->show();
     m_panel_window->raise();
@@ -223,51 +153,10 @@ void MainWindow::on_ColorFilterControl_Fake_Open_clicked()
 
 void MainWindow::on_InputNumControl_Fake_Open_clicked()
 {
-    INPUT_NUM_DISP_PARAM param;
-    QString start;
-    if (ui->InputNumControl_Fake_Type->currentIndex() == 0)
-    {
-        param.type = INPUT_NUM_TYPE_COLOR;
-        start = "Color";
-    }
-    else if(ui->InputNumControl_Fake_Type->currentIndex() == 1)
-    {
-        param.type = INPUT_NUM_TYPE_POSITION;
-        start = "Pos";
-    }
-    else if(ui->InputNumControl_Fake_Type->currentIndex() == 2)
-    {
-        param.type = INPUT_NUM_TYPE_GOBO;
-        start = "Gobo";
-    }
-    else if(ui->InputNumControl_Fake_Type->currentIndex() == 3)
-    {
-        param.type = INPUT_NUM_TYPE_BEAM_SHUTTER;
-        start = "Shutter";
-    }
-    else if(ui->InputNumControl_Fake_Type->currentIndex() == 4)
-    {
-        param.type = INPUT_NUM_TYPE_CONTROL;
-        start = "Control";
-    }
-    param.mode  = INPUT_NUM_MODE_255;
-    param.count = QRandomGenerator::global()->generate()%10;
-    param.param = (INPUT_NUM_PARAM*)malloc(param.count * sizeof(INPUT_NUM_PARAM));
-
-    qDebug() << param.count ;
-
-    for (int i=0 ; i< param.count ; i++)
-    {
-        param.param[i].select = false;
-        strncpy(param.param[i].name, (start+QString::number(i)).toLocal8Bit().data(), INPUT_NUM_NAME_SIZE);
-    }
-
-    if (!ui->checkBox_HorizontalLayout->isChecked()) {
-        m_input_num_control->SetDispParamData(&param);
-        m_panel_window->AttachPanelControl(m_input_num_control);
-    } else {
-        m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
         m_panel_window->AttachPanelControl(m_input_num_control_horizon);
+    } else {
+        m_panel_window->AttachPanelControl(m_input_num_control);
     }
     m_panel_window->show();
     m_panel_window->raise();
@@ -306,6 +195,16 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
     m_panel_window->raise();
 }
 
+void MainWindow::CPC_OnColorChanged()
+{
+    logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name()));
+}
+
+
+void MainWindow::on_BtnClear_clicked()
+{
+    ui->EventOutput->clear();
+}
 
 void MainWindow::on_LibraryControl_Fake_Open_clicked()
 {
@@ -346,4 +245,63 @@ void MainWindow::on_LibraryControl_Fake_Open_clicked()
     m_panel_window->raise();
 }
 
+void MainWindow::on_InputNumControl_Fake_Set_clicked()
+{
+    INPUT_NUM_DISP_PARAM param = IN_ParseInput(ui->InputNumControl_Fake_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+    } else {
+        m_input_num_control->SetDispParamData(&param);
+    }
+}
+
+
+void MainWindow::on_ColorPickerControl_Fake_Set_clicked()
+{
+    COLOR_PICKER_DISP_PARAM params = CPC_ParseInput(ui->ColorPickerControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
+    } else {
+        m_color_picker_control->SetDispParamData(&params);
+    }
+}
+
+
+void MainWindow::on_ColorFilterControl_Fake_Set_clicked()
+{
+    COLOR_FILTER_DISP_PARAM param = CFC_ParseInput(ui->ColorFilterControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+    } else {
+        m_color_filter_control->setDispParamData(&param);
+    }
+}
+
+
+void MainWindow::on_EncoderControl_Fake_Set_clicked()
+{
+    ENCODER_DISP_PARAM params = EC_ParseInput(ui->EncoderControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_encoder_control_horizon->SetDispParamDataHorizon(&params);
+    } else {
+        m_encoder_control->SetDispParamData(&params);
+    }
+}
+
+
+void MainWindow::on_TrackControl_Fake_Set_clicked()
+{
+    TRACK_DISP_PARAM params = TC_ParseInput(ui->TrackControl_RawInput->toPlainText());
+
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_track_control_horizon->SetDispParamDataHorizon(&params);
+    } else {
+        m_track_control->SetDispParamData(&params);
+    }
+
+}
 
