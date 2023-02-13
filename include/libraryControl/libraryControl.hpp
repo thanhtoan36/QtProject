@@ -11,8 +11,6 @@
 class LibraryControl : public PanelControlBase
 {
     Q_OBJECT
-//    Q_PROPERTY(int currentLibraryPage READ currentLibraryPage WRITE setCurrentLibraryPage NOTIFY currentLibraryPageChanged)
-//    Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
 
 public:
     explicit LibraryControl(QWidget * parent = nullptr);
@@ -47,6 +45,8 @@ protected:
 
 protected slots:
     virtual void onButtonModeClicked(const int index, QObject* sender);
+    virtual void onButtonLibraryClicked(const int index, QObject* sender);
+    virtual void onButtonHistoryLibraryClicked(const int index, QObject* sender);
     virtual void onButtonModeHistoryClicked(const int index, QObject* sender);
     virtual void onButtonHistoryClicked(const bool check);
 

@@ -32,13 +32,13 @@ void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
         auto item = new QListWidgetItem(&m_list_view, QListWidgetItem::ItemType::Type);
         item->setData(PlaybackRowDelegate::Roles::SelectedRole, data.select);
         item->setData(PlaybackRowDelegate::Roles::MarkingColorRole, data.marking.color);
-        item->setData(PlaybackRowDelegate::Roles::MarkingRole, QString(data.marking.marking));
-        item->setData(PlaybackRowDelegate::Roles::QueueRole, QString(data.queue));
-        item->setData(PlaybackRowDelegate::Roles::FadeRole, QString(data.fade));
-        item->setData(PlaybackRowDelegate::Roles::DelayRole, QString(data.delay));
-        item->setData(PlaybackRowDelegate::Roles::WeightRole, QString(data.weight));
-        item->setData(PlaybackRowDelegate::Roles::LinkRole, QString(data.link));
-        item->setData(PlaybackRowDelegate::Roles::TitleRole, QString(data.title));
+        item->setData(PlaybackRowDelegate::Roles::MarkingRole, QString::fromLocal8Bit(data.marking.marking));
+        item->setData(PlaybackRowDelegate::Roles::QueueRole, QString::fromLocal8Bit(data.queue));
+        item->setData(PlaybackRowDelegate::Roles::FadeRole,  QString::fromLocal8Bit(data.fade));
+        item->setData(PlaybackRowDelegate::Roles::DelayRole, QString::fromLocal8Bit(data.delay));
+        item->setData(PlaybackRowDelegate::Roles::WeightRole,QString::fromLocal8Bit(data.weight));
+        item->setData(PlaybackRowDelegate::Roles::LinkRole,  QString::fromLocal8Bit(data.link));
+        item->setData(PlaybackRowDelegate::Roles::TitleRole, QString::fromLocal8Bit(data.title));
         m_list_view.addItem(item);
     }
 }
