@@ -11,8 +11,6 @@
 class LibraryControl : public PanelControlBase
 {
     Q_OBJECT
-//    Q_PROPERTY(int currentLibraryPage READ currentLibraryPage WRITE setCurrentLibraryPage NOTIFY currentLibraryPageChanged)
-//    Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
 
 public:
     explicit LibraryControl(QWidget * parent = nullptr);

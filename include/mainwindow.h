@@ -26,6 +26,8 @@
 
 #include "playbackControl/playbackControl.hpp"
 
+#include "paletteControl/paletteControl.hpp"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -66,6 +68,8 @@ private slots:
 
     void on_PlaybackControl_Fake_Open_clicked();
 
+    void on_PalletControl_Fake_Open_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();
@@ -95,5 +99,7 @@ private:
     QSharedPointer<LibraryControlHorizon> m_library_control_horizon;
 
     QSharedPointer<PlaybackControl> m_playback_control;
+
+    QSharedPointer<PaletteControl> m_palette_control;
 };
 #endif // MAINWINDOW_H

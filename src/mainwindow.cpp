@@ -74,6 +74,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_playback_control = MakeSharedQObject<PlaybackControl>();
     m_playback_control->PrepareUi();
 
+    m_palette_control = MakeSharedQObject<PaletteControl>();
+    m_palette_control->PrepareUi();
+
     connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
 
 }
@@ -315,3 +318,15 @@ void MainWindow::on_TrackControl_Fake_Set_clicked()
     }
 
 }
+
+void MainWindow::on_PalletControl_Fake_Open_clicked()
+{
+    if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_panel_window->AttachPanelControl(m_palette_control);
+    } else {
+        m_panel_window->AttachPanelControl(m_palette_control);
+    }
+    m_panel_window->show();
+    m_panel_window->raise();
+}
+
