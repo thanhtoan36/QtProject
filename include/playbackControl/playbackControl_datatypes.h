@@ -6,6 +6,7 @@
 #define PLAYBACK_FADE_SIZE      32 + 1      // フェードのサイズ
 #define PLAYBACK_DELAY_SIZE     32 + 1      // ディレイのサイズ
 #define PLAYBACK_WEIGHT_SIZE    32 + 1      // ウェイトのサイズ
+#define PLAYBACK_LINK_SIZE      32 + 1      //
 #define PLAYBACK_TITLE_SIZE    32 + 1       // タイトルのサイズ
 
 #include <QColor>
@@ -26,6 +27,7 @@ typedef struct
     char    fade[PLAYBACK_FADE_SIZE];       // フェード
     char    delay[PLAYBACK_DELAY_SIZE];     // ディレイ
     char    weight[PLAYBACK_WEIGHT_SIZE];   // ウェイト
+    char    link[PLAYBACK_LINK_SIZE];
     char    title[PLAYBACK_TITLE_SIZE];     // タイトル
 } PLAYBACK_PARAM;
 

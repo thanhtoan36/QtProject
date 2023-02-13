@@ -25,6 +25,7 @@
 #include "libraryControl/libraryControlHorizon.h"
 
 #include "playbackControl/playbackControl.hpp"
+#include "playbackControl/playbackControlHorizon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -66,6 +67,8 @@ private slots:
 
     void on_PlaybackControl_Fake_Open_clicked();
 
+    void on_PlaybackControl_Fake_Set_clicked();
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();
@@ -95,5 +98,6 @@ private:
     QSharedPointer<LibraryControlHorizon> m_library_control_horizon;
 
     QSharedPointer<PlaybackControl> m_playback_control;
+    QSharedPointer<PlaybackControlHorizon> m_playback_control_horizon;
 };
 #endif // MAINWINDOW_H

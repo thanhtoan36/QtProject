@@ -1,11 +1,10 @@
 #include "playbackRowDelegate.h"
-#include "playbackControl/playbackControl_define.hpp"
 #include <QPainter>
 #include <QDebug>
 
 PlaybackRowDelegate::PlaybackRowDelegate(QObject *parent)
     : QStyledItemDelegate(parent),
-      m_orientation(Qt::Vertical)
+      m_columnsWidth()
 {
 
 }
@@ -15,15 +14,15 @@ void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QPen textPen, borderPen;
     borderPen = QPen(Qt::darkGray);
 
-    QVector<int> columnWidth = (m_orientation == Qt::Vertical) ? PLC_COLUMN_WIDTH : PLC_COLUMN_WIDTH_HORIZON;
-
     int x = 0;
     QVector<QRect> cells;
-    for (int i = 0; i < columnWidth.length(); i++) {
-        cells.append(QRect(option.rect.left() + x, option.rect.top(), columnWidth[i], option.rect.height()));
-        x += columnWidth[i];
+    for (int i = 0; i < m_columnsWidth.length(); i++) {
+        cells.append(QRect(option.rect.left() + x, option.rect.top(), m_columnsWidth[i], option.rect.height()));
+        x += m_columnsWidth[i];
     }
 
+    if (cells.isEmpty())
+        return;
 
     bool selected = index.data(Roles::SelectedRole).toBool();
     if(selected) {
@@ -44,6 +43,7 @@ void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QString fade = index.data(Roles::FadeRole).toString();
     QString delay = index.data(Roles::DelayRole).toString();
     QString weight = index.data(Roles::WeightRole).toString();
+    QString link = index.data(Roles::LinkRole).toString();
     QString title = index.data(Roles::TitleRole).toString();
 
     QRect r = cells[0];
@@ -65,22 +65,21 @@ void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, delay, &r);
     r = cells[4];
     painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, weight, &r);
-    if (m_orientation == Qt::Horizontal) {
+
+    if (cells.length() > 5) {
         r = cells[5];
+        painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, link, &r);
+        r = cells[6];
         painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, title, &r);
     }
 }
 
 QSize PlaybackRowDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (m_orientation == Qt::Vertical) {
-        return QSize(312, 48);
-    } else {
-        return QSize(780, 48);
-    }
+    return QSize(0, 36);
 }
 
-void PlaybackRowDelegate::setOrientation(Qt::Orientation orientation)
+void PlaybackRowDelegate::setColumnsWidth(const QVector<int> &columnsWidth)
 {
-    m_orientation = orientation;
+    m_columnsWidth = columnsWidth;
 }

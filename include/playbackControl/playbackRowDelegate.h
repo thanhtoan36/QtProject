@@ -9,6 +9,7 @@ public:
     enum Roles
     {
         QueueRole = Qt::UserRole + 1,
+        LinkRole,
         FadeRole,
         DelayRole,
         WeightRole,
@@ -21,10 +22,10 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    void setOrientation(Qt::Orientation orientation);
+    void setColumnsWidth(const QVector<int> &columnsWidth);
 
 private:
-    Qt::Orientation m_orientation;
+    QVector<int> m_columnsWidth;
 };
 
 #endif // PLAYBACKROWDELEGATE_H

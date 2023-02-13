@@ -7,4 +7,7 @@
 #define PLC_COLUMN_WIDTH  (QVector<int>{20, 67, 75, 75, 75})
 #define PLC_COLUMN_WIDTH_HORIZON  (QVector<int>{78, 78, 78, 78, 78, 78, 390})
 
+#define PLC_SCREENSIZE_HORIZON QSize(858, 276)
+#define PLC_LIST_GEOMETRY_HORIZON QRect(78, 2, 780, 272)
+
 #endif // PLAYBACKCONTROL_DEFINE_H

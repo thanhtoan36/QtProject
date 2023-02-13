@@ -13,7 +13,7 @@ public:
 
 protected:
     // Place UI components into this panel
-    virtual void SetupUiComponents() = 0;
+    virtual void SetupUiComponents() {};
     // Connect signals / slots to the UI components
     virtual void SetupUiEvents() {};
 

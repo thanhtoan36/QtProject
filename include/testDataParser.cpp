@@ -138,7 +138,7 @@ TRACK_DISP_PARAM TC_ParseInput(const QString &raw)
     return p;
 }
 
-INPUT_NUM_DISP_PARAM IN_ParseInput(const QString &raw)
+INPUT_NUM_DISP_PARAM INC_ParseInput(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -171,6 +171,40 @@ INPUT_NUM_DISP_PARAM IN_ParseInput(const QString &raw)
         p.param[i].select = array[i].toObject()["select"].toBool();
         const auto name = array[i].toObject()["name"].toString();
         strncpy(p.param[i].name, qPrintable(name), sizeof(p.param[i].name));
+    }
+
+    return p;
+}
+
+PLAYBACK_DISP_PARAM PLC_ParseInput(const QString &raw)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
+    const auto array = doc.array();
+
+    PLAYBACK_DISP_PARAM p;
+
+    p.count = array.count();
+    // NOTE: leak
+    p.param = new PLAYBACK_PARAM[p.count];
+    for (int i = 0; i < p.count; ++i) {
+        p.param[i].select = array[i].toObject()["select"].toBool();
+        p.param[i].marking.color = QColor(array[i].toObject()["marking"].toObject()["color"].toString());
+
+        const auto marking = array[i].toObject()["marking"].toObject()["marking"].toString();
+        const auto queue = array[i].toObject()["queue"].toString();
+        const auto fade = array[i].toObject()["fade"].toString();
+        const auto delay = array[i].toObject()["delay"].toString();
+        const auto weight = array[i].toObject()["weight"].toString();
+        const auto link = array[i].toObject()["link"].toString();
+        const auto title = array[i].toObject()["title"].toString();
+
+        strncpy(p.param[i].marking.marking, qPrintable(marking), sizeof(p.param[i].marking.marking));
+        strncpy(p.param[i].queue, qPrintable(queue), sizeof(p.param[i].queue));
+        strncpy(p.param[i].fade, qPrintable(fade), sizeof(p.param[i].fade));
+        strncpy(p.param[i].delay, qPrintable(delay), sizeof(p.param[i].delay));
+        strncpy(p.param[i].weight, qPrintable(weight), sizeof(p.param[i].weight));
+        strncpy(p.param[i].link, qPrintable(link), sizeof(p.param[i].link));
+        strncpy(p.param[i].title, qPrintable(title), sizeof(p.param[i].title));
     }
 
     return p;

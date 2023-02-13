@@ -74,8 +74,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_playback_control = MakeSharedQObject<PlaybackControl>();
     m_playback_control->PrepareUi();
 
-    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+    m_playback_control_horizon = MakeSharedQObject<PlaybackControlHorizon>();
+    m_playback_control_horizon->PrepareUi();
 
+    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
 }
 
 MainWindow::~MainWindow()
@@ -167,6 +169,7 @@ void MainWindow::on_InputNumControl_Fake_Open_clicked()
 void MainWindow::on_PlaybackControl_Fake_Open_clicked()
 {
     if (ui->checkBox_HorizontalLayout->isChecked()) {
+        m_panel_window->AttachPanelControl(m_playback_control_horizon);
     } else {
         m_panel_window->AttachPanelControl(m_playback_control);
     }
@@ -258,13 +261,10 @@ void MainWindow::on_LibraryControl_Fake_Open_clicked()
 
 void MainWindow::on_InputNumControl_Fake_Set_clicked()
 {
-    INPUT_NUM_DISP_PARAM param = IN_ParseInput(ui->InputNumControl_Fake_RawInput->toPlainText());
+    INPUT_NUM_DISP_PARAM param = INC_ParseInput(ui->InputNumControl_Fake_RawInput->toPlainText());
 
-    if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_input_num_control_horizon->SetDispParamDataHorizon(&param);
-    } else {
-        m_input_num_control->SetDispParamData(&param);
-    }
+    m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+    m_input_num_control->SetDispParamData(&param);
 }
 
 
@@ -272,11 +272,8 @@ void MainWindow::on_ColorPickerControl_Fake_Set_clicked()
 {
     COLOR_PICKER_DISP_PARAM params = CPC_ParseInput(ui->ColorPickerControl_RawInput->toPlainText());
 
-    if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
-    } else {
-        m_color_picker_control->SetDispParamData(&params);
-    }
+    m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
+    m_color_picker_control->SetDispParamData(&params);
 }
 
 
@@ -284,11 +281,8 @@ void MainWindow::on_ColorFilterControl_Fake_Set_clicked()
 {
     COLOR_FILTER_DISP_PARAM param = CFC_ParseInput(ui->ColorFilterControl_RawInput->toPlainText());
 
-    if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
-    } else {
-        m_color_filter_control->setDispParamData(&param);
-    }
+    m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+    m_color_filter_control->setDispParamData(&param);
 }
 
 
@@ -296,11 +290,8 @@ void MainWindow::on_EncoderControl_Fake_Set_clicked()
 {
     ENCODER_DISP_PARAM params = EC_ParseInput(ui->EncoderControl_RawInput->toPlainText());
 
-    if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_encoder_control_horizon->SetDispParamDataHorizon(&params);
-    } else {
-        m_encoder_control->SetDispParamData(&params);
-    }
+    m_encoder_control_horizon->SetDispParamDataHorizon(&params);
+    m_encoder_control->SetDispParamData(&params);
 }
 
 
@@ -308,10 +299,14 @@ void MainWindow::on_TrackControl_Fake_Set_clicked()
 {
     TRACK_DISP_PARAM params = TC_ParseInput(ui->TrackControl_RawInput->toPlainText());
 
-    if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_track_control_horizon->SetDispParamDataHorizon(&params);
-    } else {
-        m_track_control->SetDispParamData(&params);
-    }
-
+    m_track_control_horizon->SetDispParamDataHorizon(&params);
+    m_track_control->SetDispParamData(&params);
 }
+
+void MainWindow::on_PlaybackControl_Fake_Set_clicked()
+{
+    PLAYBACK_DISP_PARAM params = PLC_ParseInput(ui->PlaybackControl_Fake_RawInput->toPlainText());
+    m_playback_control_horizon->setDispParamData(&params);
+    m_playback_control->setDispParamData(&params);
+}
+

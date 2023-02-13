@@ -5,22 +5,13 @@
 #include "baseComponent/selectButton.h"
 #include "playbackControl_datatypes.h"
 
+#include "playbackRowDelegate.h"
+#include "listWidgetGridLineOverlay.h"
+#include "markingPickerPopup.h"
+
 #include <QListWidget>
 #include <QLabel>
 #include <QTimer>
-
-
-class ListColumnSeperatorLineOverlay : public QWidget
-{
-    Q_OBJECT
-public:
-    ListColumnSeperatorLineOverlay(QWidget *parent = nullptr);
-    void setColumnsWidth(const QVector<int> &columnsWidth);
-protected:
-    virtual void paintEvent(QPaintEvent *e) override;
-private:
-    QVector<int> m_columnsWidth;
-};
 
 class PlaybackControl : public PanelControlBase
 {
@@ -28,7 +19,13 @@ class PlaybackControl : public PanelControlBase
 
 public:
     PlaybackControl(QWidget *parent = nullptr);
+    void setDispParamData(PLAYBACK_DISP_PARAM *param);
+
     virtual void SetupUiComponents() override;
+    virtual void SetupUiEvents() override;
+
+protected slots:
+    void onMarkingSelected(const QString &marking, const QColor &color);
 
 protected:
     void onItemClicked(QListWidgetItem *item);
@@ -37,12 +34,18 @@ protected:
 
 protected:
     QListWidget m_list_view;
-    // QHeaderView m_header_view;
+
     QListWidgetItem *m_clicked_item;
+    bool m_double_clicked;
     QTimer m_double_click_stablize_timer;
+
     QVector<int> m_column_width;
     QVector<QSharedPointer<QLabel>> m_headers;
-    ListColumnSeperatorLineOverlay m_grid_overlay;
+
+    ListWidgetGridLineOverlay m_grid_overlay;
+    PlaybackRowDelegate m_row_delegate;
+
+    MarkingPickerPopup m_marking_picker_popup;
 };
 
 #endif // PLAYBACKCONTROL_H

@@ -344,19 +344,70 @@
        <attribute name="title">
         <string>PlaybackControl</string>
        </attribute>
-       <widget class="QPushButton" name="PlaybackControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>640</x>
-          <y>80</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QPlainTextEdit" name="PlaybackControl_Fake_RawInput">
+          <property name="plainText">
+           <string>[
+    {
+        &quot;select&quot;: false,
+        &quot;marking&quot;: { &quot;marking&quot;: &quot;&quot;, &quot;color&quot;: &quot;#dddddd&quot; },
+        &quot;queue&quot;: &quot;2&quot;,
+        &quot;fade&quot;: &quot;3&quot;,
+        &quot;delay&quot;: &quot;0/1.3&quot;,
+        &quot;weight&quot;: &quot;&quot;,
+        &quot;link&quot;: &quot;&quot;,
+        &quot;title&quot;: &quot;Title&quot;
+    },
+    {
+        &quot;select&quot;: true,
+        &quot;marking&quot;: { &quot;marking&quot;: &quot;*&quot;, &quot;color&quot;: &quot;#aaffee&quot; },
+        &quot;queue&quot;: &quot;2&quot;,
+        &quot;fade&quot;: &quot;3/1&quot;,
+        &quot;delay&quot;: &quot;&quot;,
+        &quot;weight&quot;: &quot;&quot;,
+        &quot;link&quot;: &quot;&quot;,
+        &quot;title&quot;: &quot;&quot;
+    },
+    {
+        &quot;select&quot;: false,
+        &quot;marking&quot;: { &quot;marking&quot;: &quot;&quot;, &quot;color&quot;: &quot;#dddddd&quot; },
+        &quot;queue&quot;: &quot;3.5&quot;,
+        &quot;fade&quot;: &quot;5&quot;,
+        &quot;delay&quot;: &quot;&quot;,
+        &quot;weight&quot;: &quot;&quot;,
+        &quot;link&quot;: &quot;&quot;,
+        &quot;title&quot;: &quot;&quot;
+    },
+    {
+        &quot;select&quot;: false,
+        &quot;marking&quot;: { &quot;marking&quot;: &quot;&quot;, &quot;color&quot;: &quot;#dddddd&quot; },
+        &quot;queue&quot;: &quot;10&quot;,
+        &quot;fade&quot;: &quot;10.2&quot;,
+        &quot;delay&quot;: &quot;&quot;,
+        &quot;weight&quot;: &quot;&quot;,
+        &quot;link&quot;: &quot;&quot;,
+        &quot;title&quot;: &quot;&quot;
+    }
+]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="PlaybackControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="PlaybackControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
