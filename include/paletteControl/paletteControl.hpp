@@ -38,8 +38,13 @@ protected:
 protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
+protected slots:
+    virtual void onButtonMenuClicked(const int index, QObject* sender);
+    virtual void onPaletteButtonClicked(const int index, QObject* sender);
     virtual void scrollUp();
     virtual void scrollDown();
+    virtual void scrollNext();
+    virtual void scrollPrev();
 
 protected:
     GridBackground m_grid;
@@ -57,8 +62,12 @@ protected:
     QPoint m_buttonStartPoint;
     QPoint m_menuStartPoint;
 
-    QVector<QSharedPointer<SelectButton>> m_memu_buttons;
+    QVector<QSharedPointer<SelectButton>> m_menu_buttons;
     QVector<QVector<QSharedPointer<SelectButton>>> m_palette_buttons_list;
+
+    uint32_t m_current_menu;
+    uint32_t m_current_menu_page;
+    QVector<uint32_t> m_current_palette_page;
 
 };
 

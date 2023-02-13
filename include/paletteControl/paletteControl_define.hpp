@@ -4,7 +4,7 @@
 #define PC_SCREEN_SIZE QSize(312,320)
 #define PC_BUTTON_SIZE QSize(78,48)
 #define PC_MENU_TOP_LEFT QPoint(0,80)
-#define PC_BUTTON_TOP_LEFT QPoint(0,80)
+#define PC_BUTTON_TOP_LEFT QPoint(0,128)
 
 #define PC_TITLE_GEOMETRY QRect(0	,0	,312	,32)
 #define PC_EMPTY1_GEOMETRY QRect(0	,32	,78	,48)
