@@ -81,6 +81,9 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button_lib->setFixedSize(LC_BUTTON_SIZE);
         button_lib->setText(param->group.library_param[i].library_no);
         button_lib->setTitle(param->group.library_param[i].title);
+        connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](){
+            onButtonLibraryClicked(i,sender());
+        });
         m_all_lib_buttons.push_back(button_lib);
         //not contain all button
         for (int j = 1; j < m_mode_buttons.size(); j++)
@@ -148,6 +151,9 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button_lib->setText(param->history.library_param[i].library_no);
         button_lib->setTitle(param->history.library_param[i].title);
         button_lib->setVisible(false);
+        connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](){
+            onButtonHistoryLibraryClicked(i,sender());
+        });
         m_all_historty_buttons.push_back(button_lib);
         //not contain all button
         for (int j = 1; j < m_history_mode_buttons.size(); j++)
@@ -345,6 +351,28 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
             }
         }
 
+    }
+}
+
+void LibraryControl::onButtonLibraryClicked(const int index, QObject *sender)
+{
+    for (int i = 0; i< m_all_lib_buttons.size(); i++)
+    {
+        if (i != index)
+        {
+            m_all_lib_buttons[i]->setChecked(false);
+        }
+    }
+}
+
+void LibraryControl::onButtonHistoryLibraryClicked(const int index, QObject *sender)
+{
+    for (int i = 0; i< m_all_historty_buttons.size(); i++)
+    {
+        if (i != index)
+        {
+            m_all_historty_buttons[i]->setChecked(false);
+        }
     }
 }
 

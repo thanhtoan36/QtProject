@@ -45,6 +45,8 @@ protected:
 
 protected slots:
     virtual void onButtonModeClicked(const int index, QObject* sender);
+    virtual void onButtonLibraryClicked(const int index, QObject* sender);
+    virtual void onButtonHistoryLibraryClicked(const int index, QObject* sender);
     virtual void onButtonModeHistoryClicked(const int index, QObject* sender);
     virtual void onButtonHistoryClicked(const bool check);
 
