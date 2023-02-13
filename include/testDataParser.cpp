@@ -209,3 +209,113 @@ PLAYBACK_DISP_PARAM PLC_ParseInput(const QString &raw)
 
     return p;
 }
+
+GROUP_DISP_PARAM GC_ParseInput(const QString &raw)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
+    const auto object = doc.object();
+
+    GROUP_DISP_PARAM p;
+
+    const auto parseGroup = [](QJsonArray array) -> GROUP_PARAM_GROUP {
+        GROUP_PARAM_GROUP g;
+
+        g.count = array.count();
+
+        // NOTE: leak
+        g.group_param = new GROUP_PARAM[g.count];
+        for (int i = 0; i < g.count; ++i) {
+            QString title = array[i].toObject()["title"].toString();
+            QString group_no = array[i].toObject()["group_no"].toString();
+            bool select = array[i].toObject()["select"].toBool(false);
+
+            g.group_param[i].select = select;
+            strncpy(g.group_param[i].title, qPrintable(title), sizeof(g.group_param[i].title));
+            strncpy(g.group_param[i].group_no, qPrintable(group_no), sizeof(g.group_param[i].group_no));
+        }
+
+        return g;
+    };
+
+    p.group = parseGroup(object["group"].toArray());
+    p.history = parseGroup(object["history"].toArray());
+
+    return p;
+}
+
+LIBRARY_DISP_PARAM LC_ParseInput(const QString &raw)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
+    const auto object = doc.object();
+
+    LIBRARY_DISP_PARAM p;
+
+    const auto parseGroup = [](QJsonArray array) -> LIBRARY_PARAM_GROUP {
+        LIBRARY_PARAM_GROUP g;
+
+        g.count = array.count();
+
+        // NOTE: leak
+        g.library_param = new LIBRARY_PARAM[g.count];
+        for (int i = 0; i < g.count; ++i) {
+            QString mode = array[i].toObject()["mode"].toString();
+            QString title = array[i].toObject()["title"].toString();
+            QString library_no = array[i].toObject()["library_no"].toString();
+            bool select = array[i].toObject()["select"].toBool(false);
+
+            g.library_param[i].select = select;
+            strncpy(g.library_param[i].title, qPrintable(title), sizeof(g.library_param[i].title));
+            strncpy(g.library_param[i].mode, qPrintable(mode), sizeof(g.library_param[i].mode));
+            strncpy(g.library_param[i].library_no, qPrintable(library_no), sizeof(g.library_param[i].library_no));
+        }
+
+        return g;
+    };
+
+    p.group = parseGroup(object["group"].toArray());
+    p.history = parseGroup(object["history"].toArray());
+
+    return p;
+}
+
+PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
+    const auto array = doc.array();
+
+    PALETTE_DISP_PARAM p;
+
+    p.count = array.count();
+    // NOTE: leak
+    p.data = new PALETTE_PARAM_GROUP[p.count];
+    for (int groupIndex = 0; groupIndex < p.count; ++groupIndex) {
+        const auto self = array[groupIndex].toObject();
+        auto &selfData = p.data[groupIndex];
+
+        selfData.select = self["select"].toBool();
+        const auto imagePath = self["image"].toString();
+        if (!imagePath.isEmpty())
+            selfData.image = QImage(imagePath);
+
+        const auto name = self["name"].toString();
+        strncpy(selfData.name, qPrintable(name), sizeof(selfData.name));
+
+        const auto children = self["buttons"].toArray();
+
+        selfData.count = children.count();
+        selfData.palette = new PALETTE_PARAM[selfData.count];
+        for (int childIndex = 0; childIndex < selfData.count; ++childIndex) {
+            const auto childObject = children[childIndex].toObject();
+            const auto name = childObject["name"].toString();
+            const auto imagePath = childObject["image"].toString();
+
+            if (!imagePath.isEmpty())
+                selfData.palette[groupIndex].image = QImage(imagePath);
+
+            selfData.palette[childIndex].select = childObject["select"].toBool();
+            strncpy(selfData.palette[childIndex].name, qPrintable(name), sizeof(selfData.palette[childIndex].name));
+        }
+    }
+
+    return p;
+}

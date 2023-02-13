@@ -43,7 +43,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>6</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -272,73 +272,166 @@
        <attribute name="title">
         <string>PaletteControl</string>
        </attribute>
-       <widget class="QPushButton" name="PalletControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>40</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="QPlainTextEdit" name="PaletteControl_Fake_RawInput"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="PaletteControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="PaletteControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
         <string>GroupPanelControl</string>
        </attribute>
-       <widget class="QPushButton" name="GroupPanelControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>60</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QPlainTextEdit" name="GroupPanelControl_Fake_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;group&quot;: [
+        {
+            &quot;select&quot;: false,
+            &quot;group_no&quot;: &quot;N1&quot;,
+            &quot;title&quot;: &quot;title1&quot;
+        },
+        {
+            &quot;select&quot;: false,
+            &quot;group_no&quot;: &quot;N2&quot;,
+            &quot;title&quot;: &quot;title2&quot;
+        },
+        {
+            &quot;select&quot;: true,
+            &quot;group_no&quot;: &quot;N3&quot;,
+            &quot;title&quot;: &quot;title3&quot;
+        },
+        {
+            &quot;select&quot;: false,
+            &quot;group_no&quot;: &quot;N4&quot;,
+            &quot;title&quot;: &quot;title4&quot;
+        }
+    ],
+    &quot;history&quot;: [
+        {
+            &quot;select&quot;: false,
+            &quot;group_no&quot;: &quot;N4&quot;,
+            &quot;title&quot;: &quot;title4&quot;
+        }
+    ]
+}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="GroupPanelControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="GroupPanelControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_8">
        <attribute name="title">
         <string>LibraryControl</string>
        </attribute>
-       <widget class="QPushButton" name="LibraryControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>170</x>
-          <y>70</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QPlainTextEdit" name="LibraryControl_Fake_RawInput">
+          <property name="plainText">
+           <string>{
+    &quot;group&quot;: [
+        {
+            &quot;mode&quot;: &quot;mode 1&quot;,
+            &quot;select&quot;: false,
+            &quot;library_no&quot;: &quot;N1&quot;,
+            &quot;title&quot;: &quot;title1&quot;
+        },
+        {
+            &quot;mode&quot;: &quot;mode 1&quot;,
+            &quot;select&quot;: true,
+            &quot;library_no&quot;: &quot;N1&quot;,
+            &quot;title&quot;: &quot;title1&quot;
+        },
+        {
+            &quot;mode&quot;: &quot;mode 2&quot;,
+            &quot;select&quot;: false,
+            &quot;library_no&quot;: &quot;N2&quot;,
+            &quot;title&quot;: &quot;title2&quot;
+        }
+    ],
+    &quot;history&quot;: [
+        {
+            &quot;mode&quot;: &quot;mode 1&quot;,
+            &quot;select&quot;: false,
+            &quot;library_no&quot;: &quot;N1&quot;,
+            &quot;title&quot;: &quot;title1&quot;
+        },
+        {
+            &quot;mode&quot;: &quot;mode 1&quot;,
+            &quot;select&quot;: false,
+            &quot;library_no&quot;: &quot;N1&quot;,
+            &quot;title&quot;: &quot;title1&quot;
+        },
+        {
+            &quot;mode&quot;: &quot;mode 2&quot;,
+            &quot;select&quot;: false,
+            &quot;library_no&quot;: &quot;N3&quot;,
+            &quot;title&quot;: &quot;title3&quot;
+        }
+    ]
+}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="LibraryControl_Fake_Set">
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="LibraryControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_9">
        <attribute name="title">
         <string>IntensityControl</string>
        </attribute>
-       <widget class="QPushButton" name="IntensityControl_Fake_Open">
-        <property name="geometry">
-         <rect>
-          <x>440</x>
-          <y>80</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QPushButton" name="IntensityControl_Fake_Open">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_10">
        <attribute name="title">

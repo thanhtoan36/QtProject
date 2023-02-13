@@ -182,31 +182,10 @@ void MainWindow::on_PlaybackControl_Fake_Open_clicked()
 
 void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
 {
-    GROUP_DISP_PARAM param;
-    param.group.count = QRandomGenerator::global()->generate()%100;
-    param.history.count = QRandomGenerator::global()->generate()%100;
-    param.group.group_param = (GROUP_PARAM*)malloc(param.group.count*sizeof(GROUP_PARAM));
-    param.history.group_param = (GROUP_PARAM*)malloc(param.history.count*sizeof(GROUP_PARAM));
-    qDebug() << param.group.count;
-    for (int i=0;i< param.group.count;i++)
-    {
-        param.group.group_param[i].select = false;
-        strncpy(param.group.group_param[i].title, ("tG"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
-        strncpy(param.group.group_param[i].group_no, ("G"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
-    }
-    for (int i=0;i< param.history.count;i++)
-    {
-        param.history.group_param[i].select = false;
-        strncpy(param.history.group_param[i].title, ("tH"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
-        strncpy(param.history.group_param[i].group_no, ("H"+QString::number(i)).toLocal8Bit().data(), GROUP_NO_SIZE);
-    }
     if (!ui->checkBox_HorizontalLayout->isChecked()) {
-        m_group_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_group_control);
     } else {
-        m_group_control_horizon->SetDispParamDataHorizon(&param);
         m_panel_window->AttachPanelControl(m_group_control_horizon);
-
     }
     m_panel_window->show();
     m_panel_window->raise();
@@ -225,38 +204,10 @@ void MainWindow::on_BtnClear_clicked()
 
 void MainWindow::on_LibraryControl_Fake_Open_clicked()
 {
-    LIBRARY_DISP_PARAM param;
-    param.group.count = QRandomGenerator::global()->generate()%100;
-    param.group.library_param = (LIBRARY_PARAM*)malloc(param.group.count*sizeof (LIBRARY_PARAM));
-    qDebug() <<param.group.count;
-    for (int i=0;i< param.group.count;i++)
-    {
-        param.group.library_param[i].select = false;
-        int mode = QRandomGenerator::global()->generate()%4;
-        strncpy(param.group.library_param[i].mode, ("ModeL"+QString::number(mode)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
-        strncpy(param.group.library_param[i].title, ("tL"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
-        strncpy(param.group.library_param[i].library_no, (QString::number(mode)+"L"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
-    }
-
-    param.history.count = QRandomGenerator::global()->generate()%100;
-    param.history.library_param = (LIBRARY_PARAM*)malloc(param.history.count*sizeof (LIBRARY_PARAM));
-    qDebug() <<param.history.count;
-    for (int i=0;i< param.history.count;i++)
-    {
-        param.history.library_param[i].select = false;
-        int mode = QRandomGenerator::global()->generate()%4;
-        strncpy(param.history.library_param[i].mode, ("ModeH"+QString::number(mode)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
-        strncpy(param.history.library_param[i].title, ("tH"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
-        strncpy(param.history.library_param[i].library_no, (QString::number(mode)+"H"+QString::number(i)).toLocal8Bit().data(), LIBRARY_NO_SIZE);
-    }
-
     if (!ui->checkBox_HorizontalLayout->isChecked()) {
-        m_library_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_library_control);
     } else {
-        m_library_control_horizon->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_library_control_horizon);
-
     }
     m_panel_window->show();
     m_panel_window->raise();
@@ -313,29 +264,36 @@ void MainWindow::on_PlaybackControl_Fake_Set_clicked()
     m_playback_control->setDispParamData(&params);
 }
 
-void MainWindow::on_PalletControl_Fake_Open_clicked()
+
+void MainWindow::on_LibraryControl_Fake_Set_clicked()
 {
-    PALETTE_DISP_PARAM param;
-    param.count = QRandomGenerator::global()->generate()%10;
-    param.data = new PALETTE_PARAM_GROUP[param.count];
-    for (int i =0;i< param.count;i++)
-    {
-        param.data[i].select =false;
-        param.data[i].count = QRandomGenerator::global()->generate()%50;
+    LIBRARY_DISP_PARAM params = LC_ParseInput(ui->LibraryControl_Fake_RawInput->toPlainText());
+    m_library_control_horizon->SetDispParamData(&params);
+    m_library_control->SetDispParamData(&params);
+}
 
-        strncpy(param.data[i].name, ("Menu"+QString::number(i)).toLocal8Bit().data(), PALETTE_NAME_SIZE);
-        param.data[i].palette = new PALETTE_PARAM[param.data[i].count];
-        for (int j=0; j<param.data[i].count;j++)
-        {
-            param.data[i].palette[j].select = false;
-            strncpy(param.data[i].palette[j].name, (QString::number(i) +"P"+QString::number(j)).toLocal8Bit().data(), PALETTE_NAME_SIZE);
-        }
 
-    }
+void MainWindow::on_GroupPanelControl_Fake_Set_clicked()
+{
+    GROUP_DISP_PARAM param = GC_ParseInput(ui->GroupPanelControl_Fake_RawInput->toPlainText());
+    m_group_control->SetDispParamData(&param);
+    m_group_control_horizon->SetDispParamData(&param);
+}
+
+
+void MainWindow::on_PaletteControl_Fake_Set_clicked()
+{
+    PALETTE_DISP_PARAM param = PD_ParseInput(ui->PaletteControl_Fake_RawInput->toPlainText());
+    m_palette_control->SetDispParamData(&param);
+    // m_palette_control_horizon->SetDispParamData(&param);
+}
+
+
+void MainWindow::on_PaletteControl_Fake_Open_clicked()
+{
     if (ui->checkBox_HorizontalLayout->isChecked()) {
         m_panel_window->AttachPanelControl(m_palette_control);
     } else {
-        m_palette_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_palette_control);
     }
     m_panel_window->show();

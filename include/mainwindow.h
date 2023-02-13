@@ -70,7 +70,14 @@ private slots:
     void on_PlaybackControl_Fake_Open_clicked();
 
     void on_PlaybackControl_Fake_Set_clicked();
-    void on_PalletControl_Fake_Open_clicked();
+
+    void on_LibraryControl_Fake_Set_clicked();
+
+    void on_GroupPanelControl_Fake_Set_clicked();
+
+    void on_PaletteControl_Fake_Set_clicked();
+
+    void on_PaletteControl_Fake_Open_clicked();
 
 private:
     Ui::MainWindow *ui;
