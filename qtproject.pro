@@ -25,6 +25,7 @@ SOURCES += \
     src/inputNumControl/inputNumControlHorizon.cpp \
     src/intensityControl/intensityControlHorizon.cpp \
     src/libraryControl/libraryControlHorizon.cpp \
+    src/paletteControl/paletteControlHorizon.cpp \
     src/trackControl/pantiltControl.cpp \
     src/trackControl/trackControlHorizon.cpp \
     src/colorPickerControl/cieaux.cpp \
@@ -109,6 +110,8 @@ HEADERS += \
     include/libraryControl/libraryControl_define.h \
     include/loghandler.h \
     include/paletteControl/paletteControl.hpp \
+    include/paletteControl/paletteControlHorizon.h \
+    include/paletteControl/paletteControlHorizon_define.h \
     include/paletteControl/paletteControl_datatypes.h \
     include/paletteControl/paletteControl_define.hpp \
     include/playbackControl/listWidgetGridLineOverlay.h \

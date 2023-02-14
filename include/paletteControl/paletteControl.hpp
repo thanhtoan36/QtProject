@@ -15,10 +15,13 @@ public:
     explicit PaletteControl(QWidget * parent = nullptr);
     void SetDispParamData(PALETTE_DISP_PARAM *param);
 
-protected:
 
-    uint16_t column() const;
-    void setColumn(uint16_t newColumn);
+protected:
+    uint16_t menuColumn() const;
+    void setMenuColumn(uint16_t newMenuColumn);
+
+    uint16_t buttonColumn() const;
+    void setButtonColumn(uint16_t newColumn);
 
     uint16_t buttonRow() const;
     void setButtonRow(uint16_t newButtonRow);
@@ -55,7 +58,8 @@ protected:
     CustomPushButton m_down_button;
     CustomPushButton m_return_button;
 
-    uint16_t m_column;
+    uint16_t m_buttonColumn;
+    uint16_t m_menuColumn;
     uint16_t m_buttonRow;
     uint16_t m_menuRow;
 

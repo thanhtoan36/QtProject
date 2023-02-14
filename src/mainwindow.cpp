@@ -80,6 +80,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_palette_control = MakeSharedQObject<PaletteControl>();
     m_palette_control->PrepareUi();
 
+    m_palette_control_horizon = MakeSharedQObject<PaletteControlHorizon>();
+    m_palette_control_horizon->PrepareUi();
+
     connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
 }
 
@@ -285,15 +288,34 @@ void MainWindow::on_PaletteControl_Fake_Set_clicked()
 {
     PALETTE_DISP_PARAM param = PD_ParseInput(ui->PaletteControl_Fake_RawInput->toPlainText());
     m_palette_control->SetDispParamData(&param);
-    // m_palette_control_horizon->SetDispParamData(&param);
+    m_palette_control_horizon->SetDispParamData(&param);
 }
 
 
 void MainWindow::on_PaletteControl_Fake_Open_clicked()
 {
+    PALETTE_DISP_PARAM param;
+        param.count = QRandomGenerator::global()->generate()%10;
+        param.data = new PALETTE_PARAM_GROUP[param.count];
+        for (int i =0;i< param.count;i++)
+        {
+            param.data[i].select =false;
+            param.data[i].count = QRandomGenerator::global()->generate()%50;
+
+            strncpy(param.data[i].name, ("Menu"+QString::number(i)).toLocal8Bit().data(), PALETTE_NAME_SIZE);
+            param.data[i].palette = new PALETTE_PARAM[param.data[i].count];
+            for (int j=0; j<param.data[i].count;j++)
+            {
+                param.data[i].palette[j].select = false;
+                strncpy(param.data[i].palette[j].name, (QString::number(i) +"P"+QString::number(j)).toLocal8Bit().data(), PALETTE_NAME_SIZE);
+            }
+
+        }
     if (ui->checkBox_HorizontalLayout->isChecked()) {
-        m_panel_window->AttachPanelControl(m_palette_control);
+        m_palette_control_horizon->SetDispParamData(&param);
+        m_panel_window->AttachPanelControl(m_palette_control_horizon);
     } else {
+        m_palette_control->SetDispParamData(&param);
         m_panel_window->AttachPanelControl(m_palette_control);
     }
     m_panel_window->show();

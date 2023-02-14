@@ -17,7 +17,8 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
 {
     m_return_button.setTextColor(Qt::yellow);
     setFixedSize(PC_SCREEN_SIZE);
-    setColumn(4);
+    setButtonColumn(4);
+    setMenuColumn(4);
     setMenuRow(1);
     setButtonRow(3);
     setButtonStartPoint(PC_BUTTON_TOP_LEFT);
@@ -82,13 +83,13 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
             palette_button_list.push_back(palette_button);
         }
         m_palette_buttons_list.push_back(palette_button_list);
-        placeChildrenIntoPanel(palette_button_list, PC_BUTTON_SIZE, buttonStartPoint(), column(), buttonRow());
+        placeChildrenIntoPanel(palette_button_list, PC_BUTTON_SIZE, buttonStartPoint(), buttonColumn(), buttonRow());
     }
     m_menu_buttons[m_current_menu]->setChecked(true);
 
     onButtonMenuClicked(m_current_menu,nullptr);
 
-    placeChildrenIntoPanel(m_menu_buttons, PC_BUTTON_SIZE, menuStartPoint(), column(), menuRow());
+    placeChildrenIntoPanel(m_menu_buttons, PC_BUTTON_SIZE, menuStartPoint(), menuColumn(), menuRow());
     updateChildrenVisibility(m_menu_buttons, m_current_menu_page, menuPageSize());
     m_prev_button.setEnabled(m_current_menu_page > 0);;
     m_next_button.setEnabled(m_current_menu_page + 1  < calulateNumberOfPages(m_menu_buttons.size(), menuPageSize()));
@@ -103,7 +104,7 @@ void PaletteControl::SetupUiComponents()
 
     m_title_label.setGeometry(PC_TITLE_GEOMETRY);
     m_title_label.setObjectName("title_label");
-    m_title_label.setText("ライブラリ");
+    m_title_label.setText("パレット");
 
     m_up_button.setGeometry(PC_UP_GEOMETRY);
     m_up_button.setText("▲");
@@ -181,6 +182,10 @@ void PaletteControl::onPaletteButtonClicked(const int index, QObject *sender)
 
 void PaletteControl::scrollUp()
 {
+    if (m_current_menu >= m_palette_buttons_list.size())
+    {
+        return;
+    }
     if(m_current_palette_page[m_current_menu] > 0)
     {
         m_current_palette_page[m_current_menu]-=1;
@@ -193,6 +198,10 @@ void PaletteControl::scrollUp()
 
 void PaletteControl::scrollDown()
 {
+    if (m_current_menu >= m_palette_buttons_list.size())
+    {
+        return;
+    }
     m_current_palette_page[m_current_menu]+=1;
     updateChildrenVisibility(m_palette_buttons_list[m_current_menu],m_current_palette_page[m_current_menu],buttonPageSize());
     m_up_button.setEnabled(m_current_palette_page[m_current_menu] > 0);;
@@ -201,6 +210,10 @@ void PaletteControl::scrollDown()
 
 void PaletteControl::scrollNext()
 {
+    if (m_current_menu_page >= m_menu_buttons.size())
+    {
+        return;
+    }
     m_current_menu_page+=1;
     updateChildrenVisibility(m_menu_buttons,m_current_menu_page,menuPageSize());
     m_prev_button.setEnabled(m_current_menu_page > 0);;
@@ -209,6 +222,10 @@ void PaletteControl::scrollNext()
 
 void PaletteControl::scrollPrev()
 {
+    if (m_current_menu_page >= m_menu_buttons.size())
+    {
+        return;
+    }
      if(m_current_menu_page > 0)
      {
          m_current_menu_page-=1;
@@ -216,6 +233,16 @@ void PaletteControl::scrollPrev()
          m_prev_button.setEnabled(m_current_menu_page > 0);;
          m_next_button.setEnabled(m_current_menu_page + 1  < calulateNumberOfPages(m_menu_buttons.size(), menuPageSize()));
      }
+}
+
+uint16_t PaletteControl::menuColumn() const
+{
+    return m_menuColumn;
+}
+
+void PaletteControl::setMenuColumn(uint16_t newMenuColumn)
+{
+    m_menuColumn = newMenuColumn;
 }
 
 QPoint PaletteControl::menuStartPoint() const
@@ -250,12 +277,12 @@ void PaletteControl::setMenuRow(uint16_t newMenuRow)
 
 uint16_t PaletteControl::menuPageSize() const
 {
-    return column()*menuRow();
+    return menuColumn()*menuRow();
 }
 
 uint16_t PaletteControl::buttonPageSize() const
 {
-    return column()*buttonRow();
+    return buttonColumn()*buttonRow();
 }
 
 uint16_t PaletteControl::buttonRow() const
@@ -268,12 +295,12 @@ void PaletteControl::setButtonRow(uint16_t newButtonRow)
     m_buttonRow = newButtonRow;
 }
 
-uint16_t PaletteControl::column() const
+uint16_t PaletteControl::buttonColumn() const
 {
-    return m_column;
+    return m_buttonColumn;
 }
 
-void PaletteControl::setColumn(uint16_t newColumn)
+void PaletteControl::setButtonColumn(uint16_t newColumn)
 {
-    m_column = newColumn;
+    m_buttonColumn = newColumn;
 }

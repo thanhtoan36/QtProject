@@ -27,7 +27,7 @@
 #include "playbackControl/playbackControl.hpp"
 #include "playbackControl/playbackControlHorizon.h"
 
-#include "paletteControl/paletteControl.hpp"
+#include "paletteControl/paletteControlHorizon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -111,5 +111,6 @@ private:
     QSharedPointer<PlaybackControlHorizon> m_playback_control_horizon;
 
     QSharedPointer<PaletteControl> m_palette_control;
+    QSharedPointer<PaletteControlHorizon> m_palette_control_horizon;
 };
 #endif // MAINWINDOW_H
