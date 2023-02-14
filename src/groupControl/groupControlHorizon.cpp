@@ -11,6 +11,7 @@
 GroupControlHorizon::GroupControlHorizon(QWidget *parent) : GroupControl(parent)
 {
     setFixedSize(GC_HORIZON_SCREEN_SIZE);
+    m_title_label.setObjectName("title_label_horizon");
 }
 
 void GroupControlHorizon::SetDispParamDataHorizon(GROUP_DISP_PARAM *param)
@@ -58,7 +59,6 @@ void GroupControlHorizon::SetupUiComponents()
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(GC_HORIZON_TITLE_GEOMETRY);
-    m_title_label.setObjectName("title_label");
     m_title_label.setText("グループ");
 
     m_history_button.setGeometry(GC_HORIZON_HISTORY_GEOMETRY);
@@ -72,12 +72,10 @@ void GroupControlHorizon::SetupUiComponents()
 
     m_back_button.setGeometry(GC_HORIZON_RETURN_GEOMETRY);
     m_back_button.setText("戻す");
-
     m_setting_label.setVisible(false);
 
     m_title_button.setGeometry(GC_HORIZON_TITLE_BUTTON_GEOMETRY);
     m_title_button.setText("タイトル");
-;
     m_empty_button.setVisible(false);
 
     m_register_button.setGeometry(GC_HORIZON_REGISTER_GEOMETRY);

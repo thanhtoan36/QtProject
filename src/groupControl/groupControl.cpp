@@ -26,6 +26,7 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
     setCurrentGroupPage(0);
     setCurrentHistoryPage(0);
     m_back_button.setTextColor(Qt::yellow);
+    m_title_label.setObjectName("title_label");
 }
 
 void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
@@ -73,7 +74,6 @@ void GroupControl::SetupUiComponents()
     m_grid.move(0, 32);
 
     m_title_label.setGeometry(GC_TITLE_GEOMETRY);
-    m_title_label.setObjectName("title_label");
     m_title_label.setText("グループ");
 
     m_history_button.setGeometry(GC_HISTORY_GEOMETRY);

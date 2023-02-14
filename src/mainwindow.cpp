@@ -277,7 +277,7 @@ void MainWindow::on_GroupPanelControl_Fake_Set_clicked()
 {
     GROUP_DISP_PARAM param = GC_ParseInput(ui->GroupPanelControl_Fake_RawInput->toPlainText());
     m_group_control->SetDispParamData(&param);
-    m_group_control_horizon->SetDispParamData(&param);
+    m_group_control_horizon->SetDispParamDataHorizon(&param);
 }
 
 
