@@ -41,6 +41,7 @@ protected:
 protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
+
 protected slots:
     virtual void onButtonMenuClicked(const int index, QObject* sender);
     virtual void onPaletteButtonClicked(const int index, QObject* sender);

@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>style.css</file>
+        <file>resources/cie_img.png</file>
+        <file>resources/style.css</file>
+        <file>resources/duck.png</file>
+        <file>resources/cat.png</file>
+        <file>resources/bird.png</file>
     </qresource>
 </RCC>

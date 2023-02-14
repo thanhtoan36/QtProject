@@ -293,9 +293,12 @@ PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
         auto &selfData = p.data[groupIndex];
 
         selfData.select = self["select"].toBool();
-        const auto imagePath = self["image"].toString();
-        if (!imagePath.isEmpty())
+        const auto imageName = self["image"].toString();
+        if (!imageName.isEmpty()) {
+            const auto imagePath = QString(":/resources/%1.png").arg(imageName);
+            qDebug() << "palette image: " << imagePath;
             selfData.image = QImage(imagePath);
+        }
 
         const auto name = self["name"].toString();
         strncpy(selfData.name, qPrintable(name), sizeof(selfData.name));
@@ -307,10 +310,13 @@ PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
         for (int childIndex = 0; childIndex < selfData.count; ++childIndex) {
             const auto childObject = children[childIndex].toObject();
             const auto name = childObject["name"].toString();
-            const auto imagePath = childObject["image"].toString();
+            const auto imageName = childObject["image"].toString();
 
-            if (!imagePath.isEmpty())
-                selfData.palette[groupIndex].image = QImage(imagePath);
+            if (!imageName.isEmpty()) {
+                const auto imagePath = QString(":/resources/%1.png").arg(imageName);
+                qDebug() << "button image: " << imagePath;
+                selfData.palette[childIndex].image = QImage(imagePath);
+            }
 
             selfData.palette[childIndex].select = childObject["select"].toBool();
             strncpy(selfData.palette[childIndex].name, qPrintable(name), sizeof(selfData.palette[childIndex].name));

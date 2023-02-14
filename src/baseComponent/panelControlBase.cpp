@@ -5,7 +5,7 @@ PanelControlBase::PanelControlBase(QWidget *parent)
     : QWidget{parent},
       m_ui_initialized(false)
 {
-    QFile style(":/style.css");
+    QFile style(":/resources/style.css");
     style.open(QFile::ReadOnly);
 
     setStyleSheet(style.readAll());

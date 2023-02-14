@@ -14,10 +14,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    QFont font("Monospace");
+    QFont font;
     font.setStyleHint(QFont::Monospace);
-    font.setPixelSize(16);
-
+    font.setFamily("monospace");
+    font.setPointSize(9);
     QApplication::setFont(font);
 
     return a.exec();

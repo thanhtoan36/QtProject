@@ -274,7 +274,31 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
-         <widget class="QPlainTextEdit" name="PaletteControl_Fake_RawInput"/>
+         <widget class="QPlainTextEdit" name="PaletteControl_Fake_RawInput">
+          <property name="plainText">
+           <string>[
+    {
+        &quot;select&quot;: false,
+        &quot;name&quot;: &quot;P1&quot;,
+        &quot;image&quot;: &quot;bird&quot;,
+        &quot;buttons&quot;: [
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B1&quot;, &quot;image&quot;: &quot;duck&quot; },
+            { &quot;select&quot;: true, &quot;name&quot;: &quot;B2&quot;, &quot;image&quot;: &quot;&quot; }
+        ]
+    },
+    {
+        &quot;select&quot;: false,
+        &quot;name&quot;: &quot;P2&quot;,
+        &quot;image&quot;: &quot;&quot;,
+        &quot;buttons&quot;: [
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B3&quot;, &quot;image&quot;: &quot;cat&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B4&quot;, &quot;image&quot;: &quot;bird&quot; },
+            { &quot;select&quot;: true, &quot;name&quot;: &quot;B5&quot;, &quot;image&quot;: &quot;&quot; }
+        ]
+    }
+]</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="PaletteControl_Fake_Set">
@@ -529,7 +553,7 @@
      <x>0</x>
      <y>0</y>
      <width>1119</width>
-     <height>26</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>

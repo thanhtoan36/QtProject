@@ -45,7 +45,7 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
         {
                 QPixmap pixels = QPixmap::fromImage(param->data[i].image);
                 QIcon icon(pixels);
-                menu_button->setIconSize(PC_BUTTON_SIZE);
+                menu_button->setIconSize(PC_BUTTON_SIZE - QSize(6, 6));
                 menu_button->setIcon(icon);
         }
 
@@ -71,7 +71,7 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
             {
                  QPixmap pixels = QPixmap::fromImage(param->data[i].palette[j].image);
                  QIcon icon(pixels);
-                 palette_button->setIconSize(PC_BUTTON_SIZE);
+                 palette_button->setIconSize(PC_BUTTON_SIZE - QSize(6, 6));
                  palette_button->setIcon(icon);
             }
 
