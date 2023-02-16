@@ -19,8 +19,6 @@ CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
     m_plotArea(QRectF(36, 0,PICKER_XY_HIEGHT, PICKER_XY_HIEGHT))
 {
     QImage img(":/resources/cie_img.png");
-    // QImage img = m_cie_maker.drawCIEDiagram(1000);
-    // img.save("D:\\cie_img.png");
     m_img = img.scaled(PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     SetColor(Qt::white);
     m_white_xy = m_valid_xy;
