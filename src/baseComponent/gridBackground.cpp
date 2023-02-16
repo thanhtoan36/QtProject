@@ -4,7 +4,7 @@
 
 GridBackground::GridBackground(QWidget *parent)
     : QWidget(parent),
-      m_gridSize(1, 1),
+      m_gridSize(0, 0),
       m_cellSize(1, 1),
       m_backgroundColor(QColor::fromRgb(22, 22, 22)),
       m_gridLineColor(Qt::darkGray)

@@ -120,14 +120,21 @@ void PantiltControl::paintEvent(QPaintEvent *event)
     p.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
     // Black background
     p.fillRect(QRect(QPoint(0, 0), geometry().size()), QBrush(Qt::black));
+    p.setPen(QPen(Qt::darkGray));
+    p.drawRect(QRect(QPoint(0, 0), geometry().size()));
 
     QSize bound = geometry().size();
 
-    // Draw grid lines (5 lines for each axis)
-    for (int i = 0; i <= 100; i += 25) {
-        p.setPen(QPen(Qt::lightGray, i == 50 ? 1 : 0.5));
-
+    // Draw horizontal grid lines
+    for (int i = 0; i <= 100; i += 20) {
+        p.setPen(QPen(Qt::darkGray, (i % 50 == 0) ? 1 : 0.2));
         p.drawLine(0, i * bound.height() / 100.0, bound.width(), i * bound.height() / 100.0);
+    }
+    p.setPen(QPen(Qt::darkGray));
+    p.drawLine(0, bound.height() / 2, bound.width(), bound.height() / 2);
+    // Draw vertical grid lines
+    for (int i = 0; i <= 100; i += 25) {
+        p.setPen(QPen(Qt::darkGray, (i % 50 == 0) ? 1 : 0.2));
         p.drawLine(i * bound.width() / 100.0, 0, i * bound.width() / 100.0, bound.height());
     }
 }

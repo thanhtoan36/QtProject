@@ -9,6 +9,7 @@
 #include "../baseComponent/customPushButton.h"
 #include "colorPickerControl/customColorPickerXY.h"
 #include "colorPickerControl/customColorPickerRGB.h"
+#include "baseComponent/gridBackground.h"
 
 #include <QLabel>
 #include <QSlider>
@@ -45,6 +46,7 @@ protected:
     ColorPickerType m_pickerType;
     QColor m_pickerColor;
 
+    GridBackground m_slider_background;
     QLabel m_label_title;
     SelectButton m_button_xy;
     SelectButton m_button_rgb;
