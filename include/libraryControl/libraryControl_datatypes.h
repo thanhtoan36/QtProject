@@ -17,8 +17,6 @@ typedef struct
 // ライブラリパラメータグループ
 typedef struct
 {
-    bool    select;                         // 選択状態
-    char    mode[LIBRARY_MODE_SIZE];        // モード名
     unsigned short  count;                  // 個数
     LIBRARY_PARAM   *library_param;         // ライブラリパラメータ
 } LIBRARY_PARAM_GROUP;

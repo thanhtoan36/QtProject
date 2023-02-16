@@ -43,7 +43,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>9</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -478,7 +478,7 @@
     },
     {
         &quot;select&quot;: true,
-        &quot;marking&quot;: { &quot;marking&quot;: &quot;*&quot;, &quot;color&quot;: &quot;#aaffee&quot; },
+        &quot;marking&quot;: { &quot;marking&quot;: &quot;★&quot;, &quot;color&quot;: &quot;#aaffee&quot; },
         &quot;queue&quot;: &quot;2&quot;,
         &quot;fade&quot;: &quot;3/1&quot;,
         &quot;delay&quot;: &quot;&quot;,

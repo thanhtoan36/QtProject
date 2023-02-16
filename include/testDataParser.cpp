@@ -44,7 +44,7 @@ COLOR_FILTER_DISP_PARAM CFC_ParseInput(const QString &raw)
 
             g.color_filter[i].select = select;
             g.color_filter[i].color = color;
-            strncpy(g.color_filter[i].name, qPrintable(name), sizeof(g.color_filter[i].name));
+            strncpy(g.color_filter[i].name, qUtf8Printable(name), sizeof(g.color_filter[i].name));
         }
 
         return g;
@@ -93,7 +93,7 @@ ENCODER_DISP_PARAM EC_ParseInput(const QString &raw)
 
         p.param[i].level = level;
         p.param[i].maxLevel = maxLevel;
-        strncpy(p.param[i].name, qPrintable(name), sizeof(p.param[i].name));
+        strncpy(p.param[i].name, qUtf8Printable(name), sizeof(p.param[i].name));
     }
 
     return p;
@@ -170,7 +170,7 @@ INPUT_NUM_DISP_PARAM INC_ParseInput(const QString &raw)
     for (int i = 0; i < p.count; ++i) {
         p.param[i].select = array[i].toObject()["select"].toBool();
         const auto name = array[i].toObject()["name"].toString();
-        strncpy(p.param[i].name, qPrintable(name), sizeof(p.param[i].name));
+        strncpy(p.param[i].name, qUtf8Printable(name), sizeof(p.param[i].name));
     }
 
     return p;
@@ -198,13 +198,14 @@ PLAYBACK_DISP_PARAM PLC_ParseInput(const QString &raw)
         const auto link = array[i].toObject()["link"].toString();
         const auto title = array[i].toObject()["title"].toString();
 
-        strncpy(p.param[i].marking.marking, qPrintable(marking), sizeof(p.param[i].marking.marking));
-        strncpy(p.param[i].queue, qPrintable(queue), sizeof(p.param[i].queue));
-        strncpy(p.param[i].fade, qPrintable(fade), sizeof(p.param[i].fade));
-        strncpy(p.param[i].delay, qPrintable(delay), sizeof(p.param[i].delay));
-        strncpy(p.param[i].weight, qPrintable(weight), sizeof(p.param[i].weight));
-        strncpy(p.param[i].link, qPrintable(link), sizeof(p.param[i].link));
-        strncpy(p.param[i].title, qPrintable(title), sizeof(p.param[i].title));
+        // qDebug() << strlen(qUtf8Printable(marking)) << marking.length() << (marking == "★");
+        strncpy(p.param[i].marking.marking, qUtf8Printable(marking), sizeof(p.param[i].marking.marking));
+        strncpy(p.param[i].queue, qUtf8Printable(queue), sizeof(p.param[i].queue));
+        strncpy(p.param[i].fade, qUtf8Printable(fade), sizeof(p.param[i].fade));
+        strncpy(p.param[i].delay, qUtf8Printable(delay), sizeof(p.param[i].delay));
+        strncpy(p.param[i].weight, qUtf8Printable(weight), sizeof(p.param[i].weight));
+        strncpy(p.param[i].link, qUtf8Printable(link), sizeof(p.param[i].link));
+        strncpy(p.param[i].title, qUtf8Printable(title), sizeof(p.param[i].title));
     }
 
     return p;
@@ -230,8 +231,8 @@ GROUP_DISP_PARAM GC_ParseInput(const QString &raw)
             bool select = array[i].toObject()["select"].toBool(false);
 
             g.group_param[i].select = select;
-            strncpy(g.group_param[i].title, qPrintable(title), sizeof(g.group_param[i].title));
-            strncpy(g.group_param[i].group_no, qPrintable(group_no), sizeof(g.group_param[i].group_no));
+            strncpy(g.group_param[i].title, qUtf8Printable(title), sizeof(g.group_param[i].title));
+            strncpy(g.group_param[i].group_no, qUtf8Printable(group_no), sizeof(g.group_param[i].group_no));
         }
 
         return g;
@@ -264,9 +265,9 @@ LIBRARY_DISP_PARAM LC_ParseInput(const QString &raw)
             bool select = array[i].toObject()["select"].toBool(false);
 
             g.library_param[i].select = select;
-            strncpy(g.library_param[i].title, qPrintable(title), sizeof(g.library_param[i].title));
-            strncpy(g.library_param[i].mode, qPrintable(mode), sizeof(g.library_param[i].mode));
-            strncpy(g.library_param[i].library_no, qPrintable(library_no), sizeof(g.library_param[i].library_no));
+            strncpy(g.library_param[i].title, qUtf8Printable(title), sizeof(g.library_param[i].title));
+            strncpy(g.library_param[i].mode, qUtf8Printable(mode), sizeof(g.library_param[i].mode));
+            strncpy(g.library_param[i].library_no, qUtf8Printable(library_no), sizeof(g.library_param[i].library_no));
         }
 
         return g;
@@ -301,7 +302,7 @@ PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
         }
 
         const auto name = self["name"].toString();
-        strncpy(selfData.name, qPrintable(name), sizeof(selfData.name));
+        strncpy(selfData.name, qUtf8Printable(name), sizeof(selfData.name));
 
         const auto children = self["buttons"].toArray();
 
@@ -319,7 +320,7 @@ PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
             }
 
             selfData.palette[childIndex].select = childObject["select"].toBool();
-            strncpy(selfData.palette[childIndex].name, qPrintable(name), sizeof(selfData.palette[childIndex].name));
+            strncpy(selfData.palette[childIndex].name, qUtf8Printable(name), sizeof(selfData.palette[childIndex].name));
         }
     }
 

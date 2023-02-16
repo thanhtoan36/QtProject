@@ -1,13 +1,12 @@
 #include <QApplication>
 #include "mainwindow.h"
 #include "loghandler.h"
-#include <windows.h>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
     QApplication::setStyle("fusion");
+    QApplication a(argc, argv);
 
     initLog();
 

@@ -58,7 +58,7 @@ void logHandler(QtMsgType type, const QMessageLogContext &context, const QString
         default:
             return;
     }
-    fprintf(stream, "\x1b[36m%s [%c] \x1b[0m%s \x1b[36m(%s, %s:%u)\x1b[0m\n", timeStr, level, qPrintable(msg), qPrintable(qfunc), file, context.line);
+    fprintf(stream, "\x1b[36m%s [%c] \x1b[0m%s \x1b[36m(%s, %s:%u)\x1b[0m\n", timeStr, level, qUtf8Printable(msg), qUtf8Printable(qfunc), file, context.line);
     fflush(stream);
 }
 

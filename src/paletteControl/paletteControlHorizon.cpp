@@ -13,6 +13,7 @@ PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(p
     setButtonColumn(4);
     setButtonStartPoint(PC_HORIZON_BUTTON_TOP_LEFT);
     setMenuStartPoint(PC_HORIZON_MENU_TOP_LEFT);
+    m_title_label.setObjectName("title_label_horizon");
 }
 
 void PaletteControlHorizon::SetupUiComponents()
@@ -22,7 +23,6 @@ void PaletteControlHorizon::SetupUiComponents()
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(PC_HORIZON_TITLE_GEOMETRY);
-    m_title_label.setObjectName("title_label");
     m_title_label.setText("パレット");
 
     m_up_button.setGeometry(PC_HORIZON_UP_BUTTON_GEOMETRY);

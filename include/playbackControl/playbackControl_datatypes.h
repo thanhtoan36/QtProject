@@ -1,7 +1,7 @@
 #ifndef PLAYBACKCONTROL_DATATYPES_H
 #define PLAYBACKCONTROL_DATATYPES_H
 
-#define PLAYBACK_MARKING_SIZE   2 + 1       // マーキングのサイズ
+#define PLAYBACK_MARKING_SIZE   3 + 1       // マーキングのサイズ
 #define PLAYBACK_QUEUE_SIZE     32 + 1      // キューのサイズ
 #define PLAYBACK_FADE_SIZE      32 + 1      // フェードのサイズ
 #define PLAYBACK_DELAY_SIZE     32 + 1      // ディレイのサイズ

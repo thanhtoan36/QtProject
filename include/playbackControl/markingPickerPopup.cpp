@@ -23,7 +23,7 @@ MarkingPickerPopup::MarkingPickerPopup(QWidget *parent)
     QVector<Marking> markings = {
         {"●", QColor(Qt::red)},    {"●",  QColor(Qt::lightGray)},
         {"●", QColor(Qt::cyan)},   {"■",  QColor(Qt::lightGray)},
-        {"●", QColor(Qt::yellow)}, {"🟊", QColor(Qt::lightGray)},
+        {"●", QColor(Qt::yellow)}, {"★", QColor(Qt::lightGray)},
         {"●", QColor(Qt::green)},  {"▲",  QColor(Qt::lightGray)},
         {"●", QColor(Qt::white)},  {"▼",  QColor(Qt::lightGray)},
     };
