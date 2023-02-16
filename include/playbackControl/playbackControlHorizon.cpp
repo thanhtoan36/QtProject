@@ -18,10 +18,7 @@ void PlaybackControlHorizon::SetupUiComponents()
     m_list_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_list_view.setAlternatingRowColors(true);
 
-    m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY_HORIZON);
-    m_grid_overlay.setColumnsWidth(m_column_width);
-
-    QStringList headers = {"", "キュー", "フェード", "「ディレイ", "ウェイト", "リンク", "タイトル" };
+    QStringList headers = {"", "キュー", "フェード", "ディレイ", "ウェイト", "リンク", "タイトル" };
     QRect cell(PLC_LIST_GEOMETRY_HORIZON.topLeft(), QSize(0, 36));
     for (int i = 0; i < m_column_width.length(); i++) {
         cell.setWidth(m_column_width[i]);
@@ -38,4 +35,9 @@ void PlaybackControlHorizon::SetupUiComponents()
     }
 
     m_row_delegate.setColumnsWidth(m_column_width);
-    m_list_view.setItemDelegate(&m_row_delegate);}
+    m_list_view.setItemDelegate(&m_row_delegate);
+
+    m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY_HORIZON);
+    m_grid_overlay.setColumnsWidth(m_column_width);
+    m_grid_overlay.raise();
+}
