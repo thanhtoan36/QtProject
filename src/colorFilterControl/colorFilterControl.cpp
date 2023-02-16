@@ -564,6 +564,10 @@ void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectColorButton> &b
     new_button->setVisible(false);
     new_button->setBackgroundColor(button->backgroundColor());
     new_button->setSelectedBackgroundColor(button->backgroundColor());
+    int index = m_history_buttons.size();
+    connect(new_button.get(),&QAbstractButton::clicked, this, [&,index](){
+        onHistoryButtonChecked(index,sender());
+    });
     m_history_buttons.push_back(new_button);
     placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
 }
