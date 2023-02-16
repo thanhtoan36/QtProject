@@ -29,7 +29,7 @@ void EncoderControlHorizon::SetupUiComponents()
 {
     m_label_title.setGeometry(EC_LABEL_TITLE_GEOMETRY_HORIZON);
     m_label_title.setObjectName("title_label_horizon");
-    m_label_title.setText("エンコーダ");
+    m_label_title.setText("エンコーダー　ホイール");
 
     m_button_mode_percent.setGeometry(EC_BUTTON_PERCENT_GEOMETRY_HORIZON);
     m_button_mode_percent.setText("%");
