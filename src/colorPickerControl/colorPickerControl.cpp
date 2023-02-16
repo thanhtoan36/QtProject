@@ -7,6 +7,7 @@
 ColorPickerControl::ColorPickerControl(QWidget *parent)
     : PanelControlBase(parent),
       m_pickerType(), m_pickerColor(),
+      m_slider_background(this),
       m_label_title(this),
       m_button_xy(this),
       m_button_rgb(this),
@@ -41,11 +42,17 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_v.setRange(0, 255);
 
     m_label_title.setObjectName("title_label");
-    m_label_setting.setObjectName("title_label");
+    m_label_setting.setObjectName("title_label_horizon");
 
     qRegisterMetaType<ColorPickerType>("ColorPickerType");
     m_button_rgb.setCheckMarkVisible(true);
     m_button_xy.setCheckMarkVisible(true);
+
+    m_slider_background.setGridSize(QSize(1, 1));
+    m_slider_background.setBackgroundColor(QColor::fromRgb(89, 89, 89));
+    m_slider_background.setGridLineColor(Qt::transparent);
+    m_slider_background.move(0, CPC_LABEL_SETTING_GEOMETRY.bottom());
+    m_slider_background.setCellSize(QSize(width(), height() - CPC_LABEL_SETTING_GEOMETRY.bottom()));
 }
 
 void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)

@@ -11,6 +11,9 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     m_button_1.setCheckMarkVisible(true);
     m_button_2.setCheckMarkVisible(true);
     m_button_3.setCheckMarkVisible(true);
+
+    m_slider_background.setVisible(false);
+    m_label_setting.setVisible(false);
 }
 
 void ColorPickerControlHorizon::SetDispParamDataHorizon(COLOR_PICKER_DISP_PARAM *param)
