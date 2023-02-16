@@ -12,6 +12,7 @@ public:
 protected:
     virtual void SetupUiComponents() override;
     virtual void SetupUiEvents() override;
+    virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button) override;
 
 private:
     CustomPushButton m_empty1_button;

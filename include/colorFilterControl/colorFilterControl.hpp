@@ -89,6 +89,7 @@ public:
     const COLOR_FILTER_BUTTON_DATA currentHistoryTabButtonCheck() const;
     void setCurrentHistoryTabButtonCheck(const COLOR_FILTER_BUTTON_DATA& newCurrentHistoryTabButtonCheck);
 
+
 signals:
     void currentTBTabPageChanged();
 
@@ -107,6 +108,8 @@ signals:
 protected:
     virtual void SetupUiComponents();
     virtual void SetupUiEvents();
+    virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button);
+
 
 protected:
     GridBackground m_grid;

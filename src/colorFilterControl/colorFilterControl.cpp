@@ -53,38 +53,40 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
         m_tb_tab_buttons.push_back(button);
-        QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
-        button->setGeometry(a);
 
+        button->setFixedSize(CFC_BUTTON1_GEOMETRY.size());
         button->setText(param->tb.color_filter[i].name);
 
         button->setBackgroundColor(param->tb.color_filter[i].color);
         button->setSelectedBackgroundColor(button->backgroundColor());
         button->setCheckMarkVisible(true);
-        button->setChecked(false);
+        button->setChecked(param->tb.color_filter[i].select);
 
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onTBTabButtonChecked(i,sender());
         });
 
     }
+    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
+
     m_custom_tab_buttons.clear();
     for (uint16_t i = 0; i < param->custom.count; i++)
     {
         auto button = MakeSharedQObject<SelectColorButton>(this);
         m_custom_tab_buttons.push_back(button);
-        QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
+        button->setFixedSize(CFC_BUTTON1_GEOMETRY.size());
         button->setText(param->custom.color_filter[i].name);
         button->setBackgroundColor(param->custom.color_filter[i].color);
         button->setSelectedBackgroundColor(button->backgroundColor());
-        button->setGeometry(a);
         button->setCheckMarkVisible(true);
-        button->setChecked(false);
+        button->setChecked(param->custom.color_filter[i].select);
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onCustomTabButtonChecked(i,sender());
         });
 
     }
+    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
+
     m_history_buttons.clear();
     for (uint16_t i = 0; i < param->history.count; i++)
     {
@@ -93,32 +95,31 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setText(param->history.color_filter[i].name);
         button->setBackgroundColor(param->history.color_filter[i].color);
         button->setSelectedBackgroundColor(button->backgroundColor());
-        QRect a(BASE_BUTTON_WIDTH*(i % PAGE_COLUMN) +BASE_BUTTON_X, BASE_BUTTON_Y + (i % PAGE_SIZE /PAGE_ROW)*BASE_BUTTON_HEIGHT,BASE_BUTTON_WIDTH	,BASE_BUTTON_HEIGHT);
-        button->setGeometry(a);
+        button->setFixedSize(CFC_BUTTON1_GEOMETRY.size());
         button->setCheckMarkVisible(true);
-        button->setChecked(false);
+        button->setChecked(param->history.color_filter[i].select);
         connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
             onHistoryButtonChecked(i,sender());
         });
     }
+    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
 
     if (param->tb.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB1);
     }
-    else if (param->custom.select == true)
+
+    if (param->custom.select == true)
     {
         setMode(COLOR_FILTER_MODE_TAB2);
     }
-    else if (param->history.select == true)
+
+    if (param->history.select == true)
     {
-        setMode(COLOR_FILTER_MODE_TAB2);
+        setMode(COLOR_FILTER_MODE_HISTORY);
     }
     onModeChanged();
 
-    m_grid.setGridSize(QSize(6, 6));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
-    m_grid.move(0, 32);
 }
 
 void ColorFilterControl::ScrollUp()
@@ -155,6 +156,10 @@ void ColorFilterControl::ScrollDown()
 
 void ColorFilterControl::SetupUiComponents()
 {
+    m_grid.setGridSize(QSize(6, 6));
+    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.move(0, 32);
+
     m_title_label.setGeometry(CFC_TITLE_GEOMETRY);
     m_title_label.setText("カラーフィルタ");
     m_title_label.setObjectName("title_label");
@@ -253,6 +258,28 @@ void ColorFilterControl::SetupUiEvents()
         {
             setMode(m_previous_tab);
             m_title_label.setText("カラーフィルタ");
+        }
+    });
+
+    connect(&m_title_button, &QAbstractButton::toggled, this, [&]() {
+        if (m_title_button.isChecked())
+        {
+            m_register_button.setChecked(false);
+            m_delete_button.setChecked(false);
+        }
+    });
+    connect(&m_register_button, &QAbstractButton::toggled, this, [&]() {
+        if (m_register_button.isChecked())
+        {
+            m_title_button.setChecked(false);
+            m_delete_button.setChecked(false);
+        }
+    });
+    connect(&m_delete_button, &QAbstractButton::toggled, this, [&]() {
+        if (m_delete_button.isChecked())
+        {
+            m_register_button.setChecked(false);
+            m_title_button.setChecked(false);
         }
     });
 }
@@ -369,6 +396,7 @@ void ColorFilterControl::onModeChanged()
     }
     else if(mode() == COLOR_FILTER_MODE_HISTORY)
     {
+        m_history_button.setChecked(true);
         for(auto& btn : m_tb_tab_buttons)
         {
             btn->setVisible(false);
@@ -439,6 +467,7 @@ void ColorFilterControl::onTBTabButtonChecked(const int index, QObject *sender)
         {
             m_tb_tab_buttons[i]->setChecked( i == index);
         }
+        addButtonToHistory(m_tb_tab_buttons[index]);
     }
     SelectButton* button = static_cast<SelectButton*>(sender);
     if (button != nullptr)
@@ -457,6 +486,7 @@ void ColorFilterControl::onCustomTabButtonChecked(const int index, QObject *send
         {
             m_custom_tab_buttons[i]->setChecked( i == index);
         }
+        addButtonToHistory(m_custom_tab_buttons[index]);
     }
     SelectButton* button = static_cast<SelectButton*>(sender);
     if (button != nullptr)
@@ -523,4 +553,17 @@ void ColorFilterControl::setCurrentHistoryTabButtonCheck(const COLOR_FILTER_BUTT
         return;
     m_currentHistoryTabButtonCheck = newCurrentHistoryTabButtonCheck;
     emit currentHistoryTabButtonCheckChanged();
+}
+
+void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectColorButton> &button)
+{
+    auto new_button = MakeSharedQObject<SelectColorButton>(this);
+    new_button->setText(button->text());
+    new_button->setCheckMarkVisible(true);
+    new_button->setFixedSize(CFC_BUTTON1_GEOMETRY.size());
+    new_button->setVisible(false);
+    new_button->setBackgroundColor(button->backgroundColor());
+    new_button->setSelectedBackgroundColor(button->backgroundColor());
+    m_history_buttons.push_back(new_button);
+    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
 }
