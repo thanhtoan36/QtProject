@@ -11,14 +11,17 @@ public:
     EncoderControlHorizon(QWidget *parent = nullptr);
     void SetDispParamDataHorizon(ENCODER_DISP_PARAM *param);
 
+protected slots:
+    void onPanelSwitchButtonClicked();
+
 protected:
     virtual void SetupUiComponents() override;
     virtual void setupEncoderPages() override;
 
 protected:
-    SelectButton m_button_1;
-    SelectButton m_button_2;
-    SelectButton m_button_3;
+    SelectButton m_button_switch_panel_picker;
+    SelectButton m_button_switch_panel_encoder;
+    SelectButton m_button_switch_panel_input_num;
 };
 
 #endif // ENCODERCONTROLHORIZON_H
