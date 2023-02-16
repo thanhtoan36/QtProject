@@ -90,4 +90,6 @@ void ColorPickerControlHorizon::SetupUiComponents()
 
     m_slider_v.setGeometry(CPC_HORIZON_SLIDER_V_GEOMETRY);
     m_slider_v.setOrientation(Qt::Vertical);
+
+    m_label_setting.setVisible(false);
 }

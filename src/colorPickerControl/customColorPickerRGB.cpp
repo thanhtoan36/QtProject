@@ -17,8 +17,8 @@ CustomColorPickerRGB::CustomColorPickerRGB(QWidget *parent) : QWidget(parent),
     for(int x=0; x < PICKER_RGB_WIDTH; x++){
        for(int y=0; y < PICKER_RGB_HIEGHT; y++){
            QColor color;
-           float h = (float)(x * H_MAX)/ (PICKER_RGB_WIDTH - 1);
-           float s = (float)(y * S_MAX) / (PICKER_RGB_HIEGHT - 1);
+           int h = (x * H_MAX)/ (PICKER_RGB_WIDTH - 1);
+           int s = (y * S_MAX) / (PICKER_RGB_HIEGHT - 1);
            color.setHsv(h, s, 200);
            m_img.setPixel(PICKER_RGB_WIDTH - x - 1, PICKER_RGB_HIEGHT - y - 1, color.rgb());
        }
@@ -41,7 +41,6 @@ void CustomColorPickerRGB::SetHSV(const int h, const int s, const int v)
         int x = PICKER_RGB_WIDTH - 1 - (h * (PICKER_RGB_WIDTH - 1)) / H_MAX;
         int y = PICKER_RGB_HIEGHT - 1 - (s * (PICKER_RGB_HIEGHT - 1)) / S_MAX;
         m_pointer = QPointF(x,y);
-        qDebug() << "x: " <<m_pointer.x() << "y: " << m_pointer.y();
         m_pointer_visible  = true;
         emit HSVChanged(m_hsv);
         update();
@@ -84,17 +83,9 @@ void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
     if(m_plotArea.contains(pos)){
          m_pointer = pos;
          m_pointer_visible = true;
-         QColor c(m_img.pixel( pos.x(), pos.y() ));
-         SetColor(c);
-         /*
-         int h,s,v;
-         c.getHsv(&h,&s,&v);
-         qDebug() << "h: " << h << ", "
-                  << "s: " << s << ", "
-                  << "v: " << v << ", ";
-         SetHSV(h,s,m_hsv.v);
-         update();
-         */
+         int h = (PICKER_RGB_WIDTH - 1 - m_pointer.x()) * H_MAX / (PICKER_RGB_WIDTH - 1);
+         int s = (PICKER_RGB_HIEGHT - 1 - m_pointer.y()) * S_MAX / (PICKER_RGB_HIEGHT - 1);
+         SetColor(QColor::fromHsv(h,s,m_hsv.v));
          emit picked();
     }
 }
