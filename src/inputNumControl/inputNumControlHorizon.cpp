@@ -133,8 +133,8 @@ void InputNumControlHorizon::SetupUiComponents()
     m_button_mode_255.setGeometry(IC_HORIZON_255_GEOMETRY);
     m_button_mode_255.setText("255");
 
-    m_button_mode_angel.setText("角度");
-    m_button_mode_angel.setVisible(false);
+    m_button_mode_angle.setText("角度");
+    m_button_mode_angle.setVisible(false);
 
     m_button_relative.setText("相対");
     m_button_absolute.setText("絶対");

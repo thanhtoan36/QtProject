@@ -13,7 +13,7 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     m_label_title(this),
     m_button_mode_percent(this),
     m_button_mode_255(this),
-    m_button_mode_angel(this),
+    m_button_mode_angle(this),
     m_button_relative(this),
     m_button_absolute(this),
     m_button_previous_tab(this),
@@ -150,9 +150,9 @@ void InputNumControl::SetupUiComponents()
     m_button_mode_255.setGeometry(IC_255_GEOMETRY);
     m_button_mode_255.setText("255");
 
-    m_button_mode_angel.setGeometry(IC_ANGEL_GEOMETRY);
-    m_button_mode_angel.setText("角度");
-    m_button_mode_angel.setVisible(false);
+    m_button_mode_angle.setGeometry(IC_ANGEL_GEOMETRY);
+    m_button_mode_angle.setText("°角度");
+    m_button_mode_angle.setVisible(false);
 
     m_button_relative.setGeometry(IC_RELATIVE_GEOMETRY);
     m_button_relative.setText("相対");
@@ -207,7 +207,7 @@ void InputNumControl::SetupUiEvents()
     });
     connect(this, &InputNumControl::currentButtonModePageChanged, this, &InputNumControl::onCurrentButtonModePageChanged);
     connect(&m_button_mode_255, &QPushButton::clicked, this, &InputNumControl::onButtonMode255Clicked);
-    connect(&m_button_mode_angel, &QPushButton::clicked, this, &InputNumControl::onButtonModeAngelClicked);
+    connect(&m_button_mode_angle, &QPushButton::clicked, this, &InputNumControl::onButtonModeAngelClicked);
     connect(&m_button_mode_percent, &QPushButton::clicked, this, &InputNumControl::onButtonModePercentClicked);
     connect(&m_button_relative, &QPushButton::clicked, this, &InputNumControl::onButtonRelativeClicked);
     connect(&m_button_absolute, &QPushButton::clicked, this, &InputNumControl::onButtonAbsoluteClicked);
@@ -292,7 +292,7 @@ void InputNumControl::onModeChanged()
 {
     m_button_mode_percent.setChecked(mode() == INPUT_NUM_MODE_PERCENT);
     m_button_mode_255.setChecked(mode() == INPUT_NUM_MODE_255);
-    m_button_mode_angel.setChecked(mode() == INPUT_NUM_MODE_ANGLE);
+    m_button_mode_angle.setChecked(mode() == INPUT_NUM_MODE_ANGLE);
 }
 
 void InputNumControl::onTypeChanged()
@@ -327,13 +327,13 @@ void InputNumControl::onTypeChanged()
         m_button_next_tab.setVisible(more_than_4);
         m_button_relative.setVisible(true);
         m_button_absolute.setVisible(true);
-        m_button_mode_angel.setVisible(true);
+        m_button_mode_angle.setVisible(true);
     }
     else
     {
         m_button_relative.setVisible(false);
         m_button_absolute.setVisible(false);
-        m_button_mode_angel.setVisible(false);
+        m_button_mode_angle.setVisible(false);
     }
     if (type() == INPUT_NUM_TYPE_BEAM_SHUTTER)
     {

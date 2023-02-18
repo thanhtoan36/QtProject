@@ -15,7 +15,6 @@ protected slots:
     void onPanelSwitchButtonClicked();
 
 protected:
-    virtual void SetupUiComponents() override;
     virtual void setupEncoderPages() override;
 
 protected:

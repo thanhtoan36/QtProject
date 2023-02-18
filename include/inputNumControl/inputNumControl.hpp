@@ -60,7 +60,7 @@ protected:
     QLabel m_label_title;
     SelectButton m_button_mode_percent;
     SelectButton m_button_mode_255;
-    SelectButton m_button_mode_angel;
+    SelectButton m_button_mode_angle;
     SelectButton m_button_relative;
     SelectButton m_button_absolute;
 

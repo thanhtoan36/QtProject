@@ -17,9 +17,9 @@ EncoderControl::EncoderControl(QWidget *parent)
       m_label_title(this),
       m_button_mode_percent(this),
       m_button_mode_255(this),
-      m_button_empty1(this),
-      m_button_previous_tab(this),
-      m_button_next_tab(this),
+      m_button_mode_angle(this),
+      m_button_previous_page(this),
+      m_button_next_page(this),
       m_params(),
       m_encoder_labels(),
       m_encoders(),
@@ -27,10 +27,7 @@ EncoderControl::EncoderControl(QWidget *parent)
       m_mode()
 {
     setFixedSize(EC_SCREENSIZE);
-    setEncoderMatrixSize(QSize(EC_MAX_ENCODER_ITEMS, 1));
-
-    onModeChanged();
-    onTypeChanged();
+    m_encoders_per_page = 4;
 
     m_encoder_background.setCellSize(EC_ENCODER_LABEL_SIZE + QSize(0, EC_CUSTOM_ENCODER_SIZE.height()));
     m_encoder_background.move(EC_ENCODER_LABELS_TOPLEFT);
@@ -40,6 +37,49 @@ EncoderControl::EncoderControl(QWidget *parent)
     m_button_background.setGridSize(QSize(4, 1));
     m_button_background.setCellSize(EC_BUTTON_NEXT_GEOMETRY.size());
     m_button_background.move(EC_BUTTON_PERCENT_GEOMETRY.topLeft());
+
+    m_label_title.setGeometry(EC_LABEL_TITLE_GEOMETRY);
+    m_label_title.setObjectName("title_label");
+    m_label_title.setText("エンコーダー　ホイール");
+
+    m_button_mode_percent.setGeometry(EC_BUTTON_PERCENT_GEOMETRY);
+    m_button_mode_percent.setText("%");
+    m_button_mode_255.setGeometry(EC_BUTTON_255_GEOMETRY);
+    m_button_mode_255.setText("255");
+    m_button_mode_angle.setGeometry(EC_BUTTON_ANGLE_GEOMETRY);
+    m_button_mode_angle.setText("°角度");
+    m_button_mode_angle.setEnabled(false);
+
+    m_button_previous_page.setGeometry(EC_BUTTON_PREVIOUS_GEOMETRY);
+    m_button_previous_page.setText("◀");
+    m_button_previous_page.setVisible(false);
+
+    m_button_next_page.setGeometry(EC_BUTTON_NEXT_GEOMETRY);
+    m_button_next_page.setText("▶");
+    m_button_next_page.setVisible(false);
+
+    onModeChanged();
+    onTypeChanged();
+
+    connect(&m_button_previous_page, &QPushButton::clicked, this, [&](){
+        setCurrentEncoderPage(currentEncoderPage() - 1);
+    });
+    connect(&m_button_next_page, &QPushButton::clicked, this, [&](){
+        setCurrentEncoderPage(currentEncoderPage() + 1);
+    });
+    connect(&m_button_mode_percent, &QPushButton::clicked, this, [&](){
+        setMode(ENCODER_MODE_PERCENT);
+    });
+    connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
+        setMode(ENCODER_MODE_255);
+    });
+    connect(this, &EncoderControl::currentEncoderPageChanged, this, [&](){
+        setupEncoderPages();
+        m_button_previous_page.setEnabled(currentEncoderPage() > 0);
+        m_button_next_page.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
+    });
+    connect(this, &EncoderControl::modeChanged, this, &EncoderControl::onModeChanged);
+    connect(this, &EncoderControl::typeChanged, this, &EncoderControl::onTypeChanged);
 }
 
 void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
@@ -69,12 +109,10 @@ void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
 
         encoder->setRange(0, (param->mode == ENCODER_MODE_255 ? 255 : 100) * EC_FLOAT_TO_INT_SCALE);
         encoder->setSingleStep(10);
-        // slider->setEncoderName(QString::fromLocal8Bit(param->param[i].name));
         encoder->setValue(param->param[i].level * EC_FLOAT_TO_INT_SCALE);
         encoder->setUpperRestrictValue(param->param[i].maxLevel * EC_FLOAT_TO_INT_SCALE);
 
         connect(encoder.get(), &CustomEncoder::sliderMoved, this, [&](int value){
-           // qDebug() <<  ((CncoderEncoder*)sender())->encoderName() << value;
             auto encoder = std::find(m_encoders.begin(), m_encoders.end(), (CustomEncoder*)sender());
             if (!encoder) return;
             int index = std::distance(m_encoders.begin(), encoder);
@@ -85,77 +123,22 @@ void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
         onEncoderValueChanged(i, param->param[i].level * EC_FLOAT_TO_INT_SCALE);
     }
 
-    const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
-    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), encodersPerPage);
-    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, encodersPerPage);
+    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), m_encoders_per_page);
+    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, m_encoders_per_page);
 
     setCurrentEncoderPage(0);
     setupEncoderPages();
 
-    qDebug() << m_encoders.length() << maxEncoderPages();
-    m_button_next_tab.setVisible(maxEncoderPages() > 1);
-    m_button_previous_tab.setVisible(maxEncoderPages() > 1);
-}
-
-void EncoderControl::SetupUiComponents()
-{
-    m_label_title.setGeometry(EC_LABEL_TITLE_GEOMETRY);
-    m_label_title.setObjectName("title_label");
-    m_label_title.setText("エンコーダー　ホイール");
-
-    m_button_mode_percent.setGeometry(EC_BUTTON_PERCENT_GEOMETRY);
-    m_button_mode_percent.setText("%");
-    m_button_mode_255.setGeometry(EC_BUTTON_255_GEOMETRY);
-    m_button_mode_255.setText("255");
-    m_button_empty1.setGeometry(EC_BUTTON_EMPTY_1_GEOMETRY);
-    m_button_empty1.setEnabled(false);
-
-    m_button_previous_tab.setGeometry(EC_BUTTON_PREVIOUS_GEOMETRY);
-    m_button_previous_tab.setText("◀");
-
-    m_button_next_tab.setGeometry(EC_BUTTON_NEXT_GEOMETRY);
-    m_button_next_tab.setText("▶");
-}
-
-void EncoderControl::SetupUiEvents()
-{
-    connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
-        qDebug("previous");
-        setCurrentEncoderPage(currentEncoderPage() - 1);
-    });
-    connect(&m_button_next_tab, &QPushButton::clicked, this, [&](){
-        qDebug("next");
-        setCurrentEncoderPage(currentEncoderPage() + 1);
-    });
-    connect(&m_button_mode_percent, &QPushButton::clicked, this, [&](){
-        setMode(ENCODER_MODE_PERCENT);
-    });
-    connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
-        setMode(ENCODER_MODE_255);
-    });
-    connect(this, &EncoderControl::encoderMatrixSizeChanged, this, [&](){
-        setCurrentEncoderPage(0);
-        setupEncoderPages();
-    });
-    connect(this, &EncoderControl::encoderMatrixSizeChanged, this, [&](){
-        setupEncoderPages();
-    });
-    connect(this, &EncoderControl::currentEncoderPageChanged, this, [&](){
-        setupEncoderPages();
-        m_button_previous_tab.setEnabled(currentEncoderPage() > 0);
-        m_button_next_tab.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
-    });
-    connect(this, &EncoderControl::modeChanged, this, &EncoderControl::onModeChanged);
-    connect(this, &EncoderControl::typeChanged, this, &EncoderControl::onTypeChanged);
+    m_button_next_page.setVisible(maxEncoderPages() > 1);
+    m_button_previous_page.setVisible(maxEncoderPages() > 1);
 }
 
 void EncoderControl::setupEncoderPages()
 {
-    const auto encodersPerPage = encoderMatrixSize().width() * encoderMatrixSize().height();
-    updateChildrenVisibility(m_encoders, currentEncoderPage(), encodersPerPage);
-    updateChildrenVisibility(m_encoder_labels, currentEncoderPage(), encodersPerPage);
+    updateChildrenVisibility(m_encoders, currentEncoderPage(), m_encoders_per_page);
+    updateChildrenVisibility(m_encoder_labels, currentEncoderPage(), m_encoders_per_page);
 
-    int visibleChildCount = calculateNumberOfVisibleItems(m_encoders.length(), encodersPerPage, currentEncoderPage());
+    int visibleChildCount = calculateNumberOfVisibleItems(m_encoders.length(), m_encoders_per_page, currentEncoderPage());
     m_encoder_background.setGridSize(QSize(visibleChildCount, 1));
 }
 
@@ -197,7 +180,7 @@ void EncoderControl::onModeChanged()
 
 void EncoderControl::onTypeChanged()
 {
-
+    m_button_mode_angle.setVisible(type() == ENCODER_TYPE_POSITION);
 }
 
 void EncoderControl::updateEncoderLabelValue(int index)
@@ -212,6 +195,7 @@ void EncoderControl::onEncoderValueChanged(int index, int value)
     auto &param = m_params[index];
     param.level = value / EC_FLOAT_TO_INT_SCALE;
     updateEncoderLabelValue(index);
+    emit encoderValueChanged(index, param.name, value);
 }
 
 int EncoderControl::currentEncoderPage() const
@@ -230,7 +214,7 @@ void EncoderControl::setCurrentEncoderPage(int newCurrentEncoderPage)
 
 int EncoderControl::maxEncoderPages() const
 {
-    return calulateNumberOfPages(m_encoders.length(), encoderMatrixSize().width() * encoderMatrixSize().height());
+    return calulateNumberOfPages(m_encoders.length(), m_encoders_per_page);
 }
 
 EncoderMode EncoderControl::mode() const
@@ -244,19 +228,6 @@ void EncoderControl::setMode(EncoderMode newMode)
         return;
     m_mode = newMode;
     emit modeChanged();
-}
-
-QSize EncoderControl::encoderMatrixSize() const
-{
-    return m_encoderMatrixSize;
-}
-
-void EncoderControl::setEncoderMatrixSize(const QSize &newEncoderMatrixSize)
-{
-    if (m_encoderMatrixSize == newEncoderMatrixSize)
-        return;
-    m_encoderMatrixSize = newEncoderMatrixSize;
-    emit encoderMatrixSizeChanged();
 }
 
 EncoderType EncoderControl::type() const

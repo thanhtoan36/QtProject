@@ -14,7 +14,6 @@ class EncoderControl : public PanelControlBase
 {
     Q_OBJECT
     Q_PROPERTY(int currentEncoderPage READ currentEncoderPage WRITE setCurrentEncoderPage NOTIFY currentEncoderPageChanged)
-    Q_PROPERTY(QSize encoderMatrixSize READ encoderMatrixSize WRITE setEncoderMatrixSize NOTIFY encoderMatrixSizeChanged)
     Q_PROPERTY(EncoderMode mode READ mode WRITE setMode NOTIFY modeChanged)
     Q_PROPERTY(EncoderType type READ type WRITE setType NOTIFY typeChanged)
 
@@ -30,21 +29,16 @@ public:
     EncoderMode mode() const;
     void setMode(EncoderMode newMode);
 
-    QSize encoderMatrixSize() const;
-    void setEncoderMatrixSize(const QSize &newEncoderMatrixSize);
-
     EncoderType type() const;
     void setType(EncoderType newType);
 
 signals:
     void currentEncoderPageChanged();
     void modeChanged();
-    void encoderMatrixSizeChanged();
     void typeChanged();
+    void encoderValueChanged(int index, const QString &name, int value);
 
 protected:
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
     virtual void setupEncoderPages();
 
 protected slots:
@@ -69,20 +63,20 @@ protected:
 
     SelectButton m_button_mode_percent;
     SelectButton m_button_mode_255;
-    SelectButton m_button_empty1;
+    SelectButton m_button_mode_angle;
 
-    CustomPushButton m_button_previous_tab; // ◀
-    CustomPushButton m_button_next_tab;     // ▶
+    CustomPushButton m_button_previous_page; // ◀
+    CustomPushButton m_button_next_page;     // ▶
 
     QVector<EncoderParamFloat> m_params;
     QVector<QSharedPointer<QLabel>> m_encoder_labels;
     QVector<QSharedPointer<CustomEncoder>> m_encoders;
+
     int m_currentEncoderPage;
-    QSize m_encoderMatrixSize;
+    int m_encoders_per_page;
 
     EncoderType m_type;
     EncoderMode m_mode;
-private:
 };
 
 #endif // ENCODERCONTROL_H
