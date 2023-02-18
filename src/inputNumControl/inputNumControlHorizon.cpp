@@ -14,112 +14,7 @@ InputNumControlHorizon::InputNumControlHorizon(QWidget *parent) :InputNumControl
 {
     setCurrentButtonModePage(0);
     setFixedSize(IC_HORIZON_SCREEN_SIZE);
-}
 
-void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    m_menu_color_buttons.clear();
-    m_menu_control_buttons.clear();
-    m_menu_gobo_buttons.clear();
-    m_menu_position_buttons.clear();
-    m_menu_shutter_buttons.clear();
-    setCurrentButtonModePage(0);
-    switch (param->type) {
-        case INPUT_NUM_TYPE_COLOR:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_HORIZON_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeColorCheck(i,sender());
-                });
-                m_menu_color_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_color_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(1, MODE_COLUMN) );
-            break;
-        }
-        case INPUT_NUM_TYPE_GOBO:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_HORIZON_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeGoboCheck(i,sender());
-                });
-                m_menu_gobo_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_gobo_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(1, MODE_COLUMN));
-            break;
-        }
-        case INPUT_NUM_TYPE_BEAM_SHUTTER:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_HORIZON_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeShutterCheck(i,sender());
-                });
-                m_menu_shutter_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_shutter_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  QSize(1, MODE_COLUMN));
-            break;
-        }
-        case INPUT_NUM_TYPE_POSITION:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_HORIZON_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModePositionCheck(i,sender());
-                });
-                m_menu_position_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_position_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  QSize(1, MODE_COLUMN));
-            break;
-        }
-        case INPUT_NUM_TYPE_CONTROL:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_HORIZON_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeControlCheck(i,sender());
-                });
-                m_menu_control_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_control_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(1, MODE_COLUMN));
-            break;
-        }
-    }
-    setType(param->type);
-    setMode(param->mode);
-    onTypeChanged();
-    onCurrentButtonModePageChanged();
-}
-
-void InputNumControlHorizon::SetupUiComponents()
-{
     m_grid.setGridSize(QSize(6, 5));
     m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 34);
@@ -181,15 +76,113 @@ void InputNumControlHorizon::SetupUiComponents()
 
         m_input_num_buttons.append(button);
     }
-    placeChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize( 4, 5));
-}
+    placeChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize(4, 4));
 
-void InputNumControlHorizon::SetupUiEvents()
-{
-    InputNumControl::SetupUiEvents();
     connect(&m_picker_button, &QPushButton::clicked, this, &InputNumControlHorizon::onButtonPickerClicked);
     connect(&m_encoder_button, &QPushButton::clicked, this, &InputNumControlHorizon::onButtonEncoderClicked);
     connect(&m_number_button, &QPushButton::clicked, this, &InputNumControlHorizon::onButtonNumberClicked);
+}
+
+void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param)
+{
+    Q_ASSERT(param);
+    m_menu_color_buttons.clear();
+    m_menu_control_buttons.clear();
+    m_menu_gobo_buttons.clear();
+    m_menu_position_buttons.clear();
+    m_menu_shutter_buttons.clear();
+    setCurrentButtonModePage(0);
+    switch (param->type) {
+        case INPUT_NUM_TYPE_COLOR:
+        {
+            for (int i = 0; i< param->count;i++)
+            {
+                auto button =  MakeSharedQObject<SelectButton>(this);
+                button->setFixedSize(IC_HORIZON_MODE_SIZE);
+                button->setText(param->param[i].name);
+                button->setChecked(param->param[i].select);
+                button->setVisible(false);
+                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+                    onButtonModeColorCheck(i,sender());
+                });
+                m_menu_color_buttons.push_back(button);
+            }
+            placeChildrenIntoPanel(m_menu_color_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
+            break;
+        }
+        case INPUT_NUM_TYPE_GOBO:
+        {
+            for (int i = 0; i< param->count;i++)
+            {
+                auto button =  MakeSharedQObject<SelectButton>(this);
+                button->setFixedSize(IC_HORIZON_MODE_SIZE);
+                button->setText(param->param[i].name);
+                button->setChecked(param->param[i].select);
+                button->setVisible(false);
+                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+                    onButtonModeGoboCheck(i,sender());
+                });
+                m_menu_gobo_buttons.push_back(button);
+            }
+            placeChildrenIntoPanel(m_menu_gobo_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1));
+            break;
+        }
+        case INPUT_NUM_TYPE_BEAM_SHUTTER:
+        {
+            for (int i = 0; i< param->count;i++)
+            {
+                auto button =  MakeSharedQObject<SelectButton>(this);
+                button->setFixedSize(IC_HORIZON_MODE_SIZE);
+                button->setText(param->param[i].name);
+                button->setChecked(param->param[i].select);
+                button->setVisible(false);
+                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+                    onButtonModeShutterCheck(i,sender());
+                });
+                m_menu_shutter_buttons.push_back(button);
+            }
+            placeChildrenIntoPanel(m_menu_shutter_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  QSize(MODE_COLUMN, 1));
+            break;
+        }
+        case INPUT_NUM_TYPE_POSITION:
+        {
+            for (int i = 0; i< param->count;i++)
+            {
+                auto button =  MakeSharedQObject<SelectButton>(this);
+                button->setFixedSize(IC_HORIZON_MODE_SIZE);
+                button->setText(param->param[i].name);
+                button->setChecked(param->param[i].select);
+                button->setVisible(false);
+                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+                    onButtonModePositionCheck(i,sender());
+                });
+                m_menu_position_buttons.push_back(button);
+            }
+            placeChildrenIntoPanel(m_menu_position_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  QSize(MODE_COLUMN, 1));
+            break;
+        }
+        case INPUT_NUM_TYPE_CONTROL:
+        {
+            for (int i = 0; i< param->count;i++)
+            {
+                auto button =  MakeSharedQObject<SelectButton>(this);
+                button->setFixedSize(IC_HORIZON_MODE_SIZE);
+                button->setText(param->param[i].name);
+                button->setChecked(param->param[i].select);
+                button->setVisible(false);
+                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+                    onButtonModeControlCheck(i,sender());
+                });
+                m_menu_control_buttons.push_back(button);
+            }
+            placeChildrenIntoPanel(m_menu_control_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1));
+            break;
+        }
+    }
+    setType(param->type);
+    setMode(param->mode);
+    onTypeChanged();
+    onCurrentButtonModePageChanged();
 }
 
 void InputNumControlHorizon::onModeChanged()

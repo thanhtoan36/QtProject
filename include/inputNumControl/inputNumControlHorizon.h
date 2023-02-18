@@ -10,9 +10,6 @@ public:
     explicit InputNumControlHorizon(QWidget* parent = nullptr);
     void SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param);
 
-protected:
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
 protected slots:
     virtual void onModeChanged() override;
     virtual void onTypeChanged() override;
