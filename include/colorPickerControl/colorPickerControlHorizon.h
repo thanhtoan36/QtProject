@@ -9,10 +9,6 @@ class ColorPickerControlHorizon : public ColorPickerControl
     Q_OBJECT
 public:
     explicit ColorPickerControlHorizon(QWidget* parent = nullptr);
-    void SetDispParamDataHorizon(COLOR_PICKER_DISP_PARAM *param);
-
-protected:
-    virtual void SetupUiComponents() override;
 
 protected slots:
     void onPanelSwitchButtonClicked();

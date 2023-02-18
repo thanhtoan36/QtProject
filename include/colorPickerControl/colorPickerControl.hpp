@@ -40,8 +40,6 @@ protected slots:
     void onPickerTypeButtonClicked();
 
 protected:
-    void SetupUiEvents();
-
     void pauseSliderEvents();
     void resumeSliderEvents();
 

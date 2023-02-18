@@ -8,31 +8,20 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
 {
     setFixedSize(CPC_HORIZON_SCREENSIZE);
     m_label_title.setObjectName("title_label_with_border");
-    m_button_switch_panel_picker.setCheckMarkVisible(true);
-    m_button_switch_panel_encoder.setCheckMarkVisible(true);
-    m_button_switch_panel_input_num.setCheckMarkVisible(true);
 
     m_slider_background.setVisible(false);
     m_label_setting.setVisible(false);
-}
+    m_menu_background.setGridSize(QSize(1, 5));
+    m_menu_background.setCellSize(CPC_HORIZON_BUTTON_1_GEOMETRY.size());
+    m_menu_background.move(CPC_HORIZON_BUTTON_1_GEOMETRY.topLeft());
 
-void ColorPickerControlHorizon::SetDispParamDataHorizon(COLOR_PICKER_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    SetDispParamData(param);
-}
-
-void ColorPickerControlHorizon::SetupUiComponents()
-{
     m_label_title.setGeometry(CPC_HORIZON_TITLE_GEOMETRY);
 
     m_button_switch_panel_picker.setGeometry(CPC_HORIZON_BUTTON_1_GEOMETRY);
     m_button_switch_panel_picker.setText("ピッカー");
     m_button_switch_panel_picker.setChecked(true);
-
     m_button_switch_panel_encoder.setGeometry(CPC_HORIZON_BUTTON_SWITCH_PANEL_ENCODER_GEOMETRY);
     m_button_switch_panel_encoder.setText("エンコーダ");
-
     m_button_switch_panel_input_num.setGeometry(CPC_HORIZON_BUTTON_SWITCH_PANEL_NUMBER_GEOMETRY);
     m_button_switch_panel_input_num.setText("数値");
 
@@ -79,6 +68,7 @@ void ColorPickerControlHorizon::SetupUiComponents()
     m_slider_v.setOrientation(Qt::Vertical);
 
     m_label_setting.setVisible(false);
+    placeChildrenIntoPanel(pickerTypeButtons(), CPC_HORIZON_BUTTON_XY_GEOMETRY.size(), CPC_HORIZON_BUTTON_XY_GEOMETRY.topLeft(), QSize(1, 2), BottomToTop);
 
     connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);
     connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);

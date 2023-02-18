@@ -131,31 +131,7 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_h.setValue(hsv.h);
     m_slider_s.setValue(hsv.s);
     m_slider_v.setValue(hsv.v);
-}
 
-void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    setPickerType(param->type);
-    setPickerColor(param->color);
-
-    m_picker_xy.SetColor(pickerColor());
-    m_picker_rgb.SetColor(pickerColor());
-
-    pauseSliderEvents();
-    auto xy = m_picker_xy.Xy();
-    m_slider_x.setValue(xy.x() * 1000);
-    m_slider_y.setValue(xy.y() * 1000);
-
-    auto hsv = m_picker_rgb.HSV();
-    m_slider_h.setValue(hsv.h);
-    m_slider_s.setValue(hsv.s);
-    m_slider_v.setValue(hsv.v);
-    resumeSliderEvents();
-}
-
-void ColorPickerControl::SetupUiEvents()
-{
     connect(this, &ColorPickerControl::pickerTypeChanged, this, &ColorPickerControl::onPickerTypeChanged);
     //xy picker
     connect(&m_picker_xy, &CustomColorPickerXY::XyChanged, this, [&](QPointF xy) {
@@ -218,6 +194,27 @@ void ColorPickerControl::SetupUiEvents()
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
     });
+}
+
+void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
+{
+    Q_ASSERT(param);
+    setPickerType(param->type);
+    setPickerColor(param->color);
+
+    m_picker_xy.SetColor(pickerColor());
+    m_picker_rgb.SetColor(pickerColor());
+
+    pauseSliderEvents();
+    auto xy = m_picker_xy.Xy();
+    m_slider_x.setValue(xy.x() * 1000);
+    m_slider_y.setValue(xy.y() * 1000);
+
+    auto hsv = m_picker_rgb.HSV();
+    m_slider_h.setValue(hsv.h);
+    m_slider_s.setValue(hsv.s);
+    m_slider_v.setValue(hsv.v);
+    resumeSliderEvents();
 }
 
 void ColorPickerControl::pauseSliderEvents()

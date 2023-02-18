@@ -229,7 +229,7 @@ void MainWindow::on_ColorPickerControl_Fake_Set_clicked()
 {
     COLOR_PICKER_DISP_PARAM params = CPC_ParseInput(ui->ColorPickerControl_RawInput->toPlainText());
 
-    m_color_picker_control_horizon->SetDispParamDataHorizon(&params);
+    m_color_picker_control_horizon->SetDispParamData(&params);
     m_color_picker_control->SetDispParamData(&params);
 }
 
