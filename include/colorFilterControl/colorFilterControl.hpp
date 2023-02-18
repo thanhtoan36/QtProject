@@ -7,24 +7,22 @@
 #include "baseComponent/customPushButton.h"
 #include "baseComponent/gridBackground.h"
 #include "colorFilterControl_datatypes.h"
-#include "utility.h"
 #include <QLabel>
 
-enum COLOR_FILTER_MODE
+enum ColorFilterMode
 {
-    COLOR_FILTER_MODE_TAB1,
-    COLOR_FILTER_MODE_TAB2,
+    COLOR_FILTER_MODE_TB,
+    COLOR_FILTER_MODE_CUSTOM,
     COLOR_FILTER_MODE_HISTORY
 };
-struct COLOR_FILTER_BUTTON_DATA
+
+struct ColorFilterButton
 {
     QString text;
     QColor color;
-    bool operator==(COLOR_FILTER_BUTTON_DATA a) const {
-          if(a.text==text && a.color== color)
-             return true;
-          else
-             return false;
+    bool operator==(const ColorFilterButton &rhs) const
+    {
+        return text == rhs.text && color == rhs.color;
     }
 };
 
@@ -34,10 +32,10 @@ class ColorFilterControl : public PanelControlBase
     Q_PROPERTY(int currentTBTabPage READ currentTBTabPage WRITE setCurrentTBTabPage NOTIFY currentTBTabPageChanged)
     Q_PROPERTY(int currentCustomTabPage READ currentCustomTabPage WRITE setCurrentCustomTabPage NOTIFY currentCustomTabPageChanged)
     Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
-    Q_PROPERTY(COLOR_FILTER_MODE mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(COLOR_FILTER_BUTTON_DATA currentTBTabButtonCheck READ currentTBTabButtonCheck WRITE setCurrentTBTabButtonCheck NOTIFY currentTBTabButtonCheckChanged)
-    Q_PROPERTY(COLOR_FILTER_BUTTON_DATA currentCustomTabButtonCheck READ currentCustomTabButtonCheck WRITE setCurrentCustomTabButtonCheck NOTIFY currentCustomTabButtonCheckChanged)
-    Q_PROPERTY(COLOR_FILTER_BUTTON_DATA currentHistoryTabButtonCheck READ currentHistoryTabButtonCheck WRITE setCurrentHistoryTabButtonCheck NOTIFY currentHistoryTabButtonCheckChanged)
+    Q_PROPERTY(ColorFilterMode mode READ mode WRITE setMode NOTIFY modeChanged)
+    Q_PROPERTY(ColorFilterButton currentTBTabButtonCheck READ currentTBTabButtonCheck WRITE setCurrentTBTabButtonCheck NOTIFY currentTBTabButtonCheckChanged)
+    Q_PROPERTY(ColorFilterButton currentCustomTabButtonCheck READ currentCustomTabButtonCheck WRITE setCurrentCustomTabButtonCheck NOTIFY currentCustomTabButtonCheckChanged)
+    Q_PROPERTY(ColorFilterButton currentHistoryTabButtonCheck READ currentHistoryTabButtonCheck WRITE setCurrentHistoryTabButtonCheck NOTIFY currentHistoryTabButtonCheckChanged)
 public:
 
     explicit ColorFilterControl(QWidget* parent = nullptr);
@@ -57,8 +55,8 @@ public:
     int currentHistoryPage() const;
     void setCurrentHistoryPage(int newCurrentHistoryPage);
 
-    COLOR_FILTER_MODE mode() const;
-    void setMode(COLOR_FILTER_MODE newMode);
+    ColorFilterMode mode() const;
+    void setMode(ColorFilterMode newMode);
 
     void onModeChanged();
 
@@ -80,14 +78,14 @@ public:
 
     void onHistoryButtonChecked(const int index, QObject* sender);
 
-    const COLOR_FILTER_BUTTON_DATA currentTBTabButtonCheck() const;
-    void setCurrentTBTabButtonCheck(const COLOR_FILTER_BUTTON_DATA& newCurrentTBTabButtonCheck);
+    const ColorFilterButton currentTBTabButtonCheck() const;
+    void setCurrentTBTabButtonCheck(const ColorFilterButton& newCurrentTBTabButtonCheck);
 
-    const COLOR_FILTER_BUTTON_DATA currentCustomTabButtonCheck() const;
-    void setCurrentCustomTabButtonCheck(const COLOR_FILTER_BUTTON_DATA& newCurrentCustomTabButtonCheck);
+    const ColorFilterButton currentCustomTabButtonCheck() const;
+    void setCurrentCustomTabButtonCheck(const ColorFilterButton& newCurrentCustomTabButtonCheck);
 
-    const COLOR_FILTER_BUTTON_DATA currentHistoryTabButtonCheck() const;
-    void setCurrentHistoryTabButtonCheck(const COLOR_FILTER_BUTTON_DATA& newCurrentHistoryTabButtonCheck);
+    const ColorFilterButton currentHistoryTabButtonCheck() const;
+    void setCurrentHistoryTabButtonCheck(const ColorFilterButton& newCurrentHistoryTabButtonCheck);
 
 
 signals:
@@ -106,10 +104,7 @@ signals:
     void currentHistoryTabButtonCheckChanged();
 
 protected:
-    virtual void SetupUiComponents();
-    virtual void SetupUiEvents();
     virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button);
-
 
 protected:
     GridBackground m_grid;
@@ -142,11 +137,11 @@ private:
     int m_currentTBTabPage;
     int m_currentCustomTabPage;
     int m_currentHistoryPage;
-    COLOR_FILTER_MODE m_mode;
-    COLOR_FILTER_MODE m_previous_tab;
-    COLOR_FILTER_BUTTON_DATA m_currentTBTabButtonCheck;
-    COLOR_FILTER_BUTTON_DATA m_currentCustomTabButtonCheck;
-    COLOR_FILTER_BUTTON_DATA m_currentHistoryTabButtonCheck;
+    ColorFilterMode m_mode;
+    ColorFilterMode m_previous_tab;
+    ColorFilterButton m_currentTBTabButtonCheck;
+    ColorFilterButton m_currentCustomTabButtonCheck;
+    ColorFilterButton m_currentHistoryTabButtonCheck;
 };
 
 #endif // COLORFILTERCONTROL_H

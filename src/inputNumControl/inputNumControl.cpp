@@ -28,6 +28,78 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     m_button_mode_percent.setCheckMarkVisible(true);
     m_button_mode_percent.setChecked(true);
     m_return_button.setTextColor(Qt::yellow);
+
+    m_grid.setGridSize(QSize(4, 6));
+    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.move(0, 32);
+
+    m_label_title.setGeometry(IC_TITLE_GEOMETRY);
+    m_label_title.setObjectName("title_label");
+    m_label_title.setText("数値入力");
+
+    m_button_mode_percent.setGeometry(IC_PERCENT_GEOMETRY);
+    m_button_mode_percent.setText("%");
+    m_button_mode_255.setGeometry(IC_255_GEOMETRY);
+    m_button_mode_255.setText("255");
+
+    m_button_mode_angle.setGeometry(IC_ANGEL_GEOMETRY);
+    m_button_mode_angle.setText("°角度");
+    m_button_mode_angle.setVisible(false);
+
+    m_button_relative.setGeometry(IC_RELATIVE_GEOMETRY);
+    m_button_relative.setText("相対");
+
+    m_button_absolute.setGeometry(IC_ABSOLUTE_GEOMETRY);
+    m_button_absolute.setText("絶対");
+
+    m_button_previous_tab.setGeometry(IC_PREV_GEOMETRY);
+    m_button_previous_tab.setText("◀");
+
+    m_button_next_tab.setGeometry(IC_NEXT_GEOMETRY);
+    m_button_next_tab.setText("▶");
+
+    m_return_button.setGeometry(IC_RETURN_GEOMETRY);
+    m_return_button.setText("戻す");
+
+    QStringList input_num_model = {
+        "7", "8", "9", "最大",
+        "4", "5", "6", "最小",
+        "1", "2", "3", "ENTER",
+        "0", "ハーフ",
+    };
+
+    m_input_num_buttons.clear();
+    for (const QString &b : input_num_model) {
+        auto button = MakeSharedQObject<CustomPushButton>(this);
+        button->setFixedSize(IC_BUTTON_SIZE);
+        button->setVisible(true);
+        button->setText(b);
+
+
+        connect(button.get(), &QPushButton::clicked, this, [&]() {
+            qDebug() << ((CustomPushButton*)sender())->text();
+        });
+
+        m_input_num_buttons.append(button);
+    }
+    placeChildrenIntoPanel(m_input_num_buttons, IC_BUTTON_SIZE, IC_BUTTON_TOPLEFT, QSize( 4, 5));
+
+    connect(this, &InputNumControl::modeChanged, this, &InputNumControl::onModeChanged);
+    connect(this, &InputNumControl::typeChanged, this, &InputNumControl::onTypeChanged);
+    connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
+        qDebug("previous");
+        setCurrentButtonModePage(currentButtonModePage()-1);
+    });
+    connect(&m_button_next_tab, &QPushButton::clicked, this, [&](){
+        qDebug("next");
+        setCurrentButtonModePage(currentButtonModePage()+1);
+    });
+    connect(this, &InputNumControl::currentButtonModePageChanged, this, &InputNumControl::onCurrentButtonModePageChanged);
+    connect(&m_button_mode_255, &QPushButton::clicked, this, &InputNumControl::onButtonMode255Clicked);
+    connect(&m_button_mode_angle, &QPushButton::clicked, this, &InputNumControl::onButtonModeAngelClicked);
+    connect(&m_button_mode_percent, &QPushButton::clicked, this, &InputNumControl::onButtonModePercentClicked);
+    connect(&m_button_relative, &QPushButton::clicked, this, &InputNumControl::onButtonRelativeClicked);
+    connect(&m_button_absolute, &QPushButton::clicked, this, &InputNumControl::onButtonAbsoluteClicked);
 }
 
 void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
@@ -95,7 +167,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
             break;
         }
         case INPUT_NUM_TYPE_POSITION:
-        {            
+        {
             for (int i = 0; i< param->count;i++)
             {
                 auto button =  MakeSharedQObject<SelectButton>(this);
@@ -112,7 +184,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
             break;
         }
         case INPUT_NUM_TYPE_CONTROL:
-        {            
+        {
             for (int i = 0; i< param->count;i++)
             {
                 auto button =  MakeSharedQObject<SelectButton>(this);
@@ -133,84 +205,6 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
     setMode(param->mode);
     onTypeChanged();
     onCurrentButtonModePageChanged();
-
-}
-void InputNumControl::SetupUiComponents()
-{
-    m_grid.setGridSize(QSize(4, 6));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
-    m_grid.move(0, 32);
-
-    m_label_title.setGeometry(IC_TITLE_GEOMETRY);
-    m_label_title.setObjectName("title_label");
-    m_label_title.setText("数値入力");
-
-    m_button_mode_percent.setGeometry(IC_PERCENT_GEOMETRY);
-    m_button_mode_percent.setText("%");
-    m_button_mode_255.setGeometry(IC_255_GEOMETRY);
-    m_button_mode_255.setText("255");
-
-    m_button_mode_angle.setGeometry(IC_ANGEL_GEOMETRY);
-    m_button_mode_angle.setText("°角度");
-    m_button_mode_angle.setVisible(false);
-
-    m_button_relative.setGeometry(IC_RELATIVE_GEOMETRY);
-    m_button_relative.setText("相対");
-
-    m_button_absolute.setGeometry(IC_ABSOLUTE_GEOMETRY);
-    m_button_absolute.setText("絶対");
-
-    m_button_previous_tab.setGeometry(IC_PREV_GEOMETRY);
-    m_button_previous_tab.setText("◀");
-
-    m_button_next_tab.setGeometry(IC_NEXT_GEOMETRY);
-    m_button_next_tab.setText("▶");
-
-    m_return_button.setGeometry(IC_RETURN_GEOMETRY);
-    m_return_button.setText("戻す");
-
-    QStringList input_num_model = {
-        "7", "8", "9", "最大",
-        "4", "5", "6", "最小",
-        "1", "2", "3", "ENTER",
-        "0", "ハーフ",
-    };
-
-    m_input_num_buttons.clear();
-    for (const QString &b : input_num_model) {
-        auto button = MakeSharedQObject<CustomPushButton>(this);
-        button->setFixedSize(IC_BUTTON_SIZE);
-        button->setVisible(true);
-        button->setText(b);
-
-
-        connect(button.get(), &QPushButton::clicked, this, [&]() {
-            qDebug() << ((CustomPushButton*)sender())->text();
-        });
-
-        m_input_num_buttons.append(button);
-    }
-    placeChildrenIntoPanel(m_input_num_buttons, IC_BUTTON_SIZE, IC_BUTTON_TOPLEFT, QSize( 4, 5));
-}
-
-void InputNumControl::SetupUiEvents()
-{
-    connect(this, &InputNumControl::modeChanged, this, &InputNumControl::onModeChanged);
-    connect(this, &InputNumControl::typeChanged, this, &InputNumControl::onTypeChanged);
-    connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
-        qDebug("previous");
-        setCurrentButtonModePage(currentButtonModePage()-1);
-    });
-    connect(&m_button_next_tab, &QPushButton::clicked, this, [&](){
-        qDebug("next");
-        setCurrentButtonModePage(currentButtonModePage()+1);
-    });
-    connect(this, &InputNumControl::currentButtonModePageChanged, this, &InputNumControl::onCurrentButtonModePageChanged);
-    connect(&m_button_mode_255, &QPushButton::clicked, this, &InputNumControl::onButtonMode255Clicked);
-    connect(&m_button_mode_angle, &QPushButton::clicked, this, &InputNumControl::onButtonModeAngelClicked);
-    connect(&m_button_mode_percent, &QPushButton::clicked, this, &InputNumControl::onButtonModePercentClicked);
-    connect(&m_button_relative, &QPushButton::clicked, this, &InputNumControl::onButtonRelativeClicked);
-    connect(&m_button_absolute, &QPushButton::clicked, this, &InputNumControl::onButtonAbsoluteClicked);
 }
 
 void InputNumControl::onButtonModeColorCheck(const int index, QObject *sender)

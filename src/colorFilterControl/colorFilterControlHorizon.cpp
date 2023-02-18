@@ -1,5 +1,6 @@
 #include "colorFilterControl/colorFilterControlHorizon.h"
 #include "colorFilterControl/colorFilterControlHorizon_define.h"
+#include "utility.h"
 
 #define PAGE_ROW  4
 #define PAGE_COLUMN  4
@@ -135,11 +136,11 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
 
     if (param->tb.select == true)
     {
-        setMode(COLOR_FILTER_MODE_TAB1);
+        setMode(COLOR_FILTER_MODE_TB);
     }
     if (param->custom.select == true)
     {
-        setMode(COLOR_FILTER_MODE_TAB2);
+        setMode(COLOR_FILTER_MODE_CUSTOM);
     }
     if (param->history.select == true)
     {

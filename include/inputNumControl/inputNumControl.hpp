@@ -30,15 +30,10 @@ public:
 
 signals:
     void modeChanged();
-
     void typeChanged();
-
     void currentButtonModePageChanged();
 
 protected:
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
-
     void onButtonModeColorCheck(const int index, QObject* sender);
     void onButtonModePositionCheck(const int index, QObject* sender);
     void onButtonModeGoboCheck(const int index, QObject* sender);
@@ -66,8 +61,6 @@ protected:
 
     CustomPushButton m_button_previous_tab;
     CustomPushButton m_button_next_tab;
-
-
 
     QVector<QSharedPointer<SelectButton>> m_menu_color_buttons;
     QVector<QSharedPointer<SelectButton>> m_menu_position_buttons;

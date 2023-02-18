@@ -8,7 +8,6 @@ TrackControlHorizon::TrackControlHorizon(QWidget *parent)
     setFixedSize(TC_SCREENSIZE_HORIZON);
     m_label_title.setObjectName("title_label_with_border");
     m_label_title.setGeometry(TC_LABEL_TITLE_GEOMETRY_HORIZON);
-    setWindowTitle(m_label_title.text());
 
     m_button_mode_percent.setGeometry(TC_BUTTON_MODE_PERCENT_GEOMETRY_HORIZON);
     m_button_mode_255.setGeometry(TC_BUTTON_MODE_255_GEOMETRY_HORIZON);
