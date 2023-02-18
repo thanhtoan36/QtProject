@@ -1,7 +1,6 @@
 #ifndef GROUPLIBCONTROL_H
 #define GROUPLIBCONTROL_H
 #include "baseComponent/panelControlBase.h"
-#include "groupControl_define.hpp"
 #include "groupControl_datatypes.h"
 #include "baseComponent/titleSelectButton.h"
 #include "baseComponent/customPushButton.h"
@@ -23,25 +22,26 @@ public:
     int currentHistoryPage() const;
     void setCurrentHistoryPage(int newCurrentHistoryPage);
 
-
-
     void onButtonGroupCheck(const uint32_t index, QObject* sender);
     void onButtonHistoryCheck(const uint32_t index, QObject* sender);
 
 signals:
     void currentGroupPageChanged();
-
     void currentHistoryPageChanged();
 
 protected:
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
-
     virtual void updateGroupPage();
     virtual void updateHistoryPage();
 
     virtual int maxGroupPages() const;
     virtual int maxHistoryPages() const;
+
+    virtual void addButtonToHistory(QSharedPointer<TitleSelectButton>& button);
+
+protected slots:
+    void onTitleButonClicked(const bool check);
+    void onRegisterButonClicked(const bool check);
+    void onDeleteButonClicked(const bool check);
 
 protected:
     GridBackground m_grid;
