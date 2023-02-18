@@ -5,22 +5,22 @@
 #include <QDebug>
 
 #define PICKER_RGB_WIDTH  CPC_PICKER_RGB_GEOMETRY.width()
-#define PICKER_RGB_HIEGHT CPC_PICKER_RGB_GEOMETRY.height()
+#define PICKER_RGB_HEIGHT CPC_PICKER_RGB_GEOMETRY.height()
 #define H_MAX 359
 #define S_MAX 255
 #define V_MAX 255
 
 CustomColorPickerRGB::CustomColorPickerRGB(QWidget *parent) : QWidget(parent),
-    m_plotArea(QRectF(0, 0, PICKER_RGB_WIDTH, PICKER_RGB_HIEGHT)),
-    m_img(PICKER_RGB_WIDTH, PICKER_RGB_HIEGHT, QImage::Format_RGB32)
+    m_plotArea(QRectF(0, 0, PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT)),
+    m_img(PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT, QImage::Format_RGB32)
 {
     for(int x=0; x < PICKER_RGB_WIDTH; x++){
-       for(int y=0; y < PICKER_RGB_HIEGHT; y++){
+       for(int y=0; y < PICKER_RGB_HEIGHT; y++){
            QColor color;
            int h = (x * H_MAX)/ (PICKER_RGB_WIDTH - 1);
-           int s = (y * S_MAX) / (PICKER_RGB_HIEGHT - 1);
+           int s = (y * S_MAX) / (PICKER_RGB_HEIGHT - 1);
            color.setHsv(h, s, 200);
-           m_img.setPixel(PICKER_RGB_WIDTH - x - 1, PICKER_RGB_HIEGHT - y - 1, color.rgb());
+           m_img.setPixel(x, PICKER_RGB_HEIGHT - y - 1, color.rgb());
        }
     }
 }
@@ -38,8 +38,8 @@ void CustomColorPickerRGB::SetHSV(const int h, const int s, const int v)
         m_hsv.s = s;
         m_hsv.v = v;
         m_color = QColor::fromHsv(h, s, v);
-        int x = PICKER_RGB_WIDTH - 1 - (h * (PICKER_RGB_WIDTH - 1)) / H_MAX;
-        int y = PICKER_RGB_HIEGHT - 1 - (s * (PICKER_RGB_HIEGHT - 1)) / S_MAX;
+        int x = (h * (PICKER_RGB_WIDTH - 1)) / H_MAX;
+        int y = PICKER_RGB_HEIGHT - 1 - (s * (PICKER_RGB_HEIGHT - 1)) / S_MAX;
         m_pointer = QPointF(x,y);
         m_pointer_visible  = true;
         emit HSVChanged(m_hsv);
@@ -83,8 +83,8 @@ void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
     if(m_plotArea.contains(pos)){
          m_pointer = pos;
          m_pointer_visible = true;
-         int h = (PICKER_RGB_WIDTH - 1 - m_pointer.x()) * H_MAX / (PICKER_RGB_WIDTH - 1);
-         int s = (PICKER_RGB_HIEGHT - 1 - m_pointer.y()) * S_MAX / (PICKER_RGB_HIEGHT - 1);
+         int h = (m_pointer.x()) * H_MAX / (PICKER_RGB_WIDTH - 1);
+         int s = (PICKER_RGB_HEIGHT - 1 - m_pointer.y()) * S_MAX / (PICKER_RGB_HEIGHT - 1);
          SetColor(QColor::fromHsv(h,s,m_hsv.v));
          emit picked();
     }

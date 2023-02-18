@@ -13,7 +13,7 @@ PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(p
     setButtonColumn(4);
     setButtonStartPoint(PC_HORIZON_BUTTON_TOP_LEFT);
     setMenuStartPoint(PC_HORIZON_MENU_TOP_LEFT);
-    m_title_label.setObjectName("title_label_horizon");
+    m_title_label.setObjectName("title_label_with_border");
 }
 
 void PaletteControlHorizon::SetupUiComponents()

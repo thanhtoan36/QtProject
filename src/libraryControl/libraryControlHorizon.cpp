@@ -22,7 +22,7 @@ void LibraryControlHorizon::SetupUiComponents()
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(LC_HORIZON_TITLE_GEOMETRY);
-    m_title_label.setObjectName("title_label_horizon");
+    m_title_label.setObjectName("title_label_with_border");
     m_title_label.setText("ライブラリ");
 
     m_history_button.setGeometry(LC_HORIZON_HISTORY_GEOMETRY);

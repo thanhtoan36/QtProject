@@ -12,7 +12,7 @@ IntensityControlHorizon::IntensityControlHorizon(QWidget *parent)
     m_grid_background.move(ISC_MENU_BUTTON_TOPLEFT_HORIZON);
 
     m_label_title.setGeometry(ISC_TITLE_GOEMETRY_HORIZON);
-    m_label_title.setObjectName("title_label_horizon");
+    m_label_title.setObjectName("title_label_with_border");
     m_return_button.setGeometry(ISC_RETURN_GOEMETRY_HORIZON);
 
     QStringList intensityModel = {
@@ -40,7 +40,7 @@ IntensityControlHorizon::IntensityControlHorizon(QWidget *parent)
         m_intensity_buttons.append(button);
     }
 
-    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE_HORIZON, ISC_INTENSITY_BUTTON_TOPLEFT_HORIZON, 5, 5);
+    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE_HORIZON, ISC_INTENSITY_BUTTON_TOPLEFT_HORIZON, QSize( 5, 5));
 
 
     QStringList menuModel = {
@@ -59,5 +59,5 @@ IntensityControlHorizon::IntensityControlHorizon(QWidget *parent)
         m_menu_buttons.append(button);
     }
 
-    placeChildrenIntoPanel(m_menu_buttons, ISC_MENU_BUTTON_SIZE_HORIZON, ISC_MENU_BUTTON_TOPLEFT_HORIZON, 1, 5);
+    placeChildrenIntoPanel(m_menu_buttons, ISC_MENU_BUTTON_SIZE_HORIZON, ISC_MENU_BUTTON_TOPLEFT_HORIZON, QSize( 1, 5));
 }

@@ -47,7 +47,7 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         });
         m_group_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_group_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START, ROW, COLUMN);
+    placeChildrenIntoPanel(m_group_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START, QSize( ROW, COLUMN));
     updateGroupPage();
     m_up_button.setEnabled(currentGroupPage() > 0);
     m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
@@ -64,7 +64,7 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         });
         m_history_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_history_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START,ROW, COLUMN);
+    placeChildrenIntoPanel(m_history_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
 }
 
 void GroupControl::SetupUiComponents()

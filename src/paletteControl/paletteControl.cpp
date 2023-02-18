@@ -83,13 +83,13 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
             palette_button_list.push_back(palette_button);
         }
         m_palette_buttons_list.push_back(palette_button_list);
-        placeChildrenIntoPanel(palette_button_list, PC_BUTTON_SIZE, buttonStartPoint(), buttonColumn(), buttonRow());
+        placeChildrenIntoPanel(palette_button_list, PC_BUTTON_SIZE, buttonStartPoint(), QSize(buttonColumn(), buttonRow()));
     }
     m_menu_buttons[m_current_menu]->setChecked(true);
 
     onButtonMenuClicked(m_current_menu,nullptr);
 
-    placeChildrenIntoPanel(m_menu_buttons, PC_BUTTON_SIZE, menuStartPoint(), menuColumn(), menuRow());
+    placeChildrenIntoPanel(m_menu_buttons, PC_BUTTON_SIZE, menuStartPoint(), QSize(menuColumn(), menuRow()));
     updateChildrenVisibility(m_menu_buttons, m_current_menu_page, menuPageSize());
     m_prev_button.setEnabled(m_current_menu_page > 0);;
     m_next_button.setEnabled(m_current_menu_page + 1  < calulateNumberOfPages(m_menu_buttons.size(), menuPageSize()));

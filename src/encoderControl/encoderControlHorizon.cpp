@@ -18,7 +18,7 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     m_button_switch_panel_encoder.setChecked(true);
 
     m_label_title.setGeometry(EC_LABEL_TITLE_GEOMETRY_HORIZON);
-    m_label_title.setObjectName("title_label_horizon");
+    m_label_title.setObjectName("title_label_with_border");
 
     m_button_mode_percent.setGeometry(EC_BUTTON_PERCENT_GEOMETRY_HORIZON);
     m_button_mode_255.setGeometry(EC_BUTTON_255_GEOMETRY_HORIZON);
@@ -43,8 +43,8 @@ void EncoderControlHorizon::SetDispParamDataHorizon(ENCODER_DISP_PARAM *param)
 {
     SetDispParamData(param);
 
-    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT_HORIZON + QPoint(EC_ENCODER_WIDTH_PADDING, 0), m_encoders_per_page);
-    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, m_encoders_per_page);
+    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT_HORIZON + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
+    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, QSize(m_encoders_per_page, 1));
 }
 
 void EncoderControlHorizon::onPanelSwitchButtonClicked()

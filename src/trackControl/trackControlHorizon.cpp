@@ -6,7 +6,7 @@ TrackControlHorizon::TrackControlHorizon(QWidget *parent)
       m_button_emply_field_2(this)
 {
    setFixedSize(TC_SCREENSIZE_HORIZON);
-   m_label_title.setObjectName("title_label_horizon");
+   m_label_title.setObjectName("title_label_with_border");
 }
 
 void TrackControlHorizon::SetDispParamDataHorizon(TRACK_DISP_PARAM *param)

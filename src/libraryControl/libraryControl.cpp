@@ -166,10 +166,10 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         }
     }
 
-    placeChildrenIntoPanel(m_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), column(), modeRow());
+    placeChildrenIntoPanel(m_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), QSize(column(), modeRow()));
     updateChildrenVisibility(m_mode_buttons,0,modePageSize());
 
-    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), column(), modeRow());
+    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), QSize(column(), modeRow()));
     onButtonHistoryClicked(m_history_button.isChecked());
 }
 
@@ -327,7 +327,7 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
     //for ALL button
     if (index == 0)
     {
-        placeChildrenIntoPanel(m_all_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+        placeChildrenIntoPanel(m_all_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
         updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],libPageSize());
         m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
         m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
@@ -338,7 +338,7 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
     {
         if (j == index -1)
         {
-            placeChildrenIntoPanel(m_library_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+            placeChildrenIntoPanel(m_library_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
             updateChildrenVisibility(m_library_buttons_list[j],m_current_page_indexs[m_current_mode],libPageSize());
             m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
             m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_library_buttons_list[j].size(), libPageSize()));
@@ -394,7 +394,7 @@ void LibraryControl::onButtonModeHistoryClicked(const int index, QObject *sender
     //for ALL button
     if (index == 0)
     {
-        placeChildrenIntoPanel(m_all_historty_buttons, LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+        placeChildrenIntoPanel(m_all_historty_buttons, LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
         updateChildrenVisibility(m_all_historty_buttons,m_current_page_indexs[m_current_history_mode],libPageSize());
         m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
         m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
@@ -405,7 +405,7 @@ void LibraryControl::onButtonModeHistoryClicked(const int index, QObject *sender
     {
         if (j == index -1)
         {
-            placeChildrenIntoPanel(m_history_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), column(), libRow());
+            placeChildrenIntoPanel(m_history_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
             updateChildrenVisibility(m_history_buttons_list[j],m_current_history_indexs[m_current_history_mode],libPageSize());
             m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
             m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[j].size(), libPageSize()));

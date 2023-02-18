@@ -7,8 +7,8 @@
 #define CPC_HORIZON_BUTTON_RGB_GEOMETRY             QRect(0, 178, 78, 48)
 
 #define CPC_HORIZON_BUTTON_1_GEOMETRY               QRect(0, 34, 78, 48)
-#define CPC_HORIZON_BUTTON_2_GEOMETRY               QRect(0, 82, 78, 48)
-#define CPC_HORIZON_BUTTON_3_GEOMETRY               QRect(0, 130, 78, 48)
+#define CPC_HORIZON_BUTTON_SWITCH_PANEL_ENCODER_GEOMETRY               QRect(0, 82, 78, 48)
+#define CPC_HORIZON_BUTTON_SWITCH_PANEL_NUMBER_GEOMETRY               QRect(0, 130, 78, 48)
 
 #define CPC_HORIZON_PICKER_XY_GEOMETRY              QRect(78, 34, 312, 240)
 

@@ -10,8 +10,6 @@ public:
     void SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM *param);
 
 protected:
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
     virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button) override;
 
 private:

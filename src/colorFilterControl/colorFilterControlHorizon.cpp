@@ -19,82 +19,7 @@ ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFil
     setFixedSize(CFC_HORIZON_SCREENSIZE);
     m_children_history.append(&m_tb_tab_button);
     m_children_history.append(&m_custom_tab_button);
-}
 
-void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    m_tb_tab_buttons.clear();
-    for (uint16_t i = 0; i < param->tb.count; i++)
-    {
-        auto button = MakeSharedQObject<SelectColorButton>(this);
-        m_tb_tab_buttons.push_back(button);
-        button->setFixedSize(CFC_HORIZON_BUTTON1_GEOMETRY.size());
-        button->setText(param->tb.color_filter[i].name);
-        button->setBackgroundColor(param->tb.color_filter[i].color);
-        button->setSelectedBackgroundColor(button->backgroundColor());
-        button->setCheckMarkVisible(true);
-        button->setChecked(param->tb.color_filter[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onTBTabButtonChecked(i,sender());
-        });
-
-    }
-    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), 4,4);
-
-    m_custom_tab_buttons.clear();
-    for (uint16_t i = 0; i < param->custom.count; i++)
-    {
-        auto button = MakeSharedQObject<SelectColorButton>(this);
-        m_custom_tab_buttons.push_back(button);        
-        button->setFixedSize(CFC_HORIZON_BUTTON1_GEOMETRY.size());
-        button->setText(param->custom.color_filter[i].name);
-        button->setBackgroundColor(param->custom.color_filter[i].color);
-        button->setSelectedBackgroundColor(button->backgroundColor());        
-        button->setCheckMarkVisible(true);
-        button->setChecked(param->custom.color_filter[i].select);
-
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onCustomTabButtonChecked(i,sender());
-        });
-
-    }
-    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), 4,4);
-
-    m_history_buttons.clear();
-    for (uint16_t i = 0; i < param->history.count; i++)
-    {
-        auto button = MakeSharedQObject<SelectColorButton>(this);
-        m_history_buttons.push_back(button);
-        button->setFixedSize(CFC_HORIZON_BUTTON1_GEOMETRY.size());
-        button->setText(param->history.color_filter[i].name);
-        button->setBackgroundColor(param->history.color_filter[i].color);
-        button->setSelectedBackgroundColor(button->backgroundColor());
-        button->setCheckMarkVisible(true);
-        button->setChecked(param->history.color_filter[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onHistoryButtonChecked(i,sender());
-        });
-    }
-    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), 4,4);
-
-    if (param->tb.select == true)
-    {
-        setMode(COLOR_FILTER_MODE_TAB1);
-    }
-    if (param->custom.select == true)
-    {
-        setMode(COLOR_FILTER_MODE_TAB2);
-    }
-    if (param->history.select == true)
-    {
-        setMode(COLOR_FILTER_MODE_HISTORY);
-    }
-    onModeChanged();
-}
-
-void ColorFilterControlHorizon::SetupUiComponents()
-{
     m_grid.setGridSize(QSize(7, 5));
     m_grid.setCellSize(QSize(78, 48));
     m_grid.move(0, 34);
@@ -102,7 +27,7 @@ void ColorFilterControlHorizon::SetupUiComponents()
     m_title_label.setGeometry(CFC_HORIZON_TITLE_GEOMETRY);
     m_title_label.setText("カラーフィルタ");
     m_title_label.setObjectName("title_label");
-    m_title_label.setObjectName("title_label_horizon");
+    m_title_label.setObjectName("title_label_with_border");
 
     m_tb_tab_button.setGeometry(CFC_HORIZON_TB_TAB_GEOMETRY);
     m_tb_tab_button.setText("TB標準");
@@ -151,9 +76,76 @@ void ColorFilterControlHorizon::SetupUiComponents()
     m_prev_button.setVisible(false);
 }
 
-void ColorFilterControlHorizon::SetupUiEvents()
+void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM *param)
 {
-    ColorFilterControl::SetupUiEvents();
+    Q_ASSERT(param);
+    m_tb_tab_buttons.clear();
+    for (uint16_t i = 0; i < param->tb.count; i++)
+    {
+        auto button = MakeSharedQObject<SelectColorButton>(this);
+        m_tb_tab_buttons.push_back(button);
+        button->setFixedSize(CFC_HORIZON_BUTTON1_GEOMETRY.size());
+        button->setText(param->tb.color_filter[i].name);
+        button->setBackgroundColor(param->tb.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
+        button->setCheckMarkVisible(true);
+        button->setChecked(param->tb.color_filter[i].select);
+        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+            onTBTabButtonChecked(i,sender());
+        });
+
+    }
+    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+
+    m_custom_tab_buttons.clear();
+    for (uint16_t i = 0; i < param->custom.count; i++)
+    {
+        auto button = MakeSharedQObject<SelectColorButton>(this);
+        m_custom_tab_buttons.push_back(button);        
+        button->setFixedSize(CFC_HORIZON_BUTTON1_GEOMETRY.size());
+        button->setText(param->custom.color_filter[i].name);
+        button->setBackgroundColor(param->custom.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());        
+        button->setCheckMarkVisible(true);
+        button->setChecked(param->custom.color_filter[i].select);
+
+        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+            onCustomTabButtonChecked(i,sender());
+        });
+
+    }
+    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+
+    m_history_buttons.clear();
+    for (uint16_t i = 0; i < param->history.count; i++)
+    {
+        auto button = MakeSharedQObject<SelectColorButton>(this);
+        m_history_buttons.push_back(button);
+        button->setFixedSize(CFC_HORIZON_BUTTON1_GEOMETRY.size());
+        button->setText(param->history.color_filter[i].name);
+        button->setBackgroundColor(param->history.color_filter[i].color);
+        button->setSelectedBackgroundColor(button->backgroundColor());
+        button->setCheckMarkVisible(true);
+        button->setChecked(param->history.color_filter[i].select);
+        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
+            onHistoryButtonChecked(i,sender());
+        });
+    }
+    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+
+    if (param->tb.select == true)
+    {
+        setMode(COLOR_FILTER_MODE_TAB1);
+    }
+    if (param->custom.select == true)
+    {
+        setMode(COLOR_FILTER_MODE_TAB2);
+    }
+    if (param->history.select == true)
+    {
+        setMode(COLOR_FILTER_MODE_HISTORY);
+    }
+    onModeChanged();
 }
 
 void ColorFilterControlHorizon::addButtonToHistory(QSharedPointer<SelectColorButton> &button)
@@ -167,8 +159,8 @@ void ColorFilterControlHorizon::addButtonToHistory(QSharedPointer<SelectColorBut
     new_button->setSelectedBackgroundColor(button->backgroundColor());
     int index = m_history_buttons.size();
     connect(new_button.get(),&QAbstractButton::clicked, this, [&,index](){
-        onHistoryButtonChecked(index,sender());
+        onHistoryButtonChecked(index, sender());
     });
     m_history_buttons.push_back(new_button);
-    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), 4,4);
+    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
 }

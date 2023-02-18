@@ -40,7 +40,7 @@ void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param
                 });
                 m_menu_color_buttons.push_back(button);
             }
-            placeChildrenIntoPanel(m_menu_color_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, MODE_COLUMN );
+            placeChildrenIntoPanel(m_menu_color_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(1, MODE_COLUMN) );
             break;
         }
         case INPUT_NUM_TYPE_GOBO:
@@ -57,7 +57,7 @@ void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param
                 });
                 m_menu_gobo_buttons.push_back(button);
             }
-            placeChildrenIntoPanel(m_menu_gobo_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, MODE_COLUMN);
+            placeChildrenIntoPanel(m_menu_gobo_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(1, MODE_COLUMN));
             break;
         }
         case INPUT_NUM_TYPE_BEAM_SHUTTER:
@@ -74,7 +74,7 @@ void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param
                 });
                 m_menu_shutter_buttons.push_back(button);
             }
-            placeChildrenIntoPanel(m_menu_shutter_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  MODE_COLUMN);
+            placeChildrenIntoPanel(m_menu_shutter_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  QSize(1, MODE_COLUMN));
             break;
         }
         case INPUT_NUM_TYPE_POSITION:
@@ -91,7 +91,7 @@ void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param
                 });
                 m_menu_position_buttons.push_back(button);
             }
-            placeChildrenIntoPanel(m_menu_position_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  MODE_COLUMN);
+            placeChildrenIntoPanel(m_menu_position_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START,  QSize(1, MODE_COLUMN));
             break;
         }
         case INPUT_NUM_TYPE_CONTROL:
@@ -108,7 +108,7 @@ void InputNumControlHorizon::SetDispParamDataHorizon(INPUT_NUM_DISP_PARAM *param
                 });
                 m_menu_control_buttons.push_back(button);
             }
-            placeChildrenIntoPanel(m_menu_control_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, MODE_COLUMN);
+            placeChildrenIntoPanel(m_menu_control_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(1, MODE_COLUMN));
             break;
         }
     }
@@ -125,7 +125,7 @@ void InputNumControlHorizon::SetupUiComponents()
     m_grid.move(0, 34);
 
     m_label_title.setGeometry(IC_HORIZON_TITLE_GEOMETRY);
-    m_label_title.setObjectName("title_label_horizon");
+    m_label_title.setObjectName("title_label_with_border");
     m_label_title.setText("数値入力");
 
     m_button_mode_percent.setGeometry(IC_HORIZON_PERCENT_GEOMETRY);
@@ -181,7 +181,7 @@ void InputNumControlHorizon::SetupUiComponents()
 
         m_input_num_buttons.append(button);
     }
-    placeChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, 4, 5);
+    placeChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize( 4, 5));
 }
 
 void InputNumControlHorizon::SetupUiEvents()

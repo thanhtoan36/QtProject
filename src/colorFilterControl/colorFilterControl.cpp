@@ -67,7 +67,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         });
 
     }
-    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
+    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
 
     m_custom_tab_buttons.clear();
     for (uint16_t i = 0; i < param->custom.count; i++)
@@ -85,7 +85,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         });
 
     }
-    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
+    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
 
     m_history_buttons.clear();
     for (uint16_t i = 0; i < param->history.count; i++)
@@ -102,7 +102,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
             onHistoryButtonChecked(i,sender());
         });
     }
-    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
+    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
 
     if (param->tb.select == true)
     {
@@ -569,5 +569,5 @@ void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectColorButton> &b
         onHistoryButtonChecked(index,sender());
     });
     m_history_buttons.push_back(new_button);
-    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), 4,4);
+    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
 }

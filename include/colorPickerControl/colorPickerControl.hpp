@@ -1,12 +1,12 @@
 #ifndef COLORPICKERCONTROL_H
 #define COLORPICKERCONTROL_H
 
-#include "../baseComponent/panelControlBase.h"
+#include "baseComponent/panelControlBase.h"
+#include "baseComponent/gridBackground.h"
 #include "colorPickerControl_datatypes.h"
 
-#include "../baseComponent/selectButton.h"
-#include "../baseComponent/titleSelectButton.h"
-#include "../baseComponent/customPushButton.h"
+#include "baseComponent/selectButton.h"
+#include "baseComponent/customPushButton.h"
 #include "colorPickerControl/customColorPickerXY.h"
 #include "colorPickerControl/customColorPickerRGB.h"
 #include "baseComponent/gridBackground.h"
@@ -35,21 +35,31 @@ signals:
     void pickerTypeChanged();
     void pickerColorChanged();
 
+protected slots:
+    void onPickerTypeChanged();
+    void onPickerTypeButtonClicked();
+
 protected:
-    virtual void SetupUiComponents();
-    virtual void SetupUiEvents();
+    void SetupUiEvents();
 
     void pauseSliderEvents();
     void resumeSliderEvents();
 
-protected:
-    ColorPickerType m_pickerType;
-    QColor m_pickerColor;
+    void addPickerTypeButton(ColorPickerType type, const QString &text);
+    QVector<QSharedPointer<SelectButton> > pickerTypeButtons() const;
 
+protected:
+    struct PickerButton
+    {
+        ColorPickerType type;
+        QSharedPointer<SelectButton> button;
+    };
+    QVector<PickerButton> m_pickertype_buttons;
+
+    GridBackground m_menu_background;
     GridBackground m_slider_background;
+
     QLabel m_label_title;
-    SelectButton m_button_xy;
-    SelectButton m_button_rgb;
 
     CustomPushButton m_button_previous_tab; // ◀
     CustomPushButton m_button_next_tab;     // ▶
@@ -81,6 +91,9 @@ protected:
 
     QVector<QWidget*> m_children_xy;
     QVector<QWidget*> m_children_rgb;
+    ColorPickerType m_pickerType;
+    QColor m_pickerColor;
+
 private:
 };
 

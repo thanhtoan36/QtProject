@@ -10,7 +10,7 @@ QLabel#encoder_label {
     background-color: black;
     border: 1px solid gray;
 }
-QLabel#title_label_horizon {
+QLabel#title_label_with_border {
     border: 1px solid gray;
     font-weight: bold;
     background-color: rgb(51, 63, 79);

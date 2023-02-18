@@ -3,6 +3,8 @@
 
 #include <QDebug>
 
+#include <baseComponent/panelControlBase.h>
+
 #define SCREEN_BACKGROUND_COLOR qRgb(34, 43, 53)  // background color of panels
 
 #define PLC_PICKER_CELL_SIZE QSize(78, 48)
@@ -40,7 +42,7 @@ MarkingPickerPopup::MarkingPickerPopup(QWidget *parent)
         connect(button.get(), &CustomPushButton::clicked, this, &MarkingPickerPopup::onMarkingClicked);
     }
 
-    placeChildrenIntoPanel(m_marking_buttons, PLC_PICKER_CELL_SIZE, QPoint(0, 0), 2, 5);
+    PanelControlBase::placeChildrenIntoPanel(m_marking_buttons, PLC_PICKER_CELL_SIZE, QPoint(0, 0), QSize(2, 5));
 }
 
 void MarkingPickerPopup::onMarkingClicked()

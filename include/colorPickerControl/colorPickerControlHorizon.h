@@ -14,10 +14,13 @@ public:
 protected:
     virtual void SetupUiComponents() override;
 
+protected slots:
+    void onPanelSwitchButtonClicked();
+
 private:
-    SelectButton m_button_1;
-    SelectButton m_button_2;
-    SelectButton m_button_3;
+    SelectButton m_button_switch_panel_picker;
+    SelectButton m_button_switch_panel_encoder;
+    SelectButton m_button_switch_panel_input_num;
 };
 
 #endif // COLORPICKERCONTROLHORIZON_H

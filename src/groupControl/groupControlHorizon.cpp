@@ -11,7 +11,7 @@
 GroupControlHorizon::GroupControlHorizon(QWidget *parent) : GroupControl(parent)
 {
     setFixedSize(GC_HORIZON_SCREEN_SIZE);
-    m_title_label.setObjectName("title_label_horizon");
+    m_title_label.setObjectName("title_label_with_border");
 }
 
 void GroupControlHorizon::SetDispParamDataHorizon(GROUP_DISP_PARAM *param)
@@ -32,7 +32,7 @@ void GroupControlHorizon::SetDispParamDataHorizon(GROUP_DISP_PARAM *param)
         });
         m_group_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_group_buttons, GC_HORIZON_MODE_SIZE, GC_HORIZON_MODE_PLACEMENT_START, ROW, COLUMN);
+    placeChildrenIntoPanel(m_group_buttons, GC_HORIZON_MODE_SIZE, GC_HORIZON_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
     updateGroupPage();
     m_up_button.setEnabled(currentGroupPage() > 0);
     m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
@@ -49,7 +49,7 @@ void GroupControlHorizon::SetDispParamDataHorizon(GROUP_DISP_PARAM *param)
         });
         m_history_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_MODE_SIZE, GC_HORIZON_MODE_PLACEMENT_START,ROW, COLUMN);
+    placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_MODE_SIZE, GC_HORIZON_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
 }
 
 void GroupControlHorizon::SetupUiComponents()

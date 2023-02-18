@@ -24,7 +24,7 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
     m_return_button.setGeometry(ISC_RETURN_GOEMETRY);
     m_return_button.setText("戻す");
 
-    connect(&m_return_button, &QPushButton::clicked, this, &IntensityControl::intensityButtonClicked);
+    connect(&m_return_button, &QPushButton::clicked, this, &IntensityControl::returnButtonClicked);
 
     QStringList intensityModel = {
         "FF", "+10", "+5", "+1",
@@ -51,5 +51,5 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
         m_intensity_buttons.append(button);
     }
 
-    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE, ISC_INTENSITY_BUTTON_TOPLEFT, 4, 5);
+    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE, ISC_INTENSITY_BUTTON_TOPLEFT, QSize( 4, 5));
 }

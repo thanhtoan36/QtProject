@@ -1,16 +1,15 @@
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "colorPickerControl/colorPickerControl_define.hpp"
+#include "utility.h"
 
 #include <QDebug>
 #include <QColorDialog>
 
 ColorPickerControl::ColorPickerControl(QWidget *parent)
     : PanelControlBase(parent),
-      m_pickerType(), m_pickerColor(),
+      m_menu_background(this),
       m_slider_background(this),
       m_label_title(this),
-      m_button_xy(this),
-      m_button_rgb(this),
       m_button_previous_tab(this),
       m_button_next_tab(this),
       m_label_setting(this),
@@ -32,9 +31,11 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
       m_label_value_v(this),
       m_slider_v(this),
       m_children_xy{&m_picker_xy, &m_label_value_x, &m_label_value_y, &m_label_title_x, &m_label_title_y, &m_slider_x, &m_slider_y},
-      m_children_rgb{&m_picker_rgb, &m_label_value_h, &m_label_title_h, &m_slider_h, &m_label_value_s, &m_label_title_s, &m_slider_s, &m_label_value_v, &m_label_title_v, &m_slider_v}
+      m_children_rgb{&m_picker_rgb, &m_label_value_h, &m_label_title_h, &m_slider_h, &m_label_value_s, &m_label_title_s, &m_slider_s, &m_label_value_v, &m_label_title_v, &m_slider_v},
+      m_pickerType(COLOR_PICKER_TYPE_XY), m_pickerColor(Qt::white)
 {
     setFixedSize(CPC_SCREENSIZE);
+
     m_slider_x.setRange(0, 1000);
     m_slider_y.setRange(0, 1000);
     m_slider_h.setRange(0, 359);
@@ -42,49 +43,19 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_v.setRange(0, 255);
 
     m_label_title.setObjectName("title_label");
-    m_label_setting.setObjectName("title_label_horizon");
-
-    qRegisterMetaType<ColorPickerType>("ColorPickerType");
-    m_button_rgb.setCheckMarkVisible(true);
-    m_button_xy.setCheckMarkVisible(true);
+    m_label_setting.setObjectName("title_label_with_border");
 
     m_slider_background.setGridSize(QSize(1, 1));
     m_slider_background.setBackgroundColor(QColor::fromRgb(89, 89, 89));
     m_slider_background.setGridLineColor(Qt::transparent);
     m_slider_background.move(0, CPC_LABEL_SETTING_GEOMETRY.bottom());
     m_slider_background.setCellSize(QSize(width(), height() - CPC_LABEL_SETTING_GEOMETRY.bottom()));
-}
 
-void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    setPickerType(param->type);
-    setPickerColor(param->color);
+    m_menu_background.setGridSize(QSize(4, 1));
+    m_menu_background.setCellSize(CPC_BUTTON_XY_GEOMETRY.size());
+    m_menu_background.move(CPC_BUTTON_XY_GEOMETRY.topLeft());
 
-    m_picker_xy.SetColor(pickerColor());
-    m_picker_rgb.SetColor(pickerColor());
-
-    pauseSliderEvents();
-    auto xy = m_picker_xy.Xy();
-    m_slider_x.setValue(xy.x() * 1000);
-    m_slider_y.setValue(xy.y() * 1000);
-
-    auto hsv = m_picker_rgb.HSV();
-    m_slider_h.setValue(hsv.h);
-    m_slider_s.setValue(hsv.s);
-    m_slider_v.setValue(hsv.v);
-    resumeSliderEvents();
-}
-
-void ColorPickerControl::SetupUiComponents()
-{
     m_label_title.setGeometry(CPC_TITLE_GEOMETRY);
-
-    m_button_xy.setGeometry(CPC_BUTTON_XY_GEOMETRY);
-    m_button_xy.setText("xy");
-
-    m_button_rgb.setGeometry(CPC_BUTTON_RGB_GEOMETRY);
-    m_button_rgb.setText("RGB");
 
     m_button_previous_tab.setGeometry(CPC_BUTTON_PREVIOUS_TAB_GEOMETRY);
     m_button_previous_tab.setText("◀");
@@ -140,10 +111,52 @@ void ColorPickerControl::SetupUiComponents()
 
     m_slider_v.setGeometry(CPC_SLIDER_V_GEOMETRY);
     m_slider_v.setOrientation(Qt::Horizontal);
+
+    addPickerTypeButton(COLOR_PICKER_TYPE_XY, "xy");
+    addPickerTypeButton(COLOR_PICKER_TYPE_RGB, "RGB");
+
+    placeChildrenIntoPanel(pickerTypeButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(2, 1));
+
+    onPickerTypeChanged();
+    SetupUiEvents();
+
+    m_picker_xy.SetColor(Qt::gray);
+    m_picker_rgb.SetColor(Qt::gray);
+
+    auto xy = m_picker_xy.Xy();
+    m_slider_x.setValue(xy.x() * 1000);
+    m_slider_y.setValue(xy.y() * 1000);
+
+    auto hsv = m_picker_rgb.HSV();
+    m_slider_h.setValue(hsv.h);
+    m_slider_s.setValue(hsv.s);
+    m_slider_v.setValue(hsv.v);
+}
+
+void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
+{
+    Q_ASSERT(param);
+    setPickerType(param->type);
+    setPickerColor(param->color);
+
+    m_picker_xy.SetColor(pickerColor());
+    m_picker_rgb.SetColor(pickerColor());
+
+    pauseSliderEvents();
+    auto xy = m_picker_xy.Xy();
+    m_slider_x.setValue(xy.x() * 1000);
+    m_slider_y.setValue(xy.y() * 1000);
+
+    auto hsv = m_picker_rgb.HSV();
+    m_slider_h.setValue(hsv.h);
+    m_slider_s.setValue(hsv.s);
+    m_slider_v.setValue(hsv.v);
+    resumeSliderEvents();
 }
 
 void ColorPickerControl::SetupUiEvents()
 {
+    connect(this, &ColorPickerControl::pickerTypeChanged, this, &ColorPickerControl::onPickerTypeChanged);
     //xy picker
     connect(&m_picker_xy, &CustomColorPickerXY::XyChanged, this, [&](QPointF xy) {
         m_label_value_x.setText(QString::asprintf("%.03f", xy.x()));
@@ -189,7 +202,7 @@ void ColorPickerControl::SetupUiEvents()
 
         resumeSliderEvents();
     });
-    // TODO: update picker xy on without recursion
+
     connect(&m_slider_h, &QSlider::valueChanged, this, [&](int) {
         m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
         setPickerColor(m_picker_rgb.Color());
@@ -204,13 +217,6 @@ void ColorPickerControl::SetupUiEvents()
         m_picker_rgb.SetHSV(m_slider_h.value(), m_slider_s.value(), m_slider_v.value() );
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
-    });
-
-    connect(&m_button_xy, &QAbstractButton::clicked, this, [&]() {
-        setPickerType(COLOR_PICKER_TYPE_XY);
-    });
-    connect(&m_button_rgb, &QAbstractButton::clicked, this, [&]() {
-        setPickerType(COLOR_PICKER_TYPE_RGB);
     });
 }
 
@@ -232,6 +238,24 @@ void ColorPickerControl::resumeSliderEvents()
     m_slider_v.blockSignals(false);
 }
 
+void ColorPickerControl::addPickerTypeButton(ColorPickerType type, const QString &text)
+{
+    auto button = MakeSharedQObject<SelectButton>(this);
+    button->setText(text);
+    button->setFixedSize(CPC_BUTTON_XY_GEOMETRY.size());
+
+    m_pickertype_buttons.append({type, button});
+    connect(button.get(), &QPushButton::clicked, this, &ColorPickerControl::onPickerTypeButtonClicked);
+}
+
+QVector<QSharedPointer<SelectButton>> ColorPickerControl::pickerTypeButtons() const
+{
+    QVector<QSharedPointer<SelectButton>> buttons;
+    for (const auto &button: qAsConst(m_pickertype_buttons))
+        buttons.append(button.button);
+    return buttons;
+}
+
 ColorPickerType ColorPickerControl::pickerType() const
 {
     return m_pickerType;
@@ -239,32 +263,6 @@ ColorPickerType ColorPickerControl::pickerType() const
 
 void ColorPickerControl::setPickerType(ColorPickerType newPickerType)
 {
-    if (newPickerType == COLOR_PICKER_TYPE_XY) {
-        foreach(auto &child, m_children_xy)
-            child->setVisible(true);
-        foreach(auto &child, m_children_rgb)
-            child->setVisible(false);
-
-        m_button_xy.setChecked(true);
-        m_button_rgb.setChecked(false);
-
-        m_label_title.setText("ピッカー xy");
-        setWindowTitle(m_label_title.text());
-    }
-
-    if (newPickerType == COLOR_PICKER_TYPE_RGB) {
-        foreach(auto &child, m_children_xy)
-            child->setVisible(false);
-        foreach(auto &child, m_children_rgb)
-            child->setVisible(true);
-
-        m_button_xy.setChecked(false);
-        m_button_rgb.setChecked(true);
-
-        m_label_title.setText("ピッカー RGB");
-        setWindowTitle(m_label_title.text());
-    }
-
     if (m_pickerType == newPickerType)
         return;
     m_pickerType = newPickerType;
@@ -282,4 +280,44 @@ void ColorPickerControl::setPickerColor(const QColor &newPickerColor)
         return;
     m_pickerColor = newPickerColor;
     emit pickerColorChanged();
+}
+
+void ColorPickerControl::onPickerTypeChanged()
+{
+    auto button = std::find_if(m_pickertype_buttons.begin(), m_pickertype_buttons.end(), [&](const PickerButton &button) {
+       return button.type == pickerType();
+    });
+
+    if (button != m_pickertype_buttons.end()) {
+        m_label_title.setText(QString("ピッカー %1").arg(button->button->text()));
+    }
+
+    for (const auto &button: qAsConst(m_pickertype_buttons))
+    {
+        button.button->setChecked(button.type == pickerType());
+    }
+
+    if (pickerType() == COLOR_PICKER_TYPE_XY) {
+        foreach(auto &child, m_children_xy)
+            child->setVisible(true);
+        foreach(auto &child, m_children_rgb)
+            child->setVisible(false);
+    }
+
+    if (pickerType() == COLOR_PICKER_TYPE_RGB) {
+        foreach(auto &child, m_children_xy)
+            child->setVisible(false);
+        foreach(auto &child, m_children_rgb)
+            child->setVisible(true);
+    }
+}
+
+void ColorPickerControl::onPickerTypeButtonClicked()
+{
+    auto button = std::find_if(m_pickertype_buttons.begin(), m_pickertype_buttons.end(), [&](const PickerButton &button) {
+       return button.button.get() == sender();
+    });
+    if (button != m_pickertype_buttons.end()) {
+        setPickerType(button->type);
+    }
 }
