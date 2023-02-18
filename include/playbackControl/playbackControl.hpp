@@ -21,9 +21,6 @@ public:
     PlaybackControl(QWidget *parent = nullptr);
     void setDispParamData(PLAYBACK_DISP_PARAM *param);
 
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
-
 protected slots:
     void onMarkingSelected(const QString &marking, const QColor &color);
 

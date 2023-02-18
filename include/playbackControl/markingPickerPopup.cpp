@@ -33,7 +33,7 @@ MarkingPickerPopup::MarkingPickerPopup(QWidget *parent)
     for (const auto &m : markings) {
         const auto button = MakeSharedQObject<CustomPushButton>(this);
         button->setVisible(true);
-        button->setTextPixelSize(24);
+        // button->setTextPixelSize(24);
         button->setText(m.marking);
         button->setTextColor(m.color);
         button->setFixedSize(PLC_PICKER_CELL_SIZE);

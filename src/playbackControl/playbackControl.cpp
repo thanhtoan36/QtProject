@@ -15,36 +15,7 @@ PlaybackControl::PlaybackControl(QWidget *parent)
       m_marking_picker_popup()
 {
     setFixedSize(PLC_SCREENSIZE);
-
     m_column_width = PLC_COLUMN_WIDTH;
-}
-
-void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    m_double_clicked = false;
-    m_clicked_item = nullptr;
-    m_double_click_stablize_timer.stop();
-    m_list_view.clear();
-
-    for (int i = 0; i < param->count; ++i) {
-        const auto &data = param->param[i];
-        auto item = new QListWidgetItem(&m_list_view, QListWidgetItem::ItemType::Type);
-        item->setData(PlaybackRowDelegate::Roles::SelectedRole, data.select);
-        item->setData(PlaybackRowDelegate::Roles::MarkingColorRole, data.marking.color);
-        item->setData(PlaybackRowDelegate::Roles::MarkingRole, QString::fromLocal8Bit(data.marking.marking));
-        item->setData(PlaybackRowDelegate::Roles::QueueRole, QString::fromLocal8Bit(data.queue));
-        item->setData(PlaybackRowDelegate::Roles::FadeRole,  QString::fromLocal8Bit(data.fade));
-        item->setData(PlaybackRowDelegate::Roles::DelayRole, QString::fromLocal8Bit(data.delay));
-        item->setData(PlaybackRowDelegate::Roles::WeightRole,QString::fromLocal8Bit(data.weight));
-        item->setData(PlaybackRowDelegate::Roles::LinkRole,  QString::fromLocal8Bit(data.link));
-        item->setData(PlaybackRowDelegate::Roles::TitleRole, QString::fromLocal8Bit(data.title));
-        m_list_view.addItem(item);
-    }
-}
-
-void PlaybackControl::SetupUiComponents()
-{
     m_list_view.setGeometry(PLC_LIST_GEOMETRY.adjusted(0, 36, 0, 0));
     m_list_view.setObjectName("playback_list");
 
@@ -74,10 +45,7 @@ void PlaybackControl::SetupUiComponents()
     m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY);
     m_grid_overlay.setColumnsWidth(m_column_width);
     m_grid_overlay.raise();
-}
 
-void PlaybackControl::SetupUiEvents()
-{
     // Use timer to prevent onItemClicked() from being miss fired before & after onItemDoubleClicked() event
     connect(&m_list_view, &QListWidget::itemClicked, this, [&](QListWidgetItem *item){
         if (!isMouseInsideMarkingColumn()) return;
@@ -107,6 +75,30 @@ void PlaybackControl::SetupUiEvents()
     m_double_click_stablize_timer.setTimerType(Qt::PreciseTimer);
     m_double_click_stablize_timer.setSingleShot(true);
     m_double_click_stablize_timer.setInterval(200);
+}
+
+void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
+{
+    Q_ASSERT(param);
+    m_double_clicked = false;
+    m_clicked_item = nullptr;
+    m_double_click_stablize_timer.stop();
+    m_list_view.clear();
+
+    for (int i = 0; i < param->count; ++i) {
+        const auto &data = param->param[i];
+        auto item = new QListWidgetItem(&m_list_view, QListWidgetItem::ItemType::Type);
+        item->setData(PlaybackRowDelegate::Roles::SelectedRole, data.select);
+        item->setData(PlaybackRowDelegate::Roles::MarkingColorRole, data.marking.color);
+        item->setData(PlaybackRowDelegate::Roles::MarkingRole, QString::fromLocal8Bit(data.marking.marking));
+        item->setData(PlaybackRowDelegate::Roles::QueueRole, QString::fromLocal8Bit(data.queue));
+        item->setData(PlaybackRowDelegate::Roles::FadeRole,  QString::fromLocal8Bit(data.fade));
+        item->setData(PlaybackRowDelegate::Roles::DelayRole, QString::fromLocal8Bit(data.delay));
+        item->setData(PlaybackRowDelegate::Roles::WeightRole,QString::fromLocal8Bit(data.weight));
+        item->setData(PlaybackRowDelegate::Roles::LinkRole,  QString::fromLocal8Bit(data.link));
+        item->setData(PlaybackRowDelegate::Roles::TitleRole, QString::fromLocal8Bit(data.title));
+        m_list_view.addItem(item);
+    }
 }
 
 void PlaybackControl::onMarkingSelected(const QString &marking, const QColor &color)

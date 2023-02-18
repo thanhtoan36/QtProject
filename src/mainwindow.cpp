@@ -256,7 +256,7 @@ void MainWindow::on_TrackControl_Fake_Set_clicked()
 {
     TRACK_DISP_PARAM params = TC_ParseInput(ui->TrackControl_RawInput->toPlainText());
 
-    m_track_control_horizon->SetDispParamDataHorizon(&params);
+    m_track_control_horizon->SetDispParamData(&params);
     m_track_control->SetDispParamData(&params);
 }
 

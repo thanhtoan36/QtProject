@@ -28,25 +28,7 @@ TrackControl::TrackControl(QWidget *parent)
     m_button_mode_angle.setCheckMarkVisible(true);
     m_button_value_mode_absolute.setCheckMarkVisible(true);
     m_button_value_mode_relative.setCheckMarkVisible(true);
-}
 
-void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-
-    // NOTE: mode must be set prior to trackPoints
-    setMode(param->mode);
-    setValueMode(param->valueMode);
-
-    QVector<TRACK_PARAM_GROUP> data;
-    for (int i = 0; i < std::min(8, (int)param->count); ++i) {
-        data.push_back(param->data[i]);
-    }
-    setTrackPoints(data);
-}
-
-void TrackControl::SetupUiComponents()
-{
     m_label_title.setGeometry(TC_LABEL_TITLE_GEOMETRY);
     m_label_title.setText("トラック");
     setWindowTitle(m_label_title.text());
@@ -71,10 +53,7 @@ void TrackControl::SetupUiComponents()
     m_button_emply_field.setDisabled(true);
 
     m_pantilt_control.setGeometry(TC_PANTILTCONTROL_GEOMETRY);
-}
 
-void TrackControl::SetupUiEvents()
-{
     connect(&m_button_mode_percent, &SelectButton::clicked, this, [&](){
         setMode(TRACK_MODE_PERCENT);
         // m_pantilt_control.SetTrackPoints(mode(), valueMode(), mapToScreen(m_trackPoints));
@@ -101,6 +80,21 @@ void TrackControl::SetupUiEvents()
     connect(&m_pantilt_control, &PantiltControl::trackPointsUpdated, this, [&](){
         m_trackPoints = mapToValue(m_pantilt_control.trackPoints());
     });
+}
+
+void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
+{
+    Q_ASSERT(param);
+
+    // NOTE: mode must be set prior to trackPoints
+    setMode(param->mode);
+    setValueMode(param->valueMode);
+
+    QVector<TRACK_PARAM_GROUP> data;
+    for (int i = 0; i < std::min(8, (int)param->count); ++i) {
+        data.push_back(param->data[i]);
+    }
+    setTrackPoints(data);
 }
 
 TrackMode TrackControl::mode() const

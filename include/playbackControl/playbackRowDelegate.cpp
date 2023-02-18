@@ -47,15 +47,9 @@ void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QString title = index.data(Roles::TitleRole).toString();
 
     QRect r = cells[0];
-    auto font = painter->font();
-    auto fontBackup = painter->font();
-    font.setPixelSize(24);
-
-    painter->setFont(font);
     painter->setPen(markingColor);
     painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, marking, &r);
 
-    painter->setFont(fontBackup);
     painter->setPen(textPen);
     r = cells[1];
     painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, queue, &r);

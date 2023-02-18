@@ -7,17 +7,10 @@ PlaybackControlHorizon::PlaybackControlHorizon(QWidget *parent)
 {
     setFixedSize(PLC_SCREENSIZE_HORIZON);
     m_column_width = PLC_COLUMN_WIDTH_HORIZON;
-}
 
-void PlaybackControlHorizon::SetupUiComponents()
-{
     m_list_view.setGeometry(PLC_LIST_GEOMETRY_HORIZON.adjusted(0, 36, 0, 0));
-    m_list_view.setObjectName("playback_list");
 
-    m_list_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_list_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_list_view.setAlternatingRowColors(true);
-
+    m_headers.clear();
     QStringList headers = {"", "キュー", "フェード", "ディレイ", "ウェイト", "リンク", "タイトル" };
     QRect cell(PLC_LIST_GEOMETRY_HORIZON.topLeft(), QSize(0, 36));
     for (int i = 0; i < m_column_width.length(); i++) {
