@@ -160,6 +160,7 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         m_history_buttons.push_back(button);
     }
     placeChildrenIntoPanel(m_history_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
+    m_history_button.setChecked(false);
 }
 
 int GroupControl::currentGroupPage() const
