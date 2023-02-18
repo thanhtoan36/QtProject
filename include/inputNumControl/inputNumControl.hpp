@@ -8,12 +8,19 @@
 #include "baseComponent/gridBackground.h"
 #include <QLabel>
 
+enum InputNumValueMode
+{
+    INPUT_NUM_MODE_RELATIVE,
+    INPUT_NUM_MODE_ABSOLUTE,
+};
+
 class InputNumControl : public PanelControlBase
 {
     Q_OBJECT
     Q_PROPERTY(InputNumMode mode READ mode WRITE setMode NOTIFY modeChanged)
+    Q_PROPERTY(InputNumValueMode valueMode READ valueMode WRITE setValueMode NOTIFY valueModeChanged)
     Q_PROPERTY(InputNumType type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(int currentButtonModePage READ currentButtonModePage WRITE setCurrentButtonModePage NOTIFY currentButtonModePageChanged)
+    Q_PROPERTY(int currentGroupButtonsPage READ currentGroupButtonsPage WRITE setCurrentGroupButtonsPage NOTIFY currentGroupButtonsPageChanged)
 
 public:
     explicit InputNumControl(QWidget* parent = nullptr);
@@ -25,30 +32,29 @@ public:
     InputNumType type() const;
     void setType(InputNumType newType);
 
-    int currentButtonModePage() const;
-    void setCurrentButtonModePage(int newCurrentButtonModePage);
+    InputNumValueMode valueMode() const;
+    void setValueMode(const InputNumValueMode &newValueMode);
+
+    int currentGroupButtonsPage() const;
+    void setCurrentGroupButtonsPage(int newCurrentGroupButtonsPage);
 
 signals:
     void modeChanged();
     void typeChanged();
     void currentButtonModePageChanged();
+    void valueModeChanged();
+    void currentGroupButtonsPageChanged();
 
 protected:
-    void onButtonModeColorCheck(const int index, QObject* sender);
-    void onButtonModePositionCheck(const int index, QObject* sender);
-    void onButtonModeGoboCheck(const int index, QObject* sender);
-    void onButtonModeShutterCheck(const int index, QObject* sender);
-    void onButtonModeControlCheck(const int index, QObject* sender);
+    int maxGroupButtonPages() const;
+    virtual int groupButtonsPerPage() const;
+    virtual void setupGroupButtonPages();
+    void onGroupButtonClicked();
 
 protected slots:
-    virtual void onModeChanged();
+    void onModeChanged();
+    void onValueModeChanged();
     virtual void onTypeChanged();
-    virtual void onCurrentButtonModePageChanged();
-    void onButtonMode255Clicked(const bool check);
-    void onButtonModeAngelClicked(const bool check);
-    void onButtonModePercentClicked(const bool check);
-    void onButtonRelativeClicked(const bool check);
-    void onButtonAbsoluteClicked(const bool check);
 
 protected:
     GridBackground m_grid;
@@ -62,18 +68,15 @@ protected:
     CustomPushButton m_button_previous_tab;
     CustomPushButton m_button_next_tab;
 
-    QVector<QSharedPointer<SelectButton>> m_menu_color_buttons;
-    QVector<QSharedPointer<SelectButton>> m_menu_position_buttons;
-    QVector<QSharedPointer<SelectButton>> m_menu_gobo_buttons;
-    QVector<QSharedPointer<SelectButton>> m_menu_shutter_buttons;
-    QVector<QSharedPointer<SelectButton>> m_menu_control_buttons;
+    QVector<QSharedPointer<SelectButton>> m_group_buttons;
     QVector<QSharedPointer<CustomPushButton>> m_input_num_buttons;
     CustomPushButton m_return_button;
 
     InputNumMode m_mode;
+    InputNumValueMode m_valueMode;
     InputNumType m_type;
-    int m_currentButtonModePage;
-
+    int m_currentGroupButtonsPage;
+    int m_group_buttons_per_page;
 };
 
 

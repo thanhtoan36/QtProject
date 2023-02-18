@@ -10,8 +10,8 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
       m_menu_background(this),
       m_slider_background(this),
       m_label_title(this),
-      m_button_previous_tab(this),
-      m_button_next_tab(this),
+      m_button_previous_menu_page(this),
+      m_button_next_menu_page(this),
       m_label_setting(this),
       m_picker_xy(this),
       m_label_title_x(this),
@@ -32,7 +32,9 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
       m_slider_v(this),
       m_children_xy{&m_picker_xy, &m_label_value_x, &m_label_value_y, &m_label_title_x, &m_label_title_y, &m_slider_x, &m_slider_y},
       m_children_rgb{&m_picker_rgb, &m_label_value_h, &m_label_title_h, &m_slider_h, &m_label_value_s, &m_label_title_s, &m_slider_s, &m_label_value_v, &m_label_title_v, &m_slider_v},
-      m_pickerType(COLOR_PICKER_TYPE_XY), m_pickerColor(Qt::white)
+      m_pickerType(COLOR_PICKER_TYPE_XY), m_pickerColor(Qt::white),
+      m_menu_buttons_per_page(2),
+      m_currentMenuPage(0)
 {
     setFixedSize(CPC_SCREENSIZE);
 
@@ -57,13 +59,11 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
 
     m_label_title.setGeometry(CPC_TITLE_GEOMETRY);
 
-    m_button_previous_tab.setGeometry(CPC_BUTTON_PREVIOUS_TAB_GEOMETRY);
-    m_button_previous_tab.setText("◀");
-    m_button_previous_tab.setVisible(false);
+    m_button_previous_menu_page.setGeometry(CPC_BUTTON_PREVIOUS_TAB_GEOMETRY);
+    m_button_previous_menu_page.setText("◀");
 
-    m_button_next_tab.setGeometry(CPC_BUTTON_NEXT_TAB_GEOMETRY);
-    m_button_next_tab.setText("▶");
-    m_button_next_tab.setVisible(false);
+    m_button_next_menu_page.setGeometry(CPC_BUTTON_NEXT_TAB_GEOMETRY);
+    m_button_next_menu_page.setText("▶");
 
     m_label_setting.setGeometry(CPC_LABEL_SETTING_GEOMETRY);
     m_label_setting.setText("設定");
@@ -112,13 +112,16 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_v.setGeometry(CPC_SLIDER_V_GEOMETRY);
     m_slider_v.setOrientation(Qt::Horizontal);
 
+    // Setup menu buttons pages
     addPickerTypeButton(COLOR_PICKER_TYPE_XY, "xy");
     addPickerTypeButton(COLOR_PICKER_TYPE_RGB, "RGB");
 
-    placeChildrenIntoPanel(pickerTypeButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(2, 1));
+    placeChildrenIntoPanel(pickerTypeButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(m_menu_buttons_per_page, 1));
+    m_button_previous_menu_page.setVisible(pickerTypeButtons().size() > 2);
+    m_button_next_menu_page.setVisible(pickerTypeButtons().size() > 2);
+    setupMenuButtonPages();
 
     onPickerTypeChanged();
-    SetupUiEvents();
 
     m_picker_xy.SetColor(Qt::gray);
     m_picker_rgb.SetColor(Qt::gray);
@@ -126,11 +129,24 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     auto xy = m_picker_xy.Xy();
     m_slider_x.setValue(xy.x() * 1000);
     m_slider_y.setValue(xy.y() * 1000);
+    m_label_value_x.setText(QString::asprintf("%.03f", xy.x()));
+    m_label_value_y.setText(QString::asprintf("%.03f", xy.y()));
 
     auto hsv = m_picker_rgb.HSV();
     m_slider_h.setValue(hsv.h);
     m_slider_s.setValue(hsv.s);
     m_slider_v.setValue(hsv.v);
+    m_label_value_h.setText(QString::number(hsv.h));
+    m_label_value_s.setText(QString::number(hsv.s));
+    m_label_value_v.setText(QString::number(hsv.v));
+
+    connect(&m_button_previous_menu_page, &QPushButton::clicked, this, [&](){
+        setCurrentMenuPage(currentMenuPage() - 1);
+    });
+    connect(&m_button_next_menu_page, &QPushButton::clicked, this, [&](){
+        setCurrentMenuPage(currentMenuPage() + 1);
+    });
+    connect(this, &ColorPickerControl::currentMenuPageChanged, this, &ColorPickerControl::setupMenuButtonPages);
 
     connect(this, &ColorPickerControl::pickerTypeChanged, this, &ColorPickerControl::onPickerTypeChanged);
     //xy picker
@@ -317,4 +333,26 @@ void ColorPickerControl::onPickerTypeButtonClicked()
     if (button != m_pickertype_buttons.end()) {
         setPickerType(button->type);
     }
+}
+
+void ColorPickerControl::setupMenuButtonPages()
+{
+    m_button_previous_menu_page.setEnabled(currentMenuPage() > 0);
+    m_button_next_menu_page.setEnabled(currentMenuPage() < m_menu_buttons_per_page - 1);
+
+    updateChildrenVisibility(pickerTypeButtons(), currentMenuPage(), m_menu_buttons_per_page);
+}
+
+int ColorPickerControl::currentMenuPage() const
+{
+    return m_currentMenuPage;
+}
+
+void ColorPickerControl::setCurrentMenuPage(int newCurrentMenuPage)
+{
+    newCurrentMenuPage = bounded(newCurrentMenuPage, 0, m_menu_buttons_per_page);
+    if (m_currentMenuPage == newCurrentMenuPage)
+        return;
+    m_currentMenuPage = newCurrentMenuPage;
+    emit currentMenuPageChanged();
 }

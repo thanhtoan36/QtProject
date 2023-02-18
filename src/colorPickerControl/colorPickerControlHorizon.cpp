@@ -25,21 +25,19 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     m_button_switch_panel_input_num.setGeometry(CPC_HORIZON_BUTTON_SWITCH_PANEL_NUMBER_GEOMETRY);
     m_button_switch_panel_input_num.setText("数値");
 
-    m_button_previous_tab.setVisible(false);
-    m_button_next_tab.setVisible(false);
+    m_button_previous_menu_page.setVisible(false);
+    m_button_next_menu_page.setVisible(false);
 
     m_picker_xy.setGeometry(CPC_HORIZON_PICKER_XY_GEOMETRY);
     m_picker_rgb.setGeometry(CPC_HORIZON_PICKER_RGB_GEOMETRY);
 
     m_label_title_x.setGeometry(CPC_HORIZON_LABEL_TITLE_X_GEOMETRY);
-
     m_label_value_x.setGeometry(CPC_HORIZON_LABEL_VALUE_X_GEOMETRY);
 
     m_slider_x.setGeometry(CPC_HORIZON_SLIDER_X_GEOMETRY);
     m_slider_x.setOrientation(Qt::Vertical);
 
     m_label_title_y.setGeometry(CPC_HORIZON_LABEL_TITLE_Y_GEOMETRY);
-
     m_label_value_y.setGeometry(CPC_HORIZON_LABEL_VALUE_Y_GEOMETRY);
 
     m_slider_y.setGeometry(CPC_HORIZON_SLIDER_Y_GEOMETRY);
@@ -47,21 +45,18 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
 
     // RGB Tab
     m_label_title_h.setGeometry(CPC_HORIZON_LABEL_TITLE_H_GEOMETRY);
-
     m_label_value_h.setGeometry(CPC_HORIZON_LABEL_VALUE_H_GEOMETRY);
 
     m_slider_h.setGeometry(CPC_HORIZON_SLIDER_X_GEOMETRY);
     m_slider_h.setOrientation(Qt::Vertical);
 
     m_label_title_s.setGeometry(CPC_HORIZON_LABEL_TITLE_S_GEOMETRY);
-
     m_label_value_s.setGeometry(CPC_HORIZON_LABEL_VALUE_S_GEOMETRY);
 
     m_slider_s.setGeometry(CPC_HORIZON_SLIDER_S_GEOMETRY);
     m_slider_s.setOrientation(Qt::Vertical);
 
     m_label_title_v.setGeometry(CPC_HORIZON_LABEL_TITLE_V_GEOMETRY);
-
     m_label_value_v.setGeometry(CPC_HORIZON_LABEL_VALUE_V_GEOMETRY);
 
     m_slider_v.setGeometry(CPC_HORIZON_SLIDER_V_GEOMETRY);

@@ -220,7 +220,7 @@ void MainWindow::on_InputNumControl_Fake_Set_clicked()
 {
     INPUT_NUM_DISP_PARAM param = INC_ParseInput(ui->InputNumControl_Fake_RawInput->toPlainText());
 
-    m_input_num_control_horizon->SetDispParamDataHorizon(&param);
+    m_input_num_control_horizon->SetDispParamData(&param);
     m_input_num_control->SetDispParamData(&param);
 }
 

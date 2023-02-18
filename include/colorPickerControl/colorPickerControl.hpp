@@ -20,6 +20,7 @@ class ColorPickerControl : public PanelControlBase
 
     Q_PROPERTY(ColorPickerType pickerType READ pickerType WRITE setPickerType NOTIFY pickerTypeChanged)
     Q_PROPERTY(QColor pickerColor READ pickerColor WRITE setPickerColor NOTIFY pickerColorChanged)
+    Q_PROPERTY(int currentMenuPage READ currentMenuPage WRITE setCurrentMenuPage NOTIFY currentMenuPageChanged)
 
 public:
     ColorPickerControl(QWidget *parent = nullptr);
@@ -31,13 +32,19 @@ public:
     QColor pickerColor() const;
     void setPickerColor(const QColor &newPickerColor);
 
+    int currentMenuPage() const;
+    void setCurrentMenuPage(int newCurrentMenuPage);
+
 signals:
     void pickerTypeChanged();
     void pickerColorChanged();
 
+    void currentMenuPageChanged();
+
 protected slots:
     void onPickerTypeChanged();
     void onPickerTypeButtonClicked();
+    void setupMenuButtonPages();
 
 protected:
     void pauseSliderEvents();
@@ -59,8 +66,8 @@ protected:
 
     QLabel m_label_title;
 
-    CustomPushButton m_button_previous_tab; // ◀
-    CustomPushButton m_button_next_tab;     // ▶
+    CustomPushButton m_button_previous_menu_page; // ◀
+    CustomPushButton m_button_next_menu_page;     // ▶
 
     QLabel m_label_setting;
 
@@ -91,8 +98,8 @@ protected:
     QVector<QWidget*> m_children_rgb;
     ColorPickerType m_pickerType;
     QColor m_pickerColor;
-
-private:
+    int m_menu_buttons_per_page;
+    int m_currentMenuPage;
 };
 
 #endif // COLORPICKERCONTROL_H

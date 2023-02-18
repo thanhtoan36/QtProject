@@ -22,7 +22,8 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     m_mode()
 {
     setFixedSize(IC_SCREEN_SIZE);
-    setCurrentButtonModePage(0);
+    m_group_buttons_per_page = 4;
+
     m_return_button.setTextColor(Qt::yellow);
     m_button_mode_255.setCheckMarkVisible(true);
     m_button_mode_percent.setCheckMarkVisible(true);
@@ -75,7 +76,6 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
         button->setVisible(true);
         button->setText(b);
 
-
         connect(button.get(), &QPushButton::clicked, this, [&]() {
             qDebug() << ((CustomPushButton*)sender())->text();
         });
@@ -85,201 +85,63 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     placeChildrenIntoPanel(m_input_num_buttons, IC_BUTTON_SIZE, IC_BUTTON_TOPLEFT, QSize(4, 4));
 
     connect(this, &InputNumControl::modeChanged, this, &InputNumControl::onModeChanged);
+    connect(this, &InputNumControl::valueModeChanged, this, &InputNumControl::onValueModeChanged);
     connect(this, &InputNumControl::typeChanged, this, &InputNumControl::onTypeChanged);
+
     connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
-        qDebug("previous");
-        setCurrentButtonModePage(currentButtonModePage()-1);
+        setCurrentGroupButtonsPage(currentGroupButtonsPage() - 1);
     });
     connect(&m_button_next_tab, &QPushButton::clicked, this, [&](){
-        qDebug("next");
-        setCurrentButtonModePage(currentButtonModePage()+1);
+        setCurrentGroupButtonsPage(currentGroupButtonsPage() + 1);
     });
-    connect(this, &InputNumControl::currentButtonModePageChanged, this, &InputNumControl::onCurrentButtonModePageChanged);
-    connect(&m_button_mode_255, &QPushButton::clicked, this, &InputNumControl::onButtonMode255Clicked);
-    connect(&m_button_mode_angle, &QPushButton::clicked, this, &InputNumControl::onButtonModeAngelClicked);
-    connect(&m_button_mode_percent, &QPushButton::clicked, this, &InputNumControl::onButtonModePercentClicked);
-    connect(&m_button_relative, &QPushButton::clicked, this, &InputNumControl::onButtonRelativeClicked);
-    connect(&m_button_absolute, &QPushButton::clicked, this, &InputNumControl::onButtonAbsoluteClicked);
+    connect(this, &InputNumControl::currentGroupButtonsPageChanged, this, &InputNumControl::setupGroupButtonPages);
+    connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
+        setMode(INPUT_NUM_MODE_255);
+    });
+    connect(&m_button_mode_percent, &QPushButton::clicked, this, [&](){
+        setMode(INPUT_NUM_MODE_PERCENT);
+    });
+    connect(&m_button_mode_angle, &QPushButton::clicked, this, [&](){
+        setMode(INPUT_NUM_MODE_ANGLE);
+    });
+    connect(&m_button_relative, &QPushButton::clicked, this, [&](){
+        setValueMode(INPUT_NUM_MODE_RELATIVE);
+    });
+    connect(&m_button_absolute, &QPushButton::clicked, this, [&](){
+        setValueMode(INPUT_NUM_MODE_ABSOLUTE);
+    });
+
+    onModeChanged();
+    onValueModeChanged();
 }
 
 void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
 {
     Q_ASSERT(param);
-    m_menu_color_buttons.clear();
-    m_menu_control_buttons.clear();
-    m_menu_gobo_buttons.clear();
-    m_menu_position_buttons.clear();
-    m_menu_shutter_buttons.clear();
-    setCurrentButtonModePage(0);
-    switch (param->type) {
-        case INPUT_NUM_TYPE_COLOR:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                button->setCheckMarkVisible(true);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeColorCheck(i,sender());
-                });
-                m_menu_color_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_color_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
-            break;
-        }
-        case INPUT_NUM_TYPE_GOBO:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                button->setCheckMarkVisible(true);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeGoboCheck(i,sender());
-                });
-                m_menu_gobo_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_gobo_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1));
-            break;
-        }
-        case INPUT_NUM_TYPE_BEAM_SHUTTER:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                button->setCheckMarkVisible(true);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeShutterCheck(i,sender());
-                });
-                m_menu_shutter_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_shutter_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START,  QSize(MODE_COLUMN, 1));
-            break;
-        }
-        case INPUT_NUM_TYPE_POSITION:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModePositionCheck(i,sender());
-                });
-                m_menu_position_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_position_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START,  QSize(MODE_POS_COLUMN, 1));
-            break;
-        }
-        case INPUT_NUM_TYPE_CONTROL:
-        {
-            for (int i = 0; i< param->count;i++)
-            {
-                auto button =  MakeSharedQObject<SelectButton>(this);
-                button->setFixedSize(IC_MODE_SIZE);
-                button->setText(param->param[i].name);
-                button->setChecked(param->param[i].select);
-                button->setVisible(false);
-                connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-                    onButtonModeControlCheck(i,sender());
-                });
-                m_menu_control_buttons.push_back(button);
-            }
-            placeChildrenIntoPanel(m_menu_control_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1));
-            break;
-        }
+
+    m_group_buttons.clear();
+    for (int i = 0; i< param->count;i++)
+    {
+        auto button =  MakeSharedQObject<SelectButton>(this);
+        button->setFixedSize(IC_MODE_SIZE);
+        button->setText(param->param[i].name);
+        button->setChecked(param->param[i].select);
+        button->setVisible(false);
+        button->setCheckMarkVisible(true);
+        connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
+        m_group_buttons.push_back(button);
     }
+
+    placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
     setType(param->type);
     setMode(param->mode);
+
+    setCurrentGroupButtonsPage(0);
+    setupGroupButtonPages();
     onTypeChanged();
-    onCurrentButtonModePageChanged();
-}
 
-void InputNumControl::onButtonModeColorCheck(const int index, QObject *sender)
-{
-    if (index < m_menu_color_buttons.size())
-    {
-        for (int i = 0; i < m_menu_color_buttons.size(); i++)
-        {
-            if (i != index)
-            {
-                m_menu_color_buttons[i]->setChecked(false);
-            }
-
-        }
-    }
-}
-
-void InputNumControl::onButtonModePositionCheck(const int index, QObject *sender)
-{
-    if (index < m_menu_position_buttons.size())
-    {
-        for (int i = 0; i < m_menu_position_buttons.size(); i++)
-        {
-            if (i != index)
-            {
-                m_menu_position_buttons[i]->setChecked(false);
-            }
-
-        }
-    }
-}
-
-void InputNumControl::onButtonModeGoboCheck(const int index, QObject *sender)
-{
-    if (index < m_menu_gobo_buttons.size())
-    {
-        for (int i = 0; i < m_menu_gobo_buttons.size(); i++)
-        {
-            if (i != index)
-            {
-                m_menu_gobo_buttons[i]->setChecked(false);
-            }
-
-        }
-    }
-}
-
-void InputNumControl::onButtonModeShutterCheck(const int index, QObject *sender)
-{
-    if (index < m_menu_shutter_buttons.size())
-    {
-        for (int i = 0; i < m_menu_shutter_buttons.size(); i++)
-        {
-            if (i != index)
-            {
-                m_menu_shutter_buttons[i]->setChecked(false);
-            }
-
-        }
-    }
-}
-
-void InputNumControl::onButtonModeControlCheck(const int index, QObject *sender)
-{
-    if (index < m_menu_control_buttons.size())
-    {
-        for (int i = 0; i < m_menu_control_buttons.size(); i++)
-        {
-            if (i != index)
-            {
-                m_menu_control_buttons[i]->setChecked(false);
-            }
-
-        }
-    }
+    m_button_next_tab.setVisible(maxGroupButtonPages() > 1);
+    m_button_previous_tab.setVisible(maxGroupButtonPages() > 1);
 }
 
 void InputNumControl::onModeChanged()
@@ -289,129 +151,17 @@ void InputNumControl::onModeChanged()
     m_button_mode_angle.setChecked(mode() == INPUT_NUM_MODE_ANGLE);
 }
 
+void InputNumControl::onValueModeChanged()
+{
+    m_button_relative.setChecked(valueMode() == INPUT_NUM_MODE_RELATIVE);
+    m_button_absolute.setChecked(valueMode() == INPUT_NUM_MODE_ABSOLUTE);
+}
+
 void InputNumControl::onTypeChanged()
 {
-    if (type() == INPUT_NUM_TYPE_COLOR)
-    {
-        updateChildrenVisibility(m_menu_color_buttons,0, MODE_COLUMN);
-        bool more_than_4 = m_menu_color_buttons.size() > 4;
-        m_button_previous_tab.setVisible(more_than_4);
-        m_button_next_tab.setVisible(more_than_4);
-    }
-    if (type() == INPUT_NUM_TYPE_CONTROL)
-    {
-        updateChildrenVisibility(m_menu_control_buttons,0, MODE_COLUMN);
-        bool more_than_4 = m_menu_control_buttons.size() > 4;
-        m_button_previous_tab.setVisible(more_than_4);
-        m_button_next_tab.setVisible(more_than_4);
-    }
-    if (type() == INPUT_NUM_TYPE_GOBO)
-    {
-        updateChildrenVisibility(m_menu_gobo_buttons,0, MODE_COLUMN);
-        bool more_than_4 = m_menu_gobo_buttons.size() > 4;
-        m_button_previous_tab.setVisible(more_than_4);
-        m_button_next_tab.setVisible(more_than_4);
-    }
-    if (type() == INPUT_NUM_TYPE_POSITION)
-    {
-        updateChildrenVisibility(m_menu_position_buttons,0, MODE_POS_COLUMN);
-        qDebug() <<m_menu_position_buttons.size();
-        bool more_than_4 = m_menu_position_buttons.size() > 3;
-        m_button_previous_tab.setVisible(more_than_4);
-        m_button_next_tab.setVisible(more_than_4);
-        m_button_relative.setVisible(true);
-        m_button_absolute.setVisible(true);
-        m_button_mode_angle.setVisible(true);
-    }
-    else
-    {
-        m_button_relative.setVisible(false);
-        m_button_absolute.setVisible(false);
-        m_button_mode_angle.setVisible(false);
-    }
-    if (type() == INPUT_NUM_TYPE_BEAM_SHUTTER)
-    {
-        updateChildrenVisibility(m_menu_shutter_buttons,0, MODE_COLUMN);
-        bool more_than_4 = m_menu_shutter_buttons.size() > 4;
-        m_button_previous_tab.setVisible(more_than_4);
-        m_button_next_tab.setVisible(more_than_4);
-    }
-}
-
-void InputNumControl::onCurrentButtonModePageChanged()
-{
-    if (type() == INPUT_NUM_TYPE_COLOR)
-    {
-        qDebug() << currentButtonModePage();
-        updateChildrenVisibility(m_menu_color_buttons,currentButtonModePage(), MODE_COLUMN);
-        m_button_previous_tab.setEnabled(currentButtonModePage() > 0);
-        m_button_next_tab.setEnabled(currentButtonModePage() < calulateNumberOfPages(m_menu_color_buttons.length(), MODE_COLUMN) - 1);
-    }
-    if (type() == INPUT_NUM_TYPE_CONTROL)
-    {
-        updateChildrenVisibility(m_menu_control_buttons,currentButtonModePage(), MODE_COLUMN);
-        m_button_previous_tab.setEnabled(currentButtonModePage() > 0);
-        m_button_next_tab.setEnabled(currentButtonModePage() < calulateNumberOfPages(m_menu_control_buttons.length(), MODE_COLUMN) - 1);
-    }
-    if (type() == INPUT_NUM_TYPE_GOBO)
-    {
-        qDebug() << currentButtonModePage();
-        updateChildrenVisibility(m_menu_gobo_buttons,currentButtonModePage(), MODE_COLUMN);
-        m_button_previous_tab.setEnabled(currentButtonModePage() > 0);
-        m_button_next_tab.setEnabled(currentButtonModePage() < calulateNumberOfPages(m_menu_gobo_buttons.length(), MODE_COLUMN) - 1);
-    }
-    if (type() == INPUT_NUM_TYPE_POSITION)
-    {
-        updateChildrenVisibility(m_menu_position_buttons,currentButtonModePage(), MODE_POS_COLUMN);
-        m_button_previous_tab.setEnabled(currentButtonModePage() > 0);
-        m_button_next_tab.setEnabled(currentButtonModePage() < calulateNumberOfPages(m_menu_position_buttons.length(), MODE_POS_COLUMN) - 1);
-    }
-    if (type() == INPUT_NUM_TYPE_BEAM_SHUTTER)
-    {
-        updateChildrenVisibility(m_menu_shutter_buttons,currentButtonModePage(), MODE_COLUMN);
-        m_button_previous_tab.setEnabled(currentButtonModePage() > 0);
-        m_button_next_tab.setEnabled(currentButtonModePage() < calulateNumberOfPages(m_menu_shutter_buttons.length(), MODE_COLUMN) - 1);
-    }
-}
-
-void InputNumControl::onButtonMode255Clicked(const bool check)
-{
-    if (check)
-    {
-        setMode(INPUT_NUM_MODE_255);
-    }
-}
-
-void InputNumControl::onButtonModeAngelClicked(const bool check)
-{
-    if (check)
-    {
-        setMode(INPUT_NUM_MODE_ANGLE);
-    }
-}
-
-void InputNumControl::onButtonModePercentClicked(const bool check)
-{
-    if (check)
-    {
-        setMode(INPUT_NUM_MODE_PERCENT);
-    }
-}
-
-void InputNumControl::onButtonRelativeClicked(const bool check)
-{
-    if (check)
-    {
-        m_button_absolute.setChecked(false);
-    }
-}
-
-void InputNumControl::onButtonAbsoluteClicked(const bool check)
-{
-    if (check)
-    {
-        m_button_relative.setChecked(false);
-    }
+    m_button_relative.setVisible(type() == INPUT_NUM_TYPE_POSITION);
+    m_button_absolute.setVisible(type() == INPUT_NUM_TYPE_POSITION);
+    placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(groupButtonsPerPage(), 1) );
 }
 
 InputNumMode InputNumControl::mode() const
@@ -440,15 +190,58 @@ void InputNumControl::setType(InputNumType newType)
     emit typeChanged();
 }
 
-int InputNumControl::currentButtonModePage() const
+void InputNumControl::onGroupButtonClicked()
 {
-    return m_currentButtonModePage;
+    for (const auto &button: qAsConst(m_group_buttons))
+    {
+        button->setChecked(false);
+        ((SelectButton*)sender())->setChecked(true);
+    }
 }
 
-void InputNumControl::setCurrentButtonModePage(int newCurrentButtonModePage)
+InputNumValueMode InputNumControl::valueMode() const
 {
-    if (m_currentButtonModePage == newCurrentButtonModePage)
+    return m_valueMode;
+}
+
+void InputNumControl::setValueMode(const InputNumValueMode &newValueMode)
+{
+    if (m_valueMode == newValueMode)
         return;
-    m_currentButtonModePage = newCurrentButtonModePage;
-    emit currentButtonModePageChanged();
+    m_valueMode = newValueMode;
+    emit valueModeChanged();
+}
+
+void InputNumControl::setupGroupButtonPages()
+{
+    m_button_previous_tab.setEnabled(currentGroupButtonsPage() > 0);
+    m_button_next_tab.setEnabled(currentGroupButtonsPage() < maxGroupButtonPages() - 1);
+
+    updateChildrenVisibility(m_group_buttons, currentGroupButtonsPage(), groupButtonsPerPage());
+}
+
+int InputNumControl::currentGroupButtonsPage() const
+{
+    return m_currentGroupButtonsPage;
+}
+
+void InputNumControl::setCurrentGroupButtonsPage(int newCurrentGroupButtonsPage)
+{
+    newCurrentGroupButtonsPage = bounded(newCurrentGroupButtonsPage, 0, maxGroupButtonPages() - 1);
+    if (m_currentGroupButtonsPage == newCurrentGroupButtonsPage)
+        return;
+    m_currentGroupButtonsPage = newCurrentGroupButtonsPage;
+    emit currentGroupButtonsPageChanged();
+}
+
+int InputNumControl::maxGroupButtonPages() const
+{
+    return calulateNumberOfPages(m_group_buttons.length(), groupButtonsPerPage());
+}
+
+int InputNumControl::groupButtonsPerPage() const
+{
+    if (type() == INPUT_NUM_TYPE_POSITION)
+        return 3;
+    return 4;
 }
