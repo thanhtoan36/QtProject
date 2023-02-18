@@ -66,7 +66,7 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     m_slider_v.setOrientation(Qt::Vertical);
 
     m_label_setting.setVisible(false);
-    placeChildrenIntoPanel(pickerTypeButtons(), CPC_HORIZON_BUTTON_XY_GEOMETRY.size(), CPC_HORIZON_BUTTON_XY_GEOMETRY.topLeft(), QSize(1, 2), BottomToTop);
+    placeChildrenIntoPanel(headerButtons(), CPC_HORIZON_BUTTON_XY_GEOMETRY.size(), CPC_HORIZON_BUTTON_XY_GEOMETRY.topLeft(), QSize(1, 2), BottomToTop);
 
     connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);
     connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);

@@ -20,7 +20,7 @@ class ColorPickerControl : public PanelControlBase
 
     Q_PROPERTY(ColorPickerType pickerType READ pickerType WRITE setPickerType NOTIFY pickerTypeChanged)
     Q_PROPERTY(QColor pickerColor READ pickerColor WRITE setPickerColor NOTIFY pickerColorChanged)
-    Q_PROPERTY(int currentMenuPage READ currentMenuPage WRITE setCurrentMenuPage NOTIFY currentMenuPageChanged)
+    Q_PROPERTY(int currentHeaderButtonsPage READ currentHeaderButtonsPage WRITE setCurrentHeaderButtonsPage NOTIFY currentHeaderButtonsPageChanged)
 
 public:
     ColorPickerControl(QWidget *parent = nullptr);
@@ -32,26 +32,25 @@ public:
     QColor pickerColor() const;
     void setPickerColor(const QColor &newPickerColor);
 
-    int currentMenuPage() const;
-    void setCurrentMenuPage(int newCurrentMenuPage);
+    int currentHeaderButtonsPage() const;
+    void setCurrentHeaderButtonsPage(int newCurentHeaderButtonsPage);
 
 signals:
     void pickerTypeChanged();
     void pickerColorChanged();
-
-    void currentMenuPageChanged();
+    void currentHeaderButtonsPageChanged();
 
 protected slots:
     void onPickerTypeChanged();
     void onPickerTypeButtonClicked();
-    void setupMenuButtonPages();
+    void setupHeaderButtonPages();
 
 protected:
     void pauseSliderEvents();
     void resumeSliderEvents();
 
-    void addPickerTypeButton(ColorPickerType type, const QString &text);
-    QVector<QSharedPointer<SelectButton> > pickerTypeButtons() const;
+    void addHeaderButton(ColorPickerType type, const QString &text);
+    QVector<QSharedPointer<SelectButton> > headerButtons() const;
 
 protected:
     struct PickerButton
@@ -59,7 +58,7 @@ protected:
         ColorPickerType type;
         QSharedPointer<SelectButton> button;
     };
-    QVector<PickerButton> m_pickertype_buttons;
+    QVector<PickerButton> m_header_buttons;
 
     GridBackground m_menu_background;
     GridBackground m_slider_background;
@@ -98,8 +97,8 @@ protected:
     QVector<QWidget*> m_children_rgb;
     ColorPickerType m_pickerType;
     QColor m_pickerColor;
-    int m_menu_buttons_per_page;
-    int m_currentMenuPage;
+    int m_header_buttons_per_page;
+    int m_currentHeaderButtonsPage;
 };
 
 #endif // COLORPICKERCONTROL_H

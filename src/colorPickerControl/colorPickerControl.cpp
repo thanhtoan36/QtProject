@@ -33,8 +33,8 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
       m_children_xy{&m_picker_xy, &m_label_value_x, &m_label_value_y, &m_label_title_x, &m_label_title_y, &m_slider_x, &m_slider_y},
       m_children_rgb{&m_picker_rgb, &m_label_value_h, &m_label_title_h, &m_slider_h, &m_label_value_s, &m_label_title_s, &m_slider_s, &m_label_value_v, &m_label_title_v, &m_slider_v},
       m_pickerType(COLOR_PICKER_TYPE_XY), m_pickerColor(Qt::white),
-      m_menu_buttons_per_page(2),
-      m_currentMenuPage(0)
+      m_header_buttons_per_page(2),
+      m_currentHeaderButtonsPage(0)
 {
     setFixedSize(CPC_SCREENSIZE);
 
@@ -113,13 +113,13 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_slider_v.setOrientation(Qt::Horizontal);
 
     // Setup menu buttons pages
-    addPickerTypeButton(COLOR_PICKER_TYPE_XY, "xy");
-    addPickerTypeButton(COLOR_PICKER_TYPE_RGB, "RGB");
+    addHeaderButton(COLOR_PICKER_TYPE_XY, "xy");
+    addHeaderButton(COLOR_PICKER_TYPE_RGB, "RGB");
 
-    placeChildrenIntoPanel(pickerTypeButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(m_menu_buttons_per_page, 1));
-    m_button_previous_menu_page.setVisible(pickerTypeButtons().size() > 2);
-    m_button_next_menu_page.setVisible(pickerTypeButtons().size() > 2);
-    setupMenuButtonPages();
+    placeChildrenIntoPanel(headerButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(m_header_buttons_per_page, 1));
+    m_button_previous_menu_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
+    m_button_next_menu_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
+    setupHeaderButtonPages();
 
     onPickerTypeChanged();
 
@@ -141,12 +141,12 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_label_value_v.setText(QString::number(hsv.v));
 
     connect(&m_button_previous_menu_page, &QPushButton::clicked, this, [&](){
-        setCurrentMenuPage(currentMenuPage() - 1);
+        setCurrentHeaderButtonsPage(currentHeaderButtonsPage() - 1);
     });
     connect(&m_button_next_menu_page, &QPushButton::clicked, this, [&](){
-        setCurrentMenuPage(currentMenuPage() + 1);
+        setCurrentHeaderButtonsPage(currentHeaderButtonsPage() + 1);
     });
-    connect(this, &ColorPickerControl::currentMenuPageChanged, this, &ColorPickerControl::setupMenuButtonPages);
+    connect(this, &ColorPickerControl::currentHeaderButtonsPageChanged, this, &ColorPickerControl::setupHeaderButtonPages);
 
     connect(this, &ColorPickerControl::pickerTypeChanged, this, &ColorPickerControl::onPickerTypeChanged);
     //xy picker
@@ -251,20 +251,20 @@ void ColorPickerControl::resumeSliderEvents()
     m_slider_v.blockSignals(false);
 }
 
-void ColorPickerControl::addPickerTypeButton(ColorPickerType type, const QString &text)
+void ColorPickerControl::addHeaderButton(ColorPickerType type, const QString &text)
 {
     auto button = MakeSharedQObject<SelectButton>(this);
     button->setText(text);
     button->setFixedSize(CPC_BUTTON_XY_GEOMETRY.size());
 
-    m_pickertype_buttons.append({type, button});
+    m_header_buttons.append({type, button});
     connect(button.get(), &QPushButton::clicked, this, &ColorPickerControl::onPickerTypeButtonClicked);
 }
 
-QVector<QSharedPointer<SelectButton>> ColorPickerControl::pickerTypeButtons() const
+QVector<QSharedPointer<SelectButton>> ColorPickerControl::headerButtons() const
 {
     QVector<QSharedPointer<SelectButton>> buttons;
-    for (const auto &button: qAsConst(m_pickertype_buttons))
+    for (const auto &button: qAsConst(m_header_buttons))
         buttons.append(button.button);
     return buttons;
 }
@@ -297,15 +297,15 @@ void ColorPickerControl::setPickerColor(const QColor &newPickerColor)
 
 void ColorPickerControl::onPickerTypeChanged()
 {
-    auto button = std::find_if(m_pickertype_buttons.begin(), m_pickertype_buttons.end(), [&](const PickerButton &button) {
+    auto button = std::find_if(m_header_buttons.begin(), m_header_buttons.end(), [&](const PickerButton &button) {
        return button.type == pickerType();
     });
 
-    if (button != m_pickertype_buttons.end()) {
+    if (button != m_header_buttons.end()) {
         m_label_title.setText(QString("ピッカー %1").arg(button->button->text()));
     }
 
-    for (const auto &button: qAsConst(m_pickertype_buttons))
+    for (const auto &button: qAsConst(m_header_buttons))
     {
         button.button->setChecked(button.type == pickerType());
     }
@@ -327,32 +327,32 @@ void ColorPickerControl::onPickerTypeChanged()
 
 void ColorPickerControl::onPickerTypeButtonClicked()
 {
-    auto button = std::find_if(m_pickertype_buttons.begin(), m_pickertype_buttons.end(), [&](const PickerButton &button) {
+    auto button = std::find_if(m_header_buttons.begin(), m_header_buttons.end(), [&](const PickerButton &button) {
        return button.button.get() == sender();
     });
-    if (button != m_pickertype_buttons.end()) {
+    if (button != m_header_buttons.end()) {
         setPickerType(button->type);
     }
 }
 
-void ColorPickerControl::setupMenuButtonPages()
+void ColorPickerControl::setupHeaderButtonPages()
 {
-    m_button_previous_menu_page.setEnabled(currentMenuPage() > 0);
-    m_button_next_menu_page.setEnabled(currentMenuPage() < m_menu_buttons_per_page - 1);
+    m_button_previous_menu_page.setEnabled(currentHeaderButtonsPage() > 0);
+    m_button_next_menu_page.setEnabled(currentHeaderButtonsPage() < m_header_buttons_per_page - 1);
 
-    updateChildrenVisibility(pickerTypeButtons(), currentMenuPage(), m_menu_buttons_per_page);
+    updateChildrenVisibility(headerButtons(), currentHeaderButtonsPage(), m_header_buttons_per_page);
 }
 
-int ColorPickerControl::currentMenuPage() const
+int ColorPickerControl::currentHeaderButtonsPage() const
 {
-    return m_currentMenuPage;
+    return m_currentHeaderButtonsPage;
 }
 
-void ColorPickerControl::setCurrentMenuPage(int newCurrentMenuPage)
+void ColorPickerControl::setCurrentHeaderButtonsPage(int newCurentHeaderButtonsPage)
 {
-    newCurrentMenuPage = bounded(newCurrentMenuPage, 0, m_menu_buttons_per_page);
-    if (m_currentMenuPage == newCurrentMenuPage)
+    newCurentHeaderButtonsPage = bounded(newCurentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page));
+    if (m_currentHeaderButtonsPage == newCurentHeaderButtonsPage)
         return;
-    m_currentMenuPage = newCurrentMenuPage;
-    emit currentMenuPageChanged();
+    m_currentHeaderButtonsPage = newCurentHeaderButtonsPage;
+    emit currentHeaderButtonsPageChanged();
 }

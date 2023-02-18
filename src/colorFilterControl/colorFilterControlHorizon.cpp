@@ -2,9 +2,8 @@
 #include "colorFilterControl/colorFilterControlHorizon_define.h"
 #include "utility.h"
 
-#define PAGE_ROW  4
-#define PAGE_COLUMN  4
-#define PAGE_SIZE (PAGE_ROW*PAGE_COLUMN)
+#define BUTTONS_GRID_SIZE QSize(4, 4)
+#define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height())
 
 #define BASE_BUTTON_X CFC_HORIZON_BUTTON1_GEOMETRY.x()
 #define BASE_BUTTON_Y CFC_HORIZON_BUTTON1_GEOMETRY.y()
@@ -12,69 +11,44 @@
 #define BASE_BUTTON_WIDTH CFC_HORIZON_BUTTON1_GEOMETRY.width()
 #define BASE_BUTTON_HEIGHT CFC_HORIZON_BUTTON1_GEOMETRY.height()
 
-ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFilterControl(parent),
-     m_empty1_button(this),
-     m_up_tab_button(this),
-     m_down_tab_button(this)
+ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFilterControl(parent)
 {
     setFixedSize(CFC_HORIZON_SCREENSIZE);
-    m_children_history.append(&m_tb_tab_button);
-    m_children_history.append(&m_custom_tab_button);
+    m_header_buttons_per_page = 3;
 
     m_grid.setGridSize(QSize(7, 5));
     m_grid.setCellSize(QSize(78, 48));
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(CFC_HORIZON_TITLE_GEOMETRY);
-    m_title_label.setText("カラーフィルタ");
-    m_title_label.setObjectName("title_label");
     m_title_label.setObjectName("title_label_with_border");
 
-    m_tb_tab_button.setGeometry(CFC_HORIZON_TB_TAB_GEOMETRY);
-    m_tb_tab_button.setText("TB標準");
-
-    m_custom_tab_button.setGeometry(CFC_HORIZON_CUSTOM_TAB_GEOMETRY);
-    m_custom_tab_button.setText("カスタム");
-
-
     m_history_button.setGeometry(CFC_HORIZON_HISTORY_BUTTON_GEOMETRY);
-    m_history_button.setText("最近使った\nもの");
 
-    m_up_tab_button.setGeometry(CFC_HORIZON_UP_BUTTON_GEOMETRY);
-    m_up_tab_button.setText("▲");
-    m_up_tab_button.setVisible(false);
+    m_button_next_header_buttons_page.setGeometry(CFC_HORIZON_UP_BUTTON_GEOMETRY);
+    m_button_next_header_buttons_page.setText("▲");
 
-    m_down_tab_button.setGeometry(CFC_HORIZON_DOWN_BUTTON_GEOMETRY);
-    m_down_tab_button.setText("▼");
-    m_down_tab_button.setVisible(false);
+    m_button_previous_header_buttons_page.setGeometry(CFC_HORIZON_DOWN_BUTTON_GEOMETRY);
+    m_button_previous_header_buttons_page.setText("▼");
 
-    m_up_button.setGeometry(CFC_HORIZON_UP2_BUTTON_GEOMETRY);
-    m_up_button.setText("▲");
-
-    m_down_button.setGeometry(CFC_HORIZON_DOWN2_BUTTON_GEOMETRY);
-    m_down_button.setText("▼");
+    m_button_next_filter_buttons_page.setGeometry(CFC_HORIZON_UP2_BUTTON_GEOMETRY);
+    m_button_previous_filter_buttons_page.setGeometry(CFC_HORIZON_DOWN2_BUTTON_GEOMETRY);
 
     m_title_button.setGeometry(CFC_HORIZON_TITLE_BUTTON_GEOMETRY);
-    m_title_button.setText("タイトル");
 
     m_empty_button.setGeometry(CFC_HORIZON_EMPTY2_GEOMETRY);
-    m_empty_button.setText("");
-
-    m_empty1_button.setGeometry(CFC_HORIZON_EMPTY1_GEOMETRY);
-    m_empty1_button.setText("");
+    m_empty_button.setEnabled(false);
 
     m_register_button.setGeometry(CFC_HORIZON_REGISTER_BUTTON_GEOMETRY);
-    m_register_button.setText("登録");
-
     m_delete_button.setGeometry(CFC_HORIZON_DELETE_BUTTON_GEOMETRY);
-    m_delete_button.setText("削除");
-
     m_back_button.setGeometry(CFC_HORIZON_BACK_BUTTON_GEOMETRY);
-    m_back_button.setText("戻す");
 
     m_setting_label.setVisible(false);
-    m_next_button.setVisible(false);
-    m_prev_button.setVisible(false);
+    m_button_next_header_buttons_page.setVisible(false);
+    m_button_previous_header_buttons_page.setVisible(false);
+
+    placeChildrenIntoPanel(headerButtons(), CFC_HORIZON_TB_TAB_GEOMETRY.size(), CFC_HORIZON_TB_TAB_GEOMETRY.topLeft(), QSize(1, m_header_buttons_per_page));
+    setupHeaderTabButtons();
 }
 
 void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM *param)
@@ -96,7 +70,7 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         });
 
     }
-    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     m_custom_tab_buttons.clear();
     for (uint16_t i = 0; i < param->custom.count; i++)
@@ -115,7 +89,7 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
         });
 
     }
-    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     m_history_buttons.clear();
     for (uint16_t i = 0; i < param->history.count; i++)
@@ -132,7 +106,7 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
             onHistoryButtonChecked(i,sender());
         });
     }
-    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     if (param->tb.select == true)
     {
@@ -152,7 +126,5 @@ void ColorFilterControlHorizon::SetDispParamDataHorizon(COLOR_FILTER_DISP_PARAM 
 void ColorFilterControlHorizon::addButtonToHistory(QSharedPointer<SelectColorButton> &button)
 {
     ColorFilterControl::addButtonToHistory(button);
-    if (mode() == COLOR_FILTER_MODE_HISTORY) {
-        placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
-    }
+    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 }

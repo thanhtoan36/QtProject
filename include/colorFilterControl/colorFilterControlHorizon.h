@@ -12,11 +12,6 @@ public:
 protected:
     virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button) override;
 
-private:
-    CustomPushButton m_empty1_button;
-    CustomPushButton m_up_tab_button;
-    CustomPushButton m_down_tab_button;
-
 };
 
 #endif // COLORFILTERCONTROLHORIZON_H
