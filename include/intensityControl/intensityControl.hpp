@@ -3,6 +3,7 @@
 
 #include "../baseComponent/panelControlBase.h"
 #include "baseComponent/customPushButton.h"
+#include "baseComponent/gridBackground.h"
 #include <QLabel>
 #include <QVector>
 #include <QSharedPointer>
@@ -13,12 +14,13 @@ class IntensityControl : public PanelControlBase
 public:
     IntensityControl(QWidget *parent = nullptr);
 
-protected:
-    virtual void SetupUiComponents() override;
+signals:
+    void intensityButtonClicked(const QString &name);
+    void returnButtonClicked();
 
 protected:
+    GridBackground m_grid_background;
     QLabel m_label_title;
-    QVector<QSharedPointer<CustomPushButton>> m_menu_buttons;
     QVector<QSharedPointer<CustomPushButton>> m_intensity_buttons;
     CustomPushButton m_return_button;
 };

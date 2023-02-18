@@ -10,7 +10,7 @@ public:
     IntensityControlHorizon(QWidget *parent = nullptr);
 
 protected:
-    virtual void SetupUiComponents() override;
+    QVector<QSharedPointer<CustomPushButton>> m_menu_buttons;
 };
 
 #endif // INTENSITYCONTROLHORIZON_H

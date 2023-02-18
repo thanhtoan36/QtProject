@@ -4,26 +4,22 @@
 #include <QDebug>
 
 IntensityControlHorizon::IntensityControlHorizon(QWidget *parent)
-    : IntensityControl(parent)
+    : IntensityControl(parent),
+      m_menu_buttons()
 {
     setFixedSize(ISC_SCREENSIZE_HORIZON);
-    m_label_title.setObjectName("title_label");
-}
+    m_grid_background.setGridSize(QSize(6, 5));
+    m_grid_background.move(ISC_MENU_BUTTON_TOPLEFT_HORIZON);
 
-void IntensityControlHorizon::SetupUiComponents()
-{
     m_label_title.setGeometry(ISC_TITLE_GOEMETRY_HORIZON);
-    m_label_title.setText("数値入力");
     m_label_title.setObjectName("title_label_horizon");
-
     m_return_button.setGeometry(ISC_RETURN_GOEMETRY_HORIZON);
-    m_return_button.setText("戻す");
 
     QStringList intensityModel = {
-        "FF", "+10", "+5", "+1", "",
-        "00", "-10", "-5", "-1", "",
-        "70", "80", "90", "", "",
-        "40", "50", "60", "", "",
+        "FF", "+10", "+5", "+1",
+        "00", "-10", "-5", "-1",
+        "70", "80", "90", "",
+        "40", "50", "60", "",
         "10", "20", "30", "",
     };
 
@@ -38,7 +34,7 @@ void IntensityControlHorizon::SetupUiComponents()
             button->setEnabled(false);
 
         connect(button.get(), &QPushButton::clicked, this, [&]() {
-            qDebug() << ((CustomPushButton*)sender())->text();
+            emit intensityButtonClicked(((CustomPushButton*)sender())->text());
         });
 
         m_intensity_buttons.append(button);
