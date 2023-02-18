@@ -118,19 +118,49 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
 void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
 {
     Q_ASSERT(param);
-
     m_group_buttons.clear();
-    for (int i = 0; i< param->count;i++)
+
+    // type position has fixed button PAN and TILT
+    if (param->type == INPUT_NUM_TYPE_POSITION)
     {
-        auto button =  MakeSharedQObject<SelectButton>(this);
-        button->setFixedSize(IC_MODE_SIZE);
-        button->setText(param->param[i].name);
-        button->setChecked(param->param[i].select);
-        button->setVisible(false);
-        button->setCheckMarkVisible(true);
-        connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
-        m_group_buttons.push_back(button);
+        m_button_mode_angle.setVisible(true);
+        for (int i = 0; i< 2;i++)
+        {
+            auto button =  MakeSharedQObject<SelectButton>(this);
+            button->setFixedSize(IC_MODE_SIZE);
+            if (i == 0)
+            {
+                button->setText("PAN");
+                button->setChecked(true);
+            }
+            else
+            {
+                button->setText("TILT");
+                button->setChecked(false);
+            }
+
+            button->setVisible(false);
+            button->setCheckMarkVisible(true);
+            connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
+            m_group_buttons.push_back(button);
+        }
     }
+    else
+    {
+        m_button_mode_angle.setVisible(false);
+        for (int i = 0; i< param->count;i++)
+        {
+            auto button =  MakeSharedQObject<SelectButton>(this);
+            button->setFixedSize(IC_MODE_SIZE);
+            button->setText(param->param[i].name);
+            button->setChecked(param->param[i].select);
+            button->setVisible(false);
+            button->setCheckMarkVisible(true);
+            connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
+            m_group_buttons.push_back(button);
+        }
+    }
+
 
     placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
     setType(param->type);
