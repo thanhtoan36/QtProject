@@ -20,10 +20,13 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     m_button_switch_panel_picker.setGeometry(CPC_HORIZON_BUTTON_1_GEOMETRY);
     m_button_switch_panel_picker.setText("ピッカー");
     m_button_switch_panel_picker.setChecked(true);
+    m_button_switch_panel_picker.setTextPixelSize(13);
     m_button_switch_panel_encoder.setGeometry(CPC_HORIZON_BUTTON_SWITCH_PANEL_ENCODER_GEOMETRY);
     m_button_switch_panel_encoder.setText("エンコーダ");
+    m_button_switch_panel_encoder.setTextPixelSize(13);
     m_button_switch_panel_input_num.setGeometry(CPC_HORIZON_BUTTON_SWITCH_PANEL_NUMBER_GEOMETRY);
     m_button_switch_panel_input_num.setText("数値");
+    m_button_switch_panel_input_num.setTextPixelSize(13);
 
     m_button_previous_menu_page.setVisible(false);
     m_button_next_menu_page.setVisible(false);

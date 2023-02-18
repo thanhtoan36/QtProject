@@ -13,25 +13,25 @@
 #define CPC_PICKER_XY_GEOMETRY              QRect(0, 80, 312, 240)
 
 #define CPC_LABEL_TITLE_X_GEOMETRY          QRect(190, 358, 21, 21)
-#define CPC_SLIDER_X_GEOMETRY               QRect(58, 352, 260, 48)
-#define CPC_LABEL_VALUE_X_GEOMETRY          QRect(0, 366, 52, 21)
+#define CPC_SLIDER_X_GEOMETRY               QRect(58, 367, 245, 48)
+#define CPC_LABEL_VALUE_X_GEOMETRY          QRect(0, 381, 52, 21)
 
 #define CPC_LABEL_TITLE_Y_GEOMETRY          QRect(190, 406, 21, 21)
-#define CPC_SLIDER_Y_GEOMETRY               QRect(58, 387, 260, 48)
-#define CPC_LABEL_VALUE_Y_GEOMETRY          QRect(0, 401, 52, 21)
+#define CPC_SLIDER_Y_GEOMETRY               QRect(58, 417, 245, 48)
+#define CPC_LABEL_VALUE_Y_GEOMETRY          QRect(0, 431, 52, 21)
 
 #define CPC_PICKER_RGB_GEOMETRY             QRect(0, 80, 312, 240)
 
 #define CPC_LABEL_TITLE_H_GEOMETRY          QRect(190, 358, 21, 21)
-#define CPC_SLIDER_H_GEOMETRY               QRect(58, 352, 260, 48)
-#define CPC_LABEL_VALUE_H_GEOMETRY          QRect(0, 366, 52, 21)
+#define CPC_SLIDER_H_GEOMETRY               QRect(58, 367, 245, 48)
+#define CPC_LABEL_VALUE_H_GEOMETRY          QRect(0, 381, 52, 21)
 
 #define CPC_LABEL_TITLE_S_GEOMETRY          QRect(190, 406, 21, 21)
-#define CPC_SLIDER_S_GEOMETRY               QRect(58, 387, 260, 48)
-#define CPC_LABEL_VALUE_S_GEOMETRY          QRect(0, 401, 52, 21)
+#define CPC_SLIDER_S_GEOMETRY               QRect(58, 417, 245, 48)
+#define CPC_LABEL_VALUE_S_GEOMETRY          QRect(0, 431, 52, 21)
 
-#define CPC_LABEL_TITLE_V_GEOMETRY          QRect(190, 441, 21, 21)
-#define CPC_SLIDER_V_GEOMETRY               QRect(58, 422, 260, 48)
-#define CPC_LABEL_VALUE_V_GEOMETRY          QRect(0, 436, 52, 21)
+#define CPC_LABEL_TITLE_V_GEOMETRY          QRect(190, 454, 21, 21)
+#define CPC_SLIDER_V_GEOMETRY               QRect(58, 467, 245, 48)
+#define CPC_LABEL_VALUE_V_GEOMETRY          QRect(0, 481, 52, 21)
 
 #endif // COLORPICKERCONTROL_DEFINE_H
