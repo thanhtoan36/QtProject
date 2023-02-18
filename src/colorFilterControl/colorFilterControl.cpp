@@ -6,9 +6,8 @@
 #include "utility.h"
 
 
-#define PAGE_ROW  4
-#define PAGE_COLUMN  4
-#define PAGE_SIZE (PAGE_ROW*PAGE_COLUMN)
+#define BUTTONS_GRID_SIZE QSize(4, 4)
+#define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height())
 
 #define BASE_BUTTON_X CFC_BUTTON1_GEOMETRY.x()
 #define BASE_BUTTON_Y CFC_BUTTON1_GEOMETRY.y()
@@ -94,15 +93,9 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     m_setting_label.setText("設定");
     m_setting_label.setObjectName("title_label");
 
-    connect(&m_up_button, &QAbstractButton::clicked, this, [&]() {
-        ScrollUp();
-    });
-    connect(&m_down_button, &QAbstractButton::clicked, this, [&]() {
-        ScrollDown();
-    });
-    connect(this, &ColorFilterControl::modeChanged, this, [&]() {
-       onModeChanged();
-    });
+    connect(&m_up_button, &QAbstractButton::clicked, this, &ColorFilterControl::ScrollUp);
+    connect(&m_down_button, &QAbstractButton::clicked, this, &ColorFilterControl::ScrollDown);
+    connect(this, &ColorFilterControl::modeChanged, this, &ColorFilterControl::onModeChanged);
     connect(this, &ColorFilterControl::currentTBTabPageChanged, this, [&](){
         updateTBTabPage();
         m_up_button.setEnabled(currentTBTabPage() > 0);
@@ -166,6 +159,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
             m_title_button.setChecked(false);
         }
     });
+    onModeChanged();
 }
 
 void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
@@ -190,7 +184,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         });
 
     }
-    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     m_custom_tab_buttons.clear();
     for (uint16_t i = 0; i < param->custom.count; i++)
@@ -208,7 +202,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         });
 
     }
-    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     m_history_buttons.clear();
     for (uint16_t i = 0; i < param->history.count; i++)
@@ -225,7 +219,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
             onHistoryButtonChecked(i,sender());
         });
     }
-    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     if (param->tb.select == true)
     {
@@ -242,7 +236,6 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         setMode(COLOR_FILTER_MODE_HISTORY);
     }
     onModeChanged();
-
 }
 
 void ColorFilterControl::ScrollUp()
@@ -360,6 +353,9 @@ void ColorFilterControl::onModeChanged()
         m_history_button.setChecked(false);
         m_up_button.setEnabled(currentTBTabPage() > 0);
         m_down_button.setEnabled(currentTBTabPage() < maxTBTabPages() - 1);
+
+        m_up_button.setVisible(m_tb_tab_buttons.length() > BUTTONS_PER_PAGE);
+        m_down_button.setVisible(m_tb_tab_buttons.length() > BUTTONS_PER_PAGE);
     }
     else if(mode() == COLOR_FILTER_MODE_CUSTOM)
     {
@@ -386,6 +382,9 @@ void ColorFilterControl::onModeChanged()
         m_history_button.setChecked(false);
         m_up_button.setEnabled(currentCustomTabPage() > 0);
         m_down_button.setEnabled(currentCustomTabPage() < maxCustomTabPages() - 1);
+
+        m_up_button.setVisible(m_custom_tab_buttons.length() > BUTTONS_PER_PAGE);
+        m_down_button.setVisible(m_custom_tab_buttons.length() > BUTTONS_PER_PAGE);
     }
     else if(mode() == COLOR_FILTER_MODE_HISTORY)
     {
@@ -418,38 +417,41 @@ void ColorFilterControl::onModeChanged()
         m_custom_tab_button.setChecked(false);
         m_up_button.setEnabled(currentHistoryPage() > 0);
         m_down_button.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
+
+        m_up_button.setVisible(m_history_buttons.length() > BUTTONS_PER_PAGE);
+        m_down_button.setVisible(m_history_buttons.length() > BUTTONS_PER_PAGE);
     }
 }
 
 void ColorFilterControl::updateTBTabPage()
 {
     qDebug() << currentTBTabPage();
-    updateChildrenVisibility(m_tb_tab_buttons,currentTBTabPage(),PAGE_SIZE);
+    updateChildrenVisibility(m_tb_tab_buttons,currentTBTabPage(), BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::updateCustomTabPage()
 {
-    updateChildrenVisibility(m_custom_tab_buttons,currentCustomTabPage(),PAGE_SIZE);
+    updateChildrenVisibility(m_custom_tab_buttons,currentCustomTabPage(),BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::updateHistoryPage()
 {
-    updateChildrenVisibility(m_history_buttons,currentHistoryPage(),PAGE_SIZE);
+    updateChildrenVisibility(m_history_buttons,currentHistoryPage(),BUTTONS_PER_PAGE);
 }
 
 int ColorFilterControl::maxTBTabPages() const
 {
-    return calulateNumberOfPages(m_tb_tab_buttons.length(), PAGE_SIZE);
+    return calulateNumberOfPages(m_tb_tab_buttons.length(), BUTTONS_PER_PAGE);
 }
 
 int ColorFilterControl::maxCustomTabPages() const
 {
-    return calulateNumberOfPages(m_custom_tab_buttons.length(), PAGE_SIZE);
+    return calulateNumberOfPages(m_custom_tab_buttons.length(), BUTTONS_PER_PAGE);
 }
 
 int ColorFilterControl::maxHistoryPages() const
 {
-    return calulateNumberOfPages(m_history_buttons.length(), PAGE_SIZE);
+    return calulateNumberOfPages(m_history_buttons.length(), BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::onTBTabButtonChecked(const int index, QObject *sender)
@@ -561,6 +563,8 @@ void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectColorButton> &b
     connect(new_button.get(),&QAbstractButton::clicked, this, [&,index](){
         onHistoryButtonChecked(index,sender());
     });
-    m_history_buttons.push_back(new_button);
-    placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    m_history_buttons.push_front(new_button);
+    if (mode() == COLOR_FILTER_MODE_HISTORY) {
+        placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
+    }
 }

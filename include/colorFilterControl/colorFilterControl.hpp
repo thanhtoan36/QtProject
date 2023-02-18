@@ -43,7 +43,6 @@ public:
     void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
 
     void ScrollUp();
-
     void ScrollDown();
 
     int currentTBTabPage() const;
@@ -58,24 +57,12 @@ public:
     ColorFilterMode mode() const;
     void setMode(ColorFilterMode newMode);
 
-    void onModeChanged();
-
-    void updateTBTabPage();
-
-    void updateCustomTabPage();
-
-    void updateHistoryPage();
-
     int maxTBTabPages() const;
-
     int maxCustomTabPages() const;
-
     int maxHistoryPages() const;
 
     void onTBTabButtonChecked(const int index, QObject* sender);
-
     void onCustomTabButtonChecked(const int index, QObject* sender);
-
     void onHistoryButtonChecked(const int index, QObject* sender);
 
     const ColorFilterButton currentTBTabButtonCheck() const;
@@ -87,24 +74,21 @@ public:
     const ColorFilterButton currentHistoryTabButtonCheck() const;
     void setCurrentHistoryTabButtonCheck(const ColorFilterButton& newCurrentHistoryTabButtonCheck);
 
-
 signals:
     void currentTBTabPageChanged();
-
     void currentCustomTabPageChanged();
-
     void currentHistoryPageChanged();
-
     void modeChanged();
-
     void currentTBTabButtonCheckChanged();
-
     void currentCustomTabButtonCheckChanged();
-
     void currentHistoryTabButtonCheckChanged();
 
 protected:
     virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button);
+    void onModeChanged();
+    void updateTBTabPage();
+    void updateCustomTabPage();
+    void updateHistoryPage();
 
 protected:
     GridBackground m_grid;
@@ -133,7 +117,6 @@ protected:
 
     uint32_t m_current_scroll_step = 0;
 
-private:
     int m_currentTBTabPage;
     int m_currentCustomTabPage;
     int m_currentHistoryPage;
