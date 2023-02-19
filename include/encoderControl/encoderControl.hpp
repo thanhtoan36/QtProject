@@ -19,7 +19,7 @@ class EncoderControl : public PanelControlBase
 
 public:
     EncoderControl(QWidget *parent = nullptr);
-    void SetDispParamData(ENCODER_DISP_PARAM *param);
+    virtual void SetDispParamData(ENCODER_DISP_PARAM *param);
 
     int currentEncoderPage() const;
     void setCurrentEncoderPage(int newCurrentEncoderPage);

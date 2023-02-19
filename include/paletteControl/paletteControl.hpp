@@ -16,8 +16,7 @@ class PaletteControl : public PanelControlBase
 
 public:
     explicit PaletteControl(QWidget * parent = nullptr);
-    void SetDispParamData(PALETTE_DISP_PARAM *param);
-
+    virtual void SetDispParamData(PALETTE_DISP_PARAM *param);
 
     int currentGroupPage() const;
     void setCurrentGroupPage(int newCurrentGroupPage);

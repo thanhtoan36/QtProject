@@ -15,13 +15,6 @@ public:
 
     explicit PanelControlBase(QWidget *parent = nullptr);
 
-    void PrepareUi();
-
-    // Place UI components into this panel
-    virtual void SetupUiComponents() {};
-    // Connect signals / slots to the UI components
-    virtual void SetupUiEvents() {};
-
     static int calulateNumberOfPages(int itemCount, int itemsPerPage);
     static int calculateNumberOfVisibleItems(int itemsCount, int itemsPerPage, int pageIndex);
 
@@ -51,12 +44,6 @@ public:
             child->setVisible(i >= pageBeginIndex && i < pageEndIndex);
         }
     }
-
-
-signals:
-
-private:
-    bool m_ui_initialized;
 };
 
 #endif // PANELCONTROLBASE_H

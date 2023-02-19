@@ -12,10 +12,7 @@ PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(p
     m_group_button_grid_size = QSize(1, 3);
     m_palette_button_grid_size = QSize(4, 4);
     m_title_label.setObjectName("title_label_with_border");
-}
 
-void PaletteControlHorizon::SetupUiComponents()
-{
     m_grid.setGridSize(QSize(6, 5));
     m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 34);

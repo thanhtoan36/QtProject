@@ -24,64 +24,34 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     m_color_picker_control = MakeSharedQObject<ColorPickerControl>();
-    m_color_picker_control->PrepareUi();
-
     m_color_picker_control_horizon = MakeSharedQObject<ColorPickerControlHorizon>();
-    m_color_picker_control_horizon->PrepareUi();
 
     m_track_control = MakeSharedQObject<TrackControl>();
-    m_track_control->PrepareUi();
-
     m_track_control_horizon = MakeSharedQObject<TrackControlHorizon>();
-    m_track_control_horizon->PrepareUi();
 
     m_intensity_control = MakeSharedQObject<IntensityControl>();
-    m_intensity_control->PrepareUi();
-
     m_intensity_control_horizon = MakeSharedQObject<IntensityControlHorizon>();
-    m_intensity_control_horizon->PrepareUi();
 
     m_encoder_control = MakeSharedQObject<EncoderControl>();
-    m_encoder_control->PrepareUi();
-
     m_encoder_control_horizon = MakeSharedQObject<EncoderControlHorizon>();
-    m_encoder_control_horizon->PrepareUi();
 
     m_color_filter_control= MakeSharedQObject<ColorFilterControl>();
-    m_color_filter_control->PrepareUi();
-
     m_color_filter_control_horizon = MakeSharedQObject<ColorFilterControlHorizon>();
-    m_color_filter_control_horizon->PrepareUi();
 
     m_input_num_control = MakeSharedQObject<InputNumControl>();
-    m_input_num_control->PrepareUi();
-
     m_input_num_control_horizon = MakeSharedQObject<InputNumControlHorizon>();
-    m_input_num_control_horizon->PrepareUi();
 
     m_group_control = MakeSharedQObject<GroupControl>();
-    m_group_control->PrepareUi();
-
     m_group_control_horizon = MakeSharedQObject<GroupControlHorizon>();
-    m_group_control_horizon->PrepareUi();
 
     m_library_control = MakeSharedQObject<LibraryControl>();
-    m_library_control->PrepareUi();
-
     m_library_control_horizon = MakeSharedQObject<LibraryControlHorizon>();
-    m_library_control_horizon->PrepareUi();
 
     m_playback_control = MakeSharedQObject<PlaybackControl>();
-    m_playback_control->PrepareUi();
-
     m_playback_control_horizon = MakeSharedQObject<PlaybackControlHorizon>();
-    m_playback_control_horizon->PrepareUi();
 
     m_palette_control = MakeSharedQObject<PaletteControl>();
-    m_palette_control->PrepareUi();
-
     m_palette_control_horizon = MakeSharedQObject<PaletteControlHorizon>();
-    m_palette_control_horizon->PrepareUi();
 
     connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
 }
@@ -247,7 +217,7 @@ void MainWindow::on_EncoderControl_Fake_Set_clicked()
 {
     ENCODER_DISP_PARAM params = EC_ParseInput(ui->EncoderControl_RawInput->toPlainText());
 
-    m_encoder_control_horizon->SetDispParamDataHorizon(&params);
+    m_encoder_control_horizon->SetDispParamData(&params);
     m_encoder_control->SetDispParamData(&params);
 }
 

@@ -24,7 +24,7 @@ class InputNumControl : public PanelControlBase
 
 public:
     explicit InputNumControl(QWidget* parent = nullptr);
-    void SetDispParamData(INPUT_NUM_DISP_PARAM *param);
+    virtual void SetDispParamData(INPUT_NUM_DISP_PARAM *param);
 
     InputNumMode mode() const;
     void setMode(InputNumMode newMode);

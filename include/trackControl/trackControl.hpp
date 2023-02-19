@@ -18,7 +18,7 @@ class TrackControl : public PanelControlBase
 
 public:
     TrackControl(QWidget *parent = nullptr);
-    void SetDispParamData(TRACK_DISP_PARAM *param);
+    virtual void SetDispParamData(TRACK_DISP_PARAM *param);
 
     TrackMode mode() const;
     void setMode(TrackMode newMode);

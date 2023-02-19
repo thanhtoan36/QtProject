@@ -37,7 +37,7 @@ public:
 
     explicit ColorFilterControl(QWidget* parent = nullptr);
 
-    void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
+    virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
 
     void ScrollUp();
     void ScrollDown();

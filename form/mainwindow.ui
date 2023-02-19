@@ -36,7 +36,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>5</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -271,7 +271,7 @@
           <property name="plainText">
            <string>[
     {
-        &quot;select&quot;: false,
+        &quot;select&quot;: true,
         &quot;name&quot;: &quot;P1&quot;,
         &quot;image&quot;: &quot;bird&quot;,
         &quot;buttons&quot;: [
@@ -286,7 +286,13 @@
         &quot;buttons&quot;: [
             { &quot;select&quot;: false, &quot;name&quot;: &quot;B3&quot;, &quot;image&quot;: &quot;cat&quot; },
             { &quot;select&quot;: false, &quot;name&quot;: &quot;B4&quot;, &quot;image&quot;: &quot;bird&quot; },
-            { &quot;select&quot;: true, &quot;name&quot;: &quot;B5&quot;, &quot;image&quot;: &quot;&quot; }
+            { &quot;select&quot;: true, &quot;name&quot;: &quot;B5&quot;, &quot;image&quot;: &quot;&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B6&quot;, &quot;image&quot;: &quot;&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B7&quot;, &quot;image&quot;: &quot;&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B8&quot;, &quot;image&quot;: &quot;&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B9&quot;, &quot;image&quot;: &quot;&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B10&quot;, &quot;image&quot;: &quot;&quot; },
+            { &quot;select&quot;: false, &quot;name&quot;: &quot;B11&quot;, &quot;image&quot;: &quot;&quot; }
         ]
     }
 ]</string>
@@ -530,10 +536,16 @@
     </item>
     <item>
      <widget class="QPlainTextEdit" name="EventOutput">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>300</height>
+        <height>250</height>
        </size>
       </property>
      </widget>

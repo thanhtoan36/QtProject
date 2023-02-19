@@ -24,7 +24,7 @@ class ColorPickerControl : public PanelControlBase
 
 public:
     ColorPickerControl(QWidget *parent = nullptr);
-    void SetDispParamData(COLOR_PICKER_DISP_PARAM *param);
+    virtual void SetDispParamData(COLOR_PICKER_DISP_PARAM *param);
 
     ColorPickerType pickerType() const;
     void setPickerType(ColorPickerType newPickerType);

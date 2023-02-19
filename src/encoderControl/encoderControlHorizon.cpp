@@ -39,7 +39,7 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &EncoderControlHorizon::onPanelSwitchButtonClicked);
 }
 
-void EncoderControlHorizon::SetDispParamDataHorizon(ENCODER_DISP_PARAM *param)
+void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     SetDispParamData(param);
 

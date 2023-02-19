@@ -14,8 +14,7 @@ class LibraryControl : public PanelControlBase
 
 public:
     explicit LibraryControl(QWidget * parent = nullptr);
-    void SetDispParamData(LIBRARY_DISP_PARAM *param);
-
+    virtual void SetDispParamData(LIBRARY_DISP_PARAM *param);
 
 protected:
     uint16_t column() const;
