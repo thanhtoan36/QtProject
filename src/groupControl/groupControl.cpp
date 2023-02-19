@@ -5,10 +5,6 @@
 #define BASE_BUTTON_WIDTH GC_BUTTON1_GEOMETRY.width()
 #define BASE_BUTTON_HEIGHT GC_BUTTON1_GEOMETRY.height()
 
-#define COLUMN 5
-#define ROW 4
-#define PAGE_SIZE (COLUMN*ROW)
-
 GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
     m_grid(this),
     m_title_label(this),
@@ -20,11 +16,13 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
     m_title_button(this),
     m_empty_button(this),
     m_register_button(this),
-    m_delete_button(this)
+    m_delete_button(this),
+    m_currentGroupPage(0),
+    m_currentHistoryPage(0)
 {
+    m_buttons_grid_size = QSize(4, 5);
+
     setFixedSize(GC_SCREEN_SIZE);
-    setCurrentGroupPage(0);
-    setCurrentHistoryPage(0);
     m_back_button.setTextColor(Qt::yellow);
     m_title_label.setObjectName("title_label");
 
@@ -40,9 +38,11 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
 
     m_up_button.setGeometry(GC_UP_GEOMETRY);
     m_up_button.setText("▲");
+    m_up_button.setVisible(false);
 
     m_down_button.setGeometry(GC_DOWN_GEOMETRY);
     m_down_button.setText("▼");
+    m_down_button.setVisible(false);
 
     m_back_button.setGeometry(GC_RETURN_GEOMETRY);
     m_back_button.setText("戻す");
@@ -123,9 +123,9 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
         }
     });
 
-    connect(&m_title_button, &QAbstractButton::clicked, this, &GroupControl::onTitleButonClicked);
-    connect(&m_register_button, &QAbstractButton::clicked, this, &GroupControl::onRegisterButonClicked);
-    connect(&m_delete_button, &QAbstractButton::clicked, this, &GroupControl::onDeleteButonClicked);
+    connect(&m_title_button, &QAbstractButton::toggled, this, &GroupControl::onTitleButonClicked);
+    connect(&m_register_button, &QAbstractButton::toggled, this, &GroupControl::onRegisterButonClicked);
+    connect(&m_delete_button, &QAbstractButton::toggled, this, &GroupControl::onDeleteButonClicked);
 }
 
 void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
@@ -133,7 +133,10 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
     Q_ASSERT(param);
     m_group_buttons.clear();
     m_history_buttons.clear();
+
     setCurrentGroupPage(0);
+    setCurrentHistoryPage(0);
+
     for (int i = 0; i< param->group.count;i++)
     {
         auto button =  MakeSharedQObject<TitleSelectButton>(this);
@@ -141,16 +144,12 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         button->setTitle(param->group.group_param[i].title);
         button->setText(param->group.group_param[i].group_no);
         button->setChecked(param->group.group_param[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](bool check){
-            if (check)
-            {
-                onButtonGroupCheck(i,sender());
-            }
-        });
+        connect(button.get(), &QAbstractButton::clicked, this, &GroupControl::onGroupButtonClicked);
         m_group_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_group_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize( ROW, COLUMN));
+    placeChildrenIntoPanel(m_group_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
     updateGroupPage();
+
     m_up_button.setEnabled(currentGroupPage() > 0);
     m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
     for (int i = 0; i< param->history.count;i++)
@@ -161,13 +160,12 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         button->setText(param->history.group_param[i].group_no);
         button->setChecked(param->history.group_param[i].select);
         button->setVisible(false);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonHistoryCheck(i,sender());
-        });
+        connect(button.get(),&QAbstractButton::clicked, this, &GroupControl::onHistoryButtonClicked);
         m_history_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize(ROW, COLUMN));
+    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
     m_history_button.setChecked(false);
+
     m_up_button.setVisible(maxGroupPages() >1);
     m_down_button.setVisible(maxGroupPages() >1);
 }
@@ -179,6 +177,7 @@ int GroupControl::currentGroupPage() const
 
 void GroupControl::setCurrentGroupPage(int newCurrentGroupPage)
 {
+    newCurrentGroupPage = qBound(newCurrentGroupPage, 0, maxGroupPages() - 1);
     if (m_currentGroupPage == newCurrentGroupPage)
         return;
     m_currentGroupPage = newCurrentGroupPage;
@@ -192,6 +191,7 @@ int GroupControl::currentHistoryPage() const
 
 void GroupControl::setCurrentHistoryPage(int newCurrentHistoryPage)
 {
+    newCurrentHistoryPage = qBound(newCurrentHistoryPage, 0, maxHistoryPages() - 1);
     if (m_currentHistoryPage == newCurrentHistoryPage)
         return;
     m_currentHistoryPage = newCurrentHistoryPage;
@@ -200,22 +200,22 @@ void GroupControl::setCurrentHistoryPage(int newCurrentHistoryPage)
 
 void GroupControl::updateGroupPage()
 {
-    updateChildrenVisibility(m_group_buttons,currentGroupPage(),PAGE_SIZE);
+    updateChildrenVisibility(m_group_buttons, currentGroupPage(), buttonsPerPage());
 }
 
 void GroupControl::updateHistoryPage()
 {
-    updateChildrenVisibility(m_history_buttons,currentHistoryPage(),PAGE_SIZE);
+    updateChildrenVisibility(m_history_buttons, currentHistoryPage(), buttonsPerPage());
 }
 
 int GroupControl::maxGroupPages() const
 {
-    return calulateNumberOfPages(m_group_buttons.length(), PAGE_SIZE);
+    return calulateNumberOfPages(m_group_buttons.length(), buttonsPerPage());
 }
 
 int GroupControl::maxHistoryPages() const
 {
-    return calulateNumberOfPages(m_history_buttons.length(), PAGE_SIZE);
+    return calulateNumberOfPages(m_history_buttons.length(), buttonsPerPage());
 }
 
 void GroupControl::addButtonToHistory(QSharedPointer<TitleSelectButton> &button)
@@ -228,12 +228,40 @@ void GroupControl::addButtonToHistory(QSharedPointer<TitleSelectButton> &button)
     new_button->setBackgroundColor(button->backgroundColor());
     new_button->setSelectedBackgroundColor(button->backgroundColor());
     new_button->setTitle(button->title());
-    int index = m_history_buttons.size();
-    connect(new_button.get(),&QAbstractButton::clicked, this, [&,index](){
-        onButtonHistoryCheck(index,sender());
-    });
-    m_history_buttons.push_back(new_button);
-    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize(ROW, COLUMN));
+
+    connect(new_button.get(),&QAbstractButton::clicked, this, &GroupControl::onHistoryButtonClicked);
+    m_history_buttons.push_front(new_button);
+
+    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
+}
+
+void GroupControl::onGroupButtonClicked()
+{
+    auto iter = std::find(m_group_buttons.begin(), m_group_buttons.end(), sender());
+    if (iter == m_group_buttons.end()) {
+        return;
+    }
+    auto button = *iter;
+    addButtonToHistory(button);
+
+    for (const auto &b : qAsConst(m_group_buttons))
+    {
+        b->setChecked(b == button);
+    }
+}
+
+void GroupControl::onHistoryButtonClicked()
+{
+    auto iter = std::find(m_history_buttons.begin(), m_history_buttons.end(), sender());
+    if (iter == m_history_buttons.end()) {
+        return;
+    }
+    auto button = *iter;
+
+    for (const auto &b : qAsConst(m_history_buttons))
+    {
+        b->setChecked(b == button);
+    }
 }
 
 void GroupControl::onTitleButonClicked(const bool check)
@@ -263,28 +291,7 @@ void GroupControl::onDeleteButonClicked(const bool check)
     }
 }
 
-void GroupControl::onButtonGroupCheck(const uint32_t index, QObject *sender)
+int GroupControl::buttonsPerPage() const
 {
-    for (uint32_t i = 0; i < m_group_buttons.size(); i++)
-    {
-        if (i != index)
-        {
-            m_group_buttons[i]->setChecked(false);
-        }
-        else
-        {
-            addButtonToHistory(m_group_buttons[i]);
-        }
-    }
-}
-
-void GroupControl::onButtonHistoryCheck(const uint32_t index, QObject *sender)
-{
-    for (uint32_t i = 0; i < m_history_buttons.size(); i++)
-    {
-        if (i != index)
-        {
-            m_history_buttons[i]->setChecked(false);
-        }
-    }
+    return m_buttons_grid_size.width() * m_buttons_grid_size.height();
 }

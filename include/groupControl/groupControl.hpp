@@ -30,15 +30,19 @@ signals:
     void currentHistoryPageChanged();
 
 protected:
+    int buttonsPerPage() const;
     virtual void updateGroupPage();
     virtual void updateHistoryPage();
 
-    virtual int maxGroupPages() const;
-    virtual int maxHistoryPages() const;
+    int maxGroupPages() const;
+    int maxHistoryPages() const;
 
     virtual void addButtonToHistory(QSharedPointer<TitleSelectButton>& button);
 
 protected slots:
+    void onGroupButtonClicked();
+    void onHistoryButtonClicked();
+
     void onTitleButonClicked(const bool check);
     void onRegisterButonClicked(const bool check);
     void onDeleteButonClicked(const bool check);
@@ -60,6 +64,8 @@ protected:
 
     int m_currentGroupPage;
     int m_currentHistoryPage;
+
+    QSize m_buttons_grid_size;
 };
 
 

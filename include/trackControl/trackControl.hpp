@@ -20,11 +20,7 @@ public:
     virtual void SetDispParamData(TRACK_DISP_PARAM *param);
 
     TrackMode mode() const;
-    void setMode(TrackMode newMode);
-
     TrackValueMode valueMode() const;
-    void setValueMode(TrackValueMode newValueMode);
-
     QVector<TRACK_PARAM_GROUP> trackPoints() const;
 
 signals:
@@ -37,6 +33,9 @@ protected slots:
     void onValueModeChanged();
 
 protected:
+    void setMode(TrackMode newMode);
+    void setValueMode(TrackValueMode newValueMode);
+
     QVector<PantiltControl::TrackPointFloatParamGroup> mapToScreen(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const;
     QVector<PantiltControl::TrackPointFloatParamGroup> mapToValue(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const;
 

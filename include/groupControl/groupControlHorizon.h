@@ -11,12 +11,6 @@ public:
     virtual void SetDispParamData(GROUP_DISP_PARAM *param) override;
 
 protected:
-    virtual void updateGroupPage() override;
-    virtual void updateHistoryPage() override;
-
-    virtual int maxGroupPages() const override;
-    virtual int maxHistoryPages() const override;
-
     virtual void addButtonToHistory(QSharedPointer<TitleSelectButton>& button) override;
 };
 

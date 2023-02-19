@@ -166,8 +166,8 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::mapToScreen(con
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::mapToValue(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const
 {
     float scale = mode() == TRACK_MODE_PERCENT
-            ? (TC_TRACK_RESOLUTION / 100.0)  // map from 0..TC_TRACK_RESOLUTION to 0..100
-            : (TC_TRACK_RESOLUTION / 255.0); // map from 0..TC_TRACK_RESOLUTION to 0..100
+            ? (TC_TRACK_RESOLUTION / 100.0)  // map from 0..TC_TRACK_RESOLUTION to 0..100%
+            : (TC_TRACK_RESOLUTION / 255.0); // map from 0..TC_TRACK_RESOLUTION to 0..255
     QVector<PantiltControl::TrackPointFloatParamGroup> result;
     for (auto p : points) {
         p.pan.current /= scale;
