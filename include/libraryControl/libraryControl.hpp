@@ -38,10 +38,10 @@ protected:
 
 
 protected:
-    virtual void SetupUiComponents() override;
-    virtual void SetupUiEvents() override;
     virtual void scrollUpLibraryPages();
     virtual void scrollDownLibraryPages();
+
+    virtual void addButtonToHistory(QSharedPointer<TitleSelectButton>& button);
 
 protected slots:
     virtual void onButtonModeClicked(const int index, QObject* sender);
@@ -49,6 +49,9 @@ protected slots:
     virtual void onButtonHistoryLibraryClicked(const int index, QObject* sender);
     virtual void onButtonModeHistoryClicked(const int index, QObject* sender);
     virtual void onButtonHistoryClicked(const bool check);
+    virtual void onButtonTitleClicked(const bool check);
+    virtual void onButtonRegisterClicked(const bool check);
+    virtual void onButtonDeleteClicked(const bool check);
 
 protected:
     GridBackground m_grid;
