@@ -51,8 +51,8 @@ public:
 
     explicit PantiltControl(QWidget *parent = nullptr);
 
-    void setMode();
-    void SetTrackPoints(TrackValueMode value_mode, const QVector<TrackPointFloatParamGroup> &points);
+    void setValueMode(TrackValueMode value_mode);
+    void SetTrackPoints(const QVector<TrackPointFloatParamGroup> &points);
     QVector<TrackPointFloatParamGroup> trackPoints() const;
 
 protected:

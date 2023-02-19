@@ -54,6 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_palette_control_horizon = MakeSharedQObject<PaletteControlHorizon>();
 
     connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+
+    connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
+    connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
 }
 
 MainWindow::~MainWindow()
@@ -167,6 +171,18 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
 void MainWindow::CPC_OnColorChanged()
 {
     logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name()));
+}
+
+void MainWindow::TC_OnTrackPointsChanged()
+{
+    QString log = "TC points changed\n";
+    auto points = ((TrackControl*)sender())->trackPoints();
+
+    for (const auto &p : points) {
+        log += QString("(%1,%2), ").arg(p.pan.current).arg(p.tilt.current);
+    }
+
+    logEvent(log);
 }
 
 void MainWindow::on_BtnClear_clicked()

@@ -55,29 +55,42 @@ TrackControl::TrackControl(QWidget *parent)
 
     m_pantilt_control.setGeometry(TC_PANTILTCONTROL_GEOMETRY);
 
-    connect(&m_button_mode_percent, &SelectButton::clicked, this, [&](){
+    connect(&m_button_mode_percent, &SelectButton::toggled, this, [&](bool checked){
+        if (!checked)
+            return;
         setMode(TRACK_MODE_PERCENT);
+        emit trackPointsChanged();
     });
-    connect(&m_button_mode_255, &SelectButton::clicked, this, [&](){
+    connect(&m_button_mode_255, &SelectButton::toggled, this, [&](bool checked){
+        if (!checked)
+            return;
         setMode(TRACK_MODE_255);
+        emit trackPointsChanged();
     });
     // connect(&m_button_mode_angle, &SelectButton::clicked, this, [&](){
         // setMode(TRACK_MODE_ANGLE);
     // });
-    connect(&m_button_value_mode_relative, &SelectButton::clicked, this, [&](){
+    connect(&m_button_value_mode_relative, &SelectButton::toggled, this, [&](bool checked){
+        if (!checked)
+            return;
         setValueMode(TRACK_MODE_RELATIVE);
+        m_pantilt_control.setValueMode(valueMode());
     });
-    connect(&m_button_value_mode_absolute, &SelectButton::clicked, this, [&](){
+    connect(&m_button_value_mode_absolute, &SelectButton::toggled, this, [&](bool checked){
+        if (!checked)
+            return;
         setValueMode(TRACK_MODE_ABSOLUTE);
         auto trackPoints = m_pantilt_control.trackPoints();
         for (auto &p : trackPoints) {
             p.pan.current = 0;
             p.tilt.current = 0;
         }
-        m_pantilt_control.SetTrackPoints(valueMode(), trackPoints);
+        m_pantilt_control.setValueMode(valueMode());
+        m_pantilt_control.SetTrackPoints(trackPoints);
+        emit trackPointsChanged();
     });
     connect(&m_pantilt_control, &PantiltControl::trackPointsUpdated, this, [&](){
-        // m_trackPoints = mapToValue(m_pantilt_control.trackPoints());
+        emit trackPointsChanged();
     });
     connect(this, &TrackControl::modeChanged, this, &TrackControl::onModeChanged);
     connect(this, &TrackControl::valueModeChanged, this, &TrackControl::onValueModeChanged);
@@ -95,7 +108,8 @@ void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
     for (int i = 0; i < qBound(int(param->count), 0, 8); ++i) {
         list.push_back(param->data[i]);
     }
-    m_pantilt_control.SetTrackPoints(valueMode(), mapToScreen(IntParam2FloatParam(list)));
+    m_pantilt_control.setValueMode(valueMode());
+    m_pantilt_control.SetTrackPoints(mapToScreen(IntParam2FloatParam(list)));
 
     onModeChanged();
     onValueModeChanged();

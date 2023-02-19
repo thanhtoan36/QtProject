@@ -78,10 +78,17 @@ PantiltControl::PantiltControl(QWidget *parent)
     m_label_pan.setObjectName("graph_axis_label");
 }
 
-void PantiltControl::SetTrackPoints(TrackValueMode value_mode, const QVector<PantiltControl::TrackPointFloatParamGroup> &points)
+void PantiltControl::setValueMode(TrackValueMode value_mode)
 {
+    if (m_value_mode == value_mode)
+    {
+        return;
+    }
     m_value_mode = value_mode;
+}
 
+void PantiltControl::SetTrackPoints(const QVector<PantiltControl::TrackPointFloatParamGroup> &points)
+{
     m_track_points.clear();
     foreach (const auto &point, points) {
         TrackPointData data;
@@ -156,6 +163,7 @@ void PantiltControl::mousePressEvent(QMouseEvent *event)
 void PantiltControl::mouseReleaseEvent(QMouseEvent *event)
 {
     m_pressed = false;
+    emit trackPointsUpdated();
 }
 
 void PantiltControl::mouseMoveEvent(QMouseEvent *event)
@@ -171,8 +179,6 @@ void PantiltControl::mouseMoveEvent(QMouseEvent *event)
             const auto new_coordinate = p.widget->Coordinate() + diff;
             MovePointWithConstraints(p, ConvertCoordinateToValue(new_coordinate));
         }
-
-        emit trackPointsUpdated();
 
         m_last_pos = event->pos();
     }

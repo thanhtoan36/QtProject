@@ -51,33 +51,22 @@ private slots:
     void on_EncoderControl_Fake_Open_clicked();
     void on_InputNumControl_Fake_Open_clicked();
     void on_GroupPanelControl_Fake_Open_clicked();
-
     void on_BtnClear_clicked();
     void on_LibraryControl_Fake_Open_clicked();
+    void on_InputNumControl_Fake_Set_clicked();
+    void on_ColorPickerControl_Fake_Set_clicked();
+    void on_ColorFilterControl_Fake_Set_clicked();
+    void on_EncoderControl_Fake_Set_clicked();
+    void on_TrackControl_Fake_Set_clicked();
+    void on_PlaybackControl_Fake_Open_clicked();
+    void on_PlaybackControl_Fake_Set_clicked();
+    void on_LibraryControl_Fake_Set_clicked();
+    void on_GroupPanelControl_Fake_Set_clicked();
+    void on_PaletteControl_Fake_Set_clicked();
+    void on_PaletteControl_Fake_Open_clicked();
 
     void CPC_OnColorChanged();
-
-    void on_InputNumControl_Fake_Set_clicked();
-
-    void on_ColorPickerControl_Fake_Set_clicked();
-
-    void on_ColorFilterControl_Fake_Set_clicked();
-
-    void on_EncoderControl_Fake_Set_clicked();
-
-    void on_TrackControl_Fake_Set_clicked();
-
-    void on_PlaybackControl_Fake_Open_clicked();
-
-    void on_PlaybackControl_Fake_Set_clicked();
-
-    void on_LibraryControl_Fake_Set_clicked();
-
-    void on_GroupPanelControl_Fake_Set_clicked();
-
-    void on_PaletteControl_Fake_Set_clicked();
-
-    void on_PaletteControl_Fake_Open_clicked();
+    void TC_OnTrackPointsChanged();
 
 private:
     Ui::MainWindow *ui;
