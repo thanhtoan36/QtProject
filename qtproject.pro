@@ -16,7 +16,6 @@ SOURCES += \
     include/testDataParser.cpp \
     src/baseComponent/dynamicStyleSheet.cpp \
     src/baseComponent/gridBackground.cpp \
-    src/baseComponent/selectColorButton.cpp \
     src/colorFilterControl/colorFilterControlHorizon.cpp \
     src/encoderControl/customEncoder.cpp \
     src/encoderControl/encoderControlHorizon.cpp \
@@ -64,7 +63,6 @@ HEADERS += \
     include/baseComponent/panelWindow.h \
     include/baseComponent/customPushButton.h \
     include/baseComponent/selectButton.h \
-    include/baseComponent/selectColorButton.h \
     include/baseComponent/titleSelectButton.h \
     include/baseComponent/toggleButton.h \
     include/colorFilterControl/colorFilterControl.hpp \

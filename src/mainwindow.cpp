@@ -238,7 +238,7 @@ void MainWindow::on_ColorFilterControl_Fake_Set_clicked()
 {
     COLOR_FILTER_DISP_PARAM param = CFC_ParseInput(ui->ColorFilterControl_RawInput->toPlainText());
 
-    m_color_filter_control_horizon->SetDispParamDataHorizon(&param);
+    m_color_filter_control_horizon->setDispParamData(&param);
     m_color_filter_control->setDispParamData(&param);
 }
 

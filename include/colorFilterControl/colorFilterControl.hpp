@@ -2,7 +2,6 @@
 #define COLORFILTERCONTROL_H
 
 #include "../baseComponent/panelControlBase.h"
-#include "baseComponent/selectColorButton.h"
 #include "baseComponent/selectButton.h"
 #include "baseComponent/customPushButton.h"
 #include "baseComponent/gridBackground.h"
@@ -34,9 +33,6 @@ class ColorFilterControl : public PanelControlBase
     Q_PROPERTY(int currentCustomTabPage READ currentCustomTabPage WRITE setCurrentCustomTabPage NOTIFY currentCustomTabPageChanged)
     Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
     Q_PROPERTY(ColorFilterDisplayMode mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(ColorFilterButton currentTBTabButtonCheck READ currentTBTabButtonCheck WRITE setCurrentTBTabButtonCheck NOTIFY currentTBTabButtonCheckChanged)
-    Q_PROPERTY(ColorFilterButton currentCustomTabButtonCheck READ currentCustomTabButtonCheck WRITE setCurrentCustomTabButtonCheck NOTIFY currentCustomTabButtonCheckChanged)
-    Q_PROPERTY(ColorFilterButton currentHistoryTabButtonCheck READ currentHistoryTabButtonCheck WRITE setCurrentHistoryTabButtonCheck NOTIFY currentHistoryTabButtonCheckChanged)
 public:
 
     explicit ColorFilterControl(QWidget* parent = nullptr);
@@ -62,18 +58,9 @@ public:
     int maxCustomTabPages() const;
     int maxHistoryPages() const;
 
-    void onTBTabButtonChecked(const int index, QObject* sender);
-    void onCustomTabButtonChecked(const int index, QObject* sender);
-    void onHistoryButtonChecked(const int index, QObject* sender);
-
-    const ColorFilterButton currentTBTabButtonCheck() const;
-    void setCurrentTBTabButtonCheck(const ColorFilterButton& newCurrentTBTabButtonCheck);
-
-    const ColorFilterButton currentCustomTabButtonCheck() const;
-    void setCurrentCustomTabButtonCheck(const ColorFilterButton& newCurrentCustomTabButtonCheck);
-
-    const ColorFilterButton currentHistoryTabButtonCheck() const;
-    void setCurrentHistoryTabButtonCheck(const ColorFilterButton& newCurrentHistoryTabButtonCheck);
+    void onTBTabButtonClicked();
+    void onCustomTabButtonClicked();
+    void onHistoryButtonClicked();
 
     int currentHeaderButtonsPage() const;
     void setCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage);
@@ -89,7 +76,7 @@ signals:
     void currentHeaderButtonsPageChanged();
 
 protected:
-    virtual void addButtonToHistory(QSharedPointer<SelectColorButton>& button);
+    virtual void addButtonToHistory(QSharedPointer<SelectButton> button);
     void onModeChanged();
     void updateTBTabPage();
     void updateCustomTabPage();
@@ -130,9 +117,9 @@ protected:
     QVector<QWidget*> m_children_custom_tab;
     QVector<QWidget*> m_children_history;
 
-    QVector<QSharedPointer<SelectColorButton>> m_tb_tab_buttons;
-    QVector<QSharedPointer<SelectColorButton>> m_custom_tab_buttons;
-    QVector<QSharedPointer<SelectColorButton>> m_history_buttons;
+    QVector<QSharedPointer<SelectButton>> m_tb_tab_buttons;
+    QVector<QSharedPointer<SelectButton>> m_custom_tab_buttons;
+    QVector<QSharedPointer<SelectButton>> m_history_buttons;
 
     uint32_t m_current_scroll_step = 0;
 
@@ -142,10 +129,6 @@ protected:
 
     ColorFilterDisplayMode m_mode;
     ColorFilterDisplayMode m_previous_tab;
-
-    ColorFilterButton m_currentTBTabButtonCheck;
-    ColorFilterButton m_currentCustomTabButtonCheck;
-    ColorFilterButton m_currentHistoryTabButtonCheck;
 private:
     int m_currentHeaderButtonsPage;
 };

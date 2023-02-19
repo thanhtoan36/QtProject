@@ -123,8 +123,8 @@ void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
         onEncoderValueChanged(i, param->param[i].level * EC_FLOAT_TO_INT_SCALE);
     }
 
-    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(1, m_encoders_per_page));
-    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, QSize(1, m_encoders_per_page));
+    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
+    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, QSize(m_encoders_per_page, 1));
 
     setCurrentEncoderPage(0);
     setupEncoderPages();

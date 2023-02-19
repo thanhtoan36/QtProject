@@ -26,7 +26,7 @@ public:
     static int calculateNumberOfVisibleItems(int itemsCount, int itemsPerPage, int pageIndex);
 
     template <class T>
-    static void placeChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize childSize, QPoint topLeft, QSize gridSize, VerticalDirections vdirection = TopToBottom) {
+    static void placeChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize childSize, QPoint firstCellTopLeft, QSize gridSize, VerticalDirections vdirection = TopToBottom) {
         for (int i  = 0; i < children.length(); ++i) {
             const int visualIndex = i % (gridSize.width() * gridSize.height());
             const int row = visualIndex / gridSize.width();
@@ -34,9 +34,9 @@ public:
 
             auto &child = children[i];
             if (vdirection == TopToBottom) {
-                child->move(topLeft + QPoint(col * childSize.width(), row * childSize.height()));
+                child->move(firstCellTopLeft + QPoint(col * childSize.width(), row * childSize.height()));
             } else  {
-                child->move(topLeft + QPoint(col * childSize.width(), -row * childSize.height()));
+                child->move(firstCellTopLeft + QPoint(col * childSize.width(), -row * childSize.height()));
             }
         }
     }
