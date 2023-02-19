@@ -131,8 +131,11 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button_lib->setText(param->group.library_param[i].library_no);
         button_lib->setTitle(param->group.library_param[i].title);
         button_lib->setChecked(param->group.library_param[i].select);
-        connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonLibraryClicked(i,sender());
+        connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](bool check){
+            if (check)
+            {
+                onButtonLibraryClicked(i,sender());
+            }
         });
         m_all_lib_buttons.push_back(button_lib);
         //not contain all button

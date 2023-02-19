@@ -141,8 +141,11 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         button->setTitle(param->group.group_param[i].title);
         button->setText(param->group.group_param[i].group_no);
         button->setChecked(param->group.group_param[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonGroupCheck(i,sender());
+        connect(button.get(),&QAbstractButton::clicked, this, [&,i](bool check){
+            if (check)
+            {
+                onButtonGroupCheck(i,sender());
+            }
         });
         m_group_buttons.push_back(button);
     }
