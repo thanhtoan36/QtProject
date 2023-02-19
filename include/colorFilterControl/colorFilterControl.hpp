@@ -128,7 +128,7 @@ protected:
     int m_currentHistoryPage;
 
     ColorFilterDisplayMode m_mode;
-    ColorFilterDisplayMode m_previous_tab = COLOR_FILTER_MODE_TB;
+    ColorFilterDisplayMode m_previous_tab;
 private:
     int m_currentHeaderButtonsPage;
 };

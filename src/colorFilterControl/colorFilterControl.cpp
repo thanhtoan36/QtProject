@@ -30,7 +30,9 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     m_register_button(this),
     m_delete_button(this),
     m_children_tb_tab{},
-    m_children_custom_tab{&m_setting_label, &m_title_button, &m_empty_button, &m_register_button, &m_delete_button}
+    m_children_custom_tab{&m_setting_label, &m_title_button, &m_empty_button, &m_register_button, &m_delete_button},
+    m_mode(COLOR_FILTER_MODE_TB),
+    m_previous_tab(COLOR_FILTER_MODE_TB)
 {
     m_header_buttons_per_page = 2;
 
