@@ -14,7 +14,7 @@ class GroupControl : public PanelControlBase
 
 public:
     explicit GroupControl(QWidget* parent = nullptr);
-    void SetDispParamData(GROUP_DISP_PARAM *param);
+    virtual void SetDispParamData(GROUP_DISP_PARAM *param);
 
     int currentGroupPage() const;
     void setCurrentGroupPage(int newCurrentGroupPage);

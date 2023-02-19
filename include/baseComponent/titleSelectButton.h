@@ -18,6 +18,9 @@ public:
     QString title() const;
     void setTitle(const QString &newTitle);
 
+    uint32_t currentMode() const;
+    void setCurrentMode(uint32_t newCurrent_mode);
+
 signals:
     void titleVisibleChanged();
     void titleChanged();
@@ -30,6 +33,7 @@ private:
     QString m_title;
 
     QLabel m_title_label;
+    uint32_t m_current_mode = 0;
 };
 
 #endif // TITLESELECTBUTTON_H

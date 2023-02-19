@@ -13,10 +13,7 @@ LibraryControlHorizon::LibraryControlHorizon(QWidget *parent) : LibraryControl(p
 
     setLibStartPoint(LC_HORIZON_LIB_BUTTON_TOP_LEFT);
     setModeStartPoint(LC_HORIZON_MODE_TOP_LEFT);
-}
 
-void LibraryControlHorizon::SetupUiComponents()
-{
     m_grid.setGridSize(QSize(11, 5));
     m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 34);

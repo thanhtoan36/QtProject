@@ -53,3 +53,13 @@ void TitleSelectButton::resizeEvent(QResizeEvent *event)
     m_title_label.setGeometry(TITLE_PADDING, height() - m_title_label.height() - TITLE_PADDING,
                               width() - 2 * TITLE_PADDING, m_title_label.height());
 }
+
+uint32_t TitleSelectButton::currentMode() const
+{
+    return m_current_mode;
+}
+
+void TitleSelectButton::setCurrentMode(uint32_t newCurrent_mode)
+{
+    m_current_mode = newCurrent_mode;
+}

@@ -25,6 +25,55 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     setModeRow(2);
     setLibStartPoint(LC_LIB_BUTTON_TOP_LEFT);
     setModeStartPoint(LC_MODE_TOP_LEFT);
+
+    m_grid.setGridSize(QSize(4, 6));
+    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.move(0, 32);
+
+    m_title_label.setGeometry(LC_TITLE_GEOMETRY);
+    m_title_label.setObjectName("title_label");
+    m_title_label.setText("ライブラリ");
+
+    m_history_button.setGeometry(LC_HISTORY_GEOMETRY);
+    m_history_button.setText("最近使った\nもの");
+
+    m_up_button.setGeometry(LC_UP_GEOMETRY);
+    m_up_button.setText("▲");
+
+    m_down_button.setGeometry(LC_DOWN_GEOMETRY);
+    m_down_button.setText("▼");
+
+    m_return_button.setGeometry(LC_RETURN_GEOMETRY);
+    m_return_button.setText("戻す");
+
+    m_setting_label.setGeometry(LC_SETTING_LABEL_GEOMETRY);
+    m_setting_label.setText("設定");
+
+    m_title_button.setGeometry(LC_TITLE_BUTTON_GEOMETRY);
+    m_title_button.setText("タイトル");
+
+
+    m_register_button.setGeometry(LC_REGISTER_GEOMETRY);
+    m_register_button.setText("登録");
+
+    m_delete_button.setGeometry(LC_DELETE_GEOMETRY);
+    m_delete_button.setText("削除");
+
+    m_empty_button.setGeometry(LC_EMPTY2_GEOMETRY);
+    m_empty_button.setText("");
+    m_empty_button.setEnabled(false);
+
+    connect(&m_up_button, &QPushButton::clicked, this, [&](){
+        scrollUpLibraryPages();
+    });
+    connect(&m_down_button, &QPushButton::clicked, this, [&](){
+        scrollDownLibraryPages();
+    });
+
+    connect(&m_history_button, &QPushButton::clicked, this, &LibraryControl::onButtonHistoryClicked);
+    connect(&m_title_button, &QPushButton::clicked, this, &LibraryControl::onButtonTitleClicked);
+    connect(&m_register_button, &QPushButton::clicked, this, &LibraryControl::onButtonRegisterClicked);
+    connect(&m_delete_button, &QPushButton::clicked, this, &LibraryControl::onButtonDeleteClicked);
 }
 
 void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
@@ -81,8 +130,12 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button_lib->setFixedSize(LC_BUTTON_SIZE);
         button_lib->setText(param->group.library_param[i].library_no);
         button_lib->setTitle(param->group.library_param[i].title);
-        connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonLibraryClicked(i,sender());
+        button_lib->setChecked(param->group.library_param[i].select);
+        connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](bool check){
+            if (check)
+            {
+                onButtonLibraryClicked(i,sender());
+            }
         });
         m_all_lib_buttons.push_back(button_lib);
         //not contain all button
@@ -90,6 +143,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         {
             if (m_mode_buttons[j]->text() == QString(param->group.library_param[i].mode))
             {
+                button_lib->setCurrentMode(j-1);
                 m_library_buttons_list[j-1].push_back(button_lib);
                 break;
             }
@@ -151,6 +205,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button_lib->setText(param->history.library_param[i].library_no);
         button_lib->setTitle(param->history.library_param[i].title);
         button_lib->setVisible(false);
+        button_lib->setChecked(param->history.library_param[i].select);
         connect(button_lib.get(),&QAbstractButton::clicked, this, [&,i](){
             onButtonHistoryLibraryClicked(i,sender());
         });
@@ -166,64 +221,14 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         }
     }
 
+    m_history_button.setChecked(false);
     placeChildrenIntoPanel(m_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), QSize(column(), modeRow()));
     updateChildrenVisibility(m_mode_buttons,0,modePageSize());
 
     placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), QSize(column(), modeRow()));
     onButtonHistoryClicked(m_history_button.isChecked());
-}
-
-void LibraryControl::SetupUiComponents()
-{
-    m_grid.setGridSize(QSize(4, 5));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
-    m_grid.move(0, 32);
-
-    m_title_label.setGeometry(LC_TITLE_GEOMETRY);
-    m_title_label.setObjectName("title_label");
-    m_title_label.setText("ライブラリ");
-
-    m_history_button.setGeometry(LC_HISTORY_GEOMETRY);
-    m_history_button.setText("最近使った\nもの");
-
-    m_up_button.setGeometry(LC_UP_GEOMETRY);
-    m_up_button.setText("▲");
-
-    m_down_button.setGeometry(LC_DOWN_GEOMETRY);
-    m_down_button.setText("▼");
-
-    m_return_button.setGeometry(LC_RETURN_GEOMETRY);
-    m_return_button.setText("戻す");
-
-    m_setting_label.setGeometry(LC_SETTING_LABEL_GEOMETRY);
-    m_setting_label.setText("設定");
-
-    m_title_button.setGeometry(LC_TITLE_BUTTON_GEOMETRY);
-    m_title_button.setText("タイトル");
-
-
-    m_register_button.setGeometry(LC_REGISTER_GEOMETRY);
-    m_register_button.setText("登録");
-
-    m_delete_button.setGeometry(LC_DELETE_GEOMETRY);
-    m_delete_button.setText("削除");
-
-    m_empty_button.setGeometry(LC_EMPTY2_GEOMETRY);
-    m_empty_button.setText("");
-    m_empty_button.setEnabled(false);
-}
-
-void LibraryControl::SetupUiEvents()
-{
-    connect(&m_up_button, &QPushButton::clicked, this, [&](){
-        scrollUpLibraryPages();
-    });
-    connect(&m_down_button, &QPushButton::clicked, this, [&](){
-        scrollDownLibraryPages();
-    });
-
-    connect(&m_history_button, &QPushButton::clicked, this, &LibraryControl::onButtonHistoryClicked);
-
+    m_up_button.setVisible(calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()) >1);
+    m_down_button.setVisible(calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()) >1);
 }
 
 void LibraryControl::scrollUpLibraryPages()
@@ -309,6 +314,29 @@ void LibraryControl::scrollDownLibraryPages()
     }
 }
 
+void LibraryControl::addButtonToHistory(QSharedPointer<TitleSelectButton> &button)
+{
+    //add to histoy ALL mode and current mode
+    auto new_button = MakeSharedQObject<TitleSelectButton>(this);
+    new_button->setText(button->text());
+    new_button->setCheckMarkVisible(true);
+    new_button->setFixedSize(LC_BUTTON1_GEOMETRY.size());
+    new_button->setVisible(false);
+    new_button->setBackgroundColor(button->backgroundColor());
+    new_button->setSelectedBackgroundColor(button->backgroundColor());
+    new_button->setTitle(button->title());
+    int index = m_all_historty_buttons.size();
+    connect(new_button.get(),&QAbstractButton::clicked, this, [&,index](){
+        onButtonHistoryLibraryClicked(index,sender());
+    });
+    int currentMode = button->currentMode();
+    if (currentMode <  m_history_buttons_list.size())
+    {
+        m_history_buttons_list[currentMode].push_back(new_button);
+    }
+    m_all_historty_buttons.push_back(new_button);
+}
+
 void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
 {
     //m_mode_buttons more than m_library_buttons_list 1
@@ -329,6 +357,8 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
     {
         placeChildrenIntoPanel(m_all_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
         updateChildrenVisibility(m_all_lib_buttons,m_current_page_indexs[m_current_mode],libPageSize());
+        m_up_button.setVisible(calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()) >1);
+        m_down_button.setVisible(calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()) >1);
         m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
         m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
         return;
@@ -340,7 +370,9 @@ void LibraryControl::onButtonModeClicked(const int index, QObject *sender)
         {
             placeChildrenIntoPanel(m_library_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
             updateChildrenVisibility(m_library_buttons_list[j],m_current_page_indexs[m_current_mode],libPageSize());
-            m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);;
+            m_up_button.setVisible(calulateNumberOfPages(m_library_buttons_list[j].size(), libPageSize()) >1);
+            m_down_button.setVisible(calulateNumberOfPages(m_library_buttons_list[j].size(), libPageSize()) >1);
+            m_up_button.setEnabled(m_current_page_indexs[m_current_mode] > 0);
             m_down_button.setEnabled(m_current_page_indexs[m_current_mode] + 1  < calulateNumberOfPages(m_library_buttons_list[j].size(), libPageSize()));
         }
         else
@@ -361,6 +393,10 @@ void LibraryControl::onButtonLibraryClicked(const int index, QObject *sender)
         if (i != index)
         {
             m_all_lib_buttons[i]->setChecked(false);
+        }
+        else
+        {
+            addButtonToHistory(m_all_lib_buttons[i]);
         }
     }
 }
@@ -396,8 +432,10 @@ void LibraryControl::onButtonModeHistoryClicked(const int index, QObject *sender
     {
         placeChildrenIntoPanel(m_all_historty_buttons, LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
         updateChildrenVisibility(m_all_historty_buttons,m_current_page_indexs[m_current_history_mode],libPageSize());
+        m_up_button.setVisible(calulateNumberOfPages(m_all_historty_buttons.size(), libPageSize()) >1);
+        m_down_button.setVisible(calulateNumberOfPages(m_all_historty_buttons.size(), libPageSize()) >1);
         m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
-        m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_lib_buttons.size(), libPageSize()));
+        m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_all_historty_buttons.size(), libPageSize()));
         return;
     }
 
@@ -407,7 +445,9 @@ void LibraryControl::onButtonModeHistoryClicked(const int index, QObject *sender
         {
             placeChildrenIntoPanel(m_history_buttons_list[j], LC_BUTTON_SIZE, libStartPoint(), QSize(column(), libRow()));
             updateChildrenVisibility(m_history_buttons_list[j],m_current_history_indexs[m_current_history_mode],libPageSize());
-            m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);;
+            m_up_button.setVisible(calulateNumberOfPages(m_history_buttons_list[j].size(), libPageSize()) >1);
+            m_down_button.setVisible(calulateNumberOfPages(m_history_buttons_list[j].size(), libPageSize()) >1);
+            m_up_button.setEnabled(m_current_history_indexs[m_current_history_mode] > 0);
             m_down_button.setEnabled(m_current_history_indexs[m_current_history_mode] + 1  < calulateNumberOfPages(m_history_buttons_list[j].size(), libPageSize()));
         }
         else
@@ -451,6 +491,33 @@ void LibraryControl::onButtonHistoryClicked(const bool check)
         updateChildrenVisibility(m_mode_buttons,0,modePageSize());
         onButtonModeClicked(m_current_mode, nullptr);
         m_title_label.setText("ライブラリ");
+    }
+}
+
+void LibraryControl::onButtonTitleClicked(const bool check)
+{
+    if (check)
+    {
+        m_register_button.setChecked(false);
+        m_delete_button.setChecked(false);
+    }
+}
+
+void LibraryControl::onButtonRegisterClicked(const bool check)
+{
+    if (check)
+    {
+        m_title_button.setChecked(false);
+        m_delete_button.setChecked(false);
+    }
+}
+
+void LibraryControl::onButtonDeleteClicked(const bool check)
+{
+    if (check)
+    {
+        m_register_button.setChecked(false);
+        m_title_button.setChecked(false);
     }
 }
 
