@@ -350,7 +350,7 @@ int ColorPickerControl::currentHeaderButtonsPage() const
 
 void ColorPickerControl::setCurrentHeaderButtonsPage(int newCurentHeaderButtonsPage)
 {
-    newCurentHeaderButtonsPage = bounded(newCurentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page));
+    newCurentHeaderButtonsPage = bounded(newCurentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
     if (m_currentHeaderButtonsPage == newCurentHeaderButtonsPage)
         return;
     m_currentHeaderButtonsPage = newCurentHeaderButtonsPage;

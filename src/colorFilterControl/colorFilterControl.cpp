@@ -338,11 +338,11 @@ void ColorFilterControl::onModeChanged()
 
     for(auto& btn : m_tb_tab_buttons)
     {
-        btn->setVisible(COLOR_FILTER_MODE_TB);
+        btn->setVisible(mode() == COLOR_FILTER_MODE_TB);
     }
     for(auto& btn : m_children_tb_tab)
     {
-        btn->setVisible(COLOR_FILTER_MODE_TB);
+        btn->setVisible(mode() == COLOR_FILTER_MODE_TB);
     }
 
     if (mode() == COLOR_FILTER_MODE_TB)
@@ -527,7 +527,7 @@ int ColorFilterControl::currentHeaderButtonsPage() const
 
 void ColorFilterControl::setCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage)
 {
-    newCurrentHeaderButtonsPage = bounded(newCurrentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page));
+    newCurrentHeaderButtonsPage = bounded(newCurrentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
     if (m_currentHeaderButtonsPage == newCurrentHeaderButtonsPage)
         return;
     m_currentHeaderButtonsPage = newCurrentHeaderButtonsPage;

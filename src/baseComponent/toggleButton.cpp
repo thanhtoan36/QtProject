@@ -7,7 +7,7 @@ ToggleButton::ToggleButton(QWidget *parent) : CustomToggleButtonBase(parent), m_
 {
     m_check_label.setText("✓");
     m_check_label.setStyleSheet("QLabel { background-color: transparent; color : white; }");
-    m_check_label.setGeometry(2,2,10,10);
+    m_check_label.setGeometry(3,3,12,12);
 
     connect(this, &QAbstractButton::toggled, this, [&](bool) {
        m_check_label.setVisible(isChecked() && checkMarkVisible());

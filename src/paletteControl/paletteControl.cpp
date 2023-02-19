@@ -9,95 +9,22 @@
 PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
     m_grid(this),
     m_title_label(this),
-    m_prev_button(this),
-    m_next_button(this),
-    m_up_button(this),
-    m_down_button(this),
+    m_button_previous_group_page(this),
+    m_button_next_group_page(this),
+    m_button_previous_palette_page(this),
+    m_button_next_palette_page(this),
     m_return_button(this)
 {
-    m_return_button.setTextColor(Qt::yellow);
     setFixedSize(PC_SCREEN_SIZE);
-    setButtonColumn(4);
-    setMenuColumn(4);
-    setMenuRow(1);
-    setButtonRow(3);
+
+    m_group_button_grid_size = QSize(4, 1);
+    m_palette_button_grid_size = QSize(4, 3);
+
+    m_return_button.setTextColor(Qt::yellow);
+
     setButtonStartPoint(PC_BUTTON_TOP_LEFT);
     setMenuStartPoint(PC_MENU_TOP_LEFT);
-}
 
-void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
-{
-    Q_ASSERT(param);
-    m_current_menu = 0;
-    m_current_menu_page = 0;
-    m_menu_buttons.clear();
-    m_current_palette_page.clear();
-    m_palette_buttons_list.clear();
-    for (int i = 0; i < param->count; i++)
-    {
-        auto menu_button = MakeSharedQObject<SelectButton>(this);
-        menu_button->setFixedSize(PC_BUTTON_SIZE);
-        if (param->data[i].image.isNull())
-        {
-            menu_button->setText(param->data[i].name);
-        }
-        else
-        {
-                QPixmap pixels = QPixmap::fromImage(param->data[i].image);
-                QIcon icon(pixels);
-                menu_button->setIconSize(PC_BUTTON_SIZE - QSize(6, 6));
-                menu_button->setIcon(icon);
-        }
-
-        connect(menu_button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonMenuClicked(i,sender());
-        });
-        if (param->data[i].select)
-        {
-            m_current_menu = i;
-        }
-        m_menu_buttons.push_back(menu_button);
-        m_current_palette_page.push_back(0);
-        QVector<QSharedPointer<SelectButton>> palette_button_list;
-        for(int j = 0; j < param->data[i].count;j++)
-        {
-            auto palette_button = MakeSharedQObject<SelectButton>(this);
-            palette_button->setFixedSize(PC_BUTTON_SIZE);
-            if (param->data[i].palette[j].image.isNull())
-            {
-                 palette_button->setText(param->data[i].palette[j].name);
-            }
-            else
-            {
-                 QPixmap pixels = QPixmap::fromImage(param->data[i].palette[j].image);
-                 QIcon icon(pixels);
-                 palette_button->setIconSize(PC_BUTTON_SIZE - QSize(6, 6));
-                 palette_button->setIcon(icon);
-            }
-
-            palette_button->setChecked(param->data[i].palette[j].select);
-            palette_button->setVisible(false);
-            connect(palette_button.get(),&QAbstractButton::clicked, this, [&,j](){
-                onPaletteButtonClicked(j,sender());
-            });
-            palette_button_list.push_back(palette_button);
-        }
-        m_palette_buttons_list.push_back(palette_button_list);
-        placeChildrenIntoPanel(palette_button_list, PC_BUTTON_SIZE, buttonStartPoint(), QSize(buttonColumn(), buttonRow()));
-    }
-    m_menu_buttons[m_current_menu]->setChecked(true);
-
-    onButtonMenuClicked(m_current_menu,nullptr);
-
-    placeChildrenIntoPanel(m_menu_buttons, PC_BUTTON_SIZE, menuStartPoint(), QSize(menuColumn(), menuRow()));
-    updateChildrenVisibility(m_menu_buttons, m_current_menu_page, menuPageSize());
-    m_prev_button.setEnabled(m_current_menu_page > 0);;
-    m_next_button.setEnabled(m_current_menu_page + 1  < calulateNumberOfPages(m_menu_buttons.size(), menuPageSize()));
-
-}
-
-void PaletteControl::SetupUiComponents()
-{
     m_grid.setGridSize(QSize(4, 6));
     m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 32);
@@ -106,146 +33,161 @@ void PaletteControl::SetupUiComponents()
     m_title_label.setObjectName("title_label");
     m_title_label.setText("パレット");
 
-    m_up_button.setGeometry(PC_UP_GEOMETRY);
-    m_up_button.setText("▲");
+    m_button_previous_palette_page.setGeometry(PC_UP_GEOMETRY);
+    m_button_previous_palette_page.setText("▲");
+    m_button_previous_palette_page.setVisible(false);
 
-    m_down_button.setGeometry(PC_DOWN_GEOMETRY);
-    m_down_button.setText("▼");
+    m_button_next_palette_page.setGeometry(PC_DOWN_GEOMETRY);
+    m_button_next_palette_page.setText("▼");
+    m_button_next_palette_page.setVisible(false);
 
-    m_next_button.setGeometry(PC_NEXT_GEOMETRY);
-    m_next_button.setText("▶");
+    m_button_next_group_page.setGeometry(PC_NEXT_GEOMETRY);
+    m_button_next_group_page.setText("▶");
+    m_button_next_group_page.setVisible(false);
 
-    m_prev_button.setGeometry(PC_PREV_GEOMETRY);
-    m_prev_button.setText("◀");
+    m_button_previous_group_page.setGeometry(PC_PREV_GEOMETRY);
+    m_button_previous_group_page.setText("◀");
+    m_button_previous_group_page.setVisible(false);
 
     m_return_button.setGeometry(PC_RETURN_GEOMETRY);
-
     m_return_button.setText("戻す");
 
+    connect(&m_button_previous_palette_page, &QPushButton::clicked, this, [&](){
+        setCurrentPalettePage(currentPalettePage() - 1);
+    });
+    connect(&m_button_next_palette_page, &QPushButton::clicked, this, [&](){
+        setCurrentPalettePage(currentPalettePage() + 1);
+    });
+    connect(&m_button_previous_group_page, &QPushButton::clicked, this, [&](){
+        setCurrentGroupPage(currentGroupPage() - 1);
+    });
+    connect(&m_button_next_group_page, &QPushButton::clicked, this, [&](){
+        setCurrentGroupPage(currentGroupPage() + 1);
+    });
+
+    connect(this, &PaletteControl::currentGroupPageChanged, this, &PaletteControl::updateGroupPages);
+    connect(this, &PaletteControl::currentPalettePageChanged, this, &PaletteControl::updatePalettePages);
 }
 
-void PaletteControl::SetupUiEvents()
+void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
 {
-    connect(&m_up_button, &QPushButton::clicked, this, &PaletteControl::scrollUp);
-    connect(&m_down_button, &QPushButton::clicked, this, &PaletteControl::scrollDown);
+    Q_ASSERT(param);
+    m_group_buttons.clear();
+    m_palette_buttons.clear();
 
-    connect(&m_prev_button, &QPushButton::clicked, this, &PaletteControl::scrollPrev);
-    connect(&m_next_button, &QPushButton::clicked, this, &PaletteControl::scrollNext);
-}
-
-void PaletteControl::onButtonMenuClicked(const int index, QObject *sender)
-{
-    if (index >= m_menu_buttons.size())
+    for (int i = 0; i < param->count; i++)
     {
-        return;
-    }
+        auto menu_button = MakeSharedQObject<SelectButton>(this);
+        menu_button->setFixedSize(PC_BUTTON_SIZE);
+        menu_button->setChecked(param->data[i].select);
 
-    m_current_menu = index;
-
-    for (int i = 0; i< m_menu_buttons.size(); i++)
-    {
-        if (i != index)
+        if (param->data[i].image.isNull())
         {
-            m_menu_buttons[i]->setChecked(false);
-        }
-    }
-    for (int j = 0 ; j < m_palette_buttons_list.size(); j++)
-    {
-        if (j == index)
-        {
-            updateChildrenVisibility(m_palette_buttons_list[j],m_current_palette_page[m_current_menu],buttonPageSize());
-            m_up_button.setEnabled(m_current_palette_page[m_current_menu] > 0);
-            m_down_button.setEnabled(m_current_palette_page[m_current_menu] + 1  < calulateNumberOfPages(m_palette_buttons_list[j].size(), buttonPageSize()));
+            menu_button->setText(param->data[i].name);
         }
         else
         {
-            for (auto& btn : m_palette_buttons_list[j])
-            {
-                btn->setVisible(false);
-            }
+            QIcon icon(QPixmap::fromImage(param->data[i].image));
+            menu_button->setIconSize(PC_BUTTON_SIZE - QSize(6, 6));
+            menu_button->setIcon(icon);
         }
 
-    }
+        connect(menu_button.get(),&QAbstractButton::clicked, this, &PaletteControl::onGroupButtonClicked);
+        m_group_buttons.push_back(menu_button);
 
-}
-
-void PaletteControl::onPaletteButtonClicked(const int index, QObject *sender)
-{
-    for (int i = 0; i< m_palette_buttons_list[m_current_menu].size();i++)
-    {
-        if (i != index)
+        QVector<QSharedPointer<SelectButton>> palette_button_list;
+        for(int j = 0; j < param->data[i].count;j++)
         {
-            m_palette_buttons_list[m_current_menu][i]->setChecked(false);
+            auto palette_button = MakeSharedQObject<SelectButton>(this);
+            palette_button->setFixedSize(PC_BUTTON_SIZE);
+
+            if (param->data[i].palette[j].image.isNull())
+            {
+                 palette_button->setText(param->data[i].palette[j].name);
+            }
+            else
+            {
+                 QIcon icon(QPixmap::fromImage(param->data[i].palette[j].image));
+                 palette_button->setIconSize(PC_BUTTON_SIZE - QSize(6, 6));
+                 palette_button->setIcon(icon);
+            }
+
+            palette_button->setChecked(param->data[i].palette[j].select);
+            palette_button->setVisible(false);
+
+            connect(palette_button.get(),&QAbstractButton::clicked, this, &PaletteControl::onPaletteButtonClicked);
+            palette_button_list.push_back(palette_button);
+        }
+        m_palette_buttons.push_back(palette_button_list);
+    }
+
+    setCurrentGroupPage(0);
+    setCurrentPalettePage(0);
+    updateGroupPages();
+}
+
+void PaletteControl::onGroupButtonClicked()
+{
+    for (auto &button: m_group_buttons) {
+        button->setChecked(button == sender());
+    }
+
+    setCurrentPalettePage(0);
+    updateGroupPages();
+}
+
+void PaletteControl::onPaletteButtonClicked()
+{
+    updatePalettePages();
+    auto groupIndex = selectedGroupIndex();
+    if (groupIndex == -1)
+        return;
+
+    auto &group = m_palette_buttons.at(groupIndex);
+    for (auto &button : group) {
+        button->setChecked(button == sender());
+    }
+}
+
+void PaletteControl::updateGroupPages()
+{
+    updateChildrenVisibility(m_group_buttons, currentGroupPage(), groupButtonsPerPage());
+    placeChildrenIntoPanel(m_group_buttons, PC_BUTTON_SIZE, groupStartPoint(), m_group_button_grid_size);
+
+    m_button_previous_group_page.setVisible(maxGroupPages() > 1);
+    m_button_next_group_page.setVisible(maxGroupPages() > 1);
+    m_button_previous_group_page.setEnabled(currentGroupPage() > 0);
+    m_button_next_group_page.setEnabled(currentGroupPage() < maxGroupPages() - 1);
+
+    updatePalettePages();
+}
+
+void PaletteControl::updatePalettePages()
+{
+    m_button_next_palette_page.setVisible(false);
+    m_button_previous_palette_page.setVisible(false);
+
+    for (auto &group : m_palette_buttons) {
+        for (auto &palette: group) {
+            palette->setVisible(false);
         }
     }
-}
 
-void PaletteControl::scrollUp()
-{
-    if (m_current_menu >= m_palette_buttons_list.size())
-    {
+    auto groupIndex = selectedGroupIndex();
+    if (groupIndex == -1)
         return;
-    }
-    if(m_current_palette_page[m_current_menu] > 0)
-    {
-        m_current_palette_page[m_current_menu]-=1;
-        updateChildrenVisibility(m_palette_buttons_list[m_current_menu],m_current_palette_page[m_current_menu],buttonPageSize());
-        m_up_button.setEnabled(m_current_palette_page[m_current_menu] > 0);;
-        m_down_button.setEnabled(m_current_palette_page[m_current_menu] + 1  < calulateNumberOfPages(m_palette_buttons_list[m_current_menu].size(), buttonPageSize()));
-    }
 
+    m_button_previous_palette_page.setVisible(maxPalettePages() > 1);
+    m_button_next_palette_page.setVisible(maxPalettePages() > 1);
+    m_button_previous_palette_page.setEnabled(currentPalettePage() > 0);
+    m_button_next_palette_page.setEnabled(currentPalettePage() < maxPalettePages() - 1);
+
+    auto &group = m_palette_buttons.at(groupIndex);
+
+    updateChildrenVisibility(group, currentPalettePage(), paletteButtonsPerPage());
+    placeChildrenIntoPanel(group, PC_BUTTON_SIZE, buttonStartPoint(), m_palette_button_grid_size);
 }
-
-void PaletteControl::scrollDown()
-{
-    if (m_current_menu >= m_palette_buttons_list.size())
-    {
-        return;
-    }
-    m_current_palette_page[m_current_menu]+=1;
-    updateChildrenVisibility(m_palette_buttons_list[m_current_menu],m_current_palette_page[m_current_menu],buttonPageSize());
-    m_up_button.setEnabled(m_current_palette_page[m_current_menu] > 0);;
-    m_down_button.setEnabled(m_current_palette_page[m_current_menu] + 1  < calulateNumberOfPages(m_palette_buttons_list[m_current_menu].size(), buttonPageSize()));
-}
-
-void PaletteControl::scrollNext()
-{
-    if (m_current_menu_page >= m_menu_buttons.size())
-    {
-        return;
-    }
-    m_current_menu_page+=1;
-    updateChildrenVisibility(m_menu_buttons,m_current_menu_page,menuPageSize());
-    m_prev_button.setEnabled(m_current_menu_page > 0);;
-    m_next_button.setEnabled(m_current_menu_page + 1  < calulateNumberOfPages(m_menu_buttons.size(), menuPageSize()));
-}
-
-void PaletteControl::scrollPrev()
-{
-    if (m_current_menu_page >= m_menu_buttons.size())
-    {
-        return;
-    }
-     if(m_current_menu_page > 0)
-     {
-         m_current_menu_page-=1;
-         updateChildrenVisibility(m_menu_buttons,m_current_menu_page,menuPageSize());
-         m_prev_button.setEnabled(m_current_menu_page > 0);;
-         m_next_button.setEnabled(m_current_menu_page + 1  < calulateNumberOfPages(m_menu_buttons.size(), menuPageSize()));
-     }
-}
-
-uint16_t PaletteControl::menuColumn() const
-{
-    return m_menuColumn;
-}
-
-void PaletteControl::setMenuColumn(uint16_t newMenuColumn)
-{
-    m_menuColumn = newMenuColumn;
-}
-
-QPoint PaletteControl::menuStartPoint() const
+QPoint PaletteControl::groupStartPoint() const
 {
     return m_menuStartPoint;
 }
@@ -253,6 +195,41 @@ QPoint PaletteControl::menuStartPoint() const
 void PaletteControl::setMenuStartPoint(QPoint newMenuStartPoint)
 {
     m_menuStartPoint = newMenuStartPoint;
+}
+
+int PaletteControl::maxGroupPages() const
+{
+    return calulateNumberOfPages(m_group_buttons.size(), groupButtonsPerPage());
+}
+
+int PaletteControl::maxPalettePages() const
+{
+    int groupIndex = selectedGroupIndex();
+    if (groupIndex == -1)
+        return 0;
+    auto &group = m_palette_buttons.at(groupIndex);
+    return calulateNumberOfPages(group.size(), paletteButtonsPerPage());
+}
+
+int PaletteControl::groupButtonsPerPage() const
+{
+    return m_group_button_grid_size.width() * m_group_button_grid_size.height();
+}
+
+int PaletteControl::paletteButtonsPerPage() const
+{
+    return m_palette_button_grid_size.width() * m_palette_button_grid_size.height();
+}
+
+int PaletteControl::selectedGroupIndex() const
+{
+    const auto iter = std::find_if(m_group_buttons.cbegin(), m_group_buttons.cend(), [](const QSharedPointer<SelectButton> &b) {
+        return b->isChecked();
+    });
+    if (iter == m_group_buttons.cend()) {
+        return -1;
+    }
+    return std::distance(m_group_buttons.cbegin(), iter);
 }
 
 QPoint PaletteControl::buttonStartPoint() const
@@ -265,42 +242,30 @@ void PaletteControl::setButtonStartPoint(QPoint newButtonStartPoint)
     m_buttonStartPoint = newButtonStartPoint;
 }
 
-uint16_t PaletteControl::menuRow() const
+int PaletteControl::currentGroupPage() const
 {
-    return m_menuRow;
+    return m_currentGroupPage;
 }
 
-void PaletteControl::setMenuRow(uint16_t newMenuRow)
+void PaletteControl::setCurrentGroupPage(int newCurrentGroupPage)
 {
-    m_menuRow = newMenuRow;
+    newCurrentGroupPage = bounded(newCurrentGroupPage, 0, maxGroupPages() - 1);
+    if (m_currentGroupPage == newCurrentGroupPage)
+        return;
+    m_currentGroupPage = newCurrentGroupPage;
+    emit currentGroupPageChanged();
 }
 
-uint16_t PaletteControl::menuPageSize() const
+int PaletteControl::currentPalettePage() const
 {
-    return menuColumn()*menuRow();
+    return m_currentPalettePage;
 }
 
-uint16_t PaletteControl::buttonPageSize() const
+void PaletteControl::setCurrentPalettePage(int newCurrentPalettePage)
 {
-    return buttonColumn()*buttonRow();
-}
-
-uint16_t PaletteControl::buttonRow() const
-{
-    return m_buttonRow;
-}
-
-void PaletteControl::setButtonRow(uint16_t newButtonRow)
-{
-    m_buttonRow = newButtonRow;
-}
-
-uint16_t PaletteControl::buttonColumn() const
-{
-    return m_buttonColumn;
-}
-
-void PaletteControl::setButtonColumn(uint16_t newColumn)
-{
-    m_buttonColumn = newColumn;
+    newCurrentPalettePage = bounded(newCurrentPalettePage, 0, maxPalettePages() - 1);
+    if (m_currentPalettePage == newCurrentPalettePage)
+        return;
+    m_currentPalettePage = newCurrentPalettePage;
+    emit currentPalettePageChanged();
 }
