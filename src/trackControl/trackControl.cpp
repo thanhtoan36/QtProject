@@ -1,8 +1,10 @@
 #include "trackControl/trackControl.hpp"
 #include "trackControl/trackControl_define.hpp"
+#include "utility.h"
 
 TrackControl::TrackControl(QWidget *parent)
-    : m_label_title(this),
+    : PanelControlBase(parent),
+      m_label_title(this),
 
       m_button_mode_percent(this),
       m_button_mode_255(this),
@@ -14,8 +16,7 @@ TrackControl::TrackControl(QWidget *parent)
 
       m_pantilt_control(this),
       m_mode(),
-      m_valueMode(),
-      m_trackPoints()
+      m_valueMode()
 {
     setFixedSize(TC_SCREENSIZE);
     qRegisterMetaType<TrackMode>("TrackMode");
@@ -56,30 +57,30 @@ TrackControl::TrackControl(QWidget *parent)
 
     connect(&m_button_mode_percent, &SelectButton::clicked, this, [&](){
         setMode(TRACK_MODE_PERCENT);
-        // m_pantilt_control.SetTrackPoints(mode(), valueMode(), mapToScreen(m_trackPoints));
     });
     connect(&m_button_mode_255, &SelectButton::clicked, this, [&](){
         setMode(TRACK_MODE_255);
-        // m_pantilt_control.SetTrackPoints(mode(), valueMode(), mapToScreen(m_trackPoints));
     });
     // connect(&m_button_mode_angle, &SelectButton::clicked, this, [&](){
         // setMode(TRACK_MODE_ANGLE);
     // });
     connect(&m_button_value_mode_relative, &SelectButton::clicked, this, [&](){
         setValueMode(TRACK_MODE_RELATIVE);
-        m_pantilt_control.SetTrackPoints(mode(), valueMode(), mapToScreen(m_trackPoints));
     });
     connect(&m_button_value_mode_absolute, &SelectButton::clicked, this, [&](){
         setValueMode(TRACK_MODE_ABSOLUTE);
-        for (auto &p : m_trackPoints) {
+        auto trackPoints = m_pantilt_control.trackPoints();
+        for (auto &p : trackPoints) {
             p.pan.current = 0;
             p.tilt.current = 0;
         }
-        setTrackPoints(m_trackPoints);
+        m_pantilt_control.SetTrackPoints(valueMode(), trackPoints);
     });
     connect(&m_pantilt_control, &PantiltControl::trackPointsUpdated, this, [&](){
-        m_trackPoints = mapToValue(m_pantilt_control.trackPoints());
+        // m_trackPoints = mapToValue(m_pantilt_control.trackPoints());
     });
+    connect(this, &TrackControl::modeChanged, this, &TrackControl::onModeChanged);
+    connect(this, &TrackControl::valueModeChanged, this, &TrackControl::onValueModeChanged);
 }
 
 void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
@@ -90,11 +91,14 @@ void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
     setMode(param->mode);
     setValueMode(param->valueMode);
 
-    QVector<TRACK_PARAM_GROUP> data;
-    for (int i = 0; i < std::min(8, (int)param->count); ++i) {
-        data.push_back(param->data[i]);
+    QVector<TRACK_PARAM_GROUP> list;
+    for (int i = 0; i < qBound(int(param->count), 0, 8); ++i) {
+        list.push_back(param->data[i]);
     }
-    setTrackPoints(data);
+    m_pantilt_control.SetTrackPoints(valueMode(), mapToScreen(IntParam2FloatParam(list)));
+
+    onModeChanged();
+    onValueModeChanged();
 }
 
 TrackMode TrackControl::mode() const
@@ -104,10 +108,6 @@ TrackMode TrackControl::mode() const
 
 void TrackControl::setMode(TrackMode newMode)
 {
-    m_button_mode_percent.setChecked(newMode == TRACK_MODE_PERCENT);
-    m_button_mode_255.setChecked(newMode == TRACK_MODE_255);
-    m_button_mode_angle.setChecked(newMode == TRACK_MODE_ANGLE);
-
     if (m_mode == newMode)
         return;
     m_mode = newMode;
@@ -121,9 +121,6 @@ TrackValueMode TrackControl::valueMode() const
 
 void TrackControl::setValueMode(TrackValueMode newValueMode)
 {
-    m_button_value_mode_relative.setChecked(newValueMode == TRACK_MODE_RELATIVE);
-    m_button_value_mode_absolute.setChecked(newValueMode == TRACK_MODE_ABSOLUTE);
-
     if (m_valueMode == newValueMode)
         return;
     m_valueMode = newValueMode;
@@ -132,14 +129,14 @@ void TrackControl::setValueMode(TrackValueMode newValueMode)
 
 QVector<TRACK_PARAM_GROUP> TrackControl::trackPoints() const
 {
-    return m_trackPoints;
+    return FloatParam2IntParam(mapToValue(m_pantilt_control.trackPoints()));
 }
 
-QVector<TRACK_PARAM_GROUP> TrackControl::mapToScreen(const QVector<TRACK_PARAM_GROUP> &points) {
+QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::mapToScreen(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const {
     float scale = mode() == TRACK_MODE_PERCENT
             ? (TC_TRACK_RESOLUTION / 100.0)  // map from 0..100% to 0..TC_TRACK_RESOLUTION
             : (TC_TRACK_RESOLUTION / 255.0); // map from 0..255 to 0..TC_TRACK_RESOLUTION
-    QVector<TRACK_PARAM_GROUP> result;
+    QVector<PantiltControl::TrackPointFloatParamGroup> result;
     for (auto p : points) {
         p.pan.current *= scale;
         p.pan.min *= scale;
@@ -152,12 +149,12 @@ QVector<TRACK_PARAM_GROUP> TrackControl::mapToScreen(const QVector<TRACK_PARAM_G
     return result;
 }
 
-QVector<TRACK_PARAM_GROUP> TrackControl::mapToValue(const QVector<TRACK_PARAM_GROUP> &points)
+QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::mapToValue(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const
 {
     float scale = mode() == TRACK_MODE_PERCENT
             ? (TC_TRACK_RESOLUTION / 100.0)  // map from 0..TC_TRACK_RESOLUTION to 0..100
             : (TC_TRACK_RESOLUTION / 255.0); // map from 0..TC_TRACK_RESOLUTION to 0..100
-    QVector<TRACK_PARAM_GROUP> result;
+    QVector<PantiltControl::TrackPointFloatParamGroup> result;
     for (auto p : points) {
         p.pan.current /= scale;
         p.pan.min /= scale;
@@ -170,10 +167,50 @@ QVector<TRACK_PARAM_GROUP> TrackControl::mapToValue(const QVector<TRACK_PARAM_GR
     return result;
 }
 
-
-void TrackControl::setTrackPoints(const QVector<TRACK_PARAM_GROUP> &newTrackPoints)
+QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::IntParam2FloatParam(const QVector<TRACK_PARAM_GROUP> int_param)
 {
-    m_trackPoints = newTrackPoints;
-    m_pantilt_control.SetTrackPoints(mode(), valueMode(), mapToScreen(newTrackPoints));
-    emit trackPointsChanged();
+    QVector<PantiltControl::TrackPointFloatParamGroup> result;
+    for (const auto &param : int_param)
+    {
+        PantiltControl::TrackPointFloatParamGroup t;
+        t.pan.current = param.pan.current;
+        t.pan.max = param.pan.max;
+        t.pan.min = param.pan.min;
+        t.tilt.current = param.tilt.current;
+        t.tilt.max = param.tilt.max;
+        t.tilt.min = param.tilt.min;
+        result.append(t);
+    }
+    return result;
+}
+
+QVector<TRACK_PARAM_GROUP> TrackControl::FloatParam2IntParam(const QVector<PantiltControl::TrackPointFloatParamGroup> float_param)
+{
+    QVector<TRACK_PARAM_GROUP> result;
+    for (const auto &param : float_param)
+    {
+        TRACK_PARAM_GROUP t;
+        t.pan.current = qRound(param.pan.current);
+        t.pan.max = qRound(param.pan.max);
+        t.pan.min = qRound(param.pan.min);
+        t.tilt.current = qRound(param.tilt.current);
+        t.tilt.max = qRound(param.tilt.max);
+        t.tilt.min = qRound(param.tilt.min);
+        result.append(t);
+    }
+    return result;
+}
+
+
+void TrackControl::onModeChanged()
+{
+    m_button_mode_percent.setChecked(mode() == TRACK_MODE_PERCENT);
+    m_button_mode_255.setChecked(mode() == TRACK_MODE_255);
+    m_button_mode_angle.setChecked(mode() == TRACK_MODE_ANGLE);
+}
+
+void TrackControl::onValueModeChanged()
+{
+    m_button_value_mode_relative.setChecked(valueMode() == TRACK_MODE_RELATIVE);
+    m_button_value_mode_absolute.setChecked(valueMode() == TRACK_MODE_ABSOLUTE);
 }

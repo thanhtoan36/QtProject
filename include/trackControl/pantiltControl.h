@@ -33,18 +33,27 @@ private:
 class PantiltControl : public QWidget
 {
     Q_OBJECT
+public:
+    struct TrackPointFloatParam
+    {
+        float min, max, current;
+    };
+    struct TrackPointFloatParamGroup
+    {
+        TrackPointFloatParam pan, tilt;
+    };
+
     struct TrackPointData {
-        TRACK_PARAM_GROUP param_group;
         // range: 0..1000 (not 0..100 or 0..255)
+        TrackPointFloatParamGroup param;
         QSharedPointer<TrackPoint> widget;
     };
 
-public:
     explicit PantiltControl(QWidget *parent = nullptr);
 
-    void setMode(TrackMode mode);
-    void SetTrackPoints(TrackMode mode, TrackValueMode value_mode, const QVector<TRACK_PARAM_GROUP> &points);
-    QVector<TRACK_PARAM_GROUP> trackPoints() const;
+    void setMode();
+    void SetTrackPoints(TrackValueMode value_mode, const QVector<TrackPointFloatParamGroup> &points);
+    QVector<TrackPointFloatParamGroup> trackPoints() const;
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
@@ -68,7 +77,6 @@ private:
     QLabel m_label_tilt, m_label_pan;
     QVector<TrackPointData> m_track_points;
 
-    TrackMode m_mode;
     TrackValueMode m_value_mode;
 
     bool m_pressed;

@@ -1,7 +1,7 @@
 #ifndef INTENSITYCONTROL_H
 #define INTENSITYCONTROL_H
 
-#include "../baseComponent/panelControlBase.h"
+#include "baseComponent/panelControlBase.h"
 #include "baseComponent/customPushButton.h"
 #include "baseComponent/gridBackground.h"
 #include <QLabel>

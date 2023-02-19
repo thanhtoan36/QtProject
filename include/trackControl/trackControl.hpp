@@ -1,10 +1,10 @@
 #ifndef TRACKCONTROL_H
 #define TRACKCONTROL_H
 
-#include "../baseComponent/panelControlBase.h"
+#include "baseComponent/panelControlBase.h"
 #include "trackControl_datatypes.h"
 
-#include "../baseComponent/selectButton.h"
+#include "baseComponent/selectButton.h"
 #include "pantiltControl.h"
 #include <QLabel>
 
@@ -14,7 +14,6 @@ class TrackControl : public PanelControlBase
 
     Q_PROPERTY(TrackMode mode READ mode WRITE setMode NOTIFY modeChanged)
     Q_PROPERTY(TrackValueMode valueMode READ valueMode WRITE setValueMode NOTIFY valueModeChanged)
-    Q_PROPERTY(QVector<TRACK_PARAM_GROUP> trackPoints READ trackPoints WRITE setTrackPoints NOTIFY trackPointsChanged)
 
 public:
     TrackControl(QWidget *parent = nullptr);
@@ -27,16 +26,22 @@ public:
     void setValueMode(TrackValueMode newValueMode);
 
     QVector<TRACK_PARAM_GROUP> trackPoints() const;
-    void setTrackPoints(const QVector<TRACK_PARAM_GROUP> &newTrackPoints);
 
 signals:
     void modeChanged();
     void valueModeChanged();
     void trackPointsChanged();
 
+protected slots:
+    void onModeChanged();
+    void onValueModeChanged();
+
 protected:
-    QVector<TRACK_PARAM_GROUP> mapToScreen(const QVector<TRACK_PARAM_GROUP> &points);
-    QVector<TRACK_PARAM_GROUP> mapToValue(const QVector<TRACK_PARAM_GROUP> &points);
+    QVector<PantiltControl::TrackPointFloatParamGroup> mapToScreen(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const;
+    QVector<PantiltControl::TrackPointFloatParamGroup> mapToValue(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const;
+
+    static QVector<PantiltControl::TrackPointFloatParamGroup> IntParam2FloatParam(const QVector<TRACK_PARAM_GROUP> int_param);
+    static QVector<TRACK_PARAM_GROUP> FloatParam2IntParam(const QVector<PantiltControl::TrackPointFloatParamGroup> float_param);
 
 protected:
   QLabel m_label_title;
@@ -54,7 +59,6 @@ protected:
 private:
   TrackMode m_mode;
   TrackValueMode m_valueMode;
-  QVector<TRACK_PARAM_GROUP> m_trackPoints;
 };
 
 #endif // TRACKCONTROL_H

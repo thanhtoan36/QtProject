@@ -1,11 +1,11 @@
 #ifndef ENCODERCONTROL_H
 #define ENCODERCONTROL_H
 
-#include "../baseComponent/panelControlBase.h"
+#include "baseComponent/panelControlBase.h"
 #include "encoderControl_datatypes.h"
 #include "customEncoder.h"
-#include "../baseComponent/selectButton.h"
-#include "../baseComponent/gridBackground.h"
+#include "baseComponent/selectButton.h"
+#include "baseComponent/gridBackground.h"
 
 #include <QLabel>
 #include <QVector>

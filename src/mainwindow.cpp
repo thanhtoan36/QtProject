@@ -169,7 +169,6 @@ void MainWindow::CPC_OnColorChanged()
     logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name()));
 }
 
-
 void MainWindow::on_BtnClear_clicked()
 {
     ui->EventOutput->clear();

@@ -249,7 +249,7 @@ int PaletteControl::currentGroupPage() const
 
 void PaletteControl::setCurrentGroupPage(int newCurrentGroupPage)
 {
-    newCurrentGroupPage = bounded(newCurrentGroupPage, 0, maxGroupPages() - 1);
+    newCurrentGroupPage = qBound(newCurrentGroupPage, 0, maxGroupPages() - 1);
     if (m_currentGroupPage == newCurrentGroupPage)
         return;
     m_currentGroupPage = newCurrentGroupPage;
@@ -263,7 +263,7 @@ int PaletteControl::currentPalettePage() const
 
 void PaletteControl::setCurrentPalettePage(int newCurrentPalettePage)
 {
-    newCurrentPalettePage = bounded(newCurrentPalettePage, 0, maxPalettePages() - 1);
+    newCurrentPalettePage = qBound(newCurrentPalettePage, 0, maxPalettePages() - 1);
     if (m_currentPalettePage == newCurrentPalettePage)
         return;
     m_currentPalettePage = newCurrentPalettePage;

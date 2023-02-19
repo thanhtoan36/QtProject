@@ -3,7 +3,7 @@
 
 #include <QAbstractSlider>
 #include <QLabel>
-#include "../baseComponent/customPushButton.h"
+#include "baseComponent/customPushButton.h"
 
 class CustomEncoder : public QAbstractSlider {
     Q_OBJECT

@@ -67,7 +67,7 @@ PantiltControl::PantiltControl(QWidget *parent)
     : QWidget{parent},
       m_label_tilt(this), m_label_pan(this),
       m_track_points(),
-      m_mode(), m_value_mode(),
+      m_value_mode(),
       m_pressed(false),
       m_last_pos()
 {
@@ -78,23 +78,17 @@ PantiltControl::PantiltControl(QWidget *parent)
     m_label_pan.setObjectName("graph_axis_label");
 }
 
-void PantiltControl::setMode(TrackMode mode)
+void PantiltControl::SetTrackPoints(TrackValueMode value_mode, const QVector<PantiltControl::TrackPointFloatParamGroup> &points)
 {
-    if (mode == m_mode)
-        return;
-    float scale = mode == TRACK_MODE_255 ? (255.0 / 100.0) : (100.0 / 255.0);
-}
-
-void PantiltControl::SetTrackPoints(TrackMode mode, TrackValueMode value_mode, const QVector<TRACK_PARAM_GROUP> &points)
-{
-    m_mode = mode;
     m_value_mode = value_mode;
 
     m_track_points.clear();
-    foreach (const TRACK_PARAM_GROUP &point, points) {
-        TrackPointData data { point, MakeSharedQObject<TrackPoint>(this) };
+    foreach (const auto &point, points) {
+        TrackPointData data;
+        data.param = point;
+        data.widget = MakeSharedQObject<TrackPoint>(this);
 
-        data.widget->SetCoordinate(ConvertValueToCoordinate(QPointF(data.param_group.pan.current, data.param_group.tilt.current)).toPoint());
+        data.widget->SetCoordinate(ConvertValueToCoordinate(QPointF(data.param.pan.current, data.param.tilt.current)).toPoint());
         data.widget->raise();
         data.widget->setVisible(true);
         // connect(data.widget.get(), &TrackPoint::moveRequested, this, &PantiltControl::onTrackPointMoveRequested);
@@ -103,11 +97,11 @@ void PantiltControl::SetTrackPoints(TrackMode mode, TrackValueMode value_mode, c
     }
 }
 
-QVector<TRACK_PARAM_GROUP> PantiltControl::trackPoints() const
+QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::trackPoints() const
 {
-    QVector<TRACK_PARAM_GROUP>  result;
+    QVector<PantiltControl::TrackPointFloatParamGroup>  result;
     for (const auto &p : m_track_points) {
-        result.append(p.param_group);
+        result.append(p.param);
     }
     return result;
 }
@@ -207,20 +201,20 @@ QPointF PantiltControl::ConvertCoordinateToValue(QPointF coordinate)
 void PantiltControl::MovePointWithConstraints(TrackPointData &point, QPointF new_value)
 {
     // Limit pan/tilt to max / min of this object
-    if (new_value.x() < point.param_group.pan.min)
-        new_value.setX(point.param_group.pan.min);
-    if (new_value.x() > point.param_group.pan.max)
-        new_value.setX(point.param_group.pan.max);
+    if (new_value.x() < point.param.pan.min)
+        new_value.setX(point.param.pan.min);
+    if (new_value.x() > point.param.pan.max)
+        new_value.setX(point.param.pan.max);
 
-    if (new_value.y() < point.param_group.tilt.min)
-        new_value.setY(point.param_group.tilt.min);
-    if (new_value.y() > point.param_group.tilt.max)
-        new_value.setY(point.param_group.tilt.max);
+    if (new_value.y() < point.param.tilt.min)
+        new_value.setY(point.param.tilt.min);
+    if (new_value.y() > point.param.tilt.max)
+        new_value.setY(point.param.tilt.max);
 
     QPointF new_pos = ConvertValueToCoordinate(new_value);
     point.widget->SetCoordinate(new_pos.toPoint());
-    point.param_group.pan.current = new_value.x();
-    point.param_group.tilt.current = new_value.y();
+    point.param.pan.current = new_value.x();
+    point.param.tilt.current = new_value.y();
 }
 
 void PantiltControl::onTrackPointMoveRequested(QPoint new_pos)

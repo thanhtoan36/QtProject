@@ -1,7 +1,7 @@
 #ifndef COLORFILTERCONTROL_H
 #define COLORFILTERCONTROL_H
 
-#include "../baseComponent/panelControlBase.h"
+#include "baseComponent/panelControlBase.h"
 #include "baseComponent/selectButton.h"
 #include "baseComponent/customPushButton.h"
 #include "baseComponent/gridBackground.h"
