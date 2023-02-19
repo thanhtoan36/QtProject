@@ -58,6 +58,24 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
     connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
+
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
+    connect(m_color_filter_control.get(), &ColorFilterControl::returnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::returnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
+
+    connect(m_encoder_control.get(), &EncoderControl::modeChanged, this, &MainWindow::EC_OnModeChanged);
+    connect(m_encoder_control_horizon.get(), &EncoderControl::modeChanged, this, &MainWindow::EC_OnModeChanged);
+
+    connect(m_intensity_control.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
+    connect(m_intensity_control_horizon.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
+
+    connect(m_intensity_control.get(), &IntensityControl::intensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
+    connect(m_intensity_control_horizon.get(), &IntensityControl::intensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
 }
 
 MainWindow::~MainWindow()
@@ -182,6 +200,76 @@ void MainWindow::TC_OnTrackPointsChanged()
         log += QString("(%1,%2), ").arg(p.pan.current).arg(p.tilt.current);
     }
 
+    logEvent(log);
+}
+
+void MainWindow::CFC_OnTBTabButtonActiveChanged()
+{
+    QString log = "CFC TB Tab Button Active Changed: ";
+    auto button_active = ((ColorFilterControl*)sender())->currentTBTabButtonActive();
+
+    log += QString("(text: %1,RGB:(%2, %3, %4))").arg(button_active.text).arg(button_active.color.red()).arg(button_active.color.green()).arg(button_active.color.blue());
+
+    logEvent(log);
+}
+
+void MainWindow::CFC_OnCustomTabButtonActiveChanged()
+{
+    QString log = "CFC Custom Tab Button Active Changed: ";
+    auto button_active = ((ColorFilterControl*)sender())->currentCustomTabButtonActive();
+
+    log += QString("(text: %1, RGB:(%2, %3, %4))").arg(button_active.text).arg(button_active.color.red()).arg(button_active.color.green()).arg(button_active.color.blue());
+
+    logEvent(log);
+}
+
+void MainWindow::CFC_OnHistoryButtonActiveChanged()
+{
+    QString log = "CFC History Button Active Changed: ";
+    auto button_active = ((ColorFilterControl*)sender())->currentHistoryButtonActive();
+
+    log += QString("(text: %1,RGB:(%2, %3, %4))").arg(button_active.text).arg(button_active.color.red()).arg(button_active.color.green()).arg(button_active.color.blue());
+
+    logEvent(log);
+}
+
+void MainWindow::CFC_OnReturnButtonClicked()
+{
+    QString log = "CFC Return Button Clicked";
+
+    logEvent(log);
+}
+
+void MainWindow::EC_OnModeChanged()
+{
+    QString log = "EC Mode Changed: ";
+    auto mode = ((EncoderControl*)sender())->mode();
+
+    if (mode == ENCODER_MODE_PERCENT)
+    {
+        log+= "PERCENT";
+    }
+    else if(mode == ENCODER_MODE_255)
+    {
+        log+= "255";
+    }
+    else
+    {
+        log+= "ANGEL";
+    }
+
+    logEvent(log);
+}
+
+void MainWindow::IC_OnIntensityButtonClicked(const QString &text)
+{
+    QString log = QString("IC Button %1 Clicked").arg(text);
+    logEvent(log);
+}
+
+void MainWindow::IC_OnReturnButtonClicked()
+{
+    QString log = "IC Return Button Clicked";
     logEvent(log);
 }
 
