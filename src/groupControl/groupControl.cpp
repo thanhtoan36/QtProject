@@ -102,6 +102,8 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
                 btn->setVisible(false);
             }
             updateHistoryPage();
+            m_up_button.setVisible(maxHistoryPages() >1);
+            m_down_button.setVisible(maxHistoryPages() >1);
             m_up_button.setEnabled(currentHistoryPage() > 0);
             m_down_button.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
             m_title_label.setText("グループ (最近使ったもの)");
@@ -113,6 +115,8 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
                 btn->setVisible(false);
             }
             updateGroupPage();
+            m_up_button.setVisible(maxGroupPages() >1);
+            m_down_button.setVisible(maxGroupPages() >1);
             m_up_button.setEnabled(currentGroupPage() > 0);
             m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
             m_title_label.setText("グループ");
@@ -133,7 +137,7 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
     for (int i = 0; i< param->group.count;i++)
     {
         auto button =  MakeSharedQObject<TitleSelectButton>(this);
-        button->setFixedSize(GC_MODE_SIZE);
+        button->setFixedSize(GC_BUTTON1_GEOMETRY.size());
         button->setTitle(param->group.group_param[i].title);
         button->setText(param->group.group_param[i].group_no);
         button->setChecked(param->group.group_param[i].select);
@@ -142,7 +146,7 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         });
         m_group_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_group_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START, QSize( ROW, COLUMN));
+    placeChildrenIntoPanel(m_group_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize( ROW, COLUMN));
     updateGroupPage();
     m_up_button.setEnabled(currentGroupPage() > 0);
     m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
@@ -159,8 +163,10 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         });
         m_history_buttons.push_back(button);
     }
-    placeChildrenIntoPanel(m_history_buttons, GC_MODE_SIZE, GC_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
+    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize(ROW, COLUMN));
     m_history_button.setChecked(false);
+    m_up_button.setVisible(maxGroupPages() >1);
+    m_down_button.setVisible(maxGroupPages() >1);
 }
 
 int GroupControl::currentGroupPage() const
@@ -224,7 +230,7 @@ void GroupControl::addButtonToHistory(QSharedPointer<TitleSelectButton> &button)
         onButtonHistoryCheck(index,sender());
     });
     m_history_buttons.push_back(new_button);
-    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize(4,4));
+    placeChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), QSize(ROW, COLUMN));
 }
 
 void GroupControl::onTitleButonClicked(const bool check)

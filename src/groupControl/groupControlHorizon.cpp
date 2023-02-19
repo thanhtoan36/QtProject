@@ -45,42 +45,13 @@ GroupControlHorizon::GroupControlHorizon(QWidget *parent) : GroupControl(parent)
     m_delete_button.setText("削除");
 }
 
-void GroupControlHorizon::SetDispParamDataHorizon(GROUP_DISP_PARAM *param)
+void GroupControlHorizon::SetDispParamData(GROUP_DISP_PARAM *param)
 {
     Q_ASSERT(param);
-    m_group_buttons.clear();
-    m_history_buttons.clear();
-    setCurrentGroupPage(0);
-    for (int i = 0; i< param->group.count;i++)
-    {
-        auto button =  MakeSharedQObject<TitleSelectButton>(this);
-        button->setFixedSize(GC_HORIZON_MODE_SIZE);
-        button->setTitle(param->group.group_param[i].title);
-        button->setText(param->group.group_param[i].group_no);
-        button->setChecked(param->group.group_param[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonGroupCheck(i,sender());
-        });
-        m_group_buttons.push_back(button);
-    }
-    placeChildrenIntoPanel(m_group_buttons, GC_HORIZON_MODE_SIZE, GC_HORIZON_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
-    updateGroupPage();
-    m_up_button.setEnabled(currentGroupPage() > 0);
-    m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
-    for (int i = 0; i< param->history.count;i++)
-    {
-        auto button =  MakeSharedQObject<TitleSelectButton>(this);
-        button->setFixedSize(GC_HORIZON_MODE_SIZE);
-        button->setTitle(param->history.group_param[i].title);
-        button->setText(param->history.group_param[i].group_no);
-        button->setChecked(param->history.group_param[i].select);
-        button->setVisible(false);
-        connect(button.get(),&QAbstractButton::clicked, this, [&,i](){
-            onButtonHistoryCheck(i,sender());
-        });
-        m_history_buttons.push_back(button);
-    }
-    placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_MODE_SIZE, GC_HORIZON_MODE_PLACEMENT_START, QSize(ROW, COLUMN));
+    GroupControl::SetDispParamData(param);
+    placeChildrenIntoPanel(m_group_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(ROW, COLUMN));
+
+    placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), QSize(ROW, COLUMN));
 }
 
 void GroupControlHorizon::updateGroupPage()

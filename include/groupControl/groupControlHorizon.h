@@ -8,7 +8,7 @@ class GroupControlHorizon : public GroupControl
 {
 public:
     explicit GroupControlHorizon(QWidget* parent = nullptr);
-    void SetDispParamDataHorizon(GROUP_DISP_PARAM *param);
+    void SetDispParamData(GROUP_DISP_PARAM *param) override;
 
 protected:
     virtual void updateGroupPage() override;
