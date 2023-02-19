@@ -68,6 +68,17 @@ private slots:
     void CPC_OnColorChanged();
     void TC_OnTrackPointsChanged();
 
+    void CFC_OnTBTabButtonActiveChanged();
+    void CFC_OnCustomTabButtonActiveChanged();
+    void CFC_OnHistoryButtonActiveChanged();
+    void CFC_OnReturnButtonClicked();
+
+    void EC_OnModeChanged();
+
+    void IC_OnIntensityButtonClicked(const QString& text);
+    void IC_OnReturnButtonClicked();
+
+
 private:
     Ui::MainWindow *ui;
     PanelWindow *m_panel_window = new PanelWindow();

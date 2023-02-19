@@ -41,7 +41,7 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
 
 void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
-    SetDispParamData(param);
+    EncoderControl::SetDispParamData(param);
 
     placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT_HORIZON + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
     placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, QSize(m_encoders_per_page, 1));

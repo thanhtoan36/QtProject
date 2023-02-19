@@ -158,6 +158,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
             m_title_button.setChecked(false);
         }
     });
+    connect(&m_back_button, &QAbstractButton::clicked, this, &ColorFilterControl::returnButtonClicked);
     setupHeaderTabButtons();
     onModeChanged();
 }
@@ -467,7 +468,7 @@ void ColorFilterControl::onTBTabButtonClicked()
     }
     auto button = *iter;
     addButtonToHistory(button);
-
+    setCurrentTBTabButtonActive({button->text(),button->backgroundColor()});
     for (const auto &b : qAsConst(m_tb_tab_buttons))
     {
         b->setChecked(b == button);
@@ -482,7 +483,7 @@ void ColorFilterControl::onCustomTabButtonClicked()
     }
     auto button = *iter;
     addButtonToHistory(button);
-
+    setCurrentCustomTabButtonActive({button->text(),button->backgroundColor()});
     for (const auto &b : qAsConst(m_custom_tab_buttons))
     {
         b->setChecked(b == button);
@@ -496,7 +497,7 @@ void ColorFilterControl::onHistoryButtonClicked()
         return;
     }
     auto button = *iter;
-
+    setCurrentHistoryButtonActive({button->text(),button->backgroundColor()});
     for (const auto &b : qAsConst(m_history_buttons))
     {
         b->setChecked(b == button);
@@ -534,4 +535,43 @@ void ColorFilterControl::setCurrentHeaderButtonsPage(int newCurrentHeaderButtons
         return;
     m_currentHeaderButtonsPage = newCurrentHeaderButtonsPage;
     emit currentHeaderButtonsPageChanged();
+}
+
+const ColorFilterButton &ColorFilterControl::currentTBTabButtonActive() const
+{
+    return m_currentTBTabButtonActive;
+}
+
+void ColorFilterControl::setCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive)
+{
+    if (m_currentTBTabButtonActive == newCurrentTBTabButtonActive)
+        return;
+    m_currentTBTabButtonActive = newCurrentTBTabButtonActive;
+    emit currentTBTabButtonActiveChanged();
+}
+
+const ColorFilterButton &ColorFilterControl::currentCustomTabButtonActive() const
+{
+    return m_currentCustomTabButtonActive;
+}
+
+void ColorFilterControl::setCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive)
+{
+    if (m_currentCustomTabButtonActive == newCurrentCustomTabButtonActive)
+        return;
+    m_currentCustomTabButtonActive = newCurrentCustomTabButtonActive;
+    emit currentCustomTabButtonActiveChanged();
+}
+
+const ColorFilterButton &ColorFilterControl::currentHistoryButtonActive() const
+{
+    return m_currentHistoryButtonActive;
+}
+
+void ColorFilterControl::setCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive)
+{
+    if (m_currentHistoryButtonActive == newCurrentHistoryButtonActive)
+        return;
+    m_currentHistoryButtonActive = newCurrentHistoryButtonActive;
+    emit currentHistoryButtonActiveChanged();
 }
