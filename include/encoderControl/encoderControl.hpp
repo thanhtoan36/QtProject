@@ -21,16 +21,8 @@ public:
     EncoderControl(QWidget *parent = nullptr);
     virtual void SetDispParamData(ENCODER_DISP_PARAM *param);
 
-    int currentEncoderPage() const;
-    void setCurrentEncoderPage(int newCurrentEncoderPage);
-
-    int maxEncoderPages() const;
-
     EncoderMode mode() const;
-    void setMode(EncoderMode newMode);
-
     EncoderType type() const;
-    void setType(EncoderType newType);
 
 signals:
     void currentEncoderPageChanged();
@@ -40,6 +32,11 @@ signals:
 
 protected:
     virtual void setupEncoderPages();
+    int currentEncoderPage() const;
+    void setCurrentEncoderPage(int newCurrentEncoderPage);
+    int maxEncoderPages() const;
+    void setMode(EncoderMode newMode);
+    void setType(EncoderType newType);
 
 protected slots:
     void onModeChanged();

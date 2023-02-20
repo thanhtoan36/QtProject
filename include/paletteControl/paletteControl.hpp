@@ -11,27 +11,37 @@ class PaletteControl : public PanelControlBase
 {
     Q_OBJECT
 
-    Q_PROPERTY(int currentGroupPage READ currentGroupPage WRITE setCurrentGroupPage NOTIFY currentGroupPageChanged)
+    Q_PROPERTY(int currentModePage READ currentModePage WRITE setCurrentModePage NOTIFY currentModePageChanged)
     Q_PROPERTY(int currentPalettePage READ currentPalettePage WRITE setCurrentPalettePage NOTIFY currentPalettePageChanged)
     Q_PROPERTY(PaletteType type READ type WRITE setType NOTIFY typeChanged)
+
+    Q_PROPERTY(QString selectedPalette READ selectedPalette WRITE setSelectedPalette NOTIFY selectedPaletteChanged)
+    Q_PROPERTY(QString selectMode READ selectMode WRITE setSelectMode NOTIFY selectModeChanged)
 
 public:
     explicit PaletteControl(QWidget * parent = nullptr);
     virtual void SetDispParamData(PALETTE_DISP_PARAM *param);
 
-    int currentGroupPage() const;
-    void setCurrentGroupPage(int newCurrentGroupPage);
-
-    int currentPalettePage() const;
-    void setCurrentPalettePage(int newCurrentPalettePage);
-
     PaletteType type() const;
-    void setType(PaletteType newType);
+
+    QString selectedPalette() const;
+    void setSelectedPalette(const QString &newSelectedPalette);
+
+    QString selectMode() const;
+    void setSelectMode(const QString &newSelectMode);
 
 signals:
-    void currentGroupPageChanged();
+    void currentModePageChanged();
     void currentPalettePageChanged();
     void typeChanged();
+
+    void NextModePageClicked();
+    void PrevModePageClicked();
+    void NextPalettePageClicked();
+    void PrevPalettePageClicked();
+
+    void selectedPaletteChanged();
+    void selectModeChanged();
 
 protected:
     uint16_t menuPageSize() const;
@@ -40,21 +50,29 @@ protected:
     QPoint buttonStartPoint() const;
     void setButtonStartPoint(QPoint newButtonStartPoint);
 
-    QPoint groupStartPoint() const;
+    QPoint modeStartPoint() const;
     void setMenuStartPoint(QPoint newMenuStartPoint);
 
+    int currentModePage() const;
+    void setCurrentModePage(int newCurrentModePage);
+
+    int currentPalettePage() const;
+    void setCurrentPalettePage(int newCurrentPalettePage);
+
+    void setType(PaletteType newType);
+
 protected:
-    int maxGroupPages() const;
+    int maxModePages() const;
     int maxPalettePages() const;
-    int groupButtonsPerPage() const;
+    int modeButtonsPerPage() const;
     int paletteButtonsPerPage() const;
-    int selectedGroupIndex() const;
+    int selectedModeIndex() const;
 
 protected slots:
-    virtual void onGroupButtonClicked();
+    virtual void onModeButtonClicked();
     virtual void onPaletteButtonClicked();
 
-    virtual void updateGroupPages();
+    virtual void updateModePages();
     virtual void updatePalettePages();
 
     virtual void onTypeChanged();
@@ -63,8 +81,8 @@ protected:
     GridBackground m_grid;
     QLabel m_title_label;
 
-    CustomPushButton m_button_previous_group_page;
-    CustomPushButton m_button_next_group_page;
+    CustomPushButton m_button_previous_mode_page;
+    CustomPushButton m_button_next_mode_page;
     CustomPushButton m_button_previous_palette_page;
     CustomPushButton m_button_next_palette_page;
     CustomPushButton m_return_button;
@@ -72,16 +90,18 @@ protected:
     QPoint m_buttonStartPoint;
     QPoint m_menuStartPoint;
 
-    QVector<QSharedPointer<SelectButton>> m_group_buttons;
+    QVector<QSharedPointer<SelectButton>> m_mode_buttons;
     QVector<QVector<QSharedPointer<SelectButton>>> m_palette_buttons;
 
-    QSize m_group_button_grid_size;
+    QSize m_mode_button_grid_size;
     QSize m_palette_button_grid_size;
 
 private:
-    int m_currentGroupPage;
+    int m_currentModePage;
     int m_currentPalettePage;
     PaletteType m_type;
+    QString m_selectedPalette;
+    QString m_selectMode;
 };
 
 #endif // PALETTECONTROL_H

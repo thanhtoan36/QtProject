@@ -67,9 +67,11 @@ TrackControl::TrackControl(QWidget *parent)
         setMode(TRACK_MODE_255);
         emit trackPointsChanged();
     });
-    // connect(&m_button_mode_angle, &SelectButton::clicked, this, [&](){
-        // setMode(TRACK_MODE_ANGLE);
-    // });
+    connect(&m_button_mode_angle, &SelectButton::toggled, this, [&](bool checked){
+        if (!checked)
+            return;
+        setMode(TRACK_MODE_ANGLE);
+    });
     connect(&m_button_value_mode_relative, &SelectButton::toggled, this, [&](bool checked){
         if (!checked)
             return;

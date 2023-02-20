@@ -73,6 +73,9 @@ EncoderControl::EncoderControl(QWidget *parent)
     connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
         setMode(ENCODER_MODE_255);
     });
+    connect(&m_button_mode_angle, &QPushButton::clicked, this, [&](){
+        setMode(ENCODER_MODE_ANGLE);
+    });
     connect(this, &EncoderControl::currentEncoderPageChanged, this, [&](){
         setupEncoderPages();
         m_button_previous_page.setEnabled(currentEncoderPage() > 0);
