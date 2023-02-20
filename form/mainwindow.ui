@@ -277,16 +277,8 @@
             &quot;name&quot;: &quot;P1&quot;,
             &quot;image&quot;: &quot;bird&quot;,
             &quot;buttons&quot;: [
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B1&quot;,
-                    &quot;image&quot;: &quot;duck&quot;
-                },
-                {
-                    &quot;select&quot;: true,
-                    &quot;name&quot;: &quot;B2&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                }
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B1&quot;, &quot;image&quot;: &quot;duck&quot; },
+                { &quot;select&quot;: true, &quot;name&quot;: &quot;B2&quot;, &quot;image&quot;: &quot;&quot; }
             ]
         },
         {
@@ -294,51 +286,15 @@
             &quot;name&quot;: &quot;P2&quot;,
             &quot;image&quot;: &quot;&quot;,
             &quot;buttons&quot;: [
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B3&quot;,
-                    &quot;image&quot;: &quot;cat&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B4&quot;,
-                    &quot;image&quot;: &quot;bird&quot;
-                },
-                {
-                    &quot;select&quot;: true,
-                    &quot;name&quot;: &quot;B5&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B6&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B7&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B8&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B9&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B10&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                },
-                {
-                    &quot;select&quot;: false,
-                    &quot;name&quot;: &quot;B11&quot;,
-                    &quot;image&quot;: &quot;&quot;
-                }
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B3&quot;, &quot;image&quot;: &quot;cat&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B4&quot;, &quot;image&quot;: &quot;bird&quot; },
+                { &quot;select&quot;: true, &quot;name&quot;: &quot;B5&quot;, &quot;image&quot;: &quot;&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B6&quot;, &quot;image&quot;: &quot;&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B7&quot;, &quot;image&quot;: &quot;&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B8&quot;, &quot;image&quot;: &quot;&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B9&quot;, &quot;image&quot;: &quot;&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B10&quot;, &quot;image&quot;: &quot;&quot; },
+                { &quot;select&quot;: false, &quot;name&quot;: &quot;B11&quot;, &quot;image&quot;: &quot;&quot; }
             ]
         }
     ]

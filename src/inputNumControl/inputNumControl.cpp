@@ -110,6 +110,7 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     connect(&m_button_absolute, &QPushButton::clicked, this, [&](){
         setValueMode(INPUT_NUM_MODE_ABSOLUTE);
     });
+    connect(&m_return_button, &QPushButton::clicked, this, &InputNumControl::ReturnClicked);
 
     onModeChanged();
     onValueModeChanged();

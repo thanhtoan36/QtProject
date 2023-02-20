@@ -80,6 +80,9 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
     m_mode_buttons.clear();
     m_palette_buttons.clear();
 
+    m_mode_names.clear();
+    m_palette_names.clear();
+
     QString selected_mode = "";
     QString selected_palette = "";
 
@@ -107,8 +110,10 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
 
         connect(menu_button.get(),&QAbstractButton::clicked, this, &PaletteControl::onModeButtonClicked);
         m_mode_buttons.push_back(menu_button);
+        m_mode_names.push_back(param->data[i].name);
 
         QVector<QSharedPointer<SelectButton>> palette_button_list;
+        QStringList palette_name_list;
         for(int j = 0; j < param->data[i].count;j++)
         {
             auto palette_button = MakeSharedQObject<SelectButton>(this);
@@ -134,8 +139,10 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
 
             connect(palette_button.get(),&QAbstractButton::clicked, this, &PaletteControl::onPaletteButtonClicked);
             palette_button_list.push_back(palette_button);
+            palette_name_list.push_back(param->data[i].palette[j].name);
         }
         m_palette_buttons.push_back(palette_button_list);
+        m_palette_names.push_back(palette_name_list);
     }
 
     setType(param->type);
@@ -143,7 +150,7 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
     setCurrentPalettePage(0);
     updateModePages();
 
-    setSelectMode(selected_mode);
+    setSelectedMode(selected_mode);
     setSelectedPalette(selected_palette);
 }
 
@@ -153,7 +160,8 @@ void PaletteControl::onModeButtonClicked()
         button->setChecked(button == sender());
     }
 
-    setSelectMode(((SelectButton*)sender())->text());
+    int index = std::distance(m_mode_buttons.begin(), std::find(m_mode_buttons.begin(), m_mode_buttons.end(), sender()));
+    setSelectedMode(m_mode_names.at(index));
 
     setCurrentPalettePage(0);
     updateModePages();
@@ -171,7 +179,9 @@ void PaletteControl::onPaletteButtonClicked()
         button->setChecked(button == sender());
     }
 
-    setSelectedPalette(((SelectButton*)sender())->text());
+    int paletteIndex = std::distance(group.begin(), std::find(group.begin(), group.end(), sender()));
+    setSelectedMode(m_mode_names.at(modeIndex));
+    setSelectedPalette(m_palette_names.at(modeIndex).at(paletteIndex));
 }
 
 void PaletteControl::updateModePages()
@@ -349,15 +359,15 @@ void PaletteControl::setSelectedPalette(const QString &newSelectedPalette)
     emit selectedPaletteChanged();
 }
 
-QString PaletteControl::selectMode() const
+QString PaletteControl::selectedMode() const
 {
-    return m_selectMode;
+    return m_selectedMode;
 }
 
-void PaletteControl::setSelectMode(const QString &newSelectMode)
+void PaletteControl::setSelectedMode(const QString &newSelectedMode)
 {
-    if (m_selectMode == newSelectMode)
+    if (m_selectedMode == newSelectedMode)
         return;
-    m_selectMode = newSelectMode;
-    emit selectModeChanged();
+    m_selectedMode = newSelectedMode;
+    emit selectedModeChanged();
 }

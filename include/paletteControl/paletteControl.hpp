@@ -16,19 +16,15 @@ class PaletteControl : public PanelControlBase
     Q_PROPERTY(PaletteType type READ type WRITE setType NOTIFY typeChanged)
 
     Q_PROPERTY(QString selectedPalette READ selectedPalette WRITE setSelectedPalette NOTIFY selectedPaletteChanged)
-    Q_PROPERTY(QString selectMode READ selectMode WRITE setSelectMode NOTIFY selectModeChanged)
+    Q_PROPERTY(QString selectedMode READ selectedMode WRITE setSelectedMode NOTIFY selectedModeChanged)
 
 public:
     explicit PaletteControl(QWidget * parent = nullptr);
     virtual void SetDispParamData(PALETTE_DISP_PARAM *param);
 
     PaletteType type() const;
-
     QString selectedPalette() const;
-    void setSelectedPalette(const QString &newSelectedPalette);
-
-    QString selectMode() const;
-    void setSelectMode(const QString &newSelectMode);
+    QString selectedMode() const;
 
 signals:
     void currentModePageChanged();
@@ -41,9 +37,12 @@ signals:
     void PrevPalettePageClicked();
 
     void selectedPaletteChanged();
-    void selectModeChanged();
+    void selectedModeChanged();
 
 protected:
+    void setSelectedPalette(const QString &newSelectedPalette);
+    void setSelectedMode(const QString &newSelectedMode);
+
     uint16_t menuPageSize() const;
     uint16_t buttonPageSize() const;
 
@@ -92,6 +91,8 @@ protected:
 
     QVector<QSharedPointer<SelectButton>> m_mode_buttons;
     QVector<QVector<QSharedPointer<SelectButton>>> m_palette_buttons;
+    QStringList m_mode_names;
+    QVector<QStringList> m_palette_names;
 
     QSize m_mode_button_grid_size;
     QSize m_palette_button_grid_size;
@@ -101,7 +102,7 @@ private:
     int m_currentPalettePage;
     PaletteType m_type;
     QString m_selectedPalette;
-    QString m_selectMode;
+    QString m_selectedMode;
 };
 
 #endif // PALETTECONTROL_H

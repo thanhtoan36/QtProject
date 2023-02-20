@@ -47,6 +47,8 @@ public:
     void ConnectColorFilterEvent();
     void ConnectIntensityEvent();
     void ConnectInputNumEvent();
+    void ConnectPaletteEvent();
+    void ConnectEncoderEvent();
 
 private slots:
     void on_ColorPickerControl_Fake_Open_clicked();
@@ -77,8 +79,6 @@ private slots:
     void CFC_OnCustomTabButtonActiveChanged();
     void CFC_OnHistoryButtonActiveChanged();
     void CFC_OnReturnButtonClicked();
-
-    void EC_OnModeChanged();
 
     void IC_OnIntensityButtonClicked(const QString& text);
     void IC_OnReturnButtonClicked();

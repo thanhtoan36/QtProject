@@ -56,13 +56,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
     connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
 
-    connect(m_encoder_control.get(), &EncoderControl::modeChanged, this, &MainWindow::EC_OnModeChanged);
-    connect(m_encoder_control_horizon.get(), &EncoderControl::modeChanged, this, &MainWindow::EC_OnModeChanged);
-
     ConnectColorFilterEvent();
     ConnectColorPickerEvent();
     ConnectIntensityEvent();
     ConnectInputNumEvent();
+    ConnectPaletteEvent();
+    ConnectEncoderEvent();
 }
 
 MainWindow::~MainWindow()
@@ -106,7 +105,7 @@ void MainWindow::ConnectIntensityEvent()
 
 void MainWindow::ConnectInputNumEvent()
 {
-    connect(m_input_num_control.get(),&InputNumControl::modeChanged, this, [&](){
+    const auto slot_mode_changed = [&]() {
         QString log = "IC Mode Changed: ";
         auto mode = ((InputNumControl*)sender())->mode();
 
@@ -124,9 +123,9 @@ void MainWindow::ConnectInputNumEvent()
         }
 
         this->logEvent(log);
-    });
+    };
 
-    connect(m_input_num_control.get(),&InputNumControl::valueModeChanged, this, [&](){
+    const auto slot_value_mode_changed = [&]() {
         QString log = "IC Value Mode Changed: ";
         auto mode = ((InputNumControl*)sender())->valueMode();
 
@@ -140,64 +139,74 @@ void MainWindow::ConnectInputNumEvent()
         }
 
         this->logEvent(log);
-    });
+    };
 
-    connect(m_input_num_control.get(),&InputNumControl::InputNumButtonClicked, this, [&](const QString & text){
+    const auto slot_num_button_clicked = [&](const QString &text) {
         QString log = "IC Button Clicked: " + text;
         this->logEvent(log);
-    });
+    };
 
-    connect(m_input_num_control.get(),&InputNumControl::CurrentModeButtonChanged, this, [&](){
+    const auto slot_current_mode_changed = [&]() {
         QString log = "IC Button Mode Changed: " + ((InputNumControl*)sender())->CurrentModeButton();
         this->logEvent(log);
-    });
+    };
 
-    connect(m_input_num_control_horizon.get(),&InputNumControl::modeChanged, this, [&](){
-        QString log = "IC Mode Changed: ";
-        auto mode = ((InputNumControl*)sender())->mode();
-
-        if (mode == INPUT_NUM_MODE_PERCENT)
-        {
-            log+= "PERCENT";
-        }
-        else if(mode == INPUT_NUM_MODE_255)
-        {
-            log+= "255";
-        }
-        else
-        {
-            log+= "ANGEL";
-        }
-
+    const auto slot_return_clicked = [&]() {
+        QString log = "IC Return clicked";
         this->logEvent(log);
-    });
+    };
 
-    connect(m_input_num_control_horizon.get(),&InputNumControl::valueModeChanged, this, [&](){
-        QString log = "IC Value Mode Changed: ";
-        auto mode = ((InputNumControl*)sender())->valueMode();
+    connect(m_input_num_control.get(),&InputNumControl::modeChanged, this, slot_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::valueModeChanged, this, slot_value_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked);
+    connect(m_input_num_control.get(),&InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::ReturnClicked, this, slot_return_clicked);
 
-        if (mode == INPUT_NUM_MODE_RELATIVE)
-        {
-            log+= "RELATIVE";
-        }
-        else
-        {
-            log+= "ABSOLUTE";
-        }
+    connect(m_input_num_control_horizon.get(),&InputNumControl::modeChanged, this, slot_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::valueModeChanged, this, slot_value_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::ReturnClicked, this, slot_return_clicked);
+}
 
-        this->logEvent(log);
-    });
+void MainWindow::ConnectPaletteEvent()
+{
+    const auto slot_mode_changed = [&](){
+        logEvent("Palette mode changed: " + ((PaletteControl*)sender())->selectedMode());
+    };
+    const auto slot_palette_changed = [&](){
+        logEvent("Palette palette changed: " + ((PaletteControl*)sender())->selectedPalette());
+    };
+    const auto slot_next_mode_page_clicked = [&](){ logEvent("Palette next mode page"); };
+    const auto slot_prev_mode_page_clicked = [&](){ logEvent("Palette prev mode page"); };
+    const auto slot_next_palette_page_clicked = [&](){ logEvent("Palette next palette page"); };
+    const auto slot_prev_palette_page_clicked = [&](){ logEvent("Palette prev palette page"); };
 
-    connect(m_input_num_control_horizon.get(),&InputNumControl::InputNumButtonClicked, this, [&](const QString & text){
-        QString log = "IC Button Clicked: " + text;
-        this->logEvent(log);
-    });
+    connect(m_palette_control.get(),&PaletteControl::selectedModeChanged, this, slot_mode_changed);
+    connect(m_palette_control.get(),&PaletteControl::selectedPaletteChanged, this, slot_palette_changed);
+    connect(m_palette_control.get(),&PaletteControl::NextModePageClicked, this, slot_next_mode_page_clicked);
+    connect(m_palette_control.get(),&PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked);
+    connect(m_palette_control.get(),&PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked);
+    connect(m_palette_control.get(),&PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked);
 
-    connect(m_input_num_control_horizon.get(),&InputNumControl::CurrentModeButtonChanged, this, [&](){
-        QString log = "IC Button Mode Changed: " + ((InputNumControl*)sender())->CurrentModeButton();
-        this->logEvent(log);
-    });
+    connect(m_palette_control_horizon.get(),&PaletteControl::selectedModeChanged, this, slot_mode_changed);
+    connect(m_palette_control_horizon.get(),&PaletteControl::selectedPaletteChanged, this, slot_palette_changed);
+    connect(m_palette_control_horizon.get(),&PaletteControl::NextModePageClicked, this, slot_next_mode_page_clicked);
+    connect(m_palette_control_horizon.get(),&PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked);
+    connect(m_palette_control_horizon.get(),&PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked);
+    connect(m_palette_control_horizon.get(),&PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked);
+}
 
+void MainWindow::ConnectEncoderEvent()
+{
+    const auto slot_mode_changed = [&](){
+        QStringList modes = { "ENCODER_MODE_PERCENT", "ENCODER_MODE_255", "ENCODER_MODE_ANGLE", };
+        logEvent("Encoder mode changed: " + modes[((EncoderControl*)sender())->mode()]);
+    };
+
+    connect(m_encoder_control.get(),&EncoderControl::modeChanged, this, slot_mode_changed);
+
+    connect(m_encoder_control_horizon.get(),&EncoderControl::modeChanged, this, slot_mode_changed);
 }
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
@@ -346,27 +355,6 @@ void MainWindow::CFC_OnHistoryButtonActiveChanged()
 void MainWindow::CFC_OnReturnButtonClicked()
 {
     QString log = "CFC Return Button Clicked";
-
-    logEvent(log);
-}
-
-void MainWindow::EC_OnModeChanged()
-{
-    QString log = "EC Mode Changed: ";
-    auto mode = ((EncoderControl*)sender())->mode();
-
-    if (mode == ENCODER_MODE_PERCENT)
-    {
-        log+= "PERCENT";
-    }
-    else if(mode == ENCODER_MODE_255)
-    {
-        log+= "255";
-    }
-    else
-    {
-        log+= "ANGEL";
-    }
 
     logEvent(log);
 }

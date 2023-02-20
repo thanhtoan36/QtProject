@@ -49,8 +49,8 @@ signals:
     void valueModeChanged();
     void currentGroupButtonsPageChanged();
     void InputNumButtonClicked(const QString& text);
-
     void CurrentModeButtonChanged();
+    void ReturnClicked();
 
 protected:
     int maxGroupButtonPages() const;
