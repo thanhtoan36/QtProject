@@ -83,6 +83,22 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     connect(&m_history_button, &QPushButton::toggled, this, [&](){
         updateGroupTab();
         updateHistoryTab();
+        if (m_history_button.isChecked())
+        {
+            m_setting_label.setVisible(false);
+            m_register_button.setVisible(false);
+            m_title_button.setVisible(false);
+            m_delete_button.setVisible(false);
+            m_empty_button.setVisible(false);
+        }
+        else
+        {
+            m_setting_label.setVisible(true);
+            m_register_button.setVisible(true);
+            m_title_button.setVisible(true);
+            m_delete_button.setVisible(true);
+            m_empty_button.setVisible(true);
+        }
     });
 
     connect(this, &LibraryControl::currentGroupPageChanged, this, &LibraryControl::updateGroupTab);

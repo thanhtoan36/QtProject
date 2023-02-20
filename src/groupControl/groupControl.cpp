@@ -107,6 +107,11 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
             m_up_button.setEnabled(currentHistoryPage() > 0);
             m_down_button.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
             m_title_label.setText("グループ (最近使ったもの)");
+            m_title_button.setVisible(false);
+            m_register_button.setVisible(false);
+            m_delete_button.setVisible(false);
+            m_empty_button.setVisible(false);
+            m_setting_label.setVisible(false);
         }
         else
         {
@@ -120,6 +125,11 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
             m_up_button.setEnabled(currentGroupPage() > 0);
             m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
             m_title_label.setText("グループ");
+            m_title_button.setVisible(true);
+            m_register_button.setVisible(true);
+            m_delete_button.setVisible(true);
+            m_setting_label.setVisible(true);
+            m_empty_button.setVisible(true);
         }
     });
 
