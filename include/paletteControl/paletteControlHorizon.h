@@ -7,6 +7,9 @@ class PaletteControlHorizon : public PaletteControl
 {
 public:
     explicit PaletteControlHorizon(QWidget* parent = nullptr);
+
+protected:
+    virtual void onTypeChanged() override;
 };
 
 #endif // PALETTECONTROLHORIZON_H

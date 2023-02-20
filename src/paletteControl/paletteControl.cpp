@@ -67,6 +67,7 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
 
     connect(this, &PaletteControl::currentGroupPageChanged, this, &PaletteControl::updateGroupPages);
     connect(this, &PaletteControl::currentPalettePageChanged, this, &PaletteControl::updatePalettePages);
+    connect(this, &PaletteControl::typeChanged, this, &PaletteControl::onTypeChanged);
 }
 
 void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
@@ -121,6 +122,7 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
         m_palette_buttons.push_back(palette_button_list);
     }
 
+    setType(param->type);
     setCurrentGroupPage(0);
     setCurrentPalettePage(0);
     updateGroupPages();
@@ -187,6 +189,7 @@ void PaletteControl::updatePalettePages()
     updateChildrenVisibility(group, currentPalettePage(), paletteButtonsPerPage());
     placeChildrenIntoPanel(group, PC_BUTTON_SIZE, buttonStartPoint(), m_palette_button_grid_size);
 }
+
 QPoint PaletteControl::groupStartPoint() const
 {
     return m_menuStartPoint;
@@ -232,6 +235,33 @@ int PaletteControl::selectedGroupIndex() const
     return std::distance(m_group_buttons.cbegin(), iter);
 }
 
+void PaletteControl::onTypeChanged()
+{
+    switch (type()) {
+        case PALETTE_TYPE_GOBO:
+            m_title_label.setText("ゴボ");
+            m_group_button_grid_size = QSize(4, 1);
+            m_palette_button_grid_size = QSize(4, 3);
+            setButtonStartPoint(PC_BUTTON_TOP_LEFT);
+            break;
+        case PALETTE_BEAM_SHUTTER:
+            m_title_label.setText("モード");
+            m_group_button_grid_size = QSize(4, 1);
+            m_palette_button_grid_size = QSize(4, 3);
+            setButtonStartPoint(PC_BUTTON_TOP_LEFT);
+            break;
+        case PALETTE_TYPE_CONTROL:
+            m_title_label.setText("モード");
+            m_group_button_grid_size = QSize(4, 0);
+            m_palette_button_grid_size = QSize(4, 4);
+            setButtonStartPoint(PC_MENU_TOP_LEFT);
+            break;
+        default:
+            break;
+    }
+    updateGroupPages();
+}
+
 QPoint PaletteControl::buttonStartPoint() const
 {
     return m_buttonStartPoint;
@@ -268,4 +298,17 @@ void PaletteControl::setCurrentPalettePage(int newCurrentPalettePage)
         return;
     m_currentPalettePage = newCurrentPalettePage;
     emit currentPalettePageChanged();
+}
+
+PaletteType PaletteControl::type() const
+{
+    return m_type;
+}
+
+void PaletteControl::setType(PaletteType newType)
+{
+    if (m_type == newType)
+        return;
+    m_type = newType;
+    emit typeChanged();
 }

@@ -33,6 +33,7 @@ typedef struct
 // パレット表示パラメータ
 typedef struct
 {
+    PaletteType         type;           // 表示するパレットタイプ
     unsigned short      count;          // 個数
     PALETTE_PARAM_GROUP *data;          // パレットパラメータグループ
 } PALETTE_DISP_PARAM;

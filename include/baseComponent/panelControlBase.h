@@ -20,6 +20,9 @@ public:
 
     template <class T>
     static void placeChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize childSize, QPoint firstCellTopLeft, QSize gridSize, VerticalDirections vdirection = TopToBottom) {
+        if (gridSize.width() == 0 || gridSize.height() == 0)
+            return;
+
         for (int i  = 0; i < children.length(); ++i) {
             const int visualIndex = i % (gridSize.width() * gridSize.height());
             const int row = visualIndex / gridSize.width();

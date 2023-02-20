@@ -13,6 +13,7 @@ class PaletteControl : public PanelControlBase
 
     Q_PROPERTY(int currentGroupPage READ currentGroupPage WRITE setCurrentGroupPage NOTIFY currentGroupPageChanged)
     Q_PROPERTY(int currentPalettePage READ currentPalettePage WRITE setCurrentPalettePage NOTIFY currentPalettePageChanged)
+    Q_PROPERTY(PaletteType type READ type WRITE setType NOTIFY typeChanged)
 
 public:
     explicit PaletteControl(QWidget * parent = nullptr);
@@ -24,10 +25,13 @@ public:
     int currentPalettePage() const;
     void setCurrentPalettePage(int newCurrentPalettePage);
 
+    PaletteType type() const;
+    void setType(PaletteType newType);
+
 signals:
     void currentGroupPageChanged();
-
     void currentPalettePageChanged();
+    void typeChanged();
 
 protected:
     uint16_t menuPageSize() const;
@@ -53,6 +57,8 @@ protected slots:
     virtual void updateGroupPages();
     virtual void updatePalettePages();
 
+    virtual void onTypeChanged();
+
 protected:
     GridBackground m_grid;
     QLabel m_title_label;
@@ -75,6 +81,7 @@ protected:
 private:
     int m_currentGroupPage;
     int m_currentPalettePage;
+    PaletteType m_type;
 };
 
 #endif // PALETTECONTROL_H

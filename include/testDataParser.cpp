@@ -282,11 +282,19 @@ LIBRARY_DISP_PARAM LC_ParseInput(const QString &raw)
 PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
-    const auto array = doc.array();
+    const auto object = doc.object();
+    const auto array = object["data"].toArray();
 
     PALETTE_DISP_PARAM p;
 
+    QStringList types = {
+        "PALETTE_TYPE_GOBO",
+        "PALETTE_BEAM_SHUTTER",
+        "PALETTE_TYPE_CONTROL"
+    };
+
     p.count = array.count();
+    p.type = (PaletteType)types.indexOf(object["type"].toString());
     // NOTE: leak
     p.data = new PALETTE_PARAM_GROUP[p.count];
     for (int groupIndex = 0; groupIndex < p.count; ++groupIndex) {
