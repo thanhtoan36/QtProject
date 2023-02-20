@@ -210,6 +210,9 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
         setPickerColor(m_picker_rgb.Color());
         // m_picker_xy.SetColor(pickerColor());
     });
+
+    connect(&m_button_next_menu_page, &QAbstractButton::clicked, this, &ColorPickerControl::NextButtonClicked);
+    connect(&m_button_previous_menu_page, &QAbstractButton::clicked, this, &ColorPickerControl::PrevButtonClicked);
 }
 
 void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)

@@ -140,6 +140,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_title_button, &QAbstractButton::toggled, this, [&]() {
         if (m_title_button.isChecked())
         {
+            SetCurrentFooterButtonActive("title");
             m_register_button.setChecked(false);
             m_delete_button.setChecked(false);
         }
@@ -147,6 +148,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_register_button, &QAbstractButton::toggled, this, [&]() {
         if (m_register_button.isChecked())
         {
+            SetCurrentFooterButtonActive("register");
             m_title_button.setChecked(false);
             m_delete_button.setChecked(false);
         }
@@ -154,11 +156,14 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_delete_button, &QAbstractButton::toggled, this, [&]() {
         if (m_delete_button.isChecked())
         {
+            SetCurrentFooterButtonActive("delete");
             m_register_button.setChecked(false);
             m_title_button.setChecked(false);
         }
     });
-    connect(&m_back_button, &QAbstractButton::clicked, this, &ColorFilterControl::returnButtonClicked);
+    connect(&m_back_button, &QAbstractButton::clicked, this, &ColorFilterControl::ReturnButtonClicked);
+    connect(&m_button_next_header_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::NextButtonClicked);
+    connect(&m_button_previous_header_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::PrevButtonClicked);
     setupHeaderTabButtons();
     onModeChanged();
 }
@@ -443,6 +448,16 @@ void ColorFilterControl::onDisplayTabButtonClicked()
         setMode(button->mode);
         m_previous_tab = mode();
     }
+}
+
+const QString &ColorFilterControl::CurrentFooterButtonActive() const
+{
+    return m_currentFooterButtonActive;
+}
+
+void ColorFilterControl::SetCurrentFooterButtonActive(const QString &newCurrentFooterButtonActive)
+{
+    m_currentFooterButtonActive = newCurrentFooterButtonActive;
 }
 
 int ColorFilterControl::maxTBTabPages() const
