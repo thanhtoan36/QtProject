@@ -58,17 +58,6 @@ public:
     ColorFilterDisplayMode mode() const;
     void setMode(ColorFilterDisplayMode newMode);
 
-    int maxTBTabPages() const;
-    int maxCustomTabPages() const;
-    int maxHistoryPages() const;
-
-    void onTBTabButtonClicked();
-    void onCustomTabButtonClicked();
-    void onHistoryButtonClicked();
-
-    int currentHeaderButtonsPage() const;
-    void setCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage);
-
     const ColorFilterButton &currentTBTabButtonActive() const;
     void setCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive);
 
@@ -77,6 +66,9 @@ public:
 
     const ColorFilterButton &currentHistoryButtonActive() const;
     void setCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive);
+
+    const QString &CurrentFooterButtonActive() const;
+    void SetCurrentFooterButtonActive(const QString &newCurrentFooterButtonActive);
 
 signals:
     void currentTBTabPageChanged();
@@ -92,10 +84,13 @@ signals:
     void currentCustomTabButtonActiveChanged();
     void currentHistoryButtonActiveChanged();
 
-    void returnButtonClicked();
+    void ReturnButtonClicked();
+    void NextButtonClicked();
+    void PrevButtonClicked();
 
 protected:
     virtual void addButtonToHistory(QSharedPointer<SelectButton> button);
+
     void onModeChanged();
     void updateTBTabPage();
     void updateCustomTabPage();
@@ -104,6 +99,17 @@ protected:
     void addHeaderButton(ColorFilterDisplayMode mode, const QString &text);
     QVector<QSharedPointer<SelectButton> > headerButtons() const;
     void setupHeaderTabButtons();
+
+    int maxTBTabPages() const;
+    int maxCustomTabPages() const;
+    int maxHistoryPages() const;
+
+    void onTBTabButtonClicked();
+    void onCustomTabButtonClicked();
+    void onHistoryButtonClicked();
+
+    int currentHeaderButtonsPage() const;
+    void setCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage);
 
 protected slots:
     void onDisplayTabButtonClicked();
@@ -154,6 +160,7 @@ private:
     ColorFilterButton m_currentTBTabButtonActive;
     ColorFilterButton m_currentCustomTabButtonActive;
     ColorFilterButton m_currentHistoryButtonActive;
+    QString m_currentFooterButtonActive = "";
 };
 
 #endif // COLORFILTERCONTROL_H

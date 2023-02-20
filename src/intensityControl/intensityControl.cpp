@@ -45,7 +45,7 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
             button->setEnabled(false);
 
         connect(button.get(), &QPushButton::clicked, this, [&]() {
-            emit intensityButtonClicked(((CustomPushButton*)sender())->text());
+            emit IntensityButtonClicked(((CustomPushButton*)sender())->text());
         });
 
         m_intensity_buttons.append(button);

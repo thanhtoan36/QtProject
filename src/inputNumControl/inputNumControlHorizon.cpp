@@ -58,7 +58,7 @@ InputNumControlHorizon::InputNumControlHorizon(QWidget *parent) :InputNumControl
         button->setText(b);
 
         connect(button.get(), &QPushButton::clicked, this, [&]() {
-            qDebug() << ((CustomPushButton*)sender())->text();
+           emit InputNumButtonClicked(((CustomPushButton*)sender())->text());
         });
 
         m_input_num_buttons.append(button);

@@ -76,8 +76,8 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
         button->setVisible(true);
         button->setText(b);
 
-        connect(button.get(), &QPushButton::clicked, this, [&]() {
-            qDebug() << ((CustomPushButton*)sender())->text();
+        connect(button.get(), &QPushButton::clicked, this, [&]() {            
+            emit InputNumButtonClicked(((CustomPushButton*)sender())->text());
         });
 
         m_input_num_buttons.append(button);
@@ -119,7 +119,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
 {
     Q_ASSERT(param);
     m_group_buttons.clear();
-
+    QString current_mode;
     // type position has fixed button PAN and TILT
     if (param->type == INPUT_NUM_TYPE_POSITION)
     {
@@ -132,6 +132,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
             {
                 button->setText("PAN");
                 button->setChecked(true);
+                current_mode = "PAN";
             }
             else
             {
@@ -154,6 +155,10 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
             button->setFixedSize(IC_MODE_SIZE);
             button->setText(param->param[i].name);
             button->setChecked(param->param[i].select);
+            if (param->param[i].select)
+            {
+                current_mode = param->param[i].name;
+            }
             button->setVisible(false);
             button->setCheckMarkVisible(true);
             connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
@@ -172,6 +177,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
 
     m_button_next_tab.setVisible(maxGroupButtonPages() > 1);
     m_button_previous_tab.setVisible(maxGroupButtonPages() > 1);
+    SetCurrentModeButton(current_mode);
 }
 
 void InputNumControl::onModeChanged()
@@ -224,9 +230,9 @@ void InputNumControl::onGroupButtonClicked()
 {
     for (const auto &button: qAsConst(m_group_buttons))
     {
-        button->setChecked(false);
-        ((SelectButton*)sender())->setChecked(true);
+        button->setChecked(button == sender());
     }
+    SetCurrentModeButton(((SelectButton*)sender())->text());
 }
 
 InputNumValueMode InputNumControl::valueMode() const
@@ -274,4 +280,17 @@ int InputNumControl::groupButtonsPerPage() const
     if (type() == INPUT_NUM_TYPE_POSITION)
         return 3;
     return 4;
+}
+
+const QString &InputNumControl::CurrentModeButton() const
+{
+    return m_currentModeButton;
+}
+
+void InputNumControl::SetCurrentModeButton(const QString &newCurrentModeButton)
+{
+    if (m_currentModeButton == newCurrentModeButton)
+        return;
+    m_currentModeButton = newCurrentModeButton;
+    emit CurrentModeButtonChanged();
 }

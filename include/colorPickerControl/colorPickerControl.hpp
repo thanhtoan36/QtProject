@@ -32,13 +32,13 @@ public:
     QColor pickerColor() const;
     void setPickerColor(const QColor &newPickerColor);
 
-    int currentHeaderButtonsPage() const;
-    void setCurrentHeaderButtonsPage(int newCurentHeaderButtonsPage);
-
 signals:
     void pickerTypeChanged();
     void pickerColorChanged();
     void currentHeaderButtonsPageChanged();
+
+    void NextButtonClicked();
+    void PrevButtonClicked();
 
 protected slots:
     void onPickerTypeChanged();
@@ -48,6 +48,8 @@ protected slots:
 protected:
     void pauseSliderEvents();
     void resumeSliderEvents();
+    int currentHeaderButtonsPage() const;
+    void setCurrentHeaderButtonsPage(int newCurentHeaderButtonsPage);
 
     void addHeaderButton(ColorPickerType type, const QString &text);
     QVector<QSharedPointer<SelectButton> > headerButtons() const;

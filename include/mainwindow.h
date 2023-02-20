@@ -43,6 +43,11 @@ public:
 
     void logEvent(const QString &log);
 
+    void ConnectColorPickerEvent();
+    void ConnectColorFilterEvent();
+    void ConnectIntensityEvent();
+    void ConnectInputNumEvent();
+
 private slots:
     void on_ColorPickerControl_Fake_Open_clicked();
     void on_TrackControl_Fake_Open_clicked();

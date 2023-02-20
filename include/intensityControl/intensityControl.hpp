@@ -15,7 +15,7 @@ public:
     IntensityControl(QWidget *parent = nullptr);
 
 signals:
-    void intensityButtonClicked(const QString &name);
+    void IntensityButtonClicked(const QString &name);
     void returnButtonClicked();
 
 protected:

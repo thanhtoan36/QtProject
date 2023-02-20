@@ -53,29 +53,16 @@ MainWindow::MainWindow(QWidget *parent)
     m_palette_control = MakeSharedQObject<PaletteControl>();
     m_palette_control_horizon = MakeSharedQObject<PaletteControlHorizon>();
 
-    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
-    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
-
     connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
     connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
-
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
-    connect(m_color_filter_control.get(), &ColorFilterControl::returnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::returnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
 
     connect(m_encoder_control.get(), &EncoderControl::modeChanged, this, &MainWindow::EC_OnModeChanged);
     connect(m_encoder_control_horizon.get(), &EncoderControl::modeChanged, this, &MainWindow::EC_OnModeChanged);
 
-    connect(m_intensity_control.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
-    connect(m_intensity_control_horizon.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
-
-    connect(m_intensity_control.get(), &IntensityControl::intensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
-    connect(m_intensity_control_horizon.get(), &IntensityControl::intensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
+    ConnectColorFilterEvent();
+    ConnectColorPickerEvent();
+    ConnectIntensityEvent();
+    ConnectInputNumEvent();
 }
 
 MainWindow::~MainWindow()
@@ -88,6 +75,129 @@ void MainWindow::logEvent(const QString &log)
     const QString TIME_FORMAT = "HH:mm:ss.zzz";
     const auto time = QTime::currentTime().toString(TIME_FORMAT);
     ui->EventOutput->appendPlainText(QString("[%1] %2").arg(time).arg(log));
+}
+
+void MainWindow::ConnectColorPickerEvent()
+{
+    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+}
+
+void MainWindow::ConnectColorFilterEvent()
+{
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
+    connect(m_color_filter_control.get(), &ColorFilterControl::ReturnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::ReturnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
+}
+
+void MainWindow::ConnectIntensityEvent()
+{
+    connect(m_intensity_control.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
+    connect(m_intensity_control_horizon.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
+
+    connect(m_intensity_control.get(), &IntensityControl::IntensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
+    connect(m_intensity_control_horizon.get(), &IntensityControl::IntensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
+}
+
+void MainWindow::ConnectInputNumEvent()
+{
+    connect(m_input_num_control.get(),&InputNumControl::modeChanged, this, [&](){
+        QString log = "IC Mode Changed: ";
+        auto mode = ((InputNumControl*)sender())->mode();
+
+        if (mode == INPUT_NUM_MODE_PERCENT)
+        {
+            log+= "PERCENT";
+        }
+        else if(mode == INPUT_NUM_MODE_255)
+        {
+            log+= "255";
+        }
+        else
+        {
+            log+= "ANGEL";
+        }
+
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control.get(),&InputNumControl::valueModeChanged, this, [&](){
+        QString log = "IC Value Mode Changed: ";
+        auto mode = ((InputNumControl*)sender())->valueMode();
+
+        if (mode == INPUT_NUM_MODE_RELATIVE)
+        {
+            log+= "RELATIVE";
+        }
+        else
+        {
+            log+= "ABSOLUTE";
+        }
+
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control.get(),&InputNumControl::InputNumButtonClicked, this, [&](const QString & text){
+        QString log = "IC Button Clicked: " + text;
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control.get(),&InputNumControl::CurrentModeButtonChanged, this, [&](){
+        QString log = "IC Button Mode Changed: " + ((InputNumControl*)sender())->CurrentModeButton();
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control_horizon.get(),&InputNumControl::modeChanged, this, [&](){
+        QString log = "IC Mode Changed: ";
+        auto mode = ((InputNumControl*)sender())->mode();
+
+        if (mode == INPUT_NUM_MODE_PERCENT)
+        {
+            log+= "PERCENT";
+        }
+        else if(mode == INPUT_NUM_MODE_255)
+        {
+            log+= "255";
+        }
+        else
+        {
+            log+= "ANGEL";
+        }
+
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control_horizon.get(),&InputNumControl::valueModeChanged, this, [&](){
+        QString log = "IC Value Mode Changed: ";
+        auto mode = ((InputNumControl*)sender())->valueMode();
+
+        if (mode == INPUT_NUM_MODE_RELATIVE)
+        {
+            log+= "RELATIVE";
+        }
+        else
+        {
+            log+= "ABSOLUTE";
+        }
+
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control_horizon.get(),&InputNumControl::InputNumButtonClicked, this, [&](const QString & text){
+        QString log = "IC Button Clicked: " + text;
+        this->logEvent(log);
+    });
+
+    connect(m_input_num_control_horizon.get(),&InputNumControl::CurrentModeButtonChanged, this, [&](){
+        QString log = "IC Button Mode Changed: " + ((InputNumControl*)sender())->CurrentModeButton();
+        this->logEvent(log);
+    });
+
 }
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
