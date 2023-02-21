@@ -1,16 +1,16 @@
 #include "baseComponent/panelControlBase.h"
+#include "baseComponent/designPolicyDefine.h"
 #include <QFile>
-#define SCREEN_BACKGROUND_COLOR qRgb(34, 43, 53)  // background color of panels
 
 PanelControlBase::PanelControlBase(QWidget *parent)
     : QWidget{parent},
       m_background(this)
 {
-    m_background.setGridSize(QSize(1, 1));
-    m_background.setCellSize(size());
+    m_background.SetGridSize(QSize(1, 1));
+    m_background.SetCellSize(size());
 
-    m_background.setBackgroundColor(SCREEN_BACKGROUND_COLOR);
-    m_background.setGridLineColor(Qt::transparent);
+    m_background.SetBackgroundColor(SCREEN_BACKGROUND_COLOR);
+    m_background.SetGridLineColor(Qt::transparent);
 
     QFile style(":/resources/style.css");
     style.open(QFile::ReadOnly);
@@ -35,5 +35,5 @@ int PanelControlBase::CalculateNumberOfVisibleItems(int item_count, int items_pe
 void PanelControlBase::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
-    m_background.setCellSize(size());
+    m_background.SetCellSize(size());
 }

@@ -5,10 +5,9 @@
 int main(int argc, char *argv[])
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
-    QApplication::setStyle("fusion");
     QApplication a(argc, argv);
 
-    initLog();
+    InitLog();
 
     MainWindow w;
     w.show();

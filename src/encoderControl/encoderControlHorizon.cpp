@@ -11,7 +11,7 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     m_encoders_per_page = 5;
 
     m_encoder_background.setVisible(false);
-    m_button_background.setGridSize(QSize(1, 5));
+    m_button_background.SetGridSize(QSize(1, 5));
     m_button_background.move(EC_HORIZON_BUTTON_1_GEOMETRY_HORIZON.topLeft());
 
     m_button_switch_panel_encoder.setChecked(true);
@@ -42,8 +42,8 @@ void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     EncoderControl::SetDispParamData(param);
 
-    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT_HORIZON + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
-    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, QSize(m_encoders_per_page, 1));
+    PlaceChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT_HORIZON + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
+    PlaceChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, QSize(m_encoders_per_page, 1));
 }
 
 void EncoderControlHorizon::OnPanelSwitchButtonClicked()

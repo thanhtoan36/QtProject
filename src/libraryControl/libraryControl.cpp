@@ -19,7 +19,7 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     m_delete_button(this)
 {
     setFixedSize(LC_SCREEN_SIZE);
-    m_return_button.setTextColor(Qt::yellow);
+    m_return_button.SetTextColor(Qt::yellow);
 
     m_mode_buttons_grid_size = QSize(4, 2);
     m_lib_buttons_grid_size = QSize(4, 3);
@@ -27,8 +27,8 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     SetLibraryStartPoint(LC_LIB_BUTTON_TOP_LEFT);
     SetModeStartPoint(LC_MODE_TOP_LEFT);
 
-    m_grid.setGridSize(QSize(4, 6));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.SetGridSize(QSize(4, 6));
+    m_grid.SetCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 32);
 
     m_title_label.setGeometry(LC_TITLE_GEOMETRY);
@@ -144,7 +144,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button.widget->setVisible(false);
         button.widget->setFixedSize(LC_BUTTON_SIZE);
         button.widget->setText(data.library_no);
-        button.widget->setTitle(data.title);
+        button.widget->SetTitle(data.title);
         button.widget->setChecked(data.select);
         if (button.widget->isChecked())
         {
@@ -170,7 +170,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button.widget->setVisible(false);
         button.widget->setFixedSize(LC_BUTTON_SIZE);
         button.widget->setText(data.library_no);
-        button.widget->setTitle(data.title);
+        button.widget->SetTitle(data.title);
         button.widget->setChecked(data.select);
 
         if (button.widget->isChecked())
@@ -229,12 +229,12 @@ void LibraryControl::AddButtonToHistory(const LibraryControl::LibraryButton &but
 
     auto widget = MakeSharedQObject<TitleSelectButton>(this);
     widget->setText(button.widget->text());
-    widget->setCheckMarkVisible(true);
+    widget->SetCheckMarkVisible(true);
     widget->setFixedSize(LC_BUTTON1_GEOMETRY.size());
     widget->setVisible(false);
-    widget->setBackgroundColor(button.widget->backgroundColor());
-    widget->setSelectedBackgroundColor(button.widget->backgroundColor());
-    widget->setTitle(button.widget->title());
+    widget->SetBackgroundColor(button.widget->BackgroundColor());
+    widget->SetSelectedBackgroundColor(button.widget->BackgroundColor());
+    widget->SetTitle(button.widget->Title());
 
     auto iter = std::find_if(m_history_mode_buttons.begin(), m_history_mode_buttons.end(), [mode](const QSharedPointer<SelectButton> &b) {
         return b->text() == mode;
@@ -325,7 +325,7 @@ void LibraryControl::OnGroupLibButtonClicked()
     for (const auto &b : qAsConst(m_group_lib_buttons)) {
         if (b.widget == lib_button) {
             AddButtonToHistory(b);
-            SetCurrentLibraryButton({lib_button->text(),lib_button->title()});
+            SetCurrentLibraryButton({lib_button->text(),lib_button->Title()});
             b.widget->setChecked(true);
         } else {
             b.widget->setChecked(false);
@@ -336,7 +336,7 @@ void LibraryControl::OnGroupLibButtonClicked()
 void LibraryControl::OnHistoryLibButtonClicked()
 {
     const auto lib_button = ((TitleSelectButton*)sender());
-    SetCurrentHistoryButton({lib_button->text(),lib_button->title()});
+    SetCurrentHistoryButton({lib_button->text(),lib_button->Title()});
     for (const auto &b : qAsConst(m_history_lib_buttons)) {
         b.widget->setChecked(b.widget == lib_button);
     }
@@ -414,8 +414,8 @@ void LibraryControl::UpdateGroupTab()
         b.widget->setVisible(false);
     }
 
-    placeChildrenIntoPanel(m_group_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size);
-    placeChildrenIntoPanel(m_current_group_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_group_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_current_group_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size);
 
     if (!m_history_button.isChecked()) {
         UpdateChildrenVisibility(m_current_group_lib_buttons, CurrentGroupPage(), LibraryButtonsPerPage());
@@ -437,8 +437,8 @@ void LibraryControl::UpdateHistoryTab()
         b.widget->setVisible(false);
     }
 
-    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size);
-    placeChildrenIntoPanel(m_current_history_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_current_history_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size);
     if (m_history_button.isChecked()) {
         UpdateChildrenVisibility(m_current_history_lib_buttons, CurrentHistoryPage(), LibraryButtonsPerPage());
         m_up_button.setVisible(MaxHistoryPages() > 1);

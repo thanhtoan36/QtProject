@@ -7,24 +7,24 @@
 class ToggleButton : public CustomToggleButtonBase
 {
     Q_OBJECT
-    Q_PROPERTY(bool checkMarkVisible READ checkMarkVisible WRITE setCheckMarkVisible NOTIFY checkMarkVisibleChanged)
+    Q_PROPERTY(bool CheckMarkVisible READ CheckMarkVisible WRITE SetCheckMarkVisible NOTIFY CheckMarkVisibleChanged)
 
 public:
     explicit ToggleButton(QWidget *parent = nullptr);
 
-    bool checkMarkVisible() const;
-    void setCheckMarkVisible(bool newCheckMarkVisible);
+    bool CheckMarkVisible() const;
+    void SetCheckMarkVisible(bool value);
 
 public slots:
 
 signals:
-    void checkMarkVisibleChanged();
+    void CheckMarkVisibleChanged();
 
 protected:
 
 private:
     QLabel m_check_label;
-    bool m_checkMarkVisible;
+    bool m_check_mark_vsible;
 };
 
 #endif // TOGGLEBUTTON_H

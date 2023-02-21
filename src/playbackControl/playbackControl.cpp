@@ -43,7 +43,7 @@ PlaybackControl::PlaybackControl(QWidget *parent)
     m_list_view.setItemDelegate(&m_row_delegate);
 
     m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY);
-    m_grid_overlay.setColumnsWidth(m_column_width);
+    m_grid_overlay.SetColumnsWidth(m_column_width);
     m_grid_overlay.raise();
 
     // Use timer to prevent onItemClicked() from being miss fired before & after onItemDoubleClicked() event

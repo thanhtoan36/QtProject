@@ -5,7 +5,7 @@
 #define CSS_BORDER_COLOR_CHECKED     "CSS_BORDER_COLOR_SELECTED"
 #define CSS_TEXT_COLOR_CHECKED       "CSS_TEXT_COLOR_SELECTED"
 
-static const char * stylesheetTemplate = R"~(
+static const char * g_stylesheet_template = R"~(
 
 CustomToggleButtonBase:checked {
     border-style: inset;
@@ -18,63 +18,63 @@ CustomToggleButtonBase:checked {
 )~";
 
 CustomToggleButtonBase::CustomToggleButtonBase(QWidget *parent) : CustomButtonBase(parent),
-    m_selectedBackgroundColor(),
-    m_selectedBorderColor(),
-    m_selectedTextColor()
+    m_selected_background_color(),
+    m_selected_border_color(),
+    m_selected_text_color()
 {
     setCheckable(true);
 
-    cssStyler().appendStyleSheetTemplate(stylesheetTemplate);
+    CssStyler().AppendStyleSheetTemplate(g_stylesheet_template);
 
-    setBackgroundColor(QColor::fromRgb(13, 13, 13));
-    setTextColor(QColor::fromRgb(128, 128, 128));
+    SetBackgroundColor(QColor::fromRgb(13, 13, 13));
+    SetTextColor(QColor::fromRgb(128, 128, 128));
 
-    setSelectedBackgroundColor(QColor::fromRgb(89, 89, 89));
-    setSelectedTextColor(QColor::fromRgb(255, 255, 255));
-    setSelectedBorderColor(QColor::fromRgb(0, 176, 80));
+    SetSelectedBackgroundColor(QColor::fromRgb(89, 89, 89));
+    SetSelectedTextColor(QColor::fromRgb(255, 255, 255));
+    SetSelectedBorderColor(QColor::fromRgb(0, 176, 80));
 
-    setDisabledBackgroundColor(QColor::fromRgb(22, 22, 22));
-    setDisabledTextColor(QColor::fromRgb(191, 191, 191));
+    SetDisabledBackgroundColor(QColor::fromRgb(22, 22, 22));
+    SetDisabledTextColor(QColor::fromRgb(191, 191, 191));
 }
 
-QColor CustomToggleButtonBase::selectedBorderColor() const
+QColor CustomToggleButtonBase::SelectedBorderColor() const
 {
-    return m_selectedBorderColor;
+    return m_selected_border_color;
 }
 
-void CustomToggleButtonBase::setSelectedBorderColor(const QColor &newSelectedBorderColor)
+void CustomToggleButtonBase::SetSelectedBorderColor(const QColor &value)
 {
-    cssStyler().setTemplateParam(CSS_BORDER_COLOR_CHECKED, newSelectedBorderColor.name());
-    if (m_selectedBorderColor == newSelectedBorderColor)
+    CssStyler().SetTemplateParam(CSS_BORDER_COLOR_CHECKED, value.name());
+    if (m_selected_border_color == value)
         return;
-    m_selectedBorderColor = newSelectedBorderColor;
-    emit selectedBorderColorChanged();
+    m_selected_border_color = value;
+    emit SelectedBorderColorChanged();
 }
 
-QColor CustomToggleButtonBase::selectedTextColor() const
+QColor CustomToggleButtonBase::SelectedTextColor() const
 {
-    return m_selectedTextColor;
+    return m_selected_text_color;
 }
 
-void CustomToggleButtonBase::setSelectedTextColor(const QColor &newSelectedTextColor)
+void CustomToggleButtonBase::SetSelectedTextColor(const QColor &value)
 {
-    cssStyler().setTemplateParam(CSS_TEXT_COLOR_CHECKED, newSelectedTextColor.name());
-    if (m_selectedTextColor == newSelectedTextColor)
+    CssStyler().SetTemplateParam(CSS_TEXT_COLOR_CHECKED, value.name());
+    if (m_selected_text_color == value)
         return;
-    m_selectedTextColor = newSelectedTextColor;
-    emit selectedTextColorChanged();
+    m_selected_text_color = value;
+    emit SelectedTextColorChanged();
 }
 
-QColor CustomToggleButtonBase::selectedBackgroundColor() const
+QColor CustomToggleButtonBase::SelectedBackgroundColor() const
 {
-    return m_selectedBackgroundColor;
+    return m_selected_background_color;
 }
 
-void CustomToggleButtonBase::setSelectedBackgroundColor(const QColor &newSelectedBackgroundColor)
+void CustomToggleButtonBase::SetSelectedBackgroundColor(const QColor &value)
 {
-    cssStyler().setTemplateParam(CSS_BG_COLOR_CHECKED, newSelectedBackgroundColor.name());
-    if (m_selectedBackgroundColor == newSelectedBackgroundColor)
+    CssStyler().SetTemplateParam(CSS_BG_COLOR_CHECKED, value.name());
+    if (m_selected_background_color == value)
         return;
-    m_selectedBackgroundColor = newSelectedBackgroundColor;
-    emit selectedBackgroundColorChanged();
+    m_selected_background_color = value;
+    emit SelectedBackgroundColorChanged();
 }

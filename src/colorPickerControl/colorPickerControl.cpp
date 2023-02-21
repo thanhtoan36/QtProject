@@ -47,14 +47,14 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     m_label_title.setObjectName("title_label");
     m_label_setting.setObjectName("title_label_with_border");
 
-    m_slider_background.setGridSize(QSize(1, 1));
-    m_slider_background.setBackgroundColor(QColor::fromRgb(89, 89, 89));
-    m_slider_background.setGridLineColor(Qt::transparent);
+    m_slider_background.SetGridSize(QSize(1, 1));
+    m_slider_background.SetBackgroundColor(QColor::fromRgb(89, 89, 89));
+    m_slider_background.SetGridLineColor(Qt::transparent);
     m_slider_background.move(0, CPC_LABEL_SETTING_GEOMETRY.bottom());
-    m_slider_background.setCellSize(QSize(width(), height() - CPC_LABEL_SETTING_GEOMETRY.bottom()));
+    m_slider_background.SetCellSize(QSize(width(), height() - CPC_LABEL_SETTING_GEOMETRY.bottom()));
 
-    m_menu_background.setGridSize(QSize(4, 1));
-    m_menu_background.setCellSize(CPC_BUTTON_XY_GEOMETRY.size());
+    m_menu_background.SetGridSize(QSize(4, 1));
+    m_menu_background.SetCellSize(CPC_BUTTON_XY_GEOMETRY.size());
     m_menu_background.move(CPC_BUTTON_XY_GEOMETRY.topLeft());
 
     m_label_title.setGeometry(CPC_TITLE_GEOMETRY);
@@ -116,7 +116,7 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     AddHeaderButton(COLOR_PICKER_TYPE_XY, "xy");
     AddHeaderButton(COLOR_PICKER_TYPE_RGB, "RGB");
 
-    placeChildrenIntoPanel(HeaderButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(m_header_buttons_per_page, 1));
+    PlaceChildrenIntoPanel(HeaderButtons(), CPC_BUTTON_XY_GEOMETRY.size(), CPC_BUTTON_XY_GEOMETRY.topLeft(), QSize(m_header_buttons_per_page, 1));
     m_button_previous_menu_page.setVisible(HeaderButtons().size() > m_header_buttons_per_page);
     m_button_next_menu_page.setVisible(HeaderButtons().size() > m_header_buttons_per_page);
     SetupHeaderButtonPages();

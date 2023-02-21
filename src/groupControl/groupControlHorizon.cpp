@@ -10,8 +10,8 @@ GroupControlHorizon::GroupControlHorizon(QWidget *parent) : GroupControl(parent)
     m_buttons_grid_size = QSize(10, 4);
     m_title_label.setObjectName("title_label_with_border");
 
-    m_grid.setGridSize(QSize(11, 5));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.SetGridSize(QSize(11, 5));
+    m_grid.SetCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(GC_HORIZON_TITLE_GEOMETRY);
@@ -35,12 +35,12 @@ void GroupControlHorizon::SetDispParamData(GROUP_DISP_PARAM *param)
 {
     Q_ASSERT(param);
     GroupControl::SetDispParamData(param);
-    placeChildrenIntoPanel(m_group_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
-    placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_group_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
 }
 
 void GroupControlHorizon::AddButtonToHistory(QSharedPointer<TitleSelectButton> &button)
 {
     GroupControl::AddButtonToHistory(button);
-    placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
+    PlaceChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
 }

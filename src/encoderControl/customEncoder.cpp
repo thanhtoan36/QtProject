@@ -52,7 +52,7 @@ void CustomEncoder::paintEvent(QPaintEvent *event)
     constexpr int EC_YELLOW_SLIDER_WIDTH = 10;
     constexpr int GRID_LINES = 13;
 
-    float normalized_value = map(value(), minimum(), maximum(), 0.0f, 1.0f);
+    float normalized_value = Map(value(), minimum(), maximum(), 0.0f, 1.0f);
 
     // Draw grid lines
     const float grid_spacing = m_slider_boundary.height() * 1.0f / GRID_LINES;
@@ -77,7 +77,7 @@ void CustomEncoder::mousePressEvent(QMouseEvent *event)
     }
 
     const auto p = event->pos() - m_slider_boundary.topLeft();
-    setValue(map(p.y(), m_slider_boundary.height(), 0.0f, minimum(), maximum()));
+    setValue(Map(p.y(), m_slider_boundary.height(), 0.0f, minimum(), maximum()));
 
     emit sliderMoved(value());
 }

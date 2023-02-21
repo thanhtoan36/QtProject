@@ -12,8 +12,8 @@ PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(p
     m_palette_button_grid_size = QSize(4, 4);
     m_title_label.setObjectName("title_label_with_border");
 
-    m_grid.setGridSize(QSize(6, 5));
-    m_grid.setCellSize(BUTTON_SIZE);
+    m_grid.SetGridSize(QSize(6, 5));
+    m_grid.SetCellSize(BUTTON_SIZE);
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(PC_HORIZON_TITLE_GEOMETRY);

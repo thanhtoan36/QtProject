@@ -10,8 +10,8 @@ class PanelControlBase : public QWidget
 public:
     enum VerticalDirections
     {
-        TopToBottom,
-        BottomToTop,
+        TOP_TO_BOTTOM,
+        BOTTOM_TO_TOP,
     };
 
     explicit PanelControlBase(QWidget *parent = nullptr);
@@ -20,32 +20,33 @@ public:
     static int CalculateNumberOfVisibleItems(int itemsCount, int itemsPerPage, int pageIndex);
 
     template <class T>
-    static void placeChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize childSize, QPoint firstCellTopLeft, QSize gridSize, VerticalDirections vdirection = TopToBottom) {
-        if (gridSize.width() == 0 || gridSize.height() == 0)
+    static void PlaceChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize child_size, QPoint first_cell_top_left, QSize grid_size, VerticalDirections vdirection = TOP_TO_BOTTOM) {
+        if (grid_size.width() == 0 || grid_size.height() == 0)
             return;
 
         for (int i  = 0; i < children.length(); ++i) {
-            const int visualIndex = i % (gridSize.width() * gridSize.height());
-            const int row = visualIndex / gridSize.width();
-            const int col = visualIndex % gridSize.width();
+            const int visual_index = i % (grid_size.width() * grid_size.height());
+            const int row = visual_index / grid_size.width();
+            const int col = visual_index % grid_size.width();
 
             auto &child = children[i];
-            if (vdirection == TopToBottom) {
-                child->move(firstCellTopLeft + QPoint(col * childSize.width(), row * childSize.height()));
+            if (vdirection == TOP_TO_BOTTOM) {
+                child->move(first_cell_top_left + QPoint(col * child_size.width(), row * child_size.height()));
             } else  {
-                child->move(firstCellTopLeft + QPoint(col * childSize.width(), -row * childSize.height()));
+                child->move(first_cell_top_left + QPoint(col * child_size.width(), -row * child_size.height()));
             }
         }
     }
 
     template <class T>
-    static void UpdateChildrenVisibility(const QVector<QSharedPointer<T>> &children, int currentPage, int itemsPerPage) {
-        int pageBeginIndex = currentPage * itemsPerPage;
-        int pageEndIndex = (currentPage + 1) * itemsPerPage;
+    static void UpdateChildrenVisibility(const QVector<QSharedPointer<T>> &children, int page_index, int items_per_page) {
+        int begin_index = page_index * items_per_page;
+        int end_index = (page_index + 1) * items_per_page;
 
-        for (int i  = 0; i < children.length(); ++i) {
+        for (int i  = 0; i < children.length(); ++i)
+        {
             auto &child = children[i];
-            child->setVisible(i >= pageBeginIndex && i < pageEndIndex);
+            child->setVisible(i >= begin_index && i < end_index);
         }
     }
 

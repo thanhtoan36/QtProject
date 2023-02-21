@@ -11,17 +11,15 @@
 #include "libraryControl/libraryControl_datatypes.h"
 #include "paletteControl/paletteControl_datatypes.h"
 
-// NOTE: Quick & dirty code, there will be memory leak
 
-
-COLOR_PICKER_DISP_PARAM CPC_ParseInput(const QString &raw);
-COLOR_FILTER_DISP_PARAM CFC_ParseInput(const QString &raw);
-ENCODER_DISP_PARAM EC_ParseInput(const QString &raw);
-TRACK_DISP_PARAM TC_ParseInput(const QString &raw);
-INPUT_NUM_DISP_PARAM INC_ParseInput(const QString &raw);
-PLAYBACK_DISP_PARAM PLC_ParseInput(const QString &raw);
-GROUP_DISP_PARAM GC_ParseInput(const QString &raw);
-LIBRARY_DISP_PARAM LC_ParseInput(const QString &raw);
-PALETTE_DISP_PARAM PD_ParseInput(const QString &raw);
+COLOR_PICKER_DISP_PARAM ParseInput_ColorPicker(const QString &raw);
+COLOR_FILTER_DISP_PARAM ParseInput_ColorFilter(const QString &raw);
+ENCODER_DISP_PARAM ParseInput_Encoder(const QString &raw);
+TRACK_DISP_PARAM ParseInput_Track(const QString &raw);
+INPUT_NUM_DISP_PARAM ParseInput_InputNum(const QString &raw);
+PLAYBACK_DISP_PARAM ParseInput_Playback(const QString &raw);
+GROUP_DISP_PARAM ParseInput_Group(const QString &raw);
+LIBRARY_DISP_PARAM ParseInput_Library(const QString &raw);
+PALETTE_DISP_PARAM ParseInput_Palette(const QString &raw);
 
 #endif // TESTDATAPARSER_H

@@ -15,8 +15,8 @@ InputNumControlHorizon::InputNumControlHorizon(QWidget *parent) :InputNumControl
 {
     setFixedSize(IC_HORIZON_SCREEN_SIZE);
 
-    m_grid.setGridSize(QSize(6, 5));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.SetGridSize(QSize(6, 5));
+    m_grid.SetCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 34);
 
     m_label_title.setGeometry(IC_HORIZON_TITLE_GEOMETRY);
@@ -63,7 +63,7 @@ InputNumControlHorizon::InputNumControlHorizon(QWidget *parent) :InputNumControl
 
         m_input_num_buttons.append(button);
     }
-    placeChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize(4, 4));
+    PlaceChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize(4, 4));
 
     connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked);
     connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked);
@@ -81,7 +81,7 @@ void InputNumControlHorizon::OnPanelSwitchButtonClicked()
 void InputNumControlHorizon::OnTypeChanged()
 {
     InputNumControl::OnTypeChanged();
-    placeChildrenIntoPanel(m_group_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(GroupButtonsPerPage(), 1) );
+    PlaceChildrenIntoPanel(m_group_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(GroupButtonsPerPage(), 1) );
 }
 
 int InputNumControlHorizon::GroupButtonsPerPage() const

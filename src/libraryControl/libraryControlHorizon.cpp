@@ -13,8 +13,8 @@ LibraryControlHorizon::LibraryControlHorizon(QWidget *parent) : LibraryControl(p
     m_mode_buttons_grid_size = QSize(10, 1);
     m_lib_buttons_grid_size = QSize(10, 3);
 
-    m_grid.setGridSize(QSize(11, 5));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.SetGridSize(QSize(11, 5));
+    m_grid.SetCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(LC_HORIZON_TITLE_GEOMETRY);

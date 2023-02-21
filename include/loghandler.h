@@ -1,6 +1,6 @@
 #ifndef LOGHANDLER_H
 #define LOGHANDLER_H
 
-void initLog();
+void InitLog();
 
 #endif // LOGHANDLER_H

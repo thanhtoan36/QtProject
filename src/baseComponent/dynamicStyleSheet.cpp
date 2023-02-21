@@ -4,56 +4,56 @@
 
 DynamicStyleSheet::DynamicStyleSheet(QWidget *parent)
     : QObject((QObject*)parent),
-      m_styleSheetTemplate(),
-      m_templateParams()
+      m_stylesheet_template(),
+      m_template_params()
 {
     Q_ASSERT(parent);
 }
 
-QString DynamicStyleSheet::styleSheetTemplate() const
+QString DynamicStyleSheet::StyleSheetTemplate() const
 {
-    return m_styleSheetTemplate;
+    return m_stylesheet_template;
 }
 
-void DynamicStyleSheet::setStyleSheetTemplate(const QString &newStyleSheetTemplate)
+void DynamicStyleSheet::SetStyleSheetTemplate(const QString &value)
 {
-    if (m_styleSheetTemplate == newStyleSheetTemplate)
+    if (m_stylesheet_template == value)
         return;
-    m_styleSheetTemplate = newStyleSheetTemplate;
-    emit styleSheetTemplateChanged();
-    emit styleSheetChanged();
+    m_stylesheet_template = value;
+    emit StyleSheetTemplateChanged();
+    emit StyleSheetChanged();
 }
 
-void DynamicStyleSheet::appendStyleSheetTemplate(const QString &styleSheet)
+void DynamicStyleSheet::AppendStyleSheetTemplate(const QString &value)
 {
-    setStyleSheetTemplate(styleSheetTemplate() + "\n" + styleSheet);
+    SetStyleSheetTemplate(StyleSheetTemplate() + "\n" + value);
 }
 
-void DynamicStyleSheet::polish()
+void DynamicStyleSheet::Polish()
 {
-    static_cast<QWidget*>(parent())->setStyleSheet(styleSheet());
+    static_cast<QWidget*>(parent())->setStyleSheet(StyleSheet());
 }
 
-QString DynamicStyleSheet::styleSheet() const
+QString DynamicStyleSheet::StyleSheet() const
 {
-    QString temp = styleSheetTemplate();
-    for (const auto &key : m_templateParams.keys()) {
-        const auto &value = m_templateParams.value(key);
+    QString temp = StyleSheetTemplate();
+    for (const auto &key : m_template_params.keys()) {
+        const auto &value = m_template_params.value(key);
         temp.replace(key, value);
     }
     return temp;
 }
 
-QString DynamicStyleSheet::templateParam(const QString &key) const
+QString DynamicStyleSheet::TemplateParam(const QString &key) const
 {
-    return m_templateParams.value(key);
+    return m_template_params.value(key);
 }
 
-void DynamicStyleSheet::setTemplateParam(const QString &key, const QString &value)
+void DynamicStyleSheet::SetTemplateParam(const QString &key, const QString &value)
 {
-    const auto oldValue = templateParam(key);
-    if (oldValue != value) {
-        m_templateParams[key] = value;
-        emit styleSheetChanged();
+    const auto old_value = TemplateParam(key);
+    if (old_value != value) {
+        m_template_params[key] = value;
+        emit StyleSheetChanged();
     }
 }

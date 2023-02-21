@@ -35,19 +35,19 @@ MarkingPickerPopup::MarkingPickerPopup(QWidget *parent)
         button->setVisible(true);
         // button->setTextPixelSize(24);
         button->setText(m.marking);
-        button->setTextColor(m.color);
+        button->SetTextColor(m.color);
         button->setFixedSize(PLC_PICKER_CELL_SIZE);
         m_marking_buttons.append(button);
 
         connect(button.get(), &CustomPushButton::clicked, this, &MarkingPickerPopup::OnMarkingClicked);
     }
 
-    PanelControlBase::placeChildrenIntoPanel(m_marking_buttons, PLC_PICKER_CELL_SIZE, QPoint(0, 0), QSize(2, 5));
+    PanelControlBase::PlaceChildrenIntoPanel(m_marking_buttons, PLC_PICKER_CELL_SIZE, QPoint(0, 0), QSize(2, 5));
 }
 
 void MarkingPickerPopup::OnMarkingClicked()
 {
     auto button = (CustomPushButton*) sender();
     Q_ASSERT(button);
-    emit MarkingSelected(button->text(), button->textColor());
+    emit MarkingSelected(button->text(), button->TextColor());
 }

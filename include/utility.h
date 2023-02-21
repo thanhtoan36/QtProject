@@ -16,6 +16,6 @@ QSharedPointer<T> MakeSharedQObject(Args&&... args)
 
 // Map a value from a range (in) to another (out)
 // https://cdn.arduino.cc/reference/en/language/functions/math/map/
-float map(float x, float in_min, float in_max, float out_min, float out_max);
+float Map(float x, float in_min, float in_max, float out_min, float out_max);
 
 #endif // UTILITY_H

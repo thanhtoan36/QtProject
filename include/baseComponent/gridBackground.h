@@ -6,34 +6,34 @@
 class GridBackground : public QWidget {
     Q_OBJECT
 
-    Q_PROPERTY(QSize gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged)
-    Q_PROPERTY(QSize cellSize READ cellSize WRITE setCellSize NOTIFY cellSizeChanged)
-    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
-    Q_PROPERTY(QColor gridLineColor READ gridLineColor WRITE setGridLineColor NOTIFY gridLineColorChanged)
+    Q_PROPERTY(QSize GridSize READ GridSize WRITE SetGridSize NOTIFY GridSizeChanged)
+    Q_PROPERTY(QSize CellSize READ CellSize WRITE SetCellSize NOTIFY CellSizeChanged)
+    Q_PROPERTY(QColor BackgroundColor READ BackgroundColor WRITE SetBackgroundColor NOTIFY BackgroundColorChanged)
+    Q_PROPERTY(QColor GridLineColor READ GridLineColor WRITE SetGridLineColor NOTIFY GridLineColorChanged)
 
 public:
     GridBackground(QWidget *parent = nullptr);
 
-    QSize gridSize() const;
-    void setGridSize(const QSize &newGridSize);
+    QSize GridSize() const;
+    void SetGridSize(const QSize &value);
 
-    QSize cellSize() const;
-    void setCellSize(const QSize &newCellSize);
+    QSize CellSize() const;
+    void SetCellSize(const QSize &value);
 
-    QColor backgroundColor() const;
-    void setBackgroundColor(const QColor &newBackgroundColor);
+    QColor BackgroundColor() const;
+    void SetBackgroundColor(const QColor &value);
 
-    QColor gridLineColor() const;
-    void setGridLineColor(const QColor &newGridLineColor);
+    QColor GridLineColor() const;
+    void SetGridLineColor(const QColor &value);
 
 signals:
-    void gridSizeChanged();
-    void cellSizeChanged();
-    void backgroundColorChanged();
-    void gridLineColorChanged();
+    void GridSizeChanged();
+    void CellSizeChanged();
+    void BackgroundColorChanged();
+    void GridLineColorChanged();
 
-public slots:
-    void updateGridSize();
+protected slots:
+    void UpdateGridSize();
 
 protected:
     virtual void paintEvent(QPaintEvent *e) override;

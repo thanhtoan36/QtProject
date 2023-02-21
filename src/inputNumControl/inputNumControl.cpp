@@ -24,14 +24,14 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     setFixedSize(IC_SCREEN_SIZE);
     m_group_buttons_per_page = 4;
 
-    m_return_button.setTextColor(Qt::yellow);
-    m_button_mode_255.setCheckMarkVisible(true);
-    m_button_mode_percent.setCheckMarkVisible(true);
+    m_return_button.SetTextColor(Qt::yellow);
+    m_button_mode_255.SetCheckMarkVisible(true);
+    m_button_mode_percent.SetCheckMarkVisible(true);
     m_button_mode_percent.setChecked(true);
-    m_return_button.setTextColor(Qt::yellow);
+    m_return_button.SetTextColor(Qt::yellow);
 
-    m_grid.setGridSize(QSize(4, 6));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.SetGridSize(QSize(4, 6));
+    m_grid.SetCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
     m_grid.move(0, 32);
 
     m_label_title.setGeometry(IC_TITLE_GEOMETRY);
@@ -82,7 +82,7 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
 
         m_input_num_buttons.append(button);
     }
-    placeChildrenIntoPanel(m_input_num_buttons, IC_BUTTON_SIZE, IC_BUTTON_TOPLEFT, QSize(4, 4));
+    PlaceChildrenIntoPanel(m_input_num_buttons, IC_BUTTON_SIZE, IC_BUTTON_TOPLEFT, QSize(4, 4));
 
     connect(this, &InputNumControl::ModeChanged, this, &InputNumControl::OnModeChanged);
     connect(this, &InputNumControl::ValueModeChanged, this, &InputNumControl::OnValueModeChanged);
@@ -142,7 +142,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
             }
 
             button->setVisible(false);
-            button->setCheckMarkVisible(true);
+            button->SetCheckMarkVisible(true);
             connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::OnGroupButtonClicked);
             m_group_buttons.push_back(button);
         }
@@ -161,14 +161,14 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
                 current_mode = param->param[i].name;
             }
             button->setVisible(false);
-            button->setCheckMarkVisible(true);
+            button->SetCheckMarkVisible(true);
             connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::OnGroupButtonClicked);
             m_group_buttons.push_back(button);
         }
     }
 
 
-    placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
+    PlaceChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
     SetType(param->type);
     SetMode(param->mode);
 
@@ -198,7 +198,7 @@ void InputNumControl::OnTypeChanged()
 {
     m_button_relative.setVisible(Type() == INPUT_NUM_TYPE_POSITION);
     m_button_absolute.setVisible(Type() == INPUT_NUM_TYPE_POSITION);
-    placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(GroupButtonsPerPage(), 1) );
+    PlaceChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(GroupButtonsPerPage(), 1) );
 }
 
 InputNumMode InputNumControl::Mode() const

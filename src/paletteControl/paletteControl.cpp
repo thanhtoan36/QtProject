@@ -18,13 +18,13 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
     m_mode_button_grid_size = QSize(4, 1);
     m_palette_button_grid_size = QSize(4, 3);
 
-    m_revert_button.setTextColor(Qt::yellow);
+    m_revert_button.SetTextColor(Qt::yellow);
 
     SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
     SetMenuStartPoint(PC_MENU_TOP_LEFT);
 
-    m_grid.setGridSize(QSize(4, 6));
-    m_grid.setCellSize(BUTTON_SIZE);
+    m_grid.SetGridSize(QSize(4, 6));
+    m_grid.SetCellSize(BUTTON_SIZE);
     m_grid.move(0, 32);
 
     m_title_label.setGeometry(PC_TITLE_GEOMETRY);
@@ -187,7 +187,7 @@ void PaletteControl::OnPaletteButtonClicked()
 void PaletteControl::UpdateModePages()
 {
     UpdateChildrenVisibility(m_mode_buttons, CurrentModePage(), ModeButtonsPerPage());
-    placeChildrenIntoPanel(m_mode_buttons, PC_BUTTON_SIZE, ModeStartPoint(), m_mode_button_grid_size);
+    PlaceChildrenIntoPanel(m_mode_buttons, PC_BUTTON_SIZE, ModeStartPoint(), m_mode_button_grid_size);
 
     m_button_previous_mode_page.setVisible(MaxModePages() > 1);
     m_button_next_mode_page.setVisible(MaxModePages() > 1);
@@ -222,7 +222,7 @@ void PaletteControl::UpdatePalettePages()
     auto &group = m_palette_buttons.at(mode_index);
 
     UpdateChildrenVisibility(group, CurrentPalettePage(), PaletteButtonsPerPage());
-    placeChildrenIntoPanel(group, PC_BUTTON_SIZE, ButtonStartPoint(), m_palette_button_grid_size);
+    PlaceChildrenIntoPanel(group, PC_BUTTON_SIZE, ButtonStartPoint(), m_palette_button_grid_size);
 }
 
 QPoint PaletteControl::ModeStartPoint() const

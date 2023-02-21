@@ -3,11 +3,11 @@
 
 SelectButton::SelectButton(QWidget *parent) : ToggleButton(parent)
 {
-    setCheckMarkVisible(true);
-    connect(this, &QAbstractButton::clicked, this, &SelectButton::onClicked);
+    SetCheckMarkVisible(true);
+    connect(this, &QAbstractButton::clicked, this, &SelectButton::OnClicked);
 }
 
-void SelectButton::onClicked()
+void SelectButton::OnClicked()
 {
     setChecked(true);
 }

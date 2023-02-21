@@ -29,13 +29,13 @@ EncoderControl::EncoderControl(QWidget *parent)
     setFixedSize(EC_SCREENSIZE);
     m_encoders_per_page = 4;
 
-    m_encoder_background.setCellSize(EC_ENCODER_LABEL_SIZE + QSize(0, EC_CUSTOM_ENCODER_SIZE.height()));
+    m_encoder_background.SetCellSize(EC_ENCODER_LABEL_SIZE + QSize(0, EC_CUSTOM_ENCODER_SIZE.height()));
     m_encoder_background.move(EC_ENCODER_LABELS_TOPLEFT);
-    m_encoder_background.setBackgroundColor(Qt::black);
-    m_encoder_background.setGridLineColor(Qt::transparent);
+    m_encoder_background.SetBackgroundColor(Qt::black);
+    m_encoder_background.SetGridLineColor(Qt::transparent);
 
-    m_button_background.setGridSize(QSize(4, 1));
-    m_button_background.setCellSize(EC_BUTTON_NEXT_GEOMETRY.size());
+    m_button_background.SetGridSize(QSize(4, 1));
+    m_button_background.SetCellSize(EC_BUTTON_NEXT_GEOMETRY.size());
     m_button_background.move(EC_BUTTON_PERCENT_GEOMETRY.topLeft());
 
     m_label_title.setGeometry(EC_LABEL_TITLE_GEOMETRY);
@@ -126,8 +126,8 @@ void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
         OnEncoderValueChanged(i, param->param[i].level * EC_FLOAT_TO_INT_SCALE);
     }
 
-    placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
-    placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, QSize(m_encoders_per_page, 1));
+    PlaceChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
+    PlaceChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, QSize(m_encoders_per_page, 1));
 
     SetCurrentEncoderPage(0);
     SetupEncoderPages();
@@ -142,7 +142,7 @@ void EncoderControl::SetupEncoderPages()
     UpdateChildrenVisibility(m_encoder_labels, CurrentEncoderPage(), m_encoders_per_page);
 
     int visible_items = CalculateNumberOfVisibleItems(m_encoders.length(), m_encoders_per_page, CurrentEncoderPage());
-    m_encoder_background.setGridSize(QSize(visible_items, 1));
+    m_encoder_background.SetGridSize(QSize(visible_items, 1));
 }
 
 void EncoderControl::OnModeChanged()

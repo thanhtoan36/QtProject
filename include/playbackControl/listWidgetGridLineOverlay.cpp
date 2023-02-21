@@ -3,14 +3,14 @@
 
 ListWidgetGridLineOverlay::ListWidgetGridLineOverlay(QWidget *parent)
     : QWidget(parent),
-      m_columnsWidth()
+      m_columns_width()
 {
     setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 
-void ListWidgetGridLineOverlay::setColumnsWidth(const QVector<int> &columnsWidth)
+void ListWidgetGridLineOverlay::SetColumnsWidth(const QVector<int> &value)
 {
-    m_columnsWidth = columnsWidth;
+    m_columns_width = value;
 }
 
 void ListWidgetGridLineOverlay::paintEvent(QPaintEvent *e)
@@ -22,8 +22,8 @@ void ListWidgetGridLineOverlay::paintEvent(QPaintEvent *e)
     p.drawRect(QRect(QPoint(0, 0), size()));
 
     int x = 0;
-    for (int i = 0; i < m_columnsWidth.length(); ++i) {
-        x += m_columnsWidth[i];
+    for (int i = 0; i < m_columns_width.length(); ++i) {
+        x += m_columns_width[i];
         p.drawLine(x, 0, x, height());
     }
 }

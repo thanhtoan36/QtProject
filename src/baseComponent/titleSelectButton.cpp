@@ -5,7 +5,7 @@
 #define TITLE_PADDING 1
 
 TitleSelectButton::TitleSelectButton(QWidget *parent) : SelectButton(parent),
-    m_titleVisible(true),
+    m_title_visible(true),
     m_title(),
     m_title_label(this)
 {
@@ -13,36 +13,36 @@ TitleSelectButton::TitleSelectButton(QWidget *parent) : SelectButton(parent),
     m_title_label.move(TITLE_PADDING, height() - m_title_label.height() - TITLE_PADDING);
     m_title_label.setObjectName("select_button_title_label");
 
-    setBackgroundColor(Qt::black);
-    setSelectedBackgroundColor(Qt::black);
+    SetBackgroundColor(Qt::black);
+    SetSelectedBackgroundColor(Qt::black);
 }
 
-bool TitleSelectButton::titleVisible() const
+bool TitleSelectButton::TitleVisible() const
 {
-    return m_titleVisible;
+    return m_title_visible;
 }
 
-void TitleSelectButton::setTitleVisible(bool newTitleVisible)
+void TitleSelectButton::SetTitleVisible(bool newTitleVisible)
 {
-    if (m_titleVisible == newTitleVisible)
+    if (m_title_visible == newTitleVisible)
         return;
-    m_titleVisible = newTitleVisible;
-    emit titleVisibleChanged();
+    m_title_visible = newTitleVisible;
+    emit TitleVisibleChanged();
 
     m_title_label.setVisible(newTitleVisible);
 }
 
-QString TitleSelectButton::title() const
+QString TitleSelectButton::Title() const
 {
     return m_title;
 }
 
-void TitleSelectButton::setTitle(const QString &newTitle)
+void TitleSelectButton::SetTitle(const QString &newTitle)
 {
     if (m_title == newTitle)
         return;
     m_title = newTitle;
-    emit titleChanged();
+    emit TitleChanged();
 
     m_title_label.setText(newTitle);
 }
@@ -52,14 +52,4 @@ void TitleSelectButton::resizeEvent(QResizeEvent *event)
     SelectButton::resizeEvent(event);
     m_title_label.setGeometry(TITLE_PADDING, height() - m_title_label.height() - TITLE_PADDING,
                               width() - 2 * TITLE_PADDING, m_title_label.height());
-}
-
-uint32_t TitleSelectButton::currentMode() const
-{
-    return m_current_mode;
-}
-
-void TitleSelectButton::setCurrentMode(uint32_t newCurrent_mode)
-{
-    m_current_mode = newCurrent_mode;
 }

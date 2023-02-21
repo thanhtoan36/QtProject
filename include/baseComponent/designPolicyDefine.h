@@ -11,5 +11,6 @@
 #define PUSH_BUTTON_BG_COLOR_ENABLE QColor(0,0,0)
 #define PUSH_BUTTON_TEXT_COLOR_ENABLE QColor(191,191,191)
 
+#define SCREEN_BACKGROUND_COLOR qRgb(34, 43, 53)  // background color of panels
 
 #endif // DESIGNPOLICYDEFINE_H

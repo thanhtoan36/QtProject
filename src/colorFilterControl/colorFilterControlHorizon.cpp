@@ -15,8 +15,8 @@ ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFil
     setFixedSize(CFC_HORIZON_SCREENSIZE);
     m_header_buttons_per_page = 3;
 
-    m_grid.setGridSize(QSize(7, 5));
-    m_grid.setCellSize(QSize(78, 48));
+    m_grid.SetGridSize(QSize(7, 5));
+    m_grid.SetCellSize(QSize(78, 48));
     m_grid.move(0, 34);
 
     m_title_label.setGeometry(CFC_HORIZON_TITLE_GEOMETRY);
@@ -46,7 +46,7 @@ ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFil
     m_button_next_header_buttons_page.setVisible(false);
     m_button_previous_header_buttons_page.setVisible(false);
 
-    placeChildrenIntoPanel(HeaderButtons(), CFC_HORIZON_TB_TAB_GEOMETRY.size(), CFC_HORIZON_TB_TAB_GEOMETRY.topLeft(), QSize(1, m_header_buttons_per_page));
+    PlaceChildrenIntoPanel(HeaderButtons(), CFC_HORIZON_TB_TAB_GEOMETRY.size(), CFC_HORIZON_TB_TAB_GEOMETRY.topLeft(), QSize(1, m_header_buttons_per_page));
     SetupHeaderTabButtons();
 }
 
@@ -54,12 +54,12 @@ void ColorFilterControlHorizon::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
     ColorFilterControl::setDispParamData(param);
-    placeChildrenIntoPanel(m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
-    placeChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
-    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
+    PlaceChildrenIntoPanel(m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
+    PlaceChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
+    PlaceChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 }
 void ColorFilterControlHorizon::AddButtonToHistory(QSharedPointer<SelectButton> button)
 {
     ColorFilterControl::AddButtonToHistory(button);
-    placeChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
+    PlaceChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 }

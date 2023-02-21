@@ -8,66 +8,65 @@ class CustomButtonBase : public QPushButton
 {
     Q_OBJECT
 
-    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
-    Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor NOTIFY borderColorChanged)
-    Q_PROPERTY(QColor textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
+    Q_PROPERTY(QColor BackgroundColor READ BackgroundColor WRITE SetBackgroundColor NOTIFY BackgroundColorChanged)
+    Q_PROPERTY(QColor BorderColor READ BorderColor WRITE SetBorderColor NOTIFY BorderColorChanged)
+    Q_PROPERTY(QColor TextColor READ TextColor WRITE SetTextColor NOTIFY TextColorChanged)
 
-    Q_PROPERTY(QColor disabledBackgroundColor READ disabledBackgroundColor WRITE setDisabledBackgroundColor NOTIFY disabledBackgroundColorChanged)
-    Q_PROPERTY(QColor disabledBorderColor READ disabledBorderColor WRITE setDisabledBorderColor NOTIFY disabledBorderColorChanged)
-    Q_PROPERTY(QColor disabledTextColor READ disabledTextColor WRITE setDisabledTextColor NOTIFY disabledTextColorChanged)
+    Q_PROPERTY(QColor DisabledBackgroundColor READ DisabledBackgroundColor WRITE SetDisabledBackgroundColor NOTIFY DisabledBackgroundColorChanged)
+    Q_PROPERTY(QColor DisabledBorderColor READ DisabledBorderColor WRITE SetDisabledBorderColor NOTIFY DisabledBorderColorChanged)
+    Q_PROPERTY(QColor DisabledTextColor READ DisabledTextColor WRITE SetDisabledTextColor NOTIFY DisabledTextColorChanged)
 
-    Q_PROPERTY(int textPixelSize READ textPixelSize WRITE setTextPixelSize NOTIFY textPixelSizeChanged)
+    Q_PROPERTY(int TextPixelSize READ TextPixelSize WRITE SetTextPixelSize NOTIFY TextPixelSizeChanged)
 
 public:
     explicit CustomButtonBase(QWidget *parent = nullptr);
 
-    QColor backgroundColor() const;
-    void setBackgroundColor(const QColor &newBackgroundColor);
+    QColor BackgroundColor() const;
+    void SetBackgroundColor(const QColor &value);
 
-    QColor textColor() const;
-    void setTextColor(const QColor &newTextColor);
+    QColor TextColor() const;
+    void SetTextColor(const QColor &value);
 
-    int textPixelSize() const;
-    void setTextPixelSize(int newTextPixelSize);
+    int TextPixelSize() const;
+    void SetTextPixelSize(int value);
 
-    QColor borderColor() const;
-    void setBorderColor(const QColor &newBorderColor);
+    QColor BorderColor() const;
+    void SetBorderColor(const QColor &value);
 
-    QColor disabledBackgroundColor() const;
-    void setDisabledBackgroundColor(const QColor &newDisabledBackgroundColor);
+    QColor DisabledBackgroundColor() const;
+    void SetDisabledBackgroundColor(const QColor &value);
 
-    QColor disabledBorderColor() const;
-    void setDisabledBorderColor(const QColor &newDisabledBorderColor);
+    QColor DisabledBorderColor() const;
+    void SetDisabledBorderColor(const QColor &value);
 
-    QColor disabledTextColor() const;
-    void setDisabledTextColor(const QColor &newDisabledTextColor);
+    QColor DisabledTextColor() const;
+    void SetDisabledTextColor(const QColor &value);
 
 public slots:
 
 signals:
-    void backgroundColorChanged();
-    void textColorChanged();
-    void textPixelSizeChanged();
-    void borderColorChanged();
+    void BackgroundColorChanged();
+    void TextColorChanged();
+    void TextPixelSizeChanged();
+    void BorderColorChanged();
 
-    void disabledBackgroundColorChanged();
-    void disabledBorderColorChanged();
+    void DisabledBackgroundColorChanged();
+    void DisabledBorderColorChanged();
 
-    void disabledTextColorChanged();
+    void DisabledTextColorChanged();
 
 protected:
-    DynamicStyleSheet &cssStyler();
+    DynamicStyleSheet &CssStyler();
 
 private:
     DynamicStyleSheet m_styler;
-    QString m_stylesheetTemplate;
-    QColor m_backgroundColor;
-    QColor m_borderColor;
-    QColor m_textColor;
-    QColor m_disabledBackgroundColor;
-    QColor m_disabledBorderColor;
-    QColor m_disabledTextColor;
-    int m_textPixelSize;
+    QColor m_background_color;
+    QColor m_border_color;
+    QColor m_text_color;
+    QColor m_disabled_background_color;
+    QColor m_disabled_border_color;
+    QColor m_disabled_text_color;
+    int m_text_pixel_size;
 };
 
 #endif // CUSTOMBUTTONBASE_H

@@ -21,12 +21,12 @@ TrackControl::TrackControl(QWidget *parent)
 
     m_label_title.setObjectName("title_label");
 
-    m_button_mode_255.setCheckMarkVisible(true);
-    m_button_mode_percent.setCheckMarkVisible(true);
-    m_button_mode_angle.setCheckMarkVisible(true);
+    m_button_mode_255.SetCheckMarkVisible(true);
+    m_button_mode_percent.SetCheckMarkVisible(true);
+    m_button_mode_angle.SetCheckMarkVisible(true);
 
-    m_button_value_mode_absolute.setCheckMarkVisible(true);
-    m_button_value_mode_relative.setCheckMarkVisible(true);
+    m_button_value_mode_absolute.SetCheckMarkVisible(true);
+    m_button_value_mode_relative.SetCheckMarkVisible(true);
 
     m_label_title.setGeometry(TC_LABEL_TITLE_GEOMETRY);
     m_label_title.setText("トラック");

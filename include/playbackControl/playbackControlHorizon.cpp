@@ -31,6 +31,6 @@ PlaybackControlHorizon::PlaybackControlHorizon(QWidget *parent)
     m_list_view.setItemDelegate(&m_row_delegate);
 
     m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY_HORIZON);
-    m_grid_overlay.setColumnsWidth(m_column_width);
+    m_grid_overlay.SetColumnsWidth(m_column_width);
     m_grid_overlay.raise();
 }

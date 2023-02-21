@@ -6,36 +6,33 @@
 class CustomToggleButtonBase : public CustomButtonBase
 {
     Q_OBJECT
-    Q_PROPERTY(QColor selectedBackgroundColor READ selectedBackgroundColor WRITE setSelectedBackgroundColor NOTIFY selectedBackgroundColorChanged)
-    Q_PROPERTY(QColor selectedBorderColor READ selectedBorderColor WRITE setSelectedBorderColor NOTIFY selectedBorderColorChanged)
-    Q_PROPERTY(QColor selectedTextColor READ selectedTextColor WRITE setSelectedTextColor NOTIFY selectedTextColorChanged)
+    Q_PROPERTY(QColor SelectedBackgroundColor READ SelectedBackgroundColor WRITE SetSelectedBackgroundColor NOTIFY SelectedBackgroundColorChanged)
+    Q_PROPERTY(QColor SelectedBorderColor READ SelectedBorderColor WRITE SetSelectedBorderColor NOTIFY SelectedBorderColorChanged)
+    Q_PROPERTY(QColor SelectedTextColor READ SelectedTextColor WRITE SetSelectedTextColor NOTIFY SelectedTextColorChanged)
 
 public:
     explicit CustomToggleButtonBase(QWidget *parent = nullptr);
 
-    QColor selectedBorderColor() const;
-    void setSelectedBorderColor(const QColor &newSelectedBorderColor);
+    QColor SelectedBorderColor() const;
+    void SetSelectedBorderColor(const QColor &value);
 
-    QColor selectedTextColor() const;
-    void setSelectedTextColor(const QColor &newSelectedTextColor);
+    QColor SelectedTextColor() const;
+    void SetSelectedTextColor(const QColor &value);
 
-    QColor selectedBackgroundColor() const;
-    void setSelectedBackgroundColor(const QColor &newSelectedBackgroundColor);
-
-public slots:
+    QColor SelectedBackgroundColor() const;
+    void SetSelectedBackgroundColor(const QColor &value);
 
 signals:
-
-    void selectedBorderColorChanged();
-    void selectedTextColorChanged();
-    void selectedBackgroundColorChanged();
+    void SelectedBorderColorChanged();
+    void SelectedTextColorChanged();
+    void SelectedBackgroundColorChanged();
 
 protected:
 
 private:
-    QColor m_selectedBackgroundColor;
-    QColor m_selectedBorderColor;
-    QColor m_selectedTextColor;
+    QColor m_selected_background_color;
+    QColor m_selected_border_color;
+    QColor m_selected_text_color;
 };
 
 #endif // CUSTOMTOGGLEBUTTONBASE_H

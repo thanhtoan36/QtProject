@@ -11,12 +11,12 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
 
 {
     setFixedSize(ISC_SCREENSIZE);
-    m_grid_background.setGridSize(QSize(4, 6));
-    m_grid_background.setCellSize(ISC_INTENSITY_BUTTON_SIZE);
+    m_grid_background.SetGridSize(QSize(4, 6));
+    m_grid_background.SetCellSize(ISC_INTENSITY_BUTTON_SIZE);
     m_grid_background.move(ISC_MENU_BUTTON_TOPLEFT);
 
     m_label_title.setObjectName("title_label");
-    m_return_button.setTextColor(Qt::yellow);
+    m_return_button.SetTextColor(Qt::yellow);
 
     m_label_title.setGeometry(ISC_TITLE_GOEMETRY);
     m_label_title.setText("数値入力");
@@ -54,5 +54,5 @@ IntensityControl::IntensityControl(QWidget *parent) : PanelControlBase(parent),
         m_intensity_buttons.append(button);
     }
 
-    placeChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE, ISC_INTENSITY_BUTTON_TOPLEFT, QSize(4, 5));
+    PlaceChildrenIntoPanel(m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE, ISC_INTENSITY_BUTTON_TOPLEFT, QSize(4, 5));
 }

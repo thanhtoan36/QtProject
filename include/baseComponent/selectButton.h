@@ -10,7 +10,7 @@ public:
     explicit SelectButton(QWidget *parent = nullptr);
 
 public slots:
-    virtual void onClicked();
+    virtual void OnClicked();
 
 };
 

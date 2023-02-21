@@ -8,12 +8,12 @@ class ListWidgetGridLineOverlay : public QWidget
     Q_OBJECT
 public:
     ListWidgetGridLineOverlay(QWidget *parent = nullptr);
-    void setColumnsWidth(const QVector<int> &columnsWidth);
+    void SetColumnsWidth(const QVector<int> &value);
 
 protected:
     virtual void paintEvent(QPaintEvent *e) override;
 private:
-    QVector<int> m_columnsWidth;
+    QVector<int> m_columns_width;
 };
 
 

@@ -8,7 +8,7 @@
 
 #define STR(a) #a
 
-COLOR_PICKER_DISP_PARAM CPC_ParseInput(const QString &raw)
+COLOR_PICKER_DISP_PARAM ParseInput_ColorPicker(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -21,7 +21,7 @@ COLOR_PICKER_DISP_PARAM CPC_ParseInput(const QString &raw)
     return p;
 }
 
-COLOR_FILTER_DISP_PARAM CFC_ParseInput(const QString &raw)
+COLOR_FILTER_DISP_PARAM ParseInput_ColorFilter(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -57,7 +57,7 @@ COLOR_FILTER_DISP_PARAM CFC_ParseInput(const QString &raw)
     return p;
 }
 
-ENCODER_DISP_PARAM EC_ParseInput(const QString &raw)
+ENCODER_DISP_PARAM ParseInput_Encoder(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -99,7 +99,7 @@ ENCODER_DISP_PARAM EC_ParseInput(const QString &raw)
     return p;
 }
 
-TRACK_DISP_PARAM TC_ParseInput(const QString &raw)
+TRACK_DISP_PARAM ParseInput_Track(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -138,7 +138,7 @@ TRACK_DISP_PARAM TC_ParseInput(const QString &raw)
     return p;
 }
 
-INPUT_NUM_DISP_PARAM INC_ParseInput(const QString &raw)
+INPUT_NUM_DISP_PARAM ParseInput_InputNum(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -176,7 +176,7 @@ INPUT_NUM_DISP_PARAM INC_ParseInput(const QString &raw)
     return p;
 }
 
-PLAYBACK_DISP_PARAM PLC_ParseInput(const QString &raw)
+PLAYBACK_DISP_PARAM ParseInput_Playback(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto array = doc.array();
@@ -211,7 +211,7 @@ PLAYBACK_DISP_PARAM PLC_ParseInput(const QString &raw)
     return p;
 }
 
-GROUP_DISP_PARAM GC_ParseInput(const QString &raw)
+GROUP_DISP_PARAM ParseInput_Group(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -244,7 +244,7 @@ GROUP_DISP_PARAM GC_ParseInput(const QString &raw)
     return p;
 }
 
-LIBRARY_DISP_PARAM LC_ParseInput(const QString &raw)
+LIBRARY_DISP_PARAM ParseInput_Library(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
@@ -279,7 +279,7 @@ LIBRARY_DISP_PARAM LC_ParseInput(const QString &raw)
     return p;
 }
 
-PALETTE_DISP_PARAM PD_ParseInput(const QString &raw)
+PALETTE_DISP_PARAM ParseInput_Palette(const QString &raw)
 {
     QJsonDocument doc = QJsonDocument::fromJson(raw.toLocal8Bit());
     const auto object = doc.object();
