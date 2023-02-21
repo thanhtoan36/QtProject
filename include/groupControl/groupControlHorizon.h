@@ -11,7 +11,7 @@ public:
     virtual void SetDispParamData(GROUP_DISP_PARAM *param) override;
 
 protected:
-    virtual void addButtonToHistory(QSharedPointer<TitleSelectButton>& button) override;
+    virtual void AddButtonToHistory(QSharedPointer<TitleSelectButton>& button) override;
 };
 
 #endif // GROUPCONTROLHORIZON_H

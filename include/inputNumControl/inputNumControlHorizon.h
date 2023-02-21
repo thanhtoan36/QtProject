@@ -9,7 +9,7 @@ public:
     explicit InputNumControlHorizon(QWidget* parent = nullptr);
 
 protected slots:
-    void onPanelSwitchButtonClicked();
+    void OnPanelSwitchButtonClicked();
     virtual void OnTypeChanged();
 
 protected:

@@ -21,10 +21,10 @@ struct LibraryControlButton
 class LibraryControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int currentGroupPage READ currentGroupPage WRITE setCurrentGroupPage NOTIFY currentGroupPageChanged)
-    Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
-    Q_PROPERTY(QString selectedGroupMode READ selectedGroupMode WRITE setSelectedGroupMode NOTIFY selectedGroupModeChanged)
-    Q_PROPERTY(QString selectedHistoryMode READ selectedHistoryMode WRITE setSelectedHistoryMode NOTIFY selectedHistoryModeChanged)
+    Q_PROPERTY(int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY currentGroupPageChanged)
+    Q_PROPERTY(int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged)
+    Q_PROPERTY(QString SelectedGroupMode READ SelectedGroupMode WRITE SetSelectedGroupMode NOTIFY SelectedGroupModeChanged)
+    Q_PROPERTY(QString SelectedHistoryMode READ SelectedHistoryMode WRITE SetSelectedHistoryMode NOTIFY SelectedHistoryModeChanged)
     Q_PROPERTY(QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged)
     Q_PROPERTY(LibraryControlButton CurrentLibraryButton READ CurrentLibraryButton WRITE SetCurrentLibraryButton NOTIFY CurrentLibraryButtonChanged)
     Q_PROPERTY(QString CurrentHistoryModeButton READ CurrentHistoryModeButton WRITE SetCurrentHistoryModeButton NOTIFY CurrentHistoryModeButtonChanged)
@@ -41,86 +41,79 @@ public:
     explicit LibraryControl(QWidget * parent = nullptr);
     virtual void SetDispParamData(LIBRARY_DISP_PARAM *param);
 
-    int currentGroupPage() const;
-    void setCurrentGroupPage(int newCurrentGroupPage);
+    int CurrentGroupPage() const;
+    void SetCurrentGroupPage(int page);
 
-    int currentHistoryPage() const;
-    void setCurrentHistoryPage(int newCurrentHistoryPage);
+    int CurrentHistoryPage() const;
+    void SetCurrentHistoryPage(int page);
 
-    QString selectedGroupMode() const;
-    void setSelectedGroupMode(const QString &newSelectedGroupMode);
+    QString SelectedGroupMode() const;
+    void SetSelectedGroupMode(const QString &mode);
 
-    QString selectedHistoryMode() const;
-    void setSelectedHistoryMode(const QString &newSelectedHistoryMode);
-
+    QString SelectedHistoryMode() const;
+    void SetSelectedHistoryMode(const QString &mode);
 
     const LibraryControlButton &CurrentLibraryButton() const;
-    void SetCurrentLibraryButton(const LibraryControlButton &newCurrentLibraryButton);
+    void SetCurrentLibraryButton(const LibraryControlButton &button);
 
     const LibraryControlButton &CurrentHistoryButton() const;
-    void SetCurrentHistoryButton(const LibraryControlButton &newCurrentHistoryButton);
+    void SetCurrentHistoryButton(const LibraryControlButton &button);
 
     const QString &CurrentFooterButton() const;
-    void SetCurrentFooterButton(const QString &newCurrentFooterButton);
+    void SetCurrentFooterButton(const QString &button);
 
     const QString &CurrentModeButton() const;
-    void SetCurrentModeButton(const QString &newCurrentModeButton);
+    void SetCurrentModeButton(const QString &button);
 
     const QString &CurrentHistoryModeButton() const;
-    void SetCurrentHistoryModeButton(const QString &newCurrentHistoryModeButton);
+    void SetCurrentHistoryModeButton(const QString &button);
 
 signals:
     void currentGroupPageChanged();
-    void currentHistoryPageChanged();
-    void selectedGroupModeChanged();
-    void selectedHistoryModeChanged();
-
+    void CurrentHistoryPageChanged();
+    void SelectedGroupModeChanged();
+    void SelectedHistoryModeChanged();
     void CurrentModeButtonChanged();
-
     void CurrentLibraryButtonChanged();
-
     void CurrentHistoryModeButtonChanged();
-
     void CurrentHistoryButtonChanged();
-
     void CurrentFooterButtonChanged();
-
     void ReturnButtonClicked();
 
 protected:
-    QPoint libStartPoint() const;
-    void setLibStartPoint(QPoint newLibStartPoint);
+    QPoint LibraryStartPoint() const;
+    void SetLibraryStartPoint(QPoint point);
 
-    QPoint modeStartPoint() const;
-    void setModeStartPoint(QPoint newModeStartPoint);
+    QPoint ModeStartPoint() const;
+    void SetModeStartPoint(QPoint point);
 
-    int maxGroupPages() const;
-    int maxHistoryPages() const;
+    int MaxGroupPages() const;
+    int MaxHistoryPages() const;
 
-    int modeButtonsPerPage() const;
-    int libraryButtonsPerPage() const;
+    int ModeButtonsPerPage() const;
+    int LibraryButtonsPerPage() const;
 
-    void refilterGroupButtonsByMode();
-    void refilterHistoryButtonsByMode();
+    void RefilterGroupButtonsByMode();
+    void RefilterHistoryButtonsByMode();
 
-    static QVector<LibraryButton> filter(const QVector<LibraryButton> &buttons, const QString &mode = QString());
-    static QVector<QSharedPointer<TitleSelectButton>> widgetList(const QVector<LibraryButton> &buttons);
+    static QVector<LibraryButton> Filter(const QVector<LibraryButton> &buttons, const QString &mode = QString());
+    static QVector<QSharedPointer<TitleSelectButton>> WidgetList(const QVector<LibraryButton> &buttons);
 
-    void updateGroupTab();
-    void updateHistoryTab();
+    void UpdateGroupTab();
+    void UpdateHistoryTab();
 
 protected:
-    virtual void addButtonToHistory(const LibraryButton &button);
+    virtual void AddButtonToHistory(const LibraryButton &button);
 
-    void onButtonTitleClicked();
-    void onButtonRegisterClicked();
-    void onButtonDeleteClicked();
+    void OnButtonTitleClicked();
+    void OnButtonRegisterClicked();
+    void OnButtonDeleteClicked();
 
 protected slots:
-    void onGroupModeButtonClicked();
-    void onHistoryModeButtonClicked();
-    void onGroupLibButtonClicked();
-    void onHistoryLibButtonClicked();
+    void OnGroupModeButtonClicked();
+    void OnHistoryModeButtonClicked();
+    void OnGroupLibButtonClicked();
+    void OnHistoryLibButtonClicked();
 
 protected:
     GridBackground m_grid;
@@ -142,22 +135,22 @@ protected:
     QVector<QSharedPointer<TitleSelectButton>> m_current_group_lib_buttons;
     QVector<QSharedPointer<TitleSelectButton>> m_current_history_lib_buttons;
 
-    QPoint m_libStartPoint;
-    QPoint m_modeStartPoint;
+    QPoint m_library_start_point;
+    QPoint m_mode_start_point;
 
     QSize m_mode_buttons_grid_size;
     QSize m_lib_buttons_grid_size;
 
 private:
-    int m_currentGroupPage;
-    int m_currentHistoryPage;
-    QString m_selectedGroupMode;
-    QString m_selectedHistoryMode;
-    LibraryControlButton m_CurrentLibraryButton;
-    LibraryControlButton m_CurrentHistoryButton;
-    QString m_CurrentFooterButton;
-    QString m_CurrentModeButton;
-    QString m_CurrentHistoryModeButton;
+    int m_current_group_page;
+    int m_current_history_page;
+    QString m_selected_group_mode;
+    QString m_selected_history_mode;
+    LibraryControlButton m_current_library_button;
+    LibraryControlButton m_current_historybutton;
+    QString m_current_footer_button;
+    QString m_current_mode_button;
+    QString m_current_history_mode_button;
 };
 
 #endif // LIBRARYCONTROL_HPP
