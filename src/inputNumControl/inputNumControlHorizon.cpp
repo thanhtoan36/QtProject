@@ -65,12 +65,12 @@ InputNumControlHorizon::InputNumControlHorizon(QWidget *parent) :InputNumControl
     }
     placeChildrenIntoPanel(m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize(4, 4));
 
-    connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &InputNumControlHorizon::onPanelSwitchButtonClicked);
-    connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &InputNumControlHorizon::onPanelSwitchButtonClicked);
-    connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &InputNumControlHorizon::onPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked);
 }
 
-void InputNumControlHorizon::onPanelSwitchButtonClicked()
+void InputNumControlHorizon::OnPanelSwitchButtonClicked()
 {
     m_button_switch_panel_picker.setChecked(false);
     m_button_switch_panel_encoder.setChecked(false);

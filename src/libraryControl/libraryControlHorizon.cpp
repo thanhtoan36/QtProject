@@ -7,8 +7,8 @@
 LibraryControlHorizon::LibraryControlHorizon(QWidget *parent) : LibraryControl(parent)
 {
     setFixedSize(LC_HORIZON_SCREENSIZE);
-    setLibStartPoint(LC_HORIZON_LIB_BUTTON_TOP_LEFT);
-    setModeStartPoint(LC_HORIZON_MODE_TOP_LEFT);
+    SetLibraryStartPoint(LC_HORIZON_LIB_BUTTON_TOP_LEFT);
+    SetModeStartPoint(LC_HORIZON_MODE_TOP_LEFT);
 
     m_mode_buttons_grid_size = QSize(10, 1);
     m_lib_buttons_grid_size = QSize(10, 3);

@@ -39,8 +39,8 @@ void GroupControlHorizon::SetDispParamData(GROUP_DISP_PARAM *param)
     placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
 }
 
-void GroupControlHorizon::addButtonToHistory(QSharedPointer<TitleSelectButton> &button)
+void GroupControlHorizon::AddButtonToHistory(QSharedPointer<TitleSelectButton> &button)
 {
-    GroupControl::addButtonToHistory(button);
+    GroupControl::AddButtonToHistory(button);
     placeChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
 }

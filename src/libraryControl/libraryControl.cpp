@@ -24,8 +24,8 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     m_mode_buttons_grid_size = QSize(4, 2);
     m_lib_buttons_grid_size = QSize(4, 3);
 
-    setLibStartPoint(LC_LIB_BUTTON_TOP_LEFT);
-    setModeStartPoint(LC_MODE_TOP_LEFT);
+    SetLibraryStartPoint(LC_LIB_BUTTON_TOP_LEFT);
+    SetModeStartPoint(LC_MODE_TOP_LEFT);
 
     m_grid.setGridSize(QSize(4, 6));
     m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
@@ -67,22 +67,22 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
 
     connect(&m_up_button, &QPushButton::clicked, this, [&](){
         if (m_history_button.isChecked()) {
-            setCurrentHistoryPage(currentHistoryPage() - 1);
+            SetCurrentHistoryPage(CurrentHistoryPage() - 1);
         } else {
-            setCurrentGroupPage(currentGroupPage() - 1);
+            SetCurrentGroupPage(CurrentGroupPage() - 1);
         }
     });
     connect(&m_down_button, &QPushButton::clicked, this, [&](){
         if (m_history_button.isChecked()) {
-            setCurrentHistoryPage(currentHistoryPage() + 1);
+            SetCurrentHistoryPage(CurrentHistoryPage() + 1);
         } else {
-            setCurrentGroupPage(currentGroupPage() + 1);
+            SetCurrentGroupPage(CurrentGroupPage() + 1);
         }
     });
 
     connect(&m_history_button, &QPushButton::toggled, this, [&](){
-        updateGroupTab();
-        updateHistoryTab();
+        UpdateGroupTab();
+        UpdateHistoryTab();
         if (m_history_button.isChecked())
         {
             m_setting_label.setVisible(false);
@@ -101,12 +101,12 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
         }
     });
 
-    connect(this, &LibraryControl::currentGroupPageChanged, this, &LibraryControl::updateGroupTab);
-    connect(this, &LibraryControl::currentHistoryPageChanged, this, &LibraryControl::updateHistoryTab);
+    connect(this, &LibraryControl::currentGroupPageChanged, this, &LibraryControl::UpdateGroupTab);
+    connect(this, &LibraryControl::CurrentHistoryPageChanged, this, &LibraryControl::UpdateHistoryTab);
 
-    connect(&m_title_button, &QPushButton::clicked, this, &LibraryControl::onButtonTitleClicked);
-    connect(&m_register_button, &QPushButton::clicked, this, &LibraryControl::onButtonRegisterClicked);
-    connect(&m_delete_button, &QPushButton::clicked, this, &LibraryControl::onButtonDeleteClicked);
+    connect(&m_title_button, &QPushButton::clicked, this, &LibraryControl::OnButtonTitleClicked);
+    connect(&m_register_button, &QPushButton::clicked, this, &LibraryControl::OnButtonRegisterClicked);
+    connect(&m_delete_button, &QPushButton::clicked, this, &LibraryControl::OnButtonDeleteClicked);
     connect(&m_return_button, &QPushButton::clicked, this, &LibraryControl::ReturnButtonClicked);
 }
 
@@ -119,11 +119,11 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
     m_group_mode_buttons.clear();
     m_history_mode_buttons.clear();
 
-    setCurrentGroupPage(0);
-    setCurrentHistoryPage(0);
+    SetCurrentGroupPage(0);
+    SetCurrentHistoryPage(0);
 
-    setSelectedGroupMode(QString());
-    setSelectedHistoryMode(QString());
+    SetSelectedGroupMode(QString());
+    SetSelectedHistoryMode(QString());
 
     m_history_button.setChecked(false);
 
@@ -151,7 +151,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
             current_library_button.text = data.library_no;
             current_library_button.title = data.title;
         }
-        connect(button.widget.get(), &TitleSelectButton::clicked, this, &LibraryControl::onGroupLibButtonClicked);
+        connect(button.widget.get(), &TitleSelectButton::clicked, this, &LibraryControl::OnGroupLibButtonClicked);
 
         if (!group_modes.contains(data.mode)) {
             group_modes.append(data.mode);
@@ -179,7 +179,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
             current_library_button.title = data.title;
         }
 
-        connect(button.widget.get(), &TitleSelectButton::clicked, this, &LibraryControl::onHistoryLibButtonClicked);
+        connect(button.widget.get(), &TitleSelectButton::clicked, this, &LibraryControl::OnHistoryLibButtonClicked);
 
         if (!history_modes.contains(data.mode)) {
             history_modes.append(data.mode);
@@ -196,7 +196,7 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button->setVisible(false);
         button->setChecked(mode == "ALL");
 
-        connect(button.get(), &SelectButton::clicked, this, &LibraryControl::onGroupModeButtonClicked);
+        connect(button.get(), &SelectButton::clicked, this, &LibraryControl::OnGroupModeButtonClicked);
         m_group_mode_buttons.append(button);
     }
 
@@ -208,22 +208,22 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
         button->setVisible(false);
         button->setChecked(mode == "ALL");
 
-        connect(button.get(), &SelectButton::clicked, this, &LibraryControl::onHistoryModeButtonClicked);
+        connect(button.get(), &SelectButton::clicked, this, &LibraryControl::OnHistoryModeButtonClicked);
         m_history_mode_buttons.append(button);
     }
 
-    refilterGroupButtonsByMode();
-    refilterHistoryButtonsByMode();
+    RefilterGroupButtonsByMode();
+    RefilterHistoryButtonsByMode();
 
     SetCurrentModeButton("ALL");
     SetCurrentHistoryModeButton("ALL");
     SetCurrentLibraryButton(current_library_button);
     SetCurrentHistoryButton(current_history_button);
-    updateGroupTab();
-    updateHistoryTab();
+    UpdateGroupTab();
+    UpdateHistoryTab();
 }
 
-void LibraryControl::addButtonToHistory(const LibraryControl::LibraryButton &button)
+void LibraryControl::AddButtonToHistory(const LibraryControl::LibraryButton &button)
 {
     const auto mode = button.mode;
 
@@ -247,39 +247,39 @@ void LibraryControl::addButtonToHistory(const LibraryControl::LibraryButton &but
         new_mode_button->setText(mode);
         new_mode_button->setVisible(false);
 
-        connect(new_mode_button.get(), &SelectButton::clicked, this, &LibraryControl::onHistoryModeButtonClicked);
+        connect(new_mode_button.get(), &SelectButton::clicked, this, &LibraryControl::OnHistoryModeButtonClicked);
         m_history_mode_buttons.append(new_mode_button);
     }
 
-    connect(widget.get(), &TitleSelectButton::clicked, this, &LibraryControl::onHistoryLibButtonClicked);
+    connect(widget.get(), &TitleSelectButton::clicked, this, &LibraryControl::OnHistoryLibButtonClicked);
 
     m_history_lib_buttons.push_front(LibraryControl::LibraryButton{ mode, widget });
-    refilterHistoryButtonsByMode();
-    updateHistoryTab();
+    RefilterHistoryButtonsByMode();
+    UpdateHistoryTab();
 }
 
-void LibraryControl::onButtonTitleClicked()
+void LibraryControl::OnButtonTitleClicked()
 {
     m_register_button.setChecked(false);
     m_delete_button.setChecked(false);
     SetCurrentFooterButton("title");
 }
 
-void LibraryControl::onButtonRegisterClicked()
+void LibraryControl::OnButtonRegisterClicked()
 {
     m_title_button.setChecked(false);
     m_delete_button.setChecked(false);
     SetCurrentFooterButton("register");
 }
 
-void LibraryControl::onButtonDeleteClicked()
+void LibraryControl::OnButtonDeleteClicked()
 {
     m_register_button.setChecked(false);
     m_title_button.setChecked(false);
     SetCurrentFooterButton("delete");
 }
 
-void LibraryControl::onGroupModeButtonClicked()
+void LibraryControl::OnGroupModeButtonClicked()
 {
     const auto modeButton = ((SelectButton*)sender());
     for (const auto &b : qAsConst(m_group_mode_buttons)) {
@@ -288,18 +288,18 @@ void LibraryControl::onGroupModeButtonClicked()
     SetCurrentModeButton(((SelectButton*)sender())->text());
     const auto mode = modeButton->text();
     if (mode == "ALL") {
-        setSelectedGroupMode(QString());
+        SetSelectedGroupMode(QString());
     } else {
-        setSelectedGroupMode(mode);
+        SetSelectedGroupMode(mode);
     }
 
-    setCurrentGroupPage(0);
-    refilterGroupButtonsByMode();
+    SetCurrentGroupPage(0);
+    RefilterGroupButtonsByMode();
 
-    updateGroupTab();
+    UpdateGroupTab();
 }
 
-void LibraryControl::onHistoryModeButtonClicked()
+void LibraryControl::OnHistoryModeButtonClicked()
 {
     const auto modeButton = ((SelectButton*)sender());
     for (const auto &b : qAsConst(m_history_mode_buttons)) {
@@ -308,23 +308,23 @@ void LibraryControl::onHistoryModeButtonClicked()
     SetCurrentHistoryModeButton(((SelectButton*)sender())->text());
     const auto mode = modeButton->text();
     if (mode == "ALL") {
-        setSelectedHistoryMode(QString());
+        SetSelectedHistoryMode(QString());
     } else {
-        setSelectedHistoryMode(mode);
+        SetSelectedHistoryMode(mode);
     }
 
-    setCurrentHistoryPage(0);
-    refilterHistoryButtonsByMode();
+    SetCurrentHistoryPage(0);
+    RefilterHistoryButtonsByMode();
 
-    updateHistoryTab();
+    UpdateHistoryTab();
 }
 
-void LibraryControl::onGroupLibButtonClicked()
+void LibraryControl::OnGroupLibButtonClicked()
 {
     const auto lib_button = ((TitleSelectButton*)sender());
     for (const auto &b : qAsConst(m_group_lib_buttons)) {
         if (b.widget == lib_button) {
-            addButtonToHistory(b);
+            AddButtonToHistory(b);
             SetCurrentLibraryButton({lib_button->text(),lib_button->title()});
             b.widget->setChecked(true);
         } else {
@@ -333,7 +333,7 @@ void LibraryControl::onGroupLibButtonClicked()
     }
 }
 
-void LibraryControl::onHistoryLibButtonClicked()
+void LibraryControl::OnHistoryLibButtonClicked()
 {
     const auto lib_button = ((TitleSelectButton*)sender());
     SetCurrentHistoryButton({lib_button->text(),lib_button->title()});
@@ -343,47 +343,47 @@ void LibraryControl::onHistoryLibButtonClicked()
 
 }
 
-QPoint LibraryControl::modeStartPoint() const
+QPoint LibraryControl::ModeStartPoint() const
 {
-    return m_modeStartPoint;
+    return m_mode_start_point;
 }
 
-void LibraryControl::setModeStartPoint(QPoint newModeStartPoint)
+void LibraryControl::SetModeStartPoint(QPoint point)
 {
-    m_modeStartPoint = newModeStartPoint;
+    m_mode_start_point = point;
 }
 
-int LibraryControl::maxGroupPages() const
+int LibraryControl::MaxGroupPages() const
 {
-    return calulateNumberOfPages(m_current_group_lib_buttons.size(), libraryButtonsPerPage());
+    return calulateNumberOfPages(m_current_group_lib_buttons.size(), LibraryButtonsPerPage());
 }
 
-int LibraryControl::maxHistoryPages() const
+int LibraryControl::MaxHistoryPages() const
 {
-    return calulateNumberOfPages(m_current_history_lib_buttons.size(), libraryButtonsPerPage());
+    return calulateNumberOfPages(m_current_history_lib_buttons.size(), LibraryButtonsPerPage());
 }
 
-int LibraryControl::modeButtonsPerPage() const
+int LibraryControl::ModeButtonsPerPage() const
 {
     return m_mode_buttons_grid_size.width() * m_mode_buttons_grid_size.height();
 }
 
-int LibraryControl::libraryButtonsPerPage() const
+int LibraryControl::LibraryButtonsPerPage() const
 {
     return m_lib_buttons_grid_size.width() * m_lib_buttons_grid_size.height();
 }
 
-void LibraryControl::refilterGroupButtonsByMode()
+void LibraryControl::RefilterGroupButtonsByMode()
 {
-    m_current_group_lib_buttons = widgetList(filter(m_group_lib_buttons, selectedGroupMode()));
+    m_current_group_lib_buttons = WidgetList(Filter(m_group_lib_buttons, SelectedGroupMode()));
 }
 
-void LibraryControl::refilterHistoryButtonsByMode()
+void LibraryControl::RefilterHistoryButtonsByMode()
 {
-    m_current_history_lib_buttons = widgetList(filter(m_history_lib_buttons, selectedHistoryMode()));
+    m_current_history_lib_buttons = WidgetList(Filter(m_history_lib_buttons, SelectedHistoryMode()));
 }
 
-QVector<LibraryControl::LibraryButton> LibraryControl::filter(const QVector<LibraryControl::LibraryButton> &buttons, const QString &mode)
+QVector<LibraryControl::LibraryButton> LibraryControl::Filter(const QVector<LibraryControl::LibraryButton> &buttons, const QString &mode)
 {
     if (mode.isEmpty())
         return buttons;
@@ -394,7 +394,7 @@ QVector<LibraryControl::LibraryButton> LibraryControl::filter(const QVector<Libr
     return result;
 }
 
-QVector<QSharedPointer<TitleSelectButton> > LibraryControl::widgetList(const QVector<LibraryButton> &buttons)
+QVector<QSharedPointer<TitleSelectButton> > LibraryControl::WidgetList(const QVector<LibraryButton> &buttons)
 {
     QVector<QSharedPointer<TitleSelectButton>> result;
     for (const auto &b : buttons) {
@@ -403,7 +403,7 @@ QVector<QSharedPointer<TitleSelectButton> > LibraryControl::widgetList(const QVe
     return result;
 }
 
-void LibraryControl::updateGroupTab()
+void LibraryControl::UpdateGroupTab()
 {
     for (const auto &b : qAsConst(m_group_mode_buttons))
     {
@@ -414,19 +414,19 @@ void LibraryControl::updateGroupTab()
         b.widget->setVisible(false);
     }
 
-    placeChildrenIntoPanel(m_group_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), m_mode_buttons_grid_size);
-    placeChildrenIntoPanel(m_current_group_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), m_lib_buttons_grid_size);
+    placeChildrenIntoPanel(m_group_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size);
+    placeChildrenIntoPanel(m_current_group_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size);
 
     if (!m_history_button.isChecked()) {
-        UpdateChildrenVisibility(m_current_group_lib_buttons, currentGroupPage(), libraryButtonsPerPage());
-        m_up_button.setVisible(maxGroupPages() > 1);
-        m_down_button.setVisible(maxGroupPages() > 1);
-        m_up_button.setEnabled(currentGroupPage() > 0);
-        m_down_button.setEnabled(currentGroupPage() < maxGroupPages() - 1);
+        UpdateChildrenVisibility(m_current_group_lib_buttons, CurrentGroupPage(), LibraryButtonsPerPage());
+        m_up_button.setVisible(MaxGroupPages() > 1);
+        m_down_button.setVisible(MaxGroupPages() > 1);
+        m_up_button.setEnabled(CurrentGroupPage() > 0);
+        m_down_button.setEnabled(CurrentGroupPage() < MaxGroupPages() - 1);
     }
 }
 
-void LibraryControl::updateHistoryTab()
+void LibraryControl::UpdateHistoryTab()
 {
     for (const auto &b : qAsConst(m_history_mode_buttons))
     {
@@ -437,144 +437,144 @@ void LibraryControl::updateHistoryTab()
         b.widget->setVisible(false);
     }
 
-    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), m_mode_buttons_grid_size);
-    placeChildrenIntoPanel(m_current_history_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), m_lib_buttons_grid_size);
+    placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size);
+    placeChildrenIntoPanel(m_current_history_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size);
     if (m_history_button.isChecked()) {
-        UpdateChildrenVisibility(m_current_history_lib_buttons, currentHistoryPage(), libraryButtonsPerPage());
-        m_up_button.setVisible(maxHistoryPages() > 1);
-        m_down_button.setVisible(maxHistoryPages() > 1);
-        m_up_button.setEnabled(currentHistoryPage() > 0);
-        m_down_button.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
+        UpdateChildrenVisibility(m_current_history_lib_buttons, CurrentHistoryPage(), LibraryButtonsPerPage());
+        m_up_button.setVisible(MaxHistoryPages() > 1);
+        m_down_button.setVisible(MaxHistoryPages() > 1);
+        m_up_button.setEnabled(CurrentHistoryPage() > 0);
+        m_down_button.setEnabled(CurrentHistoryPage() < MaxHistoryPages() - 1);
     }
 }
 
-QPoint LibraryControl::libStartPoint() const
+QPoint LibraryControl::LibraryStartPoint() const
 {
-    return m_libStartPoint;
+    return m_library_start_point;
 }
 
-void LibraryControl::setLibStartPoint(QPoint newLibStartPoint)
+void LibraryControl::SetLibraryStartPoint(QPoint point)
 {
-    m_libStartPoint = newLibStartPoint;
+    m_library_start_point = point;
 }
 
 
-int LibraryControl::currentGroupPage() const
+int LibraryControl::CurrentGroupPage() const
 {
-    return m_currentGroupPage;
+    return m_current_group_page;
 }
 
-void LibraryControl::setCurrentGroupPage(int newCurrentGroupPage)
+void LibraryControl::SetCurrentGroupPage(int page)
 {
-    newCurrentGroupPage = qBound(newCurrentGroupPage, 0, maxGroupPages());
-    if (m_currentGroupPage == newCurrentGroupPage)
+    page = qBound(page, 0, MaxGroupPages());
+    if (m_current_group_page == page)
         return;
-    m_currentGroupPage = newCurrentGroupPage;
+    m_current_group_page = page;
     emit currentGroupPageChanged();
 }
 
-int LibraryControl::currentHistoryPage() const
+int LibraryControl::CurrentHistoryPage() const
 {
-    return m_currentHistoryPage;
+    return m_current_history_page;
 }
 
-void LibraryControl::setCurrentHistoryPage(int newCurrentHistoryPage)
+void LibraryControl::SetCurrentHistoryPage(int page)
 {
-    newCurrentHistoryPage = qBound(newCurrentHistoryPage, 0, maxHistoryPages());
-    if (m_currentHistoryPage == newCurrentHistoryPage)
+    page = qBound(page, 0, MaxHistoryPages());
+    if (m_current_history_page == page)
         return;
-    m_currentHistoryPage = newCurrentHistoryPage;
-    emit currentHistoryPageChanged();
+    m_current_history_page = page;
+    emit CurrentHistoryPageChanged();
 }
 
-QString LibraryControl::selectedGroupMode() const
+QString LibraryControl::SelectedGroupMode() const
 {
-    return m_selectedGroupMode;
+    return m_selected_group_mode;
 }
 
-void LibraryControl::setSelectedGroupMode(const QString &newSelectedGroupMode)
+void LibraryControl::SetSelectedGroupMode(const QString &mode)
 {
-    if (m_selectedGroupMode == newSelectedGroupMode)
+    if (m_selected_group_mode == mode)
         return;
-    m_selectedGroupMode = newSelectedGroupMode;
-    emit selectedGroupModeChanged();
+    m_selected_group_mode = mode;
+    emit SelectedGroupModeChanged();
 }
 
-QString LibraryControl::selectedHistoryMode() const
+QString LibraryControl::SelectedHistoryMode() const
 {
-    return m_selectedHistoryMode;
+    return m_selected_history_mode;
 }
 
-void LibraryControl::setSelectedHistoryMode(const QString &newSelectedHistoryMode)
+void LibraryControl::SetSelectedHistoryMode(const QString &mode)
 {
-    if (m_selectedHistoryMode == newSelectedHistoryMode)
+    if (m_selected_history_mode == mode)
         return;
-    m_selectedHistoryMode = newSelectedHistoryMode;
-    emit selectedHistoryModeChanged();
+    m_selected_history_mode = mode;
+    emit SelectedHistoryModeChanged();
 }
 
 
 const LibraryControlButton &LibraryControl::CurrentLibraryButton() const
 {
-    return m_CurrentLibraryButton;
+    return m_current_library_button;
 }
 
-void LibraryControl::SetCurrentLibraryButton(const LibraryControlButton &newCurrentLibraryButton)
+void LibraryControl::SetCurrentLibraryButton(const LibraryControlButton &button)
 {
-    if (m_CurrentLibraryButton == newCurrentLibraryButton)
+    if (m_current_library_button == button)
         return;
-    m_CurrentLibraryButton = newCurrentLibraryButton;
+    m_current_library_button = button;
     emit CurrentLibraryButtonChanged();
 }
 
 const LibraryControlButton &LibraryControl::CurrentHistoryButton() const
 {
-    return m_CurrentHistoryButton;
+    return m_current_historybutton;
 }
 
-void LibraryControl::SetCurrentHistoryButton(const LibraryControlButton &newCurrentHistoryButton)
+void LibraryControl::SetCurrentHistoryButton(const LibraryControlButton &button)
 {
-    if (m_CurrentHistoryButton == newCurrentHistoryButton)
+    if (m_current_historybutton == button)
         return;
-    m_CurrentHistoryButton = newCurrentHistoryButton;
+    m_current_historybutton = button;
     emit CurrentHistoryButtonChanged();
 }
 
 const QString &LibraryControl::CurrentFooterButton() const
 {
-    return m_CurrentFooterButton;
+    return m_current_footer_button;
 }
 
-void LibraryControl::SetCurrentFooterButton(const QString &newCurrentFooterButton)
+void LibraryControl::SetCurrentFooterButton(const QString &button)
 {
-    if (m_CurrentFooterButton == newCurrentFooterButton)
+    if (m_current_footer_button == button)
         return;
-    m_CurrentFooterButton = newCurrentFooterButton;
+    m_current_footer_button = button;
     emit CurrentFooterButtonChanged();
 }
 
 const QString &LibraryControl::CurrentModeButton() const
 {
-    return m_CurrentModeButton;
+    return m_current_mode_button;
 }
 
-void LibraryControl::SetCurrentModeButton(const QString &newCurrentModeButton)
+void LibraryControl::SetCurrentModeButton(const QString &button)
 {
-    if (m_CurrentModeButton == newCurrentModeButton)
+    if (m_current_mode_button == button)
         return;
-    m_CurrentModeButton = newCurrentModeButton;
+    m_current_mode_button = button;
     emit CurrentModeButtonChanged();
 }
 
 const QString &LibraryControl::CurrentHistoryModeButton() const
 {
-    return m_CurrentHistoryModeButton;
+    return m_current_history_mode_button;
 }
 
-void LibraryControl::SetCurrentHistoryModeButton(const QString &newCurrentHistoryModeButton)
+void LibraryControl::SetCurrentHistoryModeButton(const QString &button)
 {
-    if (m_CurrentHistoryModeButton == newCurrentHistoryModeButton)
+    if (m_current_history_mode_button == button)
         return;
-    m_CurrentHistoryModeButton = newCurrentHistoryModeButton;
+    m_current_history_mode_button = button;
     emit CurrentHistoryModeButtonChanged();
 }
