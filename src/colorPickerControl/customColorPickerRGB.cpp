@@ -11,7 +11,7 @@
 #define V_MAX 255
 
 CustomColorPickerRGB::CustomColorPickerRGB(QWidget *parent) : QWidget(parent),
-    m_plotArea(QRectF(0, 0, PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT)),
+    m_plot_area(QRectF(0, 0, PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT)),
     m_img(PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT, QImage::Format_RGB32)
 {
     for(int x=0; x < PICKER_RGB_WIDTH; x++){
@@ -67,7 +67,7 @@ void CustomColorPickerRGB::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
     p.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
-    p.drawImage(m_plotArea, m_img);
+    p.drawImage(m_plot_area, m_img);
 
     if (m_pointer_visible) {
         p.setPen(QPen(Qt::white, 1));
@@ -80,12 +80,12 @@ void CustomColorPickerRGB::paintEvent(QPaintEvent *)
 void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
 {
     QPointF pos = event->pos();
-    if(m_plotArea.contains(pos)){
+    if(m_plot_area.contains(pos)){
          m_pointer = pos;
          m_pointer_visible = true;
          int h = (m_pointer.x()) * H_MAX / (PICKER_RGB_WIDTH - 1);
          int s = (PICKER_RGB_HEIGHT - 1 - m_pointer.y()) * S_MAX / (PICKER_RGB_HEIGHT - 1);
          SetColor(QColor::fromHsv(h,s,m_hsv.v));
-         emit picked();
+         emit Picked();
     }
 }

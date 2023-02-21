@@ -11,7 +11,7 @@ public:
     explicit ColorPickerControlHorizon(QWidget* parent = nullptr);
 
 protected slots:
-    void onPanelSwitchButtonClicked();
+    void OnPanelSwitchButtonClicked();
 
 private:
     SelectButton m_button_switch_panel_picker;

@@ -25,14 +25,14 @@ public:
 signals:
     void HSVChanged(const hsv_t& value);
     void ColorChanged(const QColor& color);
-    void picked();
+    void Picked();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
 
 private:
-    QRectF m_plotArea;
+    QRectF m_plot_area;
     QImage m_img;
     hsv_t m_hsv;
     QColor m_color;

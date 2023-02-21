@@ -18,41 +18,41 @@ class ColorPickerControl : public PanelControlBase
 {
     Q_OBJECT
 
-    Q_PROPERTY(ColorPickerType pickerType READ pickerType WRITE setPickerType NOTIFY pickerTypeChanged)
-    Q_PROPERTY(QColor pickerColor READ pickerColor WRITE setPickerColor NOTIFY pickerColorChanged)
-    Q_PROPERTY(int currentHeaderButtonsPage READ currentHeaderButtonsPage WRITE setCurrentHeaderButtonsPage NOTIFY currentHeaderButtonsPageChanged)
+    Q_PROPERTY(ColorPickerType PickerType READ PickerType WRITE SetPickerType NOTIFY PickerTypeChanged)
+    Q_PROPERTY(QColor PickerColor READ PickerColor WRITE SetPickerColor NOTIFY PickerColorChanged)
+    Q_PROPERTY(int CurrentHeaderButtonsPage READ CurrentHeaderButtonsPage WRITE SetCurrentHeaderButtonsPage NOTIFY CurrentHeaderButtonsPageChanged)
 
 public:
     ColorPickerControl(QWidget *parent = nullptr);
     virtual void SetDispParamData(COLOR_PICKER_DISP_PARAM *param);
 
-    ColorPickerType pickerType() const;
-    void setPickerType(ColorPickerType newPickerType);
+    ColorPickerType PickerType() const;
+    void SetPickerType(ColorPickerType newPickerType);
 
-    QColor pickerColor() const;
-    void setPickerColor(const QColor &newPickerColor);
+    QColor PickerColor() const;
+    void SetPickerColor(const QColor &newPickerColor);
 
 signals:
-    void pickerTypeChanged();
-    void pickerColorChanged();
-    void currentHeaderButtonsPageChanged();
+    void PickerTypeChanged();
+    void PickerColorChanged();
+    void CurrentHeaderButtonsPageChanged();
 
     void NextButtonClicked();
     void PrevButtonClicked();
 
 protected slots:
-    void onPickerTypeChanged();
-    void onPickerTypeButtonClicked();
-    void setupHeaderButtonPages();
+    void OnPickerTypeChanged();
+    void OnPickerTypeButtonClicked();
+    void SetupHeaderButtonPages();
 
 protected:
-    void pauseSliderEvents();
-    void resumeSliderEvents();
-    int currentHeaderButtonsPage() const;
-    void setCurrentHeaderButtonsPage(int newCurentHeaderButtonsPage);
+    void PauseSliderEvents();
+    void ResumeSliderEvents();
+    int CurrentHeaderButtonsPage() const;
+    void SetCurrentHeaderButtonsPage(int new_button_page);
 
-    void addHeaderButton(ColorPickerType type, const QString &text);
-    QVector<QSharedPointer<SelectButton> > headerButtons() const;
+    void AddHeaderButton(ColorPickerType type, const QString &text);
+    QVector<QSharedPointer<SelectButton> > HeaderButtons() const;
 
 protected:
     struct PickerButton
@@ -97,10 +97,10 @@ protected:
 
     QVector<QWidget*> m_children_xy;
     QVector<QWidget*> m_children_rgb;
-    ColorPickerType m_pickerType;
-    QColor m_pickerColor;
+    ColorPickerType m_picker_type;
+    QColor m_picker_color;
     int m_header_buttons_per_page;
-    int m_currentHeaderButtonsPage;
+    int m_current_header_buttons_page;
 };
 
 #endif // COLORPICKERCONTROL_H

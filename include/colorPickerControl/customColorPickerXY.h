@@ -14,25 +14,25 @@ public:
     void SetXy(const QPointF& xy);
     QPointF Xy() const;
     QColor Color() const;
-    QColor getColor(QPointF xy) const;
+    QColor GetColor(QPointF xy) const;
 
 signals:
-    void picked();
+    void Picked();
     void XyChanged(QPointF xy);
     void ColorChanged(QColor color);
 
 private:
-    QPointF mapToPosition(const QPointF &p);
-    QPointF mapToValue(const QPoint &p);
+    QPointF MapToPosition(const QPointF &p);
+    QPointF MapToValue(const QPoint &p);
     void RBG2XY(float R,float G, float B, float& x, float& y, float &z);
-    QPointF findNearestXy(QPointF target);
+    QPointF FindNearestXy(QPointF target);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
 
 private:
-    QRectF m_plotArea;
+    QRectF m_plot_area;
     QSize m_offset;
     QPointF m_valid_xy;
     QPointF m_white_xy;
