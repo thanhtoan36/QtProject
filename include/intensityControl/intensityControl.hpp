@@ -11,12 +11,13 @@
 class IntensityControl : public PanelControlBase
 {
     Q_OBJECT
+
 public:
     IntensityControl(QWidget *parent = nullptr);
 
 signals:
     void IntensityButtonClicked(const QString &name);
-    void returnButtonClicked();
+    void ReturnButtonClicked();
 
 protected:
     GridBackground m_grid_background;

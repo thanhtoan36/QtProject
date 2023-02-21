@@ -126,10 +126,10 @@ void MainWindow::ConnectIntensityEvent()
     const auto slot_return_button_clicked = [&]() { logEvent("Intensity Return Button Clicked"); };
 
     connect(m_intensity_control.get(), &IntensityControl::IntensityButtonClicked, this, slot_intensity_button_clicked);
-    connect(m_intensity_control.get(), &IntensityControl::returnButtonClicked, this, slot_return_button_clicked);
+    connect(m_intensity_control.get(), &IntensityControl::ReturnButtonClicked, this, slot_return_button_clicked);
 
     connect(m_intensity_control_horizon.get(), &IntensityControl::IntensityButtonClicked, this, slot_intensity_button_clicked);
-    connect(m_intensity_control_horizon.get(), &IntensityControl::returnButtonClicked, this, slot_return_button_clicked);
+    connect(m_intensity_control_horizon.get(), &IntensityControl::ReturnButtonClicked, this, slot_return_button_clicked);
 }
 
 void MainWindow::ConnectInputNumEvent()
