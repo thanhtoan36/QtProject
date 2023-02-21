@@ -13,11 +13,11 @@ CustomEncoder::CustomEncoder(QWidget *parent)
     : QAbstractSlider(parent),
       m_button_decrease(this),
       m_button_increase(this),
-      m_upperRestrictValue(-1) // -1 means unset
+      m_upper_restrict_value(-1) // -1 means unset
 {
     setOrientation(Qt::Vertical);
     setFixedSize(EC_CUSTOM_ENCODER_SIZE);
-    setupChildComponents();
+    SetupChildComponents();
 
     connect(&m_button_decrease, &QAbstractButton::clicked, this, [&](){
         setValue(value() - singleStep());
@@ -29,8 +29,10 @@ CustomEncoder::CustomEncoder(QWidget *parent)
     });
     connect(this, &QAbstractSlider::valueChanged, this, [&](){
         // limit the slider movement
-        if (upperRestrictValue() > minimum() && value() > upperRestrictValue())
-            setValue(upperRestrictValue());
+        if (UpperRestrictValue() > minimum() && value() > UpperRestrictValue())
+        {
+            setValue(UpperRestrictValue());
+        }
     });
 }
 
@@ -40,75 +42,77 @@ void CustomEncoder::paintEvent(QPaintEvent *event)
 
     QPainter p(this);
     // p.fillRect(QRect(0, 0, width(), height()), Qt::black); // black background
-    p.fillRect(m_sliderBoundary, Qt::black); // black background
+    p.fillRect(m_slider_boundary, Qt::black); // black background
 
     p.setPen(Qt::darkGray);
-    p.drawRect(m_sliderBoundary.left(), 0, m_sliderBoundary.width(), height()); // border
+    p.drawRect(m_slider_boundary.left(), 0, m_slider_boundary.width(), height()); // border
 
-    p.fillRect(m_sliderBoundary, QColor::fromRgb(64, 64, 64)); // gray background
+    p.fillRect(m_slider_boundary, QColor::fromRgb(64, 64, 64)); // gray background
 
-    const int EC_YELLOW_SLIDER_WIDTH = 10;
-    const int GRID_LINES = 13;
+    constexpr int EC_YELLOW_SLIDER_WIDTH = 10;
+    constexpr int GRID_LINES = 13;
 
-    float normalizedValue = map(value(), minimum(), maximum(), 0.0f, 1.0f);
+    float normalized_value = map(value(), minimum(), maximum(), 0.0f, 1.0f);
 
     // Draw grid lines
-    const float gridSpacing = m_sliderBoundary.height() * 1.0f / GRID_LINES;
+    const float grid_spacing = m_slider_boundary.height() * 1.0f / GRID_LINES;
     for (int i = 0; i < GRID_LINES; i++) {
-        const int y = m_sliderBoundary.top() + i * gridSpacing;
-        p.drawLine(m_sliderBoundary.left() + EC_YELLOW_SLIDER_WIDTH, y, m_sliderBoundary.right(), y);
+        const int y = m_slider_boundary.top() + i * grid_spacing;
+        p.drawLine(m_slider_boundary.left() + EC_YELLOW_SLIDER_WIDTH, y, m_slider_boundary.right(), y);
     }
     // Draw yellow bar
     p.setBrush(QColor::fromRgb(34, 43, 53)); // blue gray (background of the yellow bar)
-    p.drawRect(QRect(m_sliderBoundary.left(), m_sliderBoundary.top(), EC_YELLOW_SLIDER_WIDTH, m_sliderBoundary.height()));
+    p.drawRect(QRect(m_slider_boundary.left(), m_slider_boundary.top(), EC_YELLOW_SLIDER_WIDTH, m_slider_boundary.height()));
 
-    const int yellowBarHeight = m_sliderBoundary.height() * normalizedValue;
+    const int yellowBarHeight = m_slider_boundary.height() * normalized_value;
     p.setBrush(QColor::fromRgb(255, 192, 0)); // yellow
-    p.drawRect(QRect(m_sliderBoundary.left(), m_sliderBoundary.bottom() - yellowBarHeight, EC_YELLOW_SLIDER_WIDTH, yellowBarHeight));
+    p.drawRect(QRect(m_slider_boundary.left(), m_slider_boundary.bottom() - yellowBarHeight, EC_YELLOW_SLIDER_WIDTH, yellowBarHeight));
 }
 
 void CustomEncoder::mousePressEvent(QMouseEvent *event)
 {
-    if (!m_sliderBoundary.contains(event->pos()))
+    if (!m_slider_boundary.contains(event->pos()))
+    {
         return;
+    }
 
-    const auto p = event->pos() - m_sliderBoundary.topLeft();
-    setValue(map(p.y(), m_sliderBoundary.height(), 0.0f, minimum(), maximum()));
+    const auto p = event->pos() - m_slider_boundary.topLeft();
+    setValue(map(p.y(), m_slider_boundary.height(), 0.0f, minimum(), maximum()));
 
     emit sliderMoved(value());
 }
 
 void CustomEncoder::resizeEvent(QResizeEvent *event)
 {
-    setupChildComponents();
+    SetupChildComponents();
     QAbstractSlider::resizeEvent(event);
 }
 
-void CustomEncoder::setupChildComponents()
+void CustomEncoder::SetupChildComponents()
 {
-    m_sliderBoundary = QRect(QPoint(EC_ENCODER_WIDTH_PADDING, EC_BUTTON_HEIGHT),
+    m_slider_boundary = QRect(QPoint(EC_ENCODER_WIDTH_PADDING, EC_BUTTON_HEIGHT),
                              QSize(width() - EC_ENCODER_WIDTH_PADDING * 2, height() - EC_BUTTON_HEIGHT * 2));
 
-    const auto buttonSize = QSize(width() - EC_ENCODER_WIDTH_PADDING * 2, EC_BUTTON_HEIGHT);
-    m_button_decrease.setFixedSize(buttonSize);
-    m_button_increase.setFixedSize(buttonSize);
+    const auto button_size = QSize(width() - EC_ENCODER_WIDTH_PADDING * 2, EC_BUTTON_HEIGHT);
+    m_button_decrease.setFixedSize(button_size);
+    m_button_increase.setFixedSize(button_size);
 
-    m_button_increase.move(m_sliderBoundary.topLeft() - QPoint(0, EC_BUTTON_HEIGHT));
-    m_button_decrease.move(m_sliderBoundary.bottomLeft());
+    m_button_increase.move(m_slider_boundary.topLeft() - QPoint(0, EC_BUTTON_HEIGHT));
+    m_button_decrease.move(m_slider_boundary.bottomLeft());
 
     m_button_increase.setText("▲");
     m_button_decrease.setText("▼");
 }
 
-int CustomEncoder::upperRestrictValue() const
+int CustomEncoder::UpperRestrictValue() const
 {
-    return m_upperRestrictValue;
+    return m_upper_restrict_value;
 }
 
-void CustomEncoder::setUpperRestrictValue(int newUpperRestrictValue)
+void CustomEncoder::SetUpperRestrictValue(int value)
 {
-    if (m_upperRestrictValue == newUpperRestrictValue)
+    if (m_upper_restrict_value == value)
         return;
-    m_upperRestrictValue = newUpperRestrictValue;
-    emit upperRestrictValueChanged();
+    m_upper_restrict_value = value;
+    emit UpperRestrictValueChanged();
 }

@@ -7,18 +7,16 @@
 
 class CustomEncoder : public QAbstractSlider {
     Q_OBJECT
-    Q_PROPERTY(int upperRestrictValue READ upperRestrictValue WRITE setUpperRestrictValue NOTIFY upperRestrictValueChanged)
+    Q_PROPERTY(int UpperRestrictValue READ UpperRestrictValue WRITE SetUpperRestrictValue NOTIFY UpperRestrictValueChanged)
 
 public:
     CustomEncoder(QWidget *parent = nullptr);
 
-    int upperRestrictValue() const;
-    void setUpperRestrictValue(int newUpperRestrictValue);
+    int UpperRestrictValue() const;
+    void SetUpperRestrictValue(int value);
 
 signals:
-    void encoderNameChanged();
-
-    void upperRestrictValueChanged();
+    void UpperRestrictValueChanged();
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
@@ -27,13 +25,13 @@ protected:
     // disable mouse wheel scrolling
     virtual void wheelEvent(QWheelEvent *) override {}
 
-    void setupChildComponents();
+    void SetupChildComponents();
 
 private:
-    QRect m_sliderBoundary;
+    QRect m_slider_boundary;
     CustomPushButton m_button_decrease;
     CustomPushButton m_button_increase;
-    int m_upperRestrictValue;
+    int m_upper_restrict_value;
 };
 
 #endif // CUSTOMENCODER_H

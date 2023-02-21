@@ -233,12 +233,12 @@ void MainWindow::ConnectEncoderEvent()
 {
     const auto slot_mode_changed = [&](){
         QStringList modes = { "ENCODER_MODE_PERCENT", "ENCODER_MODE_255", "ENCODER_MODE_ANGLE", };
-        logEvent("Encoder mode changed: " + modes[((EncoderControl*)sender())->mode()]);
+        logEvent("Encoder mode changed: " + modes[((EncoderControl*)sender())->Mode()]);
     };
 
-    connect(m_encoder_control.get(),&EncoderControl::modeChanged, this, slot_mode_changed);
+    connect(m_encoder_control.get(),&EncoderControl::ModeChanged, this, slot_mode_changed);
 
-    connect(m_encoder_control_horizon.get(),&EncoderControl::modeChanged, this, slot_mode_changed);
+    connect(m_encoder_control_horizon.get(),&EncoderControl::ModeChanged, this, slot_mode_changed);
 }
 
 void MainWindow::ConnectTrackEvent()

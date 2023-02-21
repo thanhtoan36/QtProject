@@ -389,17 +389,17 @@ void ColorFilterControl::onModeChanged()
 void ColorFilterControl::updateTBTabPage()
 {
     qDebug() << currentTBTabPage();
-    updateChildrenVisibility(m_tb_tab_buttons,currentTBTabPage(), BUTTONS_PER_PAGE);
+    UpdateChildrenVisibility(m_tb_tab_buttons,currentTBTabPage(), BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::updateCustomTabPage()
 {
-    updateChildrenVisibility(m_custom_tab_buttons,currentCustomTabPage(),BUTTONS_PER_PAGE);
+    UpdateChildrenVisibility(m_custom_tab_buttons,currentCustomTabPage(),BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::updateHistoryPage()
 {
-    updateChildrenVisibility(m_history_buttons,currentHistoryPage(),BUTTONS_PER_PAGE);
+    UpdateChildrenVisibility(m_history_buttons,currentHistoryPage(),BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::addHeaderButton(ColorFilterDisplayMode mode, const QString &text)
@@ -433,7 +433,7 @@ void ColorFilterControl::setupHeaderTabButtons()
         m_button_next_header_buttons_page.setVisible(false);
         m_button_previous_header_buttons_page.setVisible(false);
     } else {
-        updateChildrenVisibility(headerButtons(), currentHeaderButtonsPage(), m_header_buttons_per_page);
+        UpdateChildrenVisibility(headerButtons(), currentHeaderButtonsPage(), m_header_buttons_per_page);
         m_button_next_header_buttons_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
         m_button_previous_header_buttons_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
     }

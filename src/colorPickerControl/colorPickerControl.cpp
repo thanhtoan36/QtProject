@@ -343,7 +343,7 @@ void ColorPickerControl::setupHeaderButtonPages()
     m_button_previous_menu_page.setEnabled(currentHeaderButtonsPage() > 0);
     m_button_next_menu_page.setEnabled(currentHeaderButtonsPage() < m_header_buttons_per_page - 1);
 
-    updateChildrenVisibility(headerButtons(), currentHeaderButtonsPage(), m_header_buttons_per_page);
+    UpdateChildrenVisibility(headerButtons(), currentHeaderButtonsPage(), m_header_buttons_per_page);
 }
 
 int ColorPickerControl::currentHeaderButtonsPage() const

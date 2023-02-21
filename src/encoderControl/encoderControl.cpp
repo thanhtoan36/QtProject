@@ -23,7 +23,7 @@ EncoderControl::EncoderControl(QWidget *parent)
       m_params(),
       m_encoder_labels(),
       m_encoders(),
-      m_currentEncoderPage(0),
+      m_current_encoder_page(0),
       m_mode()
 {
     setFixedSize(EC_SCREENSIZE);
@@ -58,39 +58,39 @@ EncoderControl::EncoderControl(QWidget *parent)
     m_button_next_page.setText("▶");
     m_button_next_page.setVisible(false);
 
-    onModeChanged();
-    onTypeChanged();
+    OnModeChanged();
+    OnTypeChanged();
 
     connect(&m_button_previous_page, &QPushButton::clicked, this, [&](){
-        setCurrentEncoderPage(currentEncoderPage() - 1);
+        SetCurrentEncoderPage(CurrentEncoderPage() - 1);
     });
     connect(&m_button_next_page, &QPushButton::clicked, this, [&](){
-        setCurrentEncoderPage(currentEncoderPage() + 1);
+        SetCurrentEncoderPage(CurrentEncoderPage() + 1);
     });
     connect(&m_button_mode_percent, &QPushButton::clicked, this, [&](){
-        setMode(ENCODER_MODE_PERCENT);
+        SetMode(ENCODER_MODE_PERCENT);
     });
     connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
-        setMode(ENCODER_MODE_255);
+        SetMode(ENCODER_MODE_255);
     });
     connect(&m_button_mode_angle, &QPushButton::clicked, this, [&](){
-        setMode(ENCODER_MODE_ANGLE);
+        SetMode(ENCODER_MODE_ANGLE);
     });
-    connect(this, &EncoderControl::currentEncoderPageChanged, this, [&](){
-        setupEncoderPages();
-        m_button_previous_page.setEnabled(currentEncoderPage() > 0);
-        m_button_next_page.setEnabled(currentEncoderPage() < maxEncoderPages() - 1);
+    connect(this, &EncoderControl::CurrentEncoderPageChanged, this, [&](){
+        SetupEncoderPages();
+        m_button_previous_page.setEnabled(CurrentEncoderPage() > 0);
+        m_button_next_page.setEnabled(CurrentEncoderPage() < MaxEncoderPages() - 1);
     });
-    connect(this, &EncoderControl::modeChanged, this, &EncoderControl::onModeChanged);
-    connect(this, &EncoderControl::typeChanged, this, &EncoderControl::onTypeChanged);
+    connect(this, &EncoderControl::ModeChanged, this, &EncoderControl::OnModeChanged);
+    connect(this, &EncoderControl::TypeChanged, this, &EncoderControl::OnTypeChanged);
 }
 
 void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
 
-    setMode(param->mode);
-    setType(param->type);
+    SetMode(param->mode);
+    SetType(param->type);
 
     m_params.clear();
     m_encoder_labels.clear();
@@ -111,137 +111,137 @@ void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
         encoder->setFixedSize(EC_CUSTOM_ENCODER_SIZE);
 
         encoder->setRange(0, (param->mode == ENCODER_MODE_255 ? 255 : 100) * EC_FLOAT_TO_INT_SCALE);
-        encoder->setSingleStep(10);
+        encoder->setSingleStep(EC_FLOAT_TO_INT_SCALE);
         encoder->setValue(param->param[i].level * EC_FLOAT_TO_INT_SCALE);
-        encoder->setUpperRestrictValue(param->param[i].maxLevel * EC_FLOAT_TO_INT_SCALE);
+        encoder->SetUpperRestrictValue(param->param[i].maxLevel * EC_FLOAT_TO_INT_SCALE);
 
         connect(encoder.get(), &CustomEncoder::sliderMoved, this, [&](int value){
             auto encoder = std::find(m_encoders.begin(), m_encoders.end(), (CustomEncoder*)sender());
             if (!encoder) return;
             int index = std::distance(m_encoders.begin(), encoder);
-            onEncoderValueChanged(index, value);
+            OnEncoderValueChanged(index, value);
         });
 
         m_encoders.append(encoder);
-        onEncoderValueChanged(i, param->param[i].level * EC_FLOAT_TO_INT_SCALE);
+        OnEncoderValueChanged(i, param->param[i].level * EC_FLOAT_TO_INT_SCALE);
     }
 
     placeChildrenIntoPanel(m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint(EC_ENCODER_WIDTH_PADDING, 0), QSize(m_encoders_per_page, 1));
     placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT, QSize(m_encoders_per_page, 1));
 
-    setCurrentEncoderPage(0);
-    setupEncoderPages();
+    SetCurrentEncoderPage(0);
+    SetupEncoderPages();
 
-    m_button_next_page.setVisible(maxEncoderPages() > 1);
-    m_button_previous_page.setVisible(maxEncoderPages() > 1);
+    m_button_next_page.setVisible(MaxEncoderPages() > 1);
+    m_button_previous_page.setVisible(MaxEncoderPages() > 1);
 }
 
-void EncoderControl::setupEncoderPages()
+void EncoderControl::SetupEncoderPages()
 {
-    updateChildrenVisibility(m_encoders, currentEncoderPage(), m_encoders_per_page);
-    updateChildrenVisibility(m_encoder_labels, currentEncoderPage(), m_encoders_per_page);
+    UpdateChildrenVisibility(m_encoders, CurrentEncoderPage(), m_encoders_per_page);
+    UpdateChildrenVisibility(m_encoder_labels, CurrentEncoderPage(), m_encoders_per_page);
 
-    int visibleChildCount = calculateNumberOfVisibleItems(m_encoders.length(), m_encoders_per_page, currentEncoderPage());
-    m_encoder_background.setGridSize(QSize(visibleChildCount, 1));
+    int visible_items = calculateNumberOfVisibleItems(m_encoders.length(), m_encoders_per_page, CurrentEncoderPage());
+    m_encoder_background.setGridSize(QSize(visible_items, 1));
 }
 
-void EncoderControl::onModeChanged()
+void EncoderControl::OnModeChanged()
 {
-    m_button_mode_percent.setChecked(mode() == ENCODER_MODE_PERCENT);
-    m_button_mode_255.setChecked(mode() == ENCODER_MODE_255);
+    m_button_mode_percent.setChecked(Mode() == ENCODER_MODE_PERCENT);
+    m_button_mode_255.setChecked(Mode() == ENCODER_MODE_255);
 
     Q_ASSERT(m_params.length() == m_encoders.length());
     Q_ASSERT(m_params.length() == m_encoder_labels.length());
 
-    if (mode() == ENCODER_MODE_255) {
+    if (Mode() == ENCODER_MODE_255) {
         for (int i = 0; i < m_params.length(); ++i) {
 
             m_params[i].level *= (255.0 / 100.0);
-            m_params[i].maxLevel *= (255.0 / 100.0);
+            m_params[i].max_level *= (255.0 / 100.0);
 
             m_encoders[i]->setMaximum(255 * EC_FLOAT_TO_INT_SCALE);
-            m_encoders[i]->setUpperRestrictValue(m_params[i].maxLevel * EC_FLOAT_TO_INT_SCALE);
+            m_encoders[i]->SetUpperRestrictValue(m_params[i].max_level * EC_FLOAT_TO_INT_SCALE);
             m_encoders[i]->setValue(m_params[i].level * EC_FLOAT_TO_INT_SCALE);
 
-            updateEncoderLabelValue(i);
+            UpdateEncoderLabelValue(i);
         }
     }
-    if (mode() == ENCODER_MODE_PERCENT) {
+    if (Mode() == ENCODER_MODE_PERCENT) {
         for (int i = 0; i < m_params.length(); ++i) {
 
             m_params[i].level *= (100.0 / 255.0);
-            m_params[i].maxLevel *= (100.0 / 255.0);
+            m_params[i].max_level *= (100.0 / 255.0);
 
             m_encoders[i]->setMaximum(100 * EC_FLOAT_TO_INT_SCALE);
-            m_encoders[i]->setUpperRestrictValue(m_params[i].maxLevel * EC_FLOAT_TO_INT_SCALE);
+            m_encoders[i]->SetUpperRestrictValue(m_params[i].max_level * EC_FLOAT_TO_INT_SCALE);
             m_encoders[i]->setValue(m_params[i].level * EC_FLOAT_TO_INT_SCALE);
 
-            updateEncoderLabelValue(i);
+            UpdateEncoderLabelValue(i);
         }
     }
 }
 
-void EncoderControl::onTypeChanged()
+void EncoderControl::OnTypeChanged()
 {
-    m_button_mode_angle.setVisible(type() == ENCODER_TYPE_POSITION);
+    m_button_mode_angle.setVisible(Type() == ENCODER_TYPE_POSITION);
 }
 
-void EncoderControl::updateEncoderLabelValue(int index)
+void EncoderControl::UpdateEncoderLabelValue(int index)
 {
     auto &label = m_encoder_labels[index];
     auto &param = m_params[index];
     label->setText(QString(g_encoder_label_format).arg(param.name).arg((int)param.level));
 }
 
-void EncoderControl::onEncoderValueChanged(int index, int value)
+void EncoderControl::OnEncoderValueChanged(int index, int value)
 {
     auto &param = m_params[index];
     param.level = value / EC_FLOAT_TO_INT_SCALE;
-    updateEncoderLabelValue(index);
-    emit encoderValueChanged(index, param.name, value);
+    UpdateEncoderLabelValue(index);
+    emit EncoderValueChanged(index, param.name, value);
 }
 
-int EncoderControl::currentEncoderPage() const
+int EncoderControl::CurrentEncoderPage() const
 {
-    return m_currentEncoderPage;
+    return m_current_encoder_page;
 }
 
-void EncoderControl::setCurrentEncoderPage(int newCurrentEncoderPage)
+void EncoderControl::SetCurrentEncoderPage(int value)
 {
-    newCurrentEncoderPage = qBound(newCurrentEncoderPage, 0, maxEncoderPages() - 1);
-    if (m_currentEncoderPage == newCurrentEncoderPage)
+    value = qBound(value, 0, MaxEncoderPages() - 1);
+    if (m_current_encoder_page == value)
         return;
-    m_currentEncoderPage = newCurrentEncoderPage;
-    emit currentEncoderPageChanged();
+    m_current_encoder_page = value;
+    emit CurrentEncoderPageChanged();
 }
 
-int EncoderControl::maxEncoderPages() const
+int EncoderControl::MaxEncoderPages() const
 {
     return calulateNumberOfPages(m_encoders.length(), m_encoders_per_page);
 }
 
-EncoderMode EncoderControl::mode() const
+EncoderMode EncoderControl::Mode() const
 {
     return m_mode;
 }
 
-void EncoderControl::setMode(EncoderMode newMode)
+void EncoderControl::SetMode(EncoderMode value)
 {
-    if (m_mode == newMode)
+    if (m_mode == value)
         return;
-    m_mode = newMode;
-    emit modeChanged();
+    m_mode = value;
+    emit ModeChanged();
 }
 
-EncoderType EncoderControl::type() const
+EncoderType EncoderControl::Type() const
 {
     return m_type;
 }
 
-void EncoderControl::setType(EncoderType newType)
+void EncoderControl::SetType(EncoderType value)
 {
-    if (m_type == newType)
+    if (m_type == value)
         return;
-    m_type = newType;
-    emit typeChanged();
+    m_type = value;
+    emit TypeChanged();
 }

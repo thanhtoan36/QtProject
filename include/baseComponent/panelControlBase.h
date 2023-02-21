@@ -38,7 +38,7 @@ public:
     }
 
     template <class T>
-    static void updateChildrenVisibility(const QVector<QSharedPointer<T>> &children, int currentPage, int itemsPerPage) {
+    static void UpdateChildrenVisibility(const QVector<QSharedPointer<T>> &children, int currentPage, int itemsPerPage) {
         int pageBeginIndex = currentPage * itemsPerPage;
         int pageEndIndex = (currentPage + 1) * itemsPerPage;
 

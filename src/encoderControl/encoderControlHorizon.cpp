@@ -1,6 +1,5 @@
 #include "encoderControl/encoderControlHorizon.h"
 #include "encoderControl/encoderControl_define.hpp"
-#include "utility.h"
 
 EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     : EncoderControl(parent),
@@ -34,9 +33,9 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     m_button_switch_panel_input_num.setGeometry(EC_HORIZON_BUTTON_3_GEOMETRY_HORIZON);
     m_button_switch_panel_input_num.setText("数値");
 
-    connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &EncoderControlHorizon::onPanelSwitchButtonClicked);
-    connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &EncoderControlHorizon::onPanelSwitchButtonClicked);
-    connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &EncoderControlHorizon::onPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &EncoderControlHorizon::OnPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &EncoderControlHorizon::OnPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &EncoderControlHorizon::OnPanelSwitchButtonClicked);
 }
 
 void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
@@ -47,7 +46,7 @@ void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
     placeChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, QSize(m_encoders_per_page, 1));
 }
 
-void EncoderControlHorizon::onPanelSwitchButtonClicked()
+void EncoderControlHorizon::OnPanelSwitchButtonClicked()
 {
     m_button_switch_panel_picker.setChecked(false);
     m_button_switch_panel_encoder.setChecked(false);
@@ -55,8 +54,8 @@ void EncoderControlHorizon::onPanelSwitchButtonClicked()
     ((QAbstractButton*)sender())->setChecked(true);
 }
 
-void EncoderControlHorizon::setupEncoderPages()
+void EncoderControlHorizon::SetupEncoderPages()
 {
-    updateChildrenVisibility(m_encoders, currentEncoderPage(), m_encoders_per_page);
-    updateChildrenVisibility(m_encoder_labels, currentEncoderPage(), m_encoders_per_page);
+    UpdateChildrenVisibility(m_encoders, CurrentEncoderPage(), m_encoders_per_page);
+    UpdateChildrenVisibility(m_encoder_labels, CurrentEncoderPage(), m_encoders_per_page);
 }

@@ -13,46 +13,47 @@
 class EncoderControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int currentEncoderPage READ currentEncoderPage WRITE setCurrentEncoderPage NOTIFY currentEncoderPageChanged)
-    Q_PROPERTY(EncoderMode mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(EncoderType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(int CurrentEncoderPage READ CurrentEncoderPage WRITE SetCurrentEncoderPage NOTIFY CurrentEncoderPageChanged)
+    Q_PROPERTY(EncoderMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged)
+    Q_PROPERTY(EncoderType Type READ Type WRITE SetType NOTIFY TypeChanged)
 
 public:
     EncoderControl(QWidget *parent = nullptr);
     virtual void SetDispParamData(ENCODER_DISP_PARAM *param);
 
-    EncoderMode mode() const;
-    EncoderType type() const;
+    EncoderMode Mode() const;
+    EncoderType Type() const;
 
 signals:
-    void currentEncoderPageChanged();
-    void modeChanged();
-    void typeChanged();
-    void encoderValueChanged(int index, const QString &name, int value);
+    void CurrentEncoderPageChanged();
+    void ModeChanged();
+    void TypeChanged();
+    void EncoderValueChanged(int index, const QString &name, int value);
 
 protected:
-    virtual void setupEncoderPages();
-    int currentEncoderPage() const;
-    void setCurrentEncoderPage(int newCurrentEncoderPage);
-    int maxEncoderPages() const;
-    void setMode(EncoderMode newMode);
-    void setType(EncoderType newType);
+    virtual void SetupEncoderPages();
+    int CurrentEncoderPage() const;
+    void SetCurrentEncoderPage(int value);
+    int MaxEncoderPages() const;
+    void SetMode(EncoderMode value);
+    void SetType(EncoderType value);
 
 protected slots:
-    void onModeChanged();
-    void onTypeChanged();
-    void updateEncoderLabelValue(int index);
-    void onEncoderValueChanged(int index, int value);
+    void OnModeChanged();
+    void OnTypeChanged();
+    void UpdateEncoderLabelValue(int index);
+    void OnEncoderValueChanged(int index, int value);
 
 protected:
     struct EncoderParamFloat
     {
         QString name;
-        float level, maxLevel;
+        float level, max_level;
 
         EncoderParamFloat() {}
-        EncoderParamFloat(const ENCODER_PARAM &paramInt) : name(paramInt.name), level(paramInt.level), maxLevel(paramInt.maxLevel) { }
+        EncoderParamFloat(const ENCODER_PARAM &param_int) : name(param_int.name), level(param_int.level), max_level(param_int.maxLevel) { }
     };
+
     GridBackground m_encoder_background;
     GridBackground m_button_background;
 
@@ -69,7 +70,7 @@ protected:
     QVector<QSharedPointer<QLabel>> m_encoder_labels;
     QVector<QSharedPointer<CustomEncoder>> m_encoders;
 
-    int m_currentEncoderPage;
+    int m_current_encoder_page;
     int m_encoders_per_page;
 
     EncoderType m_type;

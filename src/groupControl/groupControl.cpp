@@ -210,12 +210,12 @@ void GroupControl::setCurrentHistoryPage(int newCurrentHistoryPage)
 
 void GroupControl::updateGroupPage()
 {
-    updateChildrenVisibility(m_group_buttons, currentGroupPage(), buttonsPerPage());
+    UpdateChildrenVisibility(m_group_buttons, currentGroupPage(), buttonsPerPage());
 }
 
 void GroupControl::updateHistoryPage()
 {
-    updateChildrenVisibility(m_history_buttons, currentHistoryPage(), buttonsPerPage());
+    UpdateChildrenVisibility(m_history_buttons, currentHistoryPage(), buttonsPerPage());
 }
 
 int GroupControl::maxGroupPages() const

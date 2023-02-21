@@ -254,7 +254,7 @@ void InputNumControl::setupGroupButtonPages()
     m_button_previous_tab.setEnabled(currentGroupButtonsPage() > 0);
     m_button_next_tab.setEnabled(currentGroupButtonsPage() < maxGroupButtonPages() - 1);
 
-    updateChildrenVisibility(m_group_buttons, currentGroupButtonsPage(), groupButtonsPerPage());
+    UpdateChildrenVisibility(m_group_buttons, currentGroupButtonsPage(), groupButtonsPerPage());
 }
 
 int InputNumControl::currentGroupButtonsPage() const

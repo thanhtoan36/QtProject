@@ -12,10 +12,10 @@ public:
     virtual void SetDispParamData(ENCODER_DISP_PARAM *param) override;
 
 protected slots:
-    void onPanelSwitchButtonClicked();
+    void OnPanelSwitchButtonClicked();
 
 protected:
-    virtual void setupEncoderPages() override;
+    virtual void SetupEncoderPages() override;
 
 protected:
     SelectButton m_button_switch_panel_picker;

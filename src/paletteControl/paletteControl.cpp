@@ -188,7 +188,7 @@ void PaletteControl::onPaletteButtonClicked()
 
 void PaletteControl::updateModePages()
 {
-    updateChildrenVisibility(m_mode_buttons, currentModePage(), modeButtonsPerPage());
+    UpdateChildrenVisibility(m_mode_buttons, currentModePage(), modeButtonsPerPage());
     placeChildrenIntoPanel(m_mode_buttons, PC_BUTTON_SIZE, modeStartPoint(), m_mode_button_grid_size);
 
     m_button_previous_mode_page.setVisible(maxModePages() > 1);
@@ -221,7 +221,7 @@ void PaletteControl::updatePalettePages()
 
     auto &group = m_palette_buttons.at(modeIndex);
 
-    updateChildrenVisibility(group, currentPalettePage(), paletteButtonsPerPage());
+    UpdateChildrenVisibility(group, currentPalettePage(), paletteButtonsPerPage());
     placeChildrenIntoPanel(group, PC_BUTTON_SIZE, buttonStartPoint(), m_palette_button_grid_size);
 }
 

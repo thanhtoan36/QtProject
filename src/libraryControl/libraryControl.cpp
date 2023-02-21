@@ -392,7 +392,7 @@ void LibraryControl::updateGroupTab()
     placeChildrenIntoPanel(m_current_group_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), m_lib_buttons_grid_size);
 
     if (!m_history_button.isChecked()) {
-        updateChildrenVisibility(m_current_group_lib_buttons, currentGroupPage(), libraryButtonsPerPage());
+        UpdateChildrenVisibility(m_current_group_lib_buttons, currentGroupPage(), libraryButtonsPerPage());
         m_up_button.setVisible(maxGroupPages() > 1);
         m_down_button.setVisible(maxGroupPages() > 1);
         m_up_button.setEnabled(currentGroupPage() > 0);
@@ -414,7 +414,7 @@ void LibraryControl::updateHistoryTab()
     placeChildrenIntoPanel(m_history_mode_buttons, LC_BUTTON_SIZE, modeStartPoint(), m_mode_buttons_grid_size);
     placeChildrenIntoPanel(m_current_history_lib_buttons, LC_BUTTON_SIZE, libStartPoint(), m_lib_buttons_grid_size);
     if (m_history_button.isChecked()) {
-        updateChildrenVisibility(m_current_history_lib_buttons, currentHistoryPage(), libraryButtonsPerPage());
+        UpdateChildrenVisibility(m_current_history_lib_buttons, currentHistoryPage(), libraryButtonsPerPage());
         m_up_button.setVisible(maxHistoryPages() > 1);
         m_down_button.setVisible(maxHistoryPages() > 1);
         m_up_button.setEnabled(currentHistoryPage() > 0);
