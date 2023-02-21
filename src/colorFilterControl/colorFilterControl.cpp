@@ -37,10 +37,10 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     m_header_buttons_per_page = 2;
 
     setFixedSize(CFC_SCREENSIZE);
-    setCurrentTBTabPage(0);
-    setCurrentCustomTabPage(0);
-    setCurrentHistoryPage(0);
-    setCurrentHeaderButtonsPage(0);
+    SetCurrentTBTabPage(0);
+    SetCurrentCustomTabPage(0);
+    SetCurrentHistoryPage(0);
+    SetCurrentHeaderButtonsPage(0);
 
     m_button_next_filter_buttons_page.setEnabled(false);
     m_back_button.setTextColor(Qt::yellow);
@@ -89,50 +89,50 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     m_setting_label.setText("設定");
     m_setting_label.setObjectName("title_label");
 
-    addHeaderButton(COLOR_FILTER_MODE_TB, "TB標準");
-    addHeaderButton(COLOR_FILTER_MODE_CUSTOM, "カスタム");
+    AddHeaderButton(COLOR_FILTER_MODE_TB, "TB標準");
+    AddHeaderButton(COLOR_FILTER_MODE_CUSTOM, "カスタム");
 
-    placeChildrenIntoPanel(headerButtons(), CFC_TAB1_GEOMETRY.size(), CFC_TAB1_GEOMETRY.topLeft(), QSize(m_header_buttons_per_page, 1));
-    m_button_next_header_buttons_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
-    m_button_previous_header_buttons_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
-    setupHeaderTabButtons();
+    placeChildrenIntoPanel(HeaderButtons(), CFC_TAB1_GEOMETRY.size(), CFC_TAB1_GEOMETRY.topLeft(), QSize(m_header_buttons_per_page, 1));
+    m_button_next_header_buttons_page.setVisible(HeaderButtons().size() > m_header_buttons_per_page);
+    m_button_previous_header_buttons_page.setVisible(HeaderButtons().size() > m_header_buttons_per_page);
+    SetupHeaderTabButtons();
 
     connect(&m_button_previous_header_buttons_page, &QPushButton::clicked, this, [&](){
-        setCurrentHeaderButtonsPage(currentHeaderButtonsPage() - 1);
+        SetCurrentHeaderButtonsPage(CurrentHeaderButtonsPage() - 1);
     });
     connect(&m_button_next_header_buttons_page, &QPushButton::clicked, this, [&](){
-        setCurrentHeaderButtonsPage(currentHeaderButtonsPage() + 1);
+        SetCurrentHeaderButtonsPage(CurrentHeaderButtonsPage() + 1);
     });
-    connect(this, &ColorFilterControl::currentHeaderButtonsPageChanged, this, &ColorFilterControl::setupHeaderTabButtons);
+    connect(this, &ColorFilterControl::CurrentHeaderButtonsPageChanged, this, &ColorFilterControl::SetupHeaderTabButtons);
 
     connect(&m_button_next_filter_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::ScrollUp);
     connect(&m_button_previous_filter_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::ScrollDown);
-    connect(this, &ColorFilterControl::modeChanged, this, &ColorFilterControl::onModeChanged);
-    connect(this, &ColorFilterControl::currentTBTabPageChanged, this, [&](){
-        updateTBTabPage();
-        m_button_next_filter_buttons_page.setEnabled(currentTBTabPage() > 0);
-        m_button_previous_filter_buttons_page.setEnabled(currentTBTabPage() < maxTBTabPages() - 1);
+    connect(this, &ColorFilterControl::ModeChanged, this, &ColorFilterControl::OnModeChanged);
+    connect(this, &ColorFilterControl::CurrentTBTabPageChanged, this, [&](){
+        UpdateTBTabPage();
+        m_button_next_filter_buttons_page.setEnabled(CurrentTBTabPage() > 0);
+        m_button_previous_filter_buttons_page.setEnabled(CurrentTBTabPage() < MaxTBTabPages() - 1);
     });
-    connect(this, &ColorFilterControl::currentCustomTabPageChanged, this, [&](){
-        updateCustomTabPage();
-        m_button_next_filter_buttons_page.setEnabled(currentCustomTabPage() > 0);
-        m_button_previous_filter_buttons_page.setEnabled(currentCustomTabPage() < maxCustomTabPages() - 1);
+    connect(this, &ColorFilterControl::CurrentCustomTabPageChanged, this, [&](){
+        UpdateCustomTabPage();
+        m_button_next_filter_buttons_page.setEnabled(CurrentCustomTabPage() > 0);
+        m_button_previous_filter_buttons_page.setEnabled(CurrentCustomTabPage() < MaxCustomTabPages() - 1);
     });
-    connect(this, &ColorFilterControl::currentHistoryPageChanged, this, [&](){
-        updateHistoryPage();
-        m_button_next_filter_buttons_page.setEnabled(currentHistoryPage() > 0);
-        m_button_previous_filter_buttons_page.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
+    connect(this, &ColorFilterControl::CurrentHistoryPageChanged, this, [&](){
+        UpdateHistoryPage();
+        m_button_next_filter_buttons_page.setEnabled(CurrentHistoryPage() > 0);
+        m_button_previous_filter_buttons_page.setEnabled(CurrentHistoryPage() < MaxHistoryPages() - 1);
     });
 
     connect(&m_history_button, &QAbstractButton::toggled, this, [&]() {
         if (m_history_button.isChecked())
         {
-            setMode(COLOR_FILTER_MODE_HISTORY);
+            SetMode(COLOR_FILTER_MODE_HISTORY);
             m_title_label.setText("カラーフィルタ (最近使ったもの)");
         }
         else
         {
-            setMode(m_previous_tab);
+            SetMode(m_previous_tab);
             m_title_label.setText("カラーフィルタ");
         }
     });
@@ -164,8 +164,8 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_back_button, &QAbstractButton::clicked, this, &ColorFilterControl::ReturnButtonClicked);
     connect(&m_button_next_header_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::NextButtonClicked);
     connect(&m_button_previous_header_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::PrevButtonClicked);
-    setupHeaderTabButtons();
-    onModeChanged();
+    SetupHeaderTabButtons();
+    OnModeChanged();
 }
 
 void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
@@ -185,7 +185,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setCheckMarkVisible(true);
         button->setChecked(param->tb.color_filter[i].select);
 
-        connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::onTBTabButtonClicked);
+        connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::OnTBTabButtonClicked);
 
     }
     placeChildrenIntoPanel(m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
@@ -201,7 +201,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setSelectedBackgroundColor(button->backgroundColor());
         button->setCheckMarkVisible(true);
         button->setChecked(param->custom.color_filter[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::onCustomTabButtonClicked);
+        connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::OnCustomTabButtonClicked);
     }
     placeChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
@@ -216,203 +216,203 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setFixedSize(CFC_BUTTON1_GEOMETRY.size());
         button->setCheckMarkVisible(true);
         button->setChecked(param->history.color_filter[i].select);
-        connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::onHistoryButtonClicked);
+        connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::OnHistoryButtonClicked);
     }
     placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
     if (param->tb.select == true)
     {
-        setMode(COLOR_FILTER_MODE_TB);
+        SetMode(COLOR_FILTER_MODE_TB);
     }
 
     if (param->custom.select == true)
     {
-        setMode(COLOR_FILTER_MODE_CUSTOM);
+        SetMode(COLOR_FILTER_MODE_CUSTOM);
     }
 
     if (param->history.select == true)
     {
-        setMode(COLOR_FILTER_MODE_HISTORY);
+        SetMode(COLOR_FILTER_MODE_HISTORY);
     }
-    onModeChanged();
+    OnModeChanged();
 }
 
 void ColorFilterControl::ScrollUp()
 {
-    if (mode() == COLOR_FILTER_MODE_TB)
+    if (Mode() == COLOR_FILTER_MODE_TB)
     {
-        setCurrentTBTabPage(currentTBTabPage()-1);
+        SetCurrentTBTabPage(CurrentTBTabPage()-1);
     }
-    else if(mode() == COLOR_FILTER_MODE_CUSTOM)
+    else if(Mode() == COLOR_FILTER_MODE_CUSTOM)
     {
-        setCurrentCustomTabPage(currentCustomTabPage()-1);
+        SetCurrentCustomTabPage(CurrentCustomTabPage()-1);
     }
-    else if(mode() == COLOR_FILTER_MODE_HISTORY)
+    else if(Mode() == COLOR_FILTER_MODE_HISTORY)
     {
-        setCurrentHistoryPage(currentHistoryPage()-1);
+        SetCurrentHistoryPage(CurrentHistoryPage()-1);
     }
 }
 
 void ColorFilterControl::ScrollDown()
 {
-    if (mode() == COLOR_FILTER_MODE_TB)
+    if (Mode() == COLOR_FILTER_MODE_TB)
     {
-        setCurrentTBTabPage(currentTBTabPage()+1);
+        SetCurrentTBTabPage(CurrentTBTabPage()+1);
     }
-    else if(mode() == COLOR_FILTER_MODE_CUSTOM)
+    else if(Mode() == COLOR_FILTER_MODE_CUSTOM)
     {
-        setCurrentCustomTabPage(currentCustomTabPage()+1);
+        SetCurrentCustomTabPage(CurrentCustomTabPage()+1);
     }
-    else if(mode() == COLOR_FILTER_MODE_HISTORY)
+    else if(Mode() == COLOR_FILTER_MODE_HISTORY)
     {
-        setCurrentHistoryPage(currentHistoryPage()+1);
+        SetCurrentHistoryPage(CurrentHistoryPage()+1);
     }
 }
 
-int ColorFilterControl::currentTBTabPage() const
+int ColorFilterControl::CurrentTBTabPage() const
 {
-    return m_currentTBTabPage;
+    return m_current_tb_tab_page;
 }
 
-void ColorFilterControl::setCurrentTBTabPage(int newCurrentTab1Page)
+void ColorFilterControl::SetCurrentTBTabPage(int newCurrentTab1Page)
 {
-    if (m_currentTBTabPage == newCurrentTab1Page)
+    if (m_current_tb_tab_page == newCurrentTab1Page)
         return;
-    m_currentTBTabPage = newCurrentTab1Page;
-    emit currentTBTabPageChanged();
+    m_current_tb_tab_page = newCurrentTab1Page;
+    emit CurrentTBTabPageChanged();
 }
 
-int ColorFilterControl::currentCustomTabPage() const
+int ColorFilterControl::CurrentCustomTabPage() const
 {
-    return m_currentCustomTabPage;
+    return m_current_custom_tab_page;
 }
 
-void ColorFilterControl::setCurrentCustomTabPage(int newCurrentTab2Page)
+void ColorFilterControl::SetCurrentCustomTabPage(int newCurrentTab2Page)
 {
-    if (m_currentCustomTabPage == newCurrentTab2Page)
+    if (m_current_custom_tab_page == newCurrentTab2Page)
         return;
-    m_currentCustomTabPage = newCurrentTab2Page;
-    emit currentCustomTabPageChanged();
+    m_current_custom_tab_page = newCurrentTab2Page;
+    emit CurrentCustomTabPageChanged();
 }
 
-int ColorFilterControl::currentHistoryPage() const
+int ColorFilterControl::CurrentHistoryPage() const
 {
-    return m_currentHistoryPage;
+    return m_current_history_page;
 }
 
-void ColorFilterControl::setCurrentHistoryPage(int newCurrentHistoryPage)
+void ColorFilterControl::SetCurrentHistoryPage(int newCurrentHistoryPage)
 {
-    if (m_currentHistoryPage == newCurrentHistoryPage)
+    if (m_current_history_page == newCurrentHistoryPage)
         return;
-    m_currentHistoryPage = newCurrentHistoryPage;
-    emit currentHistoryPageChanged();
+    m_current_history_page = newCurrentHistoryPage;
+    emit CurrentHistoryPageChanged();
 }
 
-ColorFilterDisplayMode ColorFilterControl::mode() const
+ColorFilterDisplayMode ColorFilterControl::Mode() const
 {
     return m_mode;
 }
 
-void ColorFilterControl::setMode(ColorFilterDisplayMode newMode)
+void ColorFilterControl::SetMode(ColorFilterDisplayMode newMode)
 {
     if (m_mode == newMode)
         return;
     m_mode = newMode;
-    emit modeChanged();
+    emit ModeChanged();
 }
 
-void ColorFilterControl::onModeChanged()
+void ColorFilterControl::OnModeChanged()
 {
     for (const auto &button: qAsConst(m_header_buttons))
     {
-        button.button->setChecked(button.mode == mode());
+        button.button->setChecked(button.mode == Mode());
     }
 
-    setupHeaderTabButtons();
+    SetupHeaderTabButtons();
     for(auto& btn : m_custom_tab_buttons)
     {
-        btn->setVisible(mode() == COLOR_FILTER_MODE_CUSTOM);
+        btn->setVisible(Mode() == COLOR_FILTER_MODE_CUSTOM);
     }
 
     for(auto& btn : m_children_custom_tab)
     {
-        btn->setVisible(mode() == COLOR_FILTER_MODE_CUSTOM);
+        btn->setVisible(Mode() == COLOR_FILTER_MODE_CUSTOM);
     }
 
     for(auto& btn : m_history_buttons)
     {
-        btn->setVisible(mode() == COLOR_FILTER_MODE_HISTORY);
+        btn->setVisible(Mode() == COLOR_FILTER_MODE_HISTORY);
     }
 
     for(auto& btn : m_tb_tab_buttons)
     {
-        btn->setVisible(mode() == COLOR_FILTER_MODE_TB);
+        btn->setVisible(Mode() == COLOR_FILTER_MODE_TB);
     }
     for(auto& btn : m_children_tb_tab)
     {
-        btn->setVisible(mode() == COLOR_FILTER_MODE_TB);
+        btn->setVisible(Mode() == COLOR_FILTER_MODE_TB);
     }
 
-    if (mode() == COLOR_FILTER_MODE_TB)
+    if (Mode() == COLOR_FILTER_MODE_TB)
     {
-        updateTBTabPage();
+        UpdateTBTabPage();
         m_history_button.setChecked(false);
-        m_button_next_filter_buttons_page.setEnabled(currentTBTabPage() > 0);
-        m_button_previous_filter_buttons_page.setEnabled(currentTBTabPage() < maxTBTabPages() - 1);
+        m_button_next_filter_buttons_page.setEnabled(CurrentTBTabPage() > 0);
+        m_button_previous_filter_buttons_page.setEnabled(CurrentTBTabPage() < MaxTBTabPages() - 1);
 
         m_button_next_filter_buttons_page.setVisible(m_tb_tab_buttons.length() > BUTTONS_PER_PAGE);
         m_button_previous_filter_buttons_page.setVisible(m_tb_tab_buttons.length() > BUTTONS_PER_PAGE);
     }
-    else if(mode() == COLOR_FILTER_MODE_CUSTOM)
+    else if(Mode() == COLOR_FILTER_MODE_CUSTOM)
     {
-        updateCustomTabPage();
+        UpdateCustomTabPage();
         m_history_button.setChecked(false);
-        m_button_next_filter_buttons_page.setEnabled(currentCustomTabPage() > 0);
-        m_button_previous_filter_buttons_page.setEnabled(currentCustomTabPage() < maxCustomTabPages() - 1);
+        m_button_next_filter_buttons_page.setEnabled(CurrentCustomTabPage() > 0);
+        m_button_previous_filter_buttons_page.setEnabled(CurrentCustomTabPage() < MaxCustomTabPages() - 1);
 
         m_button_next_filter_buttons_page.setVisible(m_custom_tab_buttons.length() > BUTTONS_PER_PAGE);
         m_button_previous_filter_buttons_page.setVisible(m_custom_tab_buttons.length() > BUTTONS_PER_PAGE);
     }
-    else if(mode() == COLOR_FILTER_MODE_HISTORY)
+    else if(Mode() == COLOR_FILTER_MODE_HISTORY)
     {
         m_history_button.setChecked(true);
-        updateHistoryPage();
+        UpdateHistoryPage();
 
-        m_button_next_filter_buttons_page.setEnabled(currentHistoryPage() > 0);
-        m_button_previous_filter_buttons_page.setEnabled(currentHistoryPage() < maxHistoryPages() - 1);
+        m_button_next_filter_buttons_page.setEnabled(CurrentHistoryPage() > 0);
+        m_button_previous_filter_buttons_page.setEnabled(CurrentHistoryPage() < MaxHistoryPages() - 1);
 
         m_button_next_filter_buttons_page.setVisible(m_history_buttons.length() > BUTTONS_PER_PAGE);
         m_button_previous_filter_buttons_page.setVisible(m_history_buttons.length() > BUTTONS_PER_PAGE);
     }
 }
 
-void ColorFilterControl::updateTBTabPage()
+void ColorFilterControl::UpdateTBTabPage()
 {
-    qDebug() << currentTBTabPage();
-    UpdateChildrenVisibility(m_tb_tab_buttons,currentTBTabPage(), BUTTONS_PER_PAGE);
+    qDebug() << CurrentTBTabPage();
+    UpdateChildrenVisibility(m_tb_tab_buttons,CurrentTBTabPage(), BUTTONS_PER_PAGE);
 }
 
-void ColorFilterControl::updateCustomTabPage()
+void ColorFilterControl::UpdateCustomTabPage()
 {
-    UpdateChildrenVisibility(m_custom_tab_buttons,currentCustomTabPage(),BUTTONS_PER_PAGE);
+    UpdateChildrenVisibility(m_custom_tab_buttons,CurrentCustomTabPage(),BUTTONS_PER_PAGE);
 }
 
-void ColorFilterControl::updateHistoryPage()
+void ColorFilterControl::UpdateHistoryPage()
 {
-    UpdateChildrenVisibility(m_history_buttons,currentHistoryPage(),BUTTONS_PER_PAGE);
+    UpdateChildrenVisibility(m_history_buttons,CurrentHistoryPage(),BUTTONS_PER_PAGE);
 }
 
-void ColorFilterControl::addHeaderButton(ColorFilterDisplayMode mode, const QString &text)
+void ColorFilterControl::AddHeaderButton(ColorFilterDisplayMode mode, const QString &text)
 {
     auto button = MakeSharedQObject<SelectButton>(this);
     button->setText(text);
     button->setFixedSize(CFC_TAB1_GEOMETRY.size());
 
     m_header_buttons.append({mode, button});
-    connect(button.get(), &QPushButton::clicked, this, &ColorFilterControl::onDisplayTabButtonClicked);
+    connect(button.get(), &QPushButton::clicked, this, &ColorFilterControl::OnDisplayTabButtonClicked);
 }
 
-QVector<QSharedPointer<SelectButton>> ColorFilterControl::headerButtons() const
+QVector<QSharedPointer<SelectButton>> ColorFilterControl::HeaderButtons() const
 {
     QVector<QSharedPointer<SelectButton>> buttons;
     for (const auto &button: qAsConst(m_header_buttons))
@@ -420,12 +420,12 @@ QVector<QSharedPointer<SelectButton>> ColorFilterControl::headerButtons() const
     return buttons;
 }
 
-void ColorFilterControl::setupHeaderTabButtons()
+void ColorFilterControl::SetupHeaderTabButtons()
 {
-    m_button_previous_header_buttons_page.setEnabled(currentHeaderButtonsPage() > 0);
-    m_button_next_header_buttons_page.setEnabled(currentHeaderButtonsPage() < m_header_buttons_per_page - 1);
+    m_button_previous_header_buttons_page.setEnabled(CurrentHeaderButtonsPage() > 0);
+    m_button_next_header_buttons_page.setEnabled(CurrentHeaderButtonsPage() < m_header_buttons_per_page - 1);
 
-    if (mode() == COLOR_FILTER_MODE_HISTORY) {
+    if (Mode() == COLOR_FILTER_MODE_HISTORY) {
         for (const auto &button: qAsConst(m_header_buttons))
         {
             button.button->setVisible(false);
@@ -433,93 +433,93 @@ void ColorFilterControl::setupHeaderTabButtons()
         m_button_next_header_buttons_page.setVisible(false);
         m_button_previous_header_buttons_page.setVisible(false);
     } else {
-        UpdateChildrenVisibility(headerButtons(), currentHeaderButtonsPage(), m_header_buttons_per_page);
-        m_button_next_header_buttons_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
-        m_button_previous_header_buttons_page.setVisible(headerButtons().size() > m_header_buttons_per_page);
+        UpdateChildrenVisibility(HeaderButtons(), CurrentHeaderButtonsPage(), m_header_buttons_per_page);
+        m_button_next_header_buttons_page.setVisible(HeaderButtons().size() > m_header_buttons_per_page);
+        m_button_previous_header_buttons_page.setVisible(HeaderButtons().size() > m_header_buttons_per_page);
     }
 }
 
-void ColorFilterControl::onDisplayTabButtonClicked()
+void ColorFilterControl::OnDisplayTabButtonClicked()
 {
     auto button = std::find_if(m_header_buttons.begin(), m_header_buttons.end(), [&](const DisplayTabButton &button) {
        return button.button.get() == sender();
     });
     if (button != m_header_buttons.end()) {
-        setMode(button->mode);
-        m_previous_tab = mode();
+        SetMode(button->mode);
+        m_previous_tab = Mode();
     }
 }
 
 const QString &ColorFilterControl::CurrentFooterButtonActive() const
 {
-    return m_currentFooterButtonActive;
+    return m_current_footer_button_active;
 }
 
 void ColorFilterControl::SetCurrentFooterButtonActive(const QString &newCurrentFooterButtonActive)
 {
-    m_currentFooterButtonActive = newCurrentFooterButtonActive;
+    m_current_footer_button_active = newCurrentFooterButtonActive;
 }
 
-int ColorFilterControl::maxTBTabPages() const
+int ColorFilterControl::MaxTBTabPages() const
 {
     return calulateNumberOfPages(m_tb_tab_buttons.length(), BUTTONS_PER_PAGE);
 }
 
-int ColorFilterControl::maxCustomTabPages() const
+int ColorFilterControl::MaxCustomTabPages() const
 {
     return calulateNumberOfPages(m_custom_tab_buttons.length(), BUTTONS_PER_PAGE);
 }
 
-int ColorFilterControl::maxHistoryPages() const
+int ColorFilterControl::MaxHistoryPages() const
 {
     return calulateNumberOfPages(m_history_buttons.length(), BUTTONS_PER_PAGE);
 }
 
-void ColorFilterControl::onTBTabButtonClicked()
+void ColorFilterControl::OnTBTabButtonClicked()
 {
     auto iter = std::find(m_tb_tab_buttons.begin(), m_tb_tab_buttons.end(), sender());
     if (iter == m_tb_tab_buttons.end()) {
         return;
     }
     auto button = *iter;
-    addButtonToHistory(button);
-    setCurrentTBTabButtonActive({button->text(),button->backgroundColor()});
+    AddButtonToHistory(button);
+    SetCurrentTBTabButtonActive({button->text(),button->backgroundColor()});
     for (const auto &b : qAsConst(m_tb_tab_buttons))
     {
         b->setChecked(b == button);
     }
 }
 
-void ColorFilterControl::onCustomTabButtonClicked()
+void ColorFilterControl::OnCustomTabButtonClicked()
 {
     auto iter = std::find(m_custom_tab_buttons.begin(), m_custom_tab_buttons.end(), sender());
     if (iter == m_custom_tab_buttons.end()) {
         return;
     }
     auto button = *iter;
-    addButtonToHistory(button);
-    setCurrentCustomTabButtonActive({button->text(),button->backgroundColor()});
+    AddButtonToHistory(button);
+    SetCurrentCustomTabButtonActive({button->text(),button->backgroundColor()});
     for (const auto &b : qAsConst(m_custom_tab_buttons))
     {
         b->setChecked(b == button);
     }
 }
 
-void ColorFilterControl::onHistoryButtonClicked()
+void ColorFilterControl::OnHistoryButtonClicked()
 {
     auto iter = std::find(m_history_buttons.begin(), m_history_buttons.end(), sender());
     if (iter == m_history_buttons.end()) {
         return;
     }
     auto button = *iter;
-    setCurrentHistoryButtonActive({button->text(),button->backgroundColor()});
+    SetCurrentHistoryButtonActive({button->text(),button->backgroundColor()});
     for (const auto &b : qAsConst(m_history_buttons))
     {
         b->setChecked(b == button);
     }
 }
 
-void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectButton> button)
+void ColorFilterControl::AddButtonToHistory(QSharedPointer<SelectButton> button)
 {
     auto new_button = MakeSharedQObject<SelectButton>(this);
     new_button->setText(button->text());
@@ -528,7 +528,7 @@ void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectButton> button)
     new_button->setVisible(false);
     new_button->setBackgroundColor(button->backgroundColor());
     new_button->setSelectedBackgroundColor(button->backgroundColor());
-    connect(new_button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::onHistoryButtonClicked);
+    connect(new_button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::OnHistoryButtonClicked);
     m_history_buttons.push_front(new_button);
     placeChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 
@@ -538,55 +538,55 @@ void ColorFilterControl::addButtonToHistory(QSharedPointer<SelectButton> button)
     }
 }
 
-int ColorFilterControl::currentHeaderButtonsPage() const
+int ColorFilterControl::CurrentHeaderButtonsPage() const
 {
-    return m_currentHeaderButtonsPage;
+    return m_current_header_buttons_page;
 }
 
-void ColorFilterControl::setCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage)
+void ColorFilterControl::SetCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage)
 {
     newCurrentHeaderButtonsPage = qBound(newCurrentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
-    if (m_currentHeaderButtonsPage == newCurrentHeaderButtonsPage)
+    if (m_current_header_buttons_page == newCurrentHeaderButtonsPage)
         return;
-    m_currentHeaderButtonsPage = newCurrentHeaderButtonsPage;
-    emit currentHeaderButtonsPageChanged();
+    m_current_header_buttons_page = newCurrentHeaderButtonsPage;
+    emit CurrentHeaderButtonsPageChanged();
 }
 
-const ColorFilterButton &ColorFilterControl::currentTBTabButtonActive() const
+const ColorFilterButton &ColorFilterControl::CurrentTBTabButtonActive() const
 {
-    return m_currentTBTabButtonActive;
+    return m_current_tb_tab_button_active;
 }
 
-void ColorFilterControl::setCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive)
+void ColorFilterControl::SetCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive)
 {
-    if (m_currentTBTabButtonActive == newCurrentTBTabButtonActive)
+    if (m_current_tb_tab_button_active == newCurrentTBTabButtonActive)
         return;
-    m_currentTBTabButtonActive = newCurrentTBTabButtonActive;
-    emit currentTBTabButtonActiveChanged();
+    m_current_tb_tab_button_active = newCurrentTBTabButtonActive;
+    emit CurrentTBTabButtonActiveChanged();
 }
 
-const ColorFilterButton &ColorFilterControl::currentCustomTabButtonActive() const
+const ColorFilterButton &ColorFilterControl::CurrentCustomTabButtonActive() const
 {
-    return m_currentCustomTabButtonActive;
+    return m_current_custom_tab_button_active;
 }
 
-void ColorFilterControl::setCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive)
+void ColorFilterControl::SetCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive)
 {
-    if (m_currentCustomTabButtonActive == newCurrentCustomTabButtonActive)
+    if (m_current_custom_tab_button_active == newCurrentCustomTabButtonActive)
         return;
-    m_currentCustomTabButtonActive = newCurrentCustomTabButtonActive;
-    emit currentCustomTabButtonActiveChanged();
+    m_current_custom_tab_button_active = newCurrentCustomTabButtonActive;
+    emit CurrentCustomTabButtonActiveChanged();
 }
 
-const ColorFilterButton &ColorFilterControl::currentHistoryButtonActive() const
+const ColorFilterButton &ColorFilterControl::CurrentHistoryButtonActive() const
 {
-    return m_currentHistoryButtonActive;
+    return m_current_history_button_active;
 }
 
-void ColorFilterControl::setCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive)
+void ColorFilterControl::SetCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive)
 {
-    if (m_currentHistoryButtonActive == newCurrentHistoryButtonActive)
+    if (m_current_history_button_active == newCurrentHistoryButtonActive)
         return;
-    m_currentHistoryButtonActive = newCurrentHistoryButtonActive;
-    emit currentHistoryButtonActiveChanged();
+    m_current_history_button_active = newCurrentHistoryButtonActive;
+    emit CurrentHistoryButtonActiveChanged();
 }

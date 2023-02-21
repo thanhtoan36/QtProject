@@ -66,14 +66,14 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     m_slider_v.setOrientation(Qt::Vertical);
 
     m_label_setting.setVisible(false);
-    placeChildrenIntoPanel(headerButtons(), CPC_HORIZON_BUTTON_XY_GEOMETRY.size(), CPC_HORIZON_BUTTON_XY_GEOMETRY.topLeft(), QSize(1, 2), BottomToTop);
+    placeChildrenIntoPanel(HeaderButtons(), CPC_HORIZON_BUTTON_XY_GEOMETRY.size(), CPC_HORIZON_BUTTON_XY_GEOMETRY.topLeft(), QSize(1, 2), BottomToTop);
 
-    connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);
-    connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);
-    connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::onPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_picker, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::OnPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::OnPanelSwitchButtonClicked);
+    connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::OnPanelSwitchButtonClicked);
 }
 
-void ColorPickerControlHorizon::onPanelSwitchButtonClicked()
+void ColorPickerControlHorizon::OnPanelSwitchButtonClicked()
 {
     m_button_switch_panel_picker.setChecked(false);
     m_button_switch_panel_encoder.setChecked(false);

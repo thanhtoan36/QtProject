@@ -10,7 +10,7 @@ public:
     virtual void setDispParamData(COLOR_FILTER_DISP_PARAM *param) override;
 
 protected:
-    virtual void addButtonToHistory(QSharedPointer<SelectButton> button) override;
+    virtual void AddButtonToHistory(QSharedPointer<SelectButton> button) override;
 
 };
 

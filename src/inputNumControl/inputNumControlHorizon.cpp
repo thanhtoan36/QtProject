@@ -78,13 +78,13 @@ void InputNumControlHorizon::onPanelSwitchButtonClicked()
     ((QAbstractButton*)sender())->setChecked(true);
 }
 
-void InputNumControlHorizon::onTypeChanged()
+void InputNumControlHorizon::OnTypeChanged()
 {
-    InputNumControl::onTypeChanged();
-    placeChildrenIntoPanel(m_group_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(groupButtonsPerPage(), 1) );
+    InputNumControl::OnTypeChanged();
+    placeChildrenIntoPanel(m_group_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize(GroupButtonsPerPage(), 1) );
 }
 
-int InputNumControlHorizon::groupButtonsPerPage() const
+int InputNumControlHorizon::GroupButtonsPerPage() const
 {
     return 5;
 }

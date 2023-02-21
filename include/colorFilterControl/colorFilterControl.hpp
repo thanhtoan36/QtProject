@@ -28,91 +28,87 @@ struct ColorFilterButton
 class ColorFilterControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int currentHeaderButtonsPage READ currentHeaderButtonsPage WRITE setCurrentHeaderButtonsPage NOTIFY currentHeaderButtonsPageChanged)
-    Q_PROPERTY(int currentTBTabPage READ currentTBTabPage WRITE setCurrentTBTabPage NOTIFY currentTBTabPageChanged)
-    Q_PROPERTY(int currentCustomTabPage READ currentCustomTabPage WRITE setCurrentCustomTabPage NOTIFY currentCustomTabPageChanged)
-    Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
-    Q_PROPERTY(ColorFilterDisplayMode mode READ mode WRITE setMode NOTIFY modeChanged)
+    Q_PROPERTY(int CurrentHeaderButtonsPage READ CurrentHeaderButtonsPage WRITE SetCurrentHeaderButtonsPage NOTIFY CurrentHeaderButtonsPageChanged)
+    Q_PROPERTY(int CurrentTBTabPage READ CurrentTBTabPage WRITE SetCurrentTBTabPage NOTIFY CurrentTBTabPageChanged)
+    Q_PROPERTY(int CurrentCustomTabPage READ CurrentCustomTabPage WRITE SetCurrentCustomTabPage NOTIFY CurrentCustomTabPageChanged)
+    Q_PROPERTY(int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged)
+    Q_PROPERTY(ColorFilterDisplayMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged)
 
-    Q_PROPERTY(ColorFilterButton currentTBTabButtonActive READ currentTBTabButtonActive WRITE setCurrentTBTabButtonActive NOTIFY currentTBTabButtonActiveChanged)
-    Q_PROPERTY(ColorFilterButton currentCustomTabButtonActive READ currentCustomTabButtonActive WRITE setCurrentCustomTabButtonActive NOTIFY currentCustomTabButtonActiveChanged)
-    Q_PROPERTY(ColorFilterButton currentHistoryButtonActive READ currentHistoryButtonActive WRITE setCurrentHistoryButtonActive NOTIFY currentHistoryButtonActiveChanged)
+    Q_PROPERTY(ColorFilterButton CurrentTBTabButtonActive READ CurrentTBTabButtonActive WRITE SetCurrentTBTabButtonActive NOTIFY CurrentTBTabButtonActiveChanged)
+    Q_PROPERTY(ColorFilterButton CurrentCustomTabButtonActive READ CurrentCustomTabButtonActive WRITE SetCurrentCustomTabButtonActive NOTIFY CurrentCustomTabButtonActiveChanged)
+    Q_PROPERTY(ColorFilterButton CurrentHistoryButtonActive READ CurrentHistoryButtonActive WRITE SetCurrentHistoryButtonActive NOTIFY CurrentHistoryButtonActiveChanged)
 public:
 
     explicit ColorFilterControl(QWidget* parent = nullptr);
 
     virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
 
-    void ScrollUp();
-    void ScrollDown();
+    int CurrentTBTabPage() const;
+    void SetCurrentTBTabPage(int newCurrentTab1Page);
 
-    int currentTBTabPage() const;
-    void setCurrentTBTabPage(int newCurrentTab1Page);
+    int CurrentCustomTabPage() const;
+    void SetCurrentCustomTabPage(int newCurrentTab2Page);
 
-    int currentCustomTabPage() const;
-    void setCurrentCustomTabPage(int newCurrentTab2Page);
+    int CurrentHistoryPage() const;
+    void SetCurrentHistoryPage(int newCurrentHistoryPage);
 
-    int currentHistoryPage() const;
-    void setCurrentHistoryPage(int newCurrentHistoryPage);
+    ColorFilterDisplayMode Mode() const;
+    void SetMode(ColorFilterDisplayMode newMode);
 
-    ColorFilterDisplayMode mode() const;
-    void setMode(ColorFilterDisplayMode newMode);
+    const ColorFilterButton &CurrentTBTabButtonActive() const;
+    void SetCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive);
 
-    const ColorFilterButton &currentTBTabButtonActive() const;
-    void setCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive);
+    const ColorFilterButton &CurrentCustomTabButtonActive() const;
+    void SetCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive);
 
-    const ColorFilterButton &currentCustomTabButtonActive() const;
-    void setCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive);
-
-    const ColorFilterButton &currentHistoryButtonActive() const;
-    void setCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive);
+    const ColorFilterButton &CurrentHistoryButtonActive() const;
+    void SetCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive);
 
     const QString &CurrentFooterButtonActive() const;
     void SetCurrentFooterButtonActive(const QString &newCurrentFooterButtonActive);
 
 signals:
-    void currentTBTabPageChanged();
-    void currentCustomTabPageChanged();
-    void currentHistoryPageChanged();
-    void modeChanged();
-    void currentTBTabButtonCheckChanged();
-    void currentCustomTabButtonCheckChanged();
-    void currentHistoryTabButtonCheckChanged();
-    void currentHeaderButtonsPageChanged();
-
-    void currentTBTabButtonActiveChanged();
-    void currentCustomTabButtonActiveChanged();
-    void currentHistoryButtonActiveChanged();
+    void CurrentTBTabPageChanged();
+    void CurrentCustomTabPageChanged();
+    void CurrentHistoryPageChanged();
+    void ModeChanged();
+    void CurrentHeaderButtonsPageChanged();
+    void CurrentTBTabButtonActiveChanged();
+    void CurrentCustomTabButtonActiveChanged();
+    void CurrentHistoryButtonActiveChanged();
 
     void ReturnButtonClicked();
     void NextButtonClicked();
     void PrevButtonClicked();
 
 protected:
-    virtual void addButtonToHistory(QSharedPointer<SelectButton> button);
+    void ScrollUp();
+    void ScrollDown();
 
-    void onModeChanged();
-    void updateTBTabPage();
-    void updateCustomTabPage();
-    void updateHistoryPage();
+    virtual void AddButtonToHistory(QSharedPointer<SelectButton> button);
 
-    void addHeaderButton(ColorFilterDisplayMode mode, const QString &text);
-    QVector<QSharedPointer<SelectButton> > headerButtons() const;
-    void setupHeaderTabButtons();
+    void OnModeChanged();
+    void UpdateTBTabPage();
+    void UpdateCustomTabPage();
+    void UpdateHistoryPage();
 
-    int maxTBTabPages() const;
-    int maxCustomTabPages() const;
-    int maxHistoryPages() const;
+    void AddHeaderButton(ColorFilterDisplayMode mode, const QString &text);
+    QVector<QSharedPointer<SelectButton> > HeaderButtons() const;
+    void SetupHeaderTabButtons();
 
-    void onTBTabButtonClicked();
-    void onCustomTabButtonClicked();
-    void onHistoryButtonClicked();
+    int MaxTBTabPages() const;
+    int MaxCustomTabPages() const;
+    int MaxHistoryPages() const;
 
-    int currentHeaderButtonsPage() const;
-    void setCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage);
+    void OnTBTabButtonClicked();
+    void OnCustomTabButtonClicked();
+    void OnHistoryButtonClicked();
+
+    int CurrentHeaderButtonsPage() const;
+    void SetCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage);
 
 protected slots:
-    void onDisplayTabButtonClicked();
+    void OnDisplayTabButtonClicked();
 
 protected:
     struct DisplayTabButton
@@ -148,19 +144,19 @@ protected:
 
     uint32_t m_current_scroll_step = 0;
 
-    int m_currentTBTabPage;
-    int m_currentCustomTabPage;
-    int m_currentHistoryPage;
+    int m_current_tb_tab_page;
+    int m_current_custom_tab_page;
+    int m_current_history_page;
 
     ColorFilterDisplayMode m_mode;
     ColorFilterDisplayMode m_previous_tab;
 
 private:
-    int m_currentHeaderButtonsPage;
-    ColorFilterButton m_currentTBTabButtonActive;
-    ColorFilterButton m_currentCustomTabButtonActive;
-    ColorFilterButton m_currentHistoryButtonActive;
-    QString m_currentFooterButtonActive = "";
+    int m_current_header_buttons_page;
+    ColorFilterButton m_current_tb_tab_button_active;
+    ColorFilterButton m_current_custom_tab_button_active;
+    ColorFilterButton m_current_history_button_active;
+    QString m_current_footer_button_active = "";
 };
 
 #endif // COLORFILTERCONTROL_H

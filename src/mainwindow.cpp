@@ -77,44 +77,44 @@ void MainWindow::logEvent(const QString &log)
 
 void MainWindow::ConnectColorPickerEvent()
 {
-    const auto slot_color_changed = [&]() { logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name())); };
-    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, slot_color_changed);
-    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::pickerColorChanged, this, slot_color_changed);
+    const auto slot_color_changed = [&]() { logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->PickerColor().name())); };
+    connect(m_color_picker_control.get(), &ColorPickerControl::PickerColorChanged, this, slot_color_changed);
+    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::PickerColorChanged, this, slot_color_changed);
 }
 
 void MainWindow::ConnectColorFilterEvent()
 {
     const auto slot_tb_selected_button_changed = [&](){
         QString log = "CFC TB Tab Button Active Changed: ";
-        auto button_active = ((ColorFilterControl*)sender())->currentTBTabButtonActive();
+        auto button_active = ((ColorFilterControl*)sender())->CurrentTBTabButtonActive();
         log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
         logEvent(log);
     };
 
     const auto slot_custom_selected_button_changed = [&](){
         QString log = "CFC Custom Tab Button Active Changed: ";
-        auto button_active = ((ColorFilterControl*)sender())->currentCustomTabButtonActive();
+        auto button_active = ((ColorFilterControl*)sender())->CurrentCustomTabButtonActive();
         log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
         logEvent(log);
     };
 
     const auto slot_history_selected_button_changed = [&]() {
         QString log = "CFC History Button Active Changed: ";
-        auto button_active = ((ColorFilterControl*)sender())->currentHistoryButtonActive();
+        auto button_active = ((ColorFilterControl*)sender())->CurrentHistoryButtonActive();
         log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
         logEvent(log);
     };
 
     const auto slot_return_button_clicked = [&]() { logEvent("CFC Return Button Clicked"); };
 
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::CurrentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::CurrentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::CurrentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
     connect(m_color_filter_control.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked);
 
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::CurrentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::CurrentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::CurrentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
     connect(m_color_filter_control_horizon.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked);
 }
 
@@ -138,7 +138,7 @@ void MainWindow::ConnectInputNumEvent()
 {
     const auto slot_mode_changed = [&]() {
         QString log = "IC Mode Changed: ";
-        auto mode = ((InputNumControl*)sender())->mode();
+        auto mode = ((InputNumControl*)sender())->Mode();
 
         if (mode == INPUT_NUM_MODE_PERCENT)
         {
@@ -158,7 +158,7 @@ void MainWindow::ConnectInputNumEvent()
 
     const auto slot_value_mode_changed = [&]() {
         QString log = "IC Value Mode Changed: ";
-        auto mode = ((InputNumControl*)sender())->valueMode();
+        auto mode = ((InputNumControl*)sender())->ValueMode();
 
         if (mode == INPUT_NUM_MODE_RELATIVE)
         {
@@ -187,14 +187,14 @@ void MainWindow::ConnectInputNumEvent()
         this->logEvent(log);
     };
 
-    connect(m_input_num_control.get(),&InputNumControl::modeChanged, this, slot_mode_changed);
-    connect(m_input_num_control.get(),&InputNumControl::valueModeChanged, this, slot_value_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::ModeChanged, this, slot_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::ValueModeChanged, this, slot_value_mode_changed);
     connect(m_input_num_control.get(),&InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked);
     connect(m_input_num_control.get(),&InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed);
     connect(m_input_num_control.get(),&InputNumControl::ReturnClicked, this, slot_return_clicked);
 
-    connect(m_input_num_control_horizon.get(),&InputNumControl::modeChanged, this, slot_mode_changed);
-    connect(m_input_num_control_horizon.get(),&InputNumControl::valueModeChanged, this, slot_value_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::ModeChanged, this, slot_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::ValueModeChanged, this, slot_value_mode_changed);
     connect(m_input_num_control_horizon.get(),&InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked);
     connect(m_input_num_control_horizon.get(),&InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed);
     connect(m_input_num_control_horizon.get(),&InputNumControl::ReturnClicked, this, slot_return_clicked);

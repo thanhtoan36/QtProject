@@ -16,7 +16,7 @@
 #define PICKER_XY_HIEGHT CPC_PICKER_XY_GEOMETRY.height()
 
 CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
-    m_plotArea(QRectF(36, 0,PICKER_XY_HIEGHT, PICKER_XY_HIEGHT))
+    m_plot_area(QRectF(36, 0,PICKER_XY_HIEGHT, PICKER_XY_HIEGHT))
 {
     QImage img(":/resources/cie_img.png");
     m_img = img.scaled(PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -33,8 +33,8 @@ void CustomColorPickerXY::SetColor(const QColor &color)
 
 void CustomColorPickerXY::SetXy(const QPointF &xy)
 {
-    QPointF nearest = findNearestXy(xy);
-    m_pointer = mapToPosition(nearest);
+    QPointF nearest = FindNearestXy(xy);
+    m_pointer = MapToPosition(nearest);
     m_pointer_visible = true;
     update();
 
@@ -52,10 +52,10 @@ QPointF CustomColorPickerXY::Xy() const
 
 QColor CustomColorPickerXY::Color() const
 {
-    return getColor(m_valid_xy);
+    return GetColor(m_valid_xy);
 }
 
-QColor CustomColorPickerXY::getColor(QPointF xy) const
+QColor CustomColorPickerXY::GetColor(QPointF xy) const
 {
     return m_cie_maker.getColor(xy);
 }
@@ -69,17 +69,17 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
     p.fillRect(QRect(QPoint(0, 0), geometry().size()), QBrush(Qt::black));
 
     p.setPen(QPen(Qt::gray, 1));
-    p.drawLine(m_plotArea.bottomLeft(), m_plotArea.topLeft());
-    p.drawLine(m_plotArea.bottomLeft(), m_plotArea.bottomRight());
+    p.drawLine(m_plot_area.bottomLeft(), m_plot_area.topLeft());
+    p.drawLine(m_plot_area.bottomLeft(), m_plot_area.bottomRight());
 
     for (int i = 1; i <= 10; i++)
     {
         p.setPen(QPen(Qt::lightGray, 0.5));
-        p.drawLine(QPointF(m_plotArea.bottomLeft().rx() +24*i,m_plotArea.bottomLeft().ry()), QPointF(m_plotArea.topLeft().rx() +24*i,m_plotArea.topLeft().ry()));
-        p.drawLine(QPointF(m_plotArea.topLeft().rx() ,m_plotArea.topLeft().ry()+24*(i-1)), QPointF(m_plotArea.topRight().rx(),m_plotArea.topRight().ry() +24*(i-1)));
+        p.drawLine(QPointF(m_plot_area.bottomLeft().rx() +24*i,m_plot_area.bottomLeft().ry()), QPointF(m_plot_area.topLeft().rx() +24*i,m_plot_area.topLeft().ry()));
+        p.drawLine(QPointF(m_plot_area.topLeft().rx() ,m_plot_area.topLeft().ry()+24*(i-1)), QPointF(m_plot_area.topRight().rx(),m_plot_area.topRight().ry() +24*(i-1)));
     }
 
-    p.drawImage(m_plotArea, m_img);
+    p.drawImage(m_plot_area, m_img);
     if (m_pointer_visible) {
         p.setPen(QPen(Qt::white, 1));
         p.drawEllipse(m_pointer, 5, 5);
@@ -90,26 +90,26 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
 
 void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
 {
-    if(m_plotArea.contains(event->pos())){
-        QPointF p = mapToValue(event->pos());
+    if(m_plot_area.contains(event->pos())){
+        QPointF p = MapToValue(event->pos());
         CPointF curP(p.x(),p.y());
         if(m_cie_maker.isPointInsideBound(curP)){
             SetXy(p);
-            emit picked();
+            emit Picked();
         }
     }
 }
 
-QPointF CustomColorPickerXY::mapToPosition(const QPointF &p)
+QPointF CustomColorPickerXY::MapToPosition(const QPointF &p)
 {
-    return QPointF(m_plotArea.x()+m_plotArea.width()*p.x(),
-                  m_offset.height()+m_plotArea.height()*(1-p.y()));
+    return QPointF(m_plot_area.x()+m_plot_area.width()*p.x(),
+                  m_offset.height()+m_plot_area.height()*(1-p.y()));
 }
 
-QPointF CustomColorPickerXY::mapToValue(const QPoint &p)
+QPointF CustomColorPickerXY::MapToValue(const QPoint &p)
 {
-    return QPointF(1.0f*(p.x()-m_plotArea.x())/m_plotArea.width(),
-                   1.0f*(m_plotArea.y()+m_plotArea.height()-p.y())/m_plotArea.height());
+    return QPointF(1.0f*(p.x()-m_plot_area.x())/m_plot_area.width(),
+                   1.0f*(m_plot_area.y()+m_plot_area.height()-p.y())/m_plot_area.height());
 }
 
 void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, float &z)
@@ -127,7 +127,7 @@ void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, 
     y = Y / (X + Y + Z);
 }
 
-QPointF CustomColorPickerXY::findNearestXy(QPointF target)
+QPointF CustomColorPickerXY::FindNearestXy(QPointF target)
 {
     if (m_cie_maker.isPointInsideBound(CPointF(target.x(), target.y())))
         return target;
