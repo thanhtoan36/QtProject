@@ -53,9 +53,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_palette_control = MakeSharedQObject<PaletteControl>();
     m_palette_control_horizon = MakeSharedQObject<PaletteControlHorizon>();
 
-    connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
-    connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, &MainWindow::TC_OnTrackPointsChanged);
-
     ConnectColorFilterEvent();
     ConnectColorPickerEvent();
     ConnectIntensityEvent();
@@ -78,29 +75,61 @@ void MainWindow::logEvent(const QString &log)
 
 void MainWindow::ConnectColorPickerEvent()
 {
-    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
-    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::pickerColorChanged, this, &MainWindow::CPC_OnColorChanged);
+    const auto slot_color_changed = [&]() { logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name())); };
+    connect(m_color_picker_control.get(), &ColorPickerControl::pickerColorChanged, this, slot_color_changed);
+    connect(m_color_picker_control_horizon.get(), &ColorPickerControl::pickerColorChanged, this, slot_color_changed);
 }
 
 void MainWindow::ConnectColorFilterEvent()
 {
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, &MainWindow::CFC_OnTBTabButtonActiveChanged);
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, &MainWindow::CFC_OnCustomTabButtonActiveChanged);
-    connect(m_color_filter_control.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, &MainWindow::CFC_OnHistoryButtonActiveChanged);
-    connect(m_color_filter_control.get(), &ColorFilterControl::ReturnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::ReturnButtonClicked, this, &MainWindow::CFC_OnReturnButtonClicked);
+    const auto slot_tb_selected_button_changed = [&](){
+        QString log = "CFC TB Tab Button Active Changed: ";
+        auto button_active = ((ColorFilterControl*)sender())->currentTBTabButtonActive();
+        log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
+        logEvent(log);
+    };
+
+    const auto slot_custom_selected_button_changed = [&](){
+        QString log = "CFC Custom Tab Button Active Changed: ";
+        auto button_active = ((ColorFilterControl*)sender())->currentCustomTabButtonActive();
+        log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
+        logEvent(log);
+    };
+
+    const auto slot_history_selected_button_changed = [&]() {
+        QString log = "CFC History Button Active Changed: ";
+        auto button_active = ((ColorFilterControl*)sender())->currentHistoryButtonActive();
+        log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
+        logEvent(log);
+    };
+
+    const auto slot_return_button_clicked = [&]() { logEvent("CFC Return Button Clicked"); };
+
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked);
+
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::currentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked);
 }
 
 void MainWindow::ConnectIntensityEvent()
 {
-    connect(m_intensity_control.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
-    connect(m_intensity_control_horizon.get(), &IntensityControl::returnButtonClicked, this, &MainWindow::IC_OnReturnButtonClicked);
+    const auto slot_intensity_button_clicked = [&](const QString &name){
+        QString log = QString("IC Button %1 Clicked").arg(name);
+        logEvent(log);
+    };
 
-    connect(m_intensity_control.get(), &IntensityControl::IntensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
-    connect(m_intensity_control_horizon.get(), &IntensityControl::IntensityButtonClicked, this, &MainWindow::IC_OnIntensityButtonClicked);
+    const auto slot_return_button_clicked = [&]() { logEvent("Intensity Return Button Clicked"); };
+
+    connect(m_intensity_control.get(), &IntensityControl::IntensityButtonClicked, this, slot_intensity_button_clicked);
+    connect(m_intensity_control.get(), &IntensityControl::returnButtonClicked, this, slot_return_button_clicked);
+
+    connect(m_intensity_control_horizon.get(), &IntensityControl::IntensityButtonClicked, this, slot_intensity_button_clicked);
+    connect(m_intensity_control_horizon.get(), &IntensityControl::returnButtonClicked, this, slot_return_button_clicked);
 }
 
 void MainWindow::ConnectInputNumEvent()
@@ -181,6 +210,7 @@ void MainWindow::ConnectPaletteEvent()
     const auto slot_prev_mode_page_clicked = [&](){ logEvent("Palette prev mode page"); };
     const auto slot_next_palette_page_clicked = [&](){ logEvent("Palette next palette page"); };
     const auto slot_prev_palette_page_clicked = [&](){ logEvent("Palette prev palette page"); };
+    const auto slot_revert_clicked = [&](){ logEvent("Palette revert clicked"); };
 
     connect(m_palette_control.get(),&PaletteControl::selectedModeChanged, this, slot_mode_changed);
     connect(m_palette_control.get(),&PaletteControl::selectedPaletteChanged, this, slot_palette_changed);
@@ -188,6 +218,7 @@ void MainWindow::ConnectPaletteEvent()
     connect(m_palette_control.get(),&PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked);
     connect(m_palette_control.get(),&PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked);
     connect(m_palette_control.get(),&PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked);
+    connect(m_palette_control.get(),&PaletteControl::RevertButtonClicked, this, slot_revert_clicked);
 
     connect(m_palette_control_horizon.get(),&PaletteControl::selectedModeChanged, this, slot_mode_changed);
     connect(m_palette_control_horizon.get(),&PaletteControl::selectedPaletteChanged, this, slot_palette_changed);
@@ -195,6 +226,7 @@ void MainWindow::ConnectPaletteEvent()
     connect(m_palette_control_horizon.get(),&PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked);
     connect(m_palette_control_horizon.get(),&PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked);
     connect(m_palette_control_horizon.get(),&PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked);
+    connect(m_palette_control_horizon.get(),&PaletteControl::RevertButtonClicked, this, slot_revert_clicked);
 }
 
 void MainWindow::ConnectEncoderEvent()
@@ -207,6 +239,23 @@ void MainWindow::ConnectEncoderEvent()
     connect(m_encoder_control.get(),&EncoderControl::modeChanged, this, slot_mode_changed);
 
     connect(m_encoder_control_horizon.get(),&EncoderControl::modeChanged, this, slot_mode_changed);
+}
+
+void MainWindow::ConnectTrackEvent()
+{
+    const auto slot_track_points_changed = [&]() {
+        QString log = "TC points changed\n";
+        auto points = ((TrackControl*)sender())->trackPoints();
+
+        for (const auto &p : points) {
+            log += QString("(%1,%2), ").arg(p.pan.current).arg(p.tilt.current);
+        }
+
+        logEvent(log);
+    };
+
+    connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, slot_track_points_changed);
+    connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, slot_track_points_changed);
 }
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
@@ -305,71 +354,6 @@ void MainWindow::on_GroupPanelControl_Fake_Open_clicked()
     m_panel_window->raise();
 }
 
-void MainWindow::CPC_OnColorChanged()
-{
-    logEvent(QString("CPC color changed: %1").arg(((ColorPickerControl*)sender())->pickerColor().name()));
-}
-
-void MainWindow::TC_OnTrackPointsChanged()
-{
-    QString log = "TC points changed\n";
-    auto points = ((TrackControl*)sender())->trackPoints();
-
-    for (const auto &p : points) {
-        log += QString("(%1,%2), ").arg(p.pan.current).arg(p.tilt.current);
-    }
-
-    logEvent(log);
-}
-
-void MainWindow::CFC_OnTBTabButtonActiveChanged()
-{
-    QString log = "CFC TB Tab Button Active Changed: ";
-    auto button_active = ((ColorFilterControl*)sender())->currentTBTabButtonActive();
-
-    log += QString("(text: %1,RGB:(%2, %3, %4))").arg(button_active.text).arg(button_active.color.red()).arg(button_active.color.green()).arg(button_active.color.blue());
-
-    logEvent(log);
-}
-
-void MainWindow::CFC_OnCustomTabButtonActiveChanged()
-{
-    QString log = "CFC Custom Tab Button Active Changed: ";
-    auto button_active = ((ColorFilterControl*)sender())->currentCustomTabButtonActive();
-
-    log += QString("(text: %1, RGB:(%2, %3, %4))").arg(button_active.text).arg(button_active.color.red()).arg(button_active.color.green()).arg(button_active.color.blue());
-
-    logEvent(log);
-}
-
-void MainWindow::CFC_OnHistoryButtonActiveChanged()
-{
-    QString log = "CFC History Button Active Changed: ";
-    auto button_active = ((ColorFilterControl*)sender())->currentHistoryButtonActive();
-
-    log += QString("(text: %1,RGB:(%2, %3, %4))").arg(button_active.text).arg(button_active.color.red()).arg(button_active.color.green()).arg(button_active.color.blue());
-
-    logEvent(log);
-}
-
-void MainWindow::CFC_OnReturnButtonClicked()
-{
-    QString log = "CFC Return Button Clicked";
-
-    logEvent(log);
-}
-
-void MainWindow::IC_OnIntensityButtonClicked(const QString &text)
-{
-    QString log = QString("IC Button %1 Clicked").arg(text);
-    logEvent(log);
-}
-
-void MainWindow::IC_OnReturnButtonClicked()
-{
-    QString log = "IC Return Button Clicked";
-    logEvent(log);
-}
 
 void MainWindow::on_BtnClear_clicked()
 {

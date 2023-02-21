@@ -28,7 +28,7 @@ PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(p
     m_button_previous_mode_page.setGeometry(PC_HORIZON_UP_MODE_GEOMETRY);
     m_button_previous_mode_page.setText("▲");
 
-    m_return_button.setGeometry(PC_HORIZON_RETURN_GEOMETRY);
+    m_revert_button.setGeometry(PC_HORIZON_RETURN_GEOMETRY);
 }
 
 void PaletteControlHorizon::onTypeChanged()

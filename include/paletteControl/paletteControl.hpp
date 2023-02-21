@@ -35,6 +35,7 @@ signals:
     void PrevModePageClicked();
     void NextPalettePageClicked();
     void PrevPalettePageClicked();
+    void RevertButtonClicked();
 
     void selectedPaletteChanged();
     void selectedModeChanged();
@@ -84,7 +85,7 @@ protected:
     CustomPushButton m_button_next_mode_page;
     CustomPushButton m_button_previous_palette_page;
     CustomPushButton m_button_next_palette_page;
-    CustomPushButton m_return_button;
+    CustomPushButton m_revert_button;
 
     QPoint m_buttonStartPoint;
     QPoint m_menuStartPoint;

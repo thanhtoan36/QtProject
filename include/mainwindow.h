@@ -49,6 +49,7 @@ public:
     void ConnectInputNumEvent();
     void ConnectPaletteEvent();
     void ConnectEncoderEvent();
+    void ConnectTrackEvent();
 
 private slots:
     void on_ColorPickerControl_Fake_Open_clicked();
@@ -71,18 +72,6 @@ private slots:
     void on_GroupPanelControl_Fake_Set_clicked();
     void on_PaletteControl_Fake_Set_clicked();
     void on_PaletteControl_Fake_Open_clicked();
-
-    void CPC_OnColorChanged();
-    void TC_OnTrackPointsChanged();
-
-    void CFC_OnTBTabButtonActiveChanged();
-    void CFC_OnCustomTabButtonActiveChanged();
-    void CFC_OnHistoryButtonActiveChanged();
-    void CFC_OnReturnButtonClicked();
-
-    void IC_OnIntensityButtonClicked(const QString& text);
-    void IC_OnReturnButtonClicked();
-
 
 private:
     Ui::MainWindow *ui;
