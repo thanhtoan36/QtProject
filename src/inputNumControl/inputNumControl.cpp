@@ -264,7 +264,7 @@ int InputNumControl::CurrentGroupButtonsPage() const
 
 void InputNumControl::SetCurrentGroupButtonsPage(int page)
 {
-    page = qBound(page, 0, MaxGroupButtonPages() - 1);
+    page = qBound(0, page, MaxGroupButtonPages() - 1);
     if (m_current_group_buttons_page == page)
         return;
     m_current_group_buttons_page = page;

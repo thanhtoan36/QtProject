@@ -208,7 +208,7 @@ int EncoderControl::CurrentEncoderPage() const
 
 void EncoderControl::SetCurrentEncoderPage(int value)
 {
-    value = qBound(value, 0, MaxEncoderPages() - 1);
+    value = qBound(0, value, MaxEncoderPages() - 1);
     if (m_current_encoder_page == value)
         return;
     m_current_encoder_page = value;

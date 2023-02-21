@@ -106,7 +106,7 @@ void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
     SetValueMode(param->valueMode);
 
     QVector<TRACK_PARAM_GROUP> list;
-    for (int i = 0; i < qBound(int(param->count), 0, 8); ++i)
+    for (int i = 0; i < qBound(0, int(param->count), 8); ++i)
     {
         list.push_back(param->data[i]);
     }

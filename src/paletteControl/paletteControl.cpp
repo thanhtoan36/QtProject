@@ -315,7 +315,7 @@ int PaletteControl::CurrentModePage() const
 
 void PaletteControl::SetCurrentModePage(int value)
 {
-    value = qBound(value, 0, MaxModePages() - 1);
+    value = qBound(0, value, MaxModePages() - 1);
     if (m_current_mode_page == value)
         return;
     m_current_mode_page = value;
@@ -329,7 +329,7 @@ int PaletteControl::CurrentPalettePage() const
 
 void PaletteControl::SetCurrentPalettePage(int value)
 {
-    value = qBound(value, 0, MaxPalettePages() - 1);
+    value = qBound(0, value, MaxPalettePages() - 1);
     if (m_current_palette_page == value)
         return;
     m_current_palette_page = value;

@@ -353,7 +353,7 @@ int ColorPickerControl::CurrentHeaderButtonsPage() const
 
 void ColorPickerControl::SetCurrentHeaderButtonsPage(int new_button_page)
 {
-    new_button_page = qBound(new_button_page, 0, CalulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
+    new_button_page = qBound(0, new_button_page, CalulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
     if (m_current_header_buttons_page == new_button_page)
         return;
     m_current_header_buttons_page = new_button_page;

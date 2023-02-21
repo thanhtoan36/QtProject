@@ -274,11 +274,11 @@ int ColorFilterControl::CurrentTBTabPage() const
     return m_current_tb_tab_page;
 }
 
-void ColorFilterControl::SetCurrentTBTabPage(int newCurrentTab1Page)
+void ColorFilterControl::SetCurrentTBTabPage(int value)
 {
-    if (m_current_tb_tab_page == newCurrentTab1Page)
+    if (m_current_tb_tab_page == value)
         return;
-    m_current_tb_tab_page = newCurrentTab1Page;
+    m_current_tb_tab_page = value;
     emit CurrentTBTabPageChanged();
 }
 
@@ -287,11 +287,11 @@ int ColorFilterControl::CurrentCustomTabPage() const
     return m_current_custom_tab_page;
 }
 
-void ColorFilterControl::SetCurrentCustomTabPage(int newCurrentTab2Page)
+void ColorFilterControl::SetCurrentCustomTabPage(int value)
 {
-    if (m_current_custom_tab_page == newCurrentTab2Page)
+    if (m_current_custom_tab_page == value)
         return;
-    m_current_custom_tab_page = newCurrentTab2Page;
+    m_current_custom_tab_page = value;
     emit CurrentCustomTabPageChanged();
 }
 
@@ -300,11 +300,11 @@ int ColorFilterControl::CurrentHistoryPage() const
     return m_current_history_page;
 }
 
-void ColorFilterControl::SetCurrentHistoryPage(int newCurrentHistoryPage)
+void ColorFilterControl::SetCurrentHistoryPage(int value)
 {
-    if (m_current_history_page == newCurrentHistoryPage)
+    if (m_current_history_page == value)
         return;
-    m_current_history_page = newCurrentHistoryPage;
+    m_current_history_page = value;
     emit CurrentHistoryPageChanged();
 }
 
@@ -313,11 +313,11 @@ ColorFilterDisplayMode ColorFilterControl::Mode() const
     return m_mode;
 }
 
-void ColorFilterControl::SetMode(ColorFilterDisplayMode newMode)
+void ColorFilterControl::SetMode(ColorFilterDisplayMode value)
 {
-    if (m_mode == newMode)
+    if (m_mode == value)
         return;
-    m_mode = newMode;
+    m_mode = value;
     emit ModeChanged();
 }
 
@@ -455,9 +455,9 @@ const QString &ColorFilterControl::CurrentFooterButtonActive() const
     return m_current_footer_button_active;
 }
 
-void ColorFilterControl::SetCurrentFooterButtonActive(const QString &newCurrentFooterButtonActive)
+void ColorFilterControl::SetCurrentFooterButtonActive(const QString &value)
 {
-    m_current_footer_button_active = newCurrentFooterButtonActive;
+    m_current_footer_button_active = value;
 }
 
 int ColorFilterControl::MaxTBTabPages() const
@@ -543,12 +543,12 @@ int ColorFilterControl::CurrentHeaderButtonsPage() const
     return m_current_header_buttons_page;
 }
 
-void ColorFilterControl::SetCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage)
+void ColorFilterControl::SetCurrentHeaderButtonsPage(int value)
 {
-    newCurrentHeaderButtonsPage = qBound(newCurrentHeaderButtonsPage, 0, CalulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
-    if (m_current_header_buttons_page == newCurrentHeaderButtonsPage)
+    value = qBound(0, value, CalulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
+    if (m_current_header_buttons_page == value)
         return;
-    m_current_header_buttons_page = newCurrentHeaderButtonsPage;
+    m_current_header_buttons_page = value;
     emit CurrentHeaderButtonsPageChanged();
 }
 
@@ -557,11 +557,11 @@ const ColorFilterButton &ColorFilterControl::CurrentTBTabButtonActive() const
     return m_current_tb_tab_button_active;
 }
 
-void ColorFilterControl::SetCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive)
+void ColorFilterControl::SetCurrentTBTabButtonActive(const ColorFilterButton &value)
 {
-    if (m_current_tb_tab_button_active == newCurrentTBTabButtonActive)
+    if (m_current_tb_tab_button_active == value)
         return;
-    m_current_tb_tab_button_active = newCurrentTBTabButtonActive;
+    m_current_tb_tab_button_active = value;
     emit CurrentTBTabButtonActiveChanged();
 }
 
@@ -570,11 +570,11 @@ const ColorFilterButton &ColorFilterControl::CurrentCustomTabButtonActive() cons
     return m_current_custom_tab_button_active;
 }
 
-void ColorFilterControl::SetCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive)
+void ColorFilterControl::SetCurrentCustomTabButtonActive(const ColorFilterButton &value)
 {
-    if (m_current_custom_tab_button_active == newCurrentCustomTabButtonActive)
+    if (m_current_custom_tab_button_active == value)
         return;
-    m_current_custom_tab_button_active = newCurrentCustomTabButtonActive;
+    m_current_custom_tab_button_active = value;
     emit CurrentCustomTabButtonActiveChanged();
 }
 
@@ -583,10 +583,10 @@ const ColorFilterButton &ColorFilterControl::CurrentHistoryButtonActive() const
     return m_current_history_button_active;
 }
 
-void ColorFilterControl::SetCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive)
+void ColorFilterControl::SetCurrentHistoryButtonActive(const ColorFilterButton &value)
 {
-    if (m_current_history_button_active == newCurrentHistoryButtonActive)
+    if (m_current_history_button_active == value)
         return;
-    m_current_history_button_active = newCurrentHistoryButtonActive;
+    m_current_history_button_active = value;
     emit CurrentHistoryButtonActiveChanged();
 }

@@ -44,28 +44,28 @@ public:
     virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
 
     int CurrentTBTabPage() const;
-    void SetCurrentTBTabPage(int newCurrentTab1Page);
+    void SetCurrentTBTabPage(int value);
 
     int CurrentCustomTabPage() const;
-    void SetCurrentCustomTabPage(int newCurrentTab2Page);
+    void SetCurrentCustomTabPage(int value);
 
     int CurrentHistoryPage() const;
-    void SetCurrentHistoryPage(int newCurrentHistoryPage);
+    void SetCurrentHistoryPage(int value);
 
     ColorFilterDisplayMode Mode() const;
-    void SetMode(ColorFilterDisplayMode newMode);
+    void SetMode(ColorFilterDisplayMode value);
 
     const ColorFilterButton &CurrentTBTabButtonActive() const;
-    void SetCurrentTBTabButtonActive(const ColorFilterButton &newCurrentTBTabButtonActive);
+    void SetCurrentTBTabButtonActive(const ColorFilterButton &value);
 
     const ColorFilterButton &CurrentCustomTabButtonActive() const;
-    void SetCurrentCustomTabButtonActive(const ColorFilterButton &newCurrentCustomTabButtonActive);
+    void SetCurrentCustomTabButtonActive(const ColorFilterButton &value);
 
     const ColorFilterButton &CurrentHistoryButtonActive() const;
-    void SetCurrentHistoryButtonActive(const ColorFilterButton &newCurrentHistoryButtonActive);
+    void SetCurrentHistoryButtonActive(const ColorFilterButton &value);
 
     const QString &CurrentFooterButtonActive() const;
-    void SetCurrentFooterButtonActive(const QString &newCurrentFooterButtonActive);
+    void SetCurrentFooterButtonActive(const QString &value);
 
 signals:
     void CurrentTBTabPageChanged();
@@ -105,7 +105,7 @@ protected:
     void OnHistoryButtonClicked();
 
     int CurrentHeaderButtonsPage() const;
-    void SetCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage);
+    void SetCurrentHeaderButtonsPage(int value);
 
 protected slots:
     void OnDisplayTabButtonClicked();

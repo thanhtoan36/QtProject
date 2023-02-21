@@ -466,7 +466,7 @@ int LibraryControl::CurrentGroupPage() const
 
 void LibraryControl::SetCurrentGroupPage(int page)
 {
-    page = qBound(page, 0, MaxGroupPages());
+    page = qBound(0, page, MaxGroupPages());
     if (m_current_group_page == page)
         return;
     m_current_group_page = page;
@@ -480,7 +480,7 @@ int LibraryControl::CurrentHistoryPage() const
 
 void LibraryControl::SetCurrentHistoryPage(int page)
 {
-    page = qBound(page, 0, MaxHistoryPages());
+    page = qBound(0, page, MaxHistoryPages());
     if (m_current_history_page == page)
         return;
     m_current_history_page = page;

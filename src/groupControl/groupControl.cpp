@@ -202,7 +202,7 @@ int GroupControl::CurrentGroupPage() const
 
 void GroupControl::SetCurrentGroupPage(int page)
 {
-    page = qBound(page, 0, MaxGroupPages() - 1);
+    page = qBound(0, page, MaxGroupPages() - 1);
     if (m_current_group_page == page)
         return;
     m_current_group_page = page;
@@ -216,7 +216,7 @@ int GroupControl::CurrentHistoryPage() const
 
 void GroupControl::SetCurrentHistoryPage(int page)
 {
-    page = qBound(page, 0, MaxHistoryPages() - 1);
+    page = qBound(0, page, MaxHistoryPages() - 1);
     if (m_current_history_page == page)
         return;
     m_current_history_page = page;
