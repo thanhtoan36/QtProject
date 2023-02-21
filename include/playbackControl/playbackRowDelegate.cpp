@@ -4,21 +4,21 @@
 
 PlaybackRowDelegate::PlaybackRowDelegate(QObject *parent)
     : QStyledItemDelegate(parent),
-      m_columnsWidth()
+      m_columns_width()
 {
 
 }
 
 void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QPen textPen, borderPen;
-    borderPen = QPen(Qt::darkGray);
+    QPen text_pen, border_pen;
+    border_pen = QPen(Qt::darkGray);
 
     int x = 0;
     QVector<QRect> cells;
-    for (int i = 0; i < m_columnsWidth.length(); i++) {
-        cells.append(QRect(option.rect.left() + x, option.rect.top(), m_columnsWidth[i], option.rect.height()));
-        x += m_columnsWidth[i];
+    for (int i = 0; i < m_columns_width.length(); i++) {
+        cells.append(QRect(option.rect.left() + x, option.rect.top(), m_columns_width[i], option.rect.height()));
+        x += m_columns_width[i];
     }
 
     if (cells.isEmpty())
@@ -26,18 +26,18 @@ void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     bool selected = index.data(Roles::SelectedRole).toBool();
     if(selected) {
-        borderPen = QColor::fromRgb(18, 110, 67);
-        borderPen.setWidth(2);
-        textPen = QColor::fromRgb(198, 89, 21);
+        border_pen = QColor::fromRgb(18, 110, 67);
+        border_pen.setWidth(2);
+        text_pen = QColor::fromRgb(198, 89, 21);
     } else {
-        borderPen = QPen(Qt::transparent);
-        textPen = QColor::fromRgb(191, 191, 191);
+        border_pen = QPen(Qt::transparent);
+        text_pen = QColor::fromRgb(191, 191, 191);
     }
 
-    painter->setPen(borderPen);
+    painter->setPen(border_pen);
     painter->drawRect(option.rect.adjusted(0, 0, 0, -1));
 
-    QColor markingColor = QColor(index.data(Roles::MarkingColorRole).toString());
+    QColor marking_color = QColor(index.data(Roles::MarkingColorRole).toString());
     QString marking = index.data(Roles::MarkingRole).toString();
     QString queue = index.data(Roles::QueueRole).toString();
     QString fade = index.data(Roles::FadeRole).toString();
@@ -47,10 +47,10 @@ void PlaybackRowDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QString title = index.data(Roles::TitleRole).toString();
 
     QRect r = cells[0];
-    painter->setPen(markingColor);
+    painter->setPen(marking_color);
     painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, marking, &r);
 
-    painter->setPen(textPen);
+    painter->setPen(text_pen);
     r = cells[1];
     painter->drawText(r, Qt::AlignCenter | Qt::TextWordWrap, queue, &r);
     r = cells[2];
@@ -73,7 +73,7 @@ QSize PlaybackRowDelegate::sizeHint(const QStyleOptionViewItem &option, const QM
     return QSize(0, 36);
 }
 
-void PlaybackRowDelegate::setColumnsWidth(const QVector<int> &columnsWidth)
+void PlaybackRowDelegate::SetColumnsWidth(const QVector<int> &value)
 {
-    m_columnsWidth = columnsWidth;
+    m_columns_width = value;
 }

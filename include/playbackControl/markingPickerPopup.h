@@ -12,10 +12,10 @@ public:
     explicit MarkingPickerPopup(QWidget *parent = nullptr);
 
 signals:
-    void markingSelected(const QString &marking, const QColor &color);
+    void MarkingSelected(const QString &marking, const QColor &color);
 
 public slots:
-    void onMarkingClicked();
+    void OnMarkingClicked();
 
 private:
     struct Marking

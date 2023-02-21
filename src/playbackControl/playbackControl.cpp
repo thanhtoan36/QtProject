@@ -39,7 +39,7 @@ PlaybackControl::PlaybackControl(QWidget *parent)
         cell.moveLeft(cell.left() + cell.width());
     }
 
-    m_row_delegate.setColumnsWidth(m_column_width);
+    m_row_delegate.SetColumnsWidth(m_column_width);
     m_list_view.setItemDelegate(&m_row_delegate);
 
     m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY);
@@ -48,7 +48,7 @@ PlaybackControl::PlaybackControl(QWidget *parent)
 
     // Use timer to prevent onItemClicked() from being miss fired before & after onItemDoubleClicked() event
     connect(&m_list_view, &QListWidget::itemClicked, this, [&](QListWidgetItem *item){
-        if (!isMouseInsideMarkingColumn()) return;
+        if (!IsMouseInsideMarkingColumn()) return;
         if (m_double_click_stablize_timer.isActive()) {
             m_double_click_stablize_timer.stop();
             return;
@@ -58,19 +58,19 @@ PlaybackControl::PlaybackControl(QWidget *parent)
         m_double_clicked = false;
     });
     connect(&m_list_view, &QListWidget::itemDoubleClicked, this, [&](QListWidgetItem *item){
-        if (!isMouseInsideMarkingColumn()) return;
+        if (!IsMouseInsideMarkingColumn()) return;
         // m_clicked_item = nullptr;
         m_double_clicked = true;
-        onItemDoubleClicked(item);
+        OnItemDoubleClicked(item);
     });
     connect(&m_double_click_stablize_timer, &QTimer::timeout, this, [&](){
         if (m_double_clicked)
             return;
-        onItemClicked(m_clicked_item);
+        OnItemClicked(m_clicked_item);
         // m_clicked_item = nullptr;
         m_double_clicked = false;
     });
-    connect(&m_marking_picker_popup, &MarkingPickerPopup::markingSelected, this, &PlaybackControl::onMarkingSelected);
+    connect(&m_marking_picker_popup, &MarkingPickerPopup::MarkingSelected, this, &PlaybackControl::OnMarkingSelected);
 
     m_double_click_stablize_timer.setTimerType(Qt::PreciseTimer);
     m_double_click_stablize_timer.setSingleShot(true);
@@ -85,7 +85,8 @@ void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
     m_double_click_stablize_timer.stop();
     m_list_view.clear();
 
-    for (int i = 0; i < param->count; ++i) {
+    for (int i = 0; i < param->count; ++i)
+    {
         const auto &data = param->param[i];
         auto item = new QListWidgetItem(&m_list_view, QListWidgetItem::ItemType::Type);
         item->setData(PlaybackRowDelegate::Roles::SelectedRole, data.select);
@@ -101,7 +102,7 @@ void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
     }
 }
 
-void PlaybackControl::onMarkingSelected(const QString &marking, const QColor &color)
+void PlaybackControl::OnMarkingSelected(const QString &marking, const QColor &color)
 {
     if (!m_clicked_item)
         return;
@@ -110,14 +111,14 @@ void PlaybackControl::onMarkingSelected(const QString &marking, const QColor &co
     m_marking_picker_popup.hide();
 }
 
-void PlaybackControl::onItemClicked(QListWidgetItem *item)
+void PlaybackControl::OnItemClicked(QListWidgetItem *item)
 {
     Q_ASSERT(item);
     item->setData(PlaybackRowDelegate::Roles::MarkingRole, "●");
     item->setData(PlaybackRowDelegate::Roles::MarkingColorRole, QColor(Qt::lightGray));
 }
 
-void PlaybackControl::onItemDoubleClicked(QListWidgetItem *item)
+void PlaybackControl::OnItemDoubleClicked(QListWidgetItem *item)
 {
     Q_ASSERT(item);
     // item->setData(PlaybackRowDelegate::Roles::MarkingRole, " ");
@@ -125,7 +126,7 @@ void PlaybackControl::onItemDoubleClicked(QListWidgetItem *item)
     m_marking_picker_popup.show();
 }
 
-bool PlaybackControl::isMouseInsideMarkingColumn() const
+bool PlaybackControl::IsMouseInsideMarkingColumn() const
 {
     int colSize = m_column_width[0];
     return m_list_view.mapFromGlobal(QCursor::pos()).x() <= colSize;
