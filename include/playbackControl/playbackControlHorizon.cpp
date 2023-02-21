@@ -27,7 +27,7 @@ PlaybackControlHorizon::PlaybackControlHorizon(QWidget *parent)
         cell.moveLeft(cell.left() + cell.width());
     }
 
-    m_row_delegate.setColumnsWidth(m_column_width);
+    m_row_delegate.SetColumnsWidth(m_column_width);
     m_list_view.setItemDelegate(&m_row_delegate);
 
     m_grid_overlay.setGeometry(PLC_LIST_GEOMETRY_HORIZON);

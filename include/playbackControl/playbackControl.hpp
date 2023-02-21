@@ -2,7 +2,6 @@
 #define PLAYBACKCONTROL_H
 
 #include "baseComponent/panelControlBase.h"
-#include "baseComponent/selectButton.h"
 #include "playbackControl_datatypes.h"
 
 #include "playbackRowDelegate.h"
@@ -22,12 +21,12 @@ public:
     virtual void setDispParamData(PLAYBACK_DISP_PARAM *param);
 
 protected slots:
-    void onMarkingSelected(const QString &marking, const QColor &color);
+    void OnMarkingSelected(const QString &marking, const QColor &color);
 
 protected:
-    void onItemClicked(QListWidgetItem *item);
-    void onItemDoubleClicked(QListWidgetItem *item);
-    bool isMouseInsideMarkingColumn() const;
+    void OnItemClicked(QListWidgetItem *item);
+    void OnItemDoubleClicked(QListWidgetItem *item);
+    bool IsMouseInsideMarkingColumn() const;
 
 protected:
     QListWidget m_list_view;

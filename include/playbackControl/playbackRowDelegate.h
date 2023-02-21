@@ -19,13 +19,14 @@ public:
         SelectedRole
     };
     PlaybackRowDelegate(QObject *parent = nullptr);
+
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    void setColumnsWidth(const QVector<int> &columnsWidth);
+    void SetColumnsWidth(const QVector<int> &value);
 
 private:
-    QVector<int> m_columnsWidth;
+    QVector<int> m_columns_width;
 };
 
 #endif // PLAYBACKROWDELEGATE_H
