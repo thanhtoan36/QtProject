@@ -140,7 +140,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_title_button, &QAbstractButton::toggled, this, [&]() {
         if (m_title_button.isChecked())
         {
-            SetCurrentFooterButtonActive("title");
+            SetSelectedFooterButton("title");
             m_register_button.setChecked(false);
             m_delete_button.setChecked(false);
         }
@@ -148,7 +148,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_register_button, &QAbstractButton::toggled, this, [&]() {
         if (m_register_button.isChecked())
         {
-            SetCurrentFooterButtonActive("register");
+            SetSelectedFooterButton("register");
             m_title_button.setChecked(false);
             m_delete_button.setChecked(false);
         }
@@ -156,7 +156,7 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     connect(&m_delete_button, &QAbstractButton::toggled, this, [&]() {
         if (m_delete_button.isChecked())
         {
-            SetCurrentFooterButtonActive("delete");
+            SetSelectedFooterButton("delete");
             m_register_button.setChecked(false);
             m_title_button.setChecked(false);
         }
@@ -172,6 +172,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
     m_tb_tab_buttons.clear();
+
     for (uint16_t i = 0; i < param->tb.count; i++)
     {
         auto button = MakeSharedQObject<SelectButton>(this);
@@ -201,6 +202,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->SetSelectedBackgroundColor(button->BackgroundColor());
         button->SetCheckMarkVisible(true);
         button->setChecked(param->custom.color_filter[i].select);
+
         connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::OnCustomTabButtonClicked);
     }
     PlaceChildrenIntoPanel(m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
@@ -216,6 +218,7 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         button->setFixedSize(CFC_BUTTON1_GEOMETRY.size());
         button->SetCheckMarkVisible(true);
         button->setChecked(param->history.color_filter[i].select);
+
         connect(button.get(),&QAbstractButton::clicked, this, &ColorFilterControl::OnHistoryButtonClicked);
     }
     PlaceChildrenIntoPanel(m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
@@ -235,6 +238,10 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
         SetMode(COLOR_FILTER_MODE_HISTORY);
     }
     OnModeChanged();
+
+    emit SelectedTbButtonChanged();
+    emit SelectedCustomButtonChanged();
+    emit SelectedHistoryButtonChanged();
 }
 
 void ColorFilterControl::ScrollUp()
@@ -450,12 +457,12 @@ void ColorFilterControl::OnDisplayTabButtonClicked()
     }
 }
 
-const QString &ColorFilterControl::CurrentFooterButtonActive() const
+const QString &ColorFilterControl::SelectedFooterButton() const
 {
     return m_current_footer_button_active;
 }
 
-void ColorFilterControl::SetCurrentFooterButtonActive(const QString &value)
+void ColorFilterControl::SetSelectedFooterButton(const QString &value)
 {
     m_current_footer_button_active = value;
 }
@@ -483,11 +490,11 @@ void ColorFilterControl::OnTBTabButtonClicked()
     }
     auto button = *iter;
     AddButtonToHistory(button);
-    SetCurrentTBTabButtonActive({button->text(),button->BackgroundColor()});
     for (const auto &b : qAsConst(m_tb_tab_buttons))
     {
         b->setChecked(b == button);
     }
+    emit SelectedTbButtonChanged();
 }
 
 void ColorFilterControl::OnCustomTabButtonClicked()
@@ -498,11 +505,11 @@ void ColorFilterControl::OnCustomTabButtonClicked()
     }
     auto button = *iter;
     AddButtonToHistory(button);
-    SetCurrentCustomTabButtonActive({button->text(),button->BackgroundColor()});
     for (const auto &b : qAsConst(m_custom_tab_buttons))
     {
         b->setChecked(b == button);
     }
+    emit SelectedCustomButtonChanged();
 }
 
 void ColorFilterControl::OnHistoryButtonClicked()
@@ -512,11 +519,11 @@ void ColorFilterControl::OnHistoryButtonClicked()
         return;
     }
     auto button = *iter;
-    SetCurrentHistoryButtonActive({button->text(),button->BackgroundColor()});
     for (const auto &b : qAsConst(m_history_buttons))
     {
         b->setChecked(b == button);
     }
+    emit SelectedHistoryButtonChanged();
 }
 
 void ColorFilterControl::AddButtonToHistory(QSharedPointer<SelectButton> button)
@@ -552,41 +559,42 @@ void ColorFilterControl::SetCurrentHeaderButtonsPage(int value)
     emit CurrentHeaderButtonsPageChanged();
 }
 
-const ColorFilterButton &ColorFilterControl::CurrentTBTabButtonActive() const
+const ColorFilterButton ColorFilterControl::SelectedTbButton() const
 {
-    return m_current_tb_tab_button_active;
+    auto iter = std::find_if(m_tb_tab_buttons.begin(), m_tb_tab_buttons.end(), [](const QSharedPointer<SelectButton> &b) {
+        return b->isChecked();
+    });
+    if (iter == m_tb_tab_buttons.end())
+    {
+        return ColorFilterButton {};
+    }
+
+    return ColorFilterButton { (*iter)->text(), (*iter)->BackgroundColor() };
 }
 
-void ColorFilterControl::SetCurrentTBTabButtonActive(const ColorFilterButton &value)
+const ColorFilterButton ColorFilterControl::SelectedCustomButton() const
 {
-    if (m_current_tb_tab_button_active == value)
-        return;
-    m_current_tb_tab_button_active = value;
-    emit CurrentTBTabButtonActiveChanged();
+    auto iter = std::find_if(m_custom_tab_buttons.begin(), m_custom_tab_buttons.end(), [](const QSharedPointer<SelectButton> &b) {
+        return b->isChecked();
+    });
+    if (iter == m_custom_tab_buttons.end())
+    {
+        return ColorFilterButton {};
+    }
+
+    return ColorFilterButton { (*iter)->text(), (*iter)->BackgroundColor() };
 }
 
-const ColorFilterButton &ColorFilterControl::CurrentCustomTabButtonActive() const
-{
-    return m_current_custom_tab_button_active;
-}
 
-void ColorFilterControl::SetCurrentCustomTabButtonActive(const ColorFilterButton &value)
+const ColorFilterButton ColorFilterControl::SelectedHistoryButton() const
 {
-    if (m_current_custom_tab_button_active == value)
-        return;
-    m_current_custom_tab_button_active = value;
-    emit CurrentCustomTabButtonActiveChanged();
-}
+    auto iter = std::find_if(m_history_buttons.begin(), m_history_buttons.end(), [](const QSharedPointer<SelectButton> &b) {
+        return b->isChecked();
+    });
+    if (iter == m_history_buttons.end())
+    {
+        return ColorFilterButton {};
+    }
 
-const ColorFilterButton &ColorFilterControl::CurrentHistoryButtonActive() const
-{
-    return m_current_history_button_active;
-}
-
-void ColorFilterControl::SetCurrentHistoryButtonActive(const ColorFilterButton &value)
-{
-    if (m_current_history_button_active == value)
-        return;
-    m_current_history_button_active = value;
-    emit CurrentHistoryButtonActiveChanged();
+    return ColorFilterButton { (*iter)->text(), (*iter)->BackgroundColor() };
 }

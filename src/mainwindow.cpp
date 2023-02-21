@@ -87,35 +87,35 @@ void MainWindow::ConnectColorFilterEvent()
 {
     const auto slot_tb_selected_button_changed = [&](){
         QString log = "CFC TB Tab Button Active Changed: ";
-        auto button_active = ((ColorFilterControl*)sender())->CurrentTBTabButtonActive();
+        auto button_active = ((ColorFilterControl*)sender())->SelectedTbButton();
         log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
         LogEvent(log);
     };
 
     const auto slot_custom_selected_button_changed = [&](){
         QString log = "CFC Custom Tab Button Active Changed: ";
-        auto button_active = ((ColorFilterControl*)sender())->CurrentCustomTabButtonActive();
+        auto button_active = ((ColorFilterControl*)sender())->SelectedCustomButton();
         log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
         LogEvent(log);
     };
 
     const auto slot_history_selected_button_changed = [&]() {
         QString log = "CFC History Button Active Changed: ";
-        auto button_active = ((ColorFilterControl*)sender())->CurrentHistoryButtonActive();
+        auto button_active = ((ColorFilterControl*)sender())->SelectedHistoryButton();
         log += QString("(text: %1, %2)").arg(button_active.text).arg(button_active.color.name());
         LogEvent(log);
     };
 
     const auto slot_return_button_clicked = [&]() { LogEvent("CFC Return Button Clicked"); };
 
-    connect(m_color_filter_control.get(), &ColorFilterControl::CurrentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
-    connect(m_color_filter_control.get(), &ColorFilterControl::CurrentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
-    connect(m_color_filter_control.get(), &ColorFilterControl::CurrentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::SelectedTbButtonChanged, this, slot_tb_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::SelectedCustomButtonChanged, this, slot_custom_selected_button_changed);
+    connect(m_color_filter_control.get(), &ColorFilterControl::SelectedHistoryButtonChanged, this, slot_history_selected_button_changed);
     connect(m_color_filter_control.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked);
 
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::CurrentTBTabButtonActiveChanged, this, slot_tb_selected_button_changed);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::CurrentCustomTabButtonActiveChanged, this, slot_custom_selected_button_changed);
-    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::CurrentHistoryButtonActiveChanged, this, slot_history_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedTbButtonChanged, this, slot_tb_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedCustomButtonChanged, this, slot_custom_selected_button_changed);
+    connect(m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedHistoryButtonChanged, this, slot_history_selected_button_changed);
     connect(m_color_filter_control_horizon.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked);
 }
 
