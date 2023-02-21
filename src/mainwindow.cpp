@@ -203,10 +203,10 @@ void MainWindow::ConnectInputNumEvent()
 void MainWindow::ConnectPaletteEvent()
 {
     const auto slot_mode_changed = [&](){
-        logEvent("Palette mode changed: " + ((PaletteControl*)sender())->selectedMode());
+        logEvent("Palette mode changed: " + ((PaletteControl*)sender())->SelectedMode());
     };
     const auto slot_palette_changed = [&](){
-        logEvent("Palette palette changed: " + ((PaletteControl*)sender())->selectedPalette());
+        logEvent("Palette palette changed: " + ((PaletteControl*)sender())->SelectedPalette());
     };
     const auto slot_next_mode_page_clicked = [&](){ logEvent("Palette next mode page"); };
     const auto slot_prev_mode_page_clicked = [&](){ logEvent("Palette prev mode page"); };
@@ -214,16 +214,16 @@ void MainWindow::ConnectPaletteEvent()
     const auto slot_prev_palette_page_clicked = [&](){ logEvent("Palette prev palette page"); };
     const auto slot_revert_clicked = [&](){ logEvent("Palette revert clicked"); };
 
-    connect(m_palette_control.get(),&PaletteControl::selectedModeChanged, this, slot_mode_changed);
-    connect(m_palette_control.get(),&PaletteControl::selectedPaletteChanged, this, slot_palette_changed);
+    connect(m_palette_control.get(),&PaletteControl::SelectedModeChanged, this, slot_mode_changed);
+    connect(m_palette_control.get(),&PaletteControl::SelectedPaletteChanged, this, slot_palette_changed);
     connect(m_palette_control.get(),&PaletteControl::NextModePageClicked, this, slot_next_mode_page_clicked);
     connect(m_palette_control.get(),&PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked);
     connect(m_palette_control.get(),&PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked);
     connect(m_palette_control.get(),&PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked);
     connect(m_palette_control.get(),&PaletteControl::RevertButtonClicked, this, slot_revert_clicked);
 
-    connect(m_palette_control_horizon.get(),&PaletteControl::selectedModeChanged, this, slot_mode_changed);
-    connect(m_palette_control_horizon.get(),&PaletteControl::selectedPaletteChanged, this, slot_palette_changed);
+    connect(m_palette_control_horizon.get(),&PaletteControl::SelectedModeChanged, this, slot_mode_changed);
+    connect(m_palette_control_horizon.get(),&PaletteControl::SelectedPaletteChanged, this, slot_palette_changed);
     connect(m_palette_control_horizon.get(),&PaletteControl::NextModePageClicked, this, slot_next_mode_page_clicked);
     connect(m_palette_control_horizon.get(),&PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked);
     connect(m_palette_control_horizon.get(),&PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked);

@@ -2,9 +2,7 @@
 #include "paletteControl/paletteControl_define.hpp"
 #include "utility.h"
 
-
-#define BASE_BUTTON_WIDTH PC_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT PC_BUTTON1_GEOMETRY.height()
+#define BUTTON_SIZE PC_BUTTON1_GEOMETRY.size()
 
 PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
     m_grid(this),
@@ -22,11 +20,11 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
 
     m_revert_button.setTextColor(Qt::yellow);
 
-    setButtonStartPoint(PC_BUTTON_TOP_LEFT);
-    setMenuStartPoint(PC_MENU_TOP_LEFT);
+    SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
+    SetMenuStartPoint(PC_MENU_TOP_LEFT);
 
     m_grid.setGridSize(QSize(4, 6));
-    m_grid.setCellSize(QSize(BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT));
+    m_grid.setCellSize(BUTTON_SIZE);
     m_grid.move(0, 32);
 
     m_title_label.setGeometry(PC_TITLE_GEOMETRY);
@@ -55,25 +53,25 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
     connect(&m_revert_button, &QPushButton::clicked, this, &PaletteControl::RevertButtonClicked);
 
     connect(&m_button_previous_palette_page, &QPushButton::clicked, this, [&](){
-        setCurrentPalettePage(currentPalettePage() - 1);
+        SetCurrentPalettePage(CurrentPalettePage() - 1);
         emit PrevPalettePageClicked();
     });
     connect(&m_button_next_palette_page, &QPushButton::clicked, this, [&](){
-        setCurrentPalettePage(currentPalettePage() + 1);
+        SetCurrentPalettePage(CurrentPalettePage() + 1);
         emit NextPalettePageClicked();
     });
     connect(&m_button_previous_mode_page, &QPushButton::clicked, this, [&](){
-        setCurrentModePage(currentModePage() - 1);
+        SetCurrentModePage(CurrentModePage() - 1);
         emit PrevModePageClicked();
     });
     connect(&m_button_next_mode_page, &QPushButton::clicked, this, [&](){
-        setCurrentModePage(currentModePage() + 1);
+        SetCurrentModePage(CurrentModePage() + 1);
         emit NextModePageClicked();
     });
 
-    connect(this, &PaletteControl::currentModePageChanged, this, &PaletteControl::updateModePages);
-    connect(this, &PaletteControl::currentPalettePageChanged, this, &PaletteControl::updatePalettePages);
-    connect(this, &PaletteControl::typeChanged, this, &PaletteControl::onTypeChanged);
+    connect(this, &PaletteControl::CurrentModePageChanged, this, &PaletteControl::UpdateModePages);
+    connect(this, &PaletteControl::CurrentPalettePageChanged, this, &PaletteControl::UpdatePalettePages);
+    connect(this, &PaletteControl::TypeChanged, this, &PaletteControl::OnTypeChanged);
 }
 
 void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
@@ -110,7 +108,7 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
             menu_button->setIcon(icon);
         }
 
-        connect(menu_button.get(),&QAbstractButton::clicked, this, &PaletteControl::onModeButtonClicked);
+        connect(menu_button.get(),&QAbstractButton::clicked, this, &PaletteControl::OnModeButtonClicked);
         m_mode_buttons.push_back(menu_button);
         m_mode_names.push_back(param->data[i].name);
 
@@ -139,7 +137,7 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
             }
             palette_button->setVisible(false);
 
-            connect(palette_button.get(),&QAbstractButton::clicked, this, &PaletteControl::onPaletteButtonClicked);
+            connect(palette_button.get(),&QAbstractButton::clicked, this, &PaletteControl::OnPaletteButtonClicked);
             palette_button_list.push_back(palette_button);
             palette_name_list.push_back(param->data[i].palette[j].name);
         }
@@ -147,229 +145,232 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
         m_palette_names.push_back(palette_name_list);
     }
 
-    setType(param->type);
-    setCurrentModePage(0);
-    setCurrentPalettePage(0);
-    updateModePages();
+    SetType(param->type);
+    SetCurrentModePage(0);
+    SetCurrentPalettePage(0);
+    UpdateModePages();
 
-    setSelectedMode(selected_mode);
-    setSelectedPalette(selected_palette);
+    SetSelectedMode(selected_mode);
+    SetSelectedPalette(selected_palette);
 }
 
-void PaletteControl::onModeButtonClicked()
+void PaletteControl::OnModeButtonClicked()
 {
     for (auto &button: m_mode_buttons) {
         button->setChecked(button == sender());
     }
 
     int index = std::distance(m_mode_buttons.begin(), std::find(m_mode_buttons.begin(), m_mode_buttons.end(), sender()));
-    setSelectedMode(m_mode_names.at(index));
+    SetSelectedMode(m_mode_names.at(index));
 
-    setCurrentPalettePage(0);
-    updateModePages();
+    SetCurrentPalettePage(0);
+    UpdateModePages();
 }
 
-void PaletteControl::onPaletteButtonClicked()
+void PaletteControl::OnPaletteButtonClicked()
 {
-    updatePalettePages();
-    auto modeIndex = selectedModeIndex();
-    if (modeIndex == -1)
+    UpdatePalettePages();
+    auto mode_index = SelectedModeIndex();
+    if (mode_index == -1)
         return;
 
-    auto &group = m_palette_buttons.at(modeIndex);
+    auto &group = m_palette_buttons.at(mode_index);
     for (auto &button : group) {
         button->setChecked(button == sender());
     }
 
-    int paletteIndex = std::distance(group.begin(), std::find(group.begin(), group.end(), sender()));
-    setSelectedMode(m_mode_names.at(modeIndex));
-    setSelectedPalette(m_palette_names.at(modeIndex).at(paletteIndex));
+    int palette_index = std::distance(group.begin(), std::find(group.begin(), group.end(), sender()));
+    SetSelectedMode(m_mode_names.at(mode_index));
+    SetSelectedPalette(m_palette_names.at(mode_index).at(palette_index));
 }
 
-void PaletteControl::updateModePages()
+void PaletteControl::UpdateModePages()
 {
-    UpdateChildrenVisibility(m_mode_buttons, currentModePage(), modeButtonsPerPage());
-    placeChildrenIntoPanel(m_mode_buttons, PC_BUTTON_SIZE, modeStartPoint(), m_mode_button_grid_size);
+    UpdateChildrenVisibility(m_mode_buttons, CurrentModePage(), ModeButtonsPerPage());
+    placeChildrenIntoPanel(m_mode_buttons, PC_BUTTON_SIZE, ModeStartPoint(), m_mode_button_grid_size);
 
-    m_button_previous_mode_page.setVisible(maxModePages() > 1);
-    m_button_next_mode_page.setVisible(maxModePages() > 1);
-    m_button_previous_mode_page.setEnabled(currentModePage() > 0);
-    m_button_next_mode_page.setEnabled(currentModePage() < maxModePages() - 1);
+    m_button_previous_mode_page.setVisible(MaxModePages() > 1);
+    m_button_next_mode_page.setVisible(MaxModePages() > 1);
+    m_button_previous_mode_page.setEnabled(CurrentModePage() > 0);
+    m_button_next_mode_page.setEnabled(CurrentModePage() < MaxModePages() - 1);
 
-    updatePalettePages();
+    UpdatePalettePages();
 }
 
-void PaletteControl::updatePalettePages()
+void PaletteControl::UpdatePalettePages()
 {
     m_button_next_palette_page.setVisible(false);
     m_button_previous_palette_page.setVisible(false);
 
-    for (auto &group : m_palette_buttons) {
-        for (auto &palette: group) {
+    for (auto &group : m_palette_buttons)
+    {
+        for (auto &palette: group)
+        {
             palette->setVisible(false);
         }
     }
 
-    auto modeIndex = selectedModeIndex();
-    if (modeIndex == -1)
+    auto mode_index = SelectedModeIndex();
+    if (mode_index == -1)
         return;
 
-    m_button_previous_palette_page.setVisible(maxPalettePages() > 1);
-    m_button_next_palette_page.setVisible(maxPalettePages() > 1);
-    m_button_previous_palette_page.setEnabled(currentPalettePage() > 0);
-    m_button_next_palette_page.setEnabled(currentPalettePage() < maxPalettePages() - 1);
+    m_button_previous_palette_page.setVisible(MaxPalettePages() > 1);
+    m_button_next_palette_page.setVisible(MaxPalettePages() > 1);
+    m_button_previous_palette_page.setEnabled(CurrentPalettePage() > 0);
+    m_button_next_palette_page.setEnabled(CurrentPalettePage() < MaxPalettePages() - 1);
 
-    auto &group = m_palette_buttons.at(modeIndex);
+    auto &group = m_palette_buttons.at(mode_index);
 
-    UpdateChildrenVisibility(group, currentPalettePage(), paletteButtonsPerPage());
-    placeChildrenIntoPanel(group, PC_BUTTON_SIZE, buttonStartPoint(), m_palette_button_grid_size);
+    UpdateChildrenVisibility(group, CurrentPalettePage(), PaletteButtonsPerPage());
+    placeChildrenIntoPanel(group, PC_BUTTON_SIZE, ButtonStartPoint(), m_palette_button_grid_size);
 }
 
-QPoint PaletteControl::modeStartPoint() const
+QPoint PaletteControl::ModeStartPoint() const
 {
-    return m_menuStartPoint;
+    return m_menu_start_point;
 }
 
-void PaletteControl::setMenuStartPoint(QPoint newMenuStartPoint)
+void PaletteControl::SetMenuStartPoint(QPoint newMenuStartPoint)
 {
-    m_menuStartPoint = newMenuStartPoint;
+    m_menu_start_point = newMenuStartPoint;
 }
 
-int PaletteControl::maxModePages() const
+int PaletteControl::MaxModePages() const
 {
-    return calulateNumberOfPages(m_mode_buttons.size(), modeButtonsPerPage());
+    return calulateNumberOfPages(m_mode_buttons.size(), ModeButtonsPerPage());
 }
 
-int PaletteControl::maxPalettePages() const
+int PaletteControl::MaxPalettePages() const
 {
-    int modeIndex = selectedModeIndex();
+    int modeIndex = SelectedModeIndex();
     if (modeIndex == -1)
         return 0;
     auto &group = m_palette_buttons.at(modeIndex);
-    return calulateNumberOfPages(group.size(), paletteButtonsPerPage());
+    return calulateNumberOfPages(group.size(), PaletteButtonsPerPage());
 }
 
-int PaletteControl::modeButtonsPerPage() const
+int PaletteControl::ModeButtonsPerPage() const
 {
     return m_mode_button_grid_size.width() * m_mode_button_grid_size.height();
 }
 
-int PaletteControl::paletteButtonsPerPage() const
+int PaletteControl::PaletteButtonsPerPage() const
 {
     return m_palette_button_grid_size.width() * m_palette_button_grid_size.height();
 }
 
-int PaletteControl::selectedModeIndex() const
+int PaletteControl::SelectedModeIndex() const
 {
     const auto iter = std::find_if(m_mode_buttons.cbegin(), m_mode_buttons.cend(), [](const QSharedPointer<SelectButton> &b) {
         return b->isChecked();
     });
-    if (iter == m_mode_buttons.cend()) {
+    if (iter == m_mode_buttons.cend())
+    {
         return -1;
     }
     return std::distance(m_mode_buttons.cbegin(), iter);
 }
 
-void PaletteControl::onTypeChanged()
+void PaletteControl::OnTypeChanged()
 {
-    switch (type()) {
+    switch (Type()) {
         case PALETTE_TYPE_GOBO:
             m_title_label.setText("ゴボ");
             m_mode_button_grid_size = QSize(4, 1);
             m_palette_button_grid_size = QSize(4, 3);
-            setButtonStartPoint(PC_BUTTON_TOP_LEFT);
+            SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
             break;
         case PALETTE_BEAM_SHUTTER:
             m_title_label.setText("モード");
             m_mode_button_grid_size = QSize(4, 1);
             m_palette_button_grid_size = QSize(4, 3);
-            setButtonStartPoint(PC_BUTTON_TOP_LEFT);
+            SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
             break;
         case PALETTE_TYPE_CONTROL:
             m_title_label.setText("モード");
             m_mode_button_grid_size = QSize(4, 0);
             m_palette_button_grid_size = QSize(4, 4);
-            setButtonStartPoint(PC_MENU_TOP_LEFT);
+            SetButtonStartPoint(PC_MENU_TOP_LEFT);
             break;
         default:
             break;
     }
-    updateModePages();
+    UpdateModePages();
 }
 
-QPoint PaletteControl::buttonStartPoint() const
+QPoint PaletteControl::ButtonStartPoint() const
 {
-    return m_buttonStartPoint;
+    return m_button_start_point;
 }
 
-void PaletteControl::setButtonStartPoint(QPoint newButtonStartPoint)
+void PaletteControl::SetButtonStartPoint(QPoint newButtonStartPoint)
 {
-    m_buttonStartPoint = newButtonStartPoint;
+    m_button_start_point = newButtonStartPoint;
 }
 
-int PaletteControl::currentModePage() const
+int PaletteControl::CurrentModePage() const
 {
-    return m_currentModePage;
+    return m_current_mode_page;
 }
 
-void PaletteControl::setCurrentModePage(int newCurrentModePage)
+void PaletteControl::SetCurrentModePage(int value)
 {
-    newCurrentModePage = qBound(newCurrentModePage, 0, maxModePages() - 1);
-    if (m_currentModePage == newCurrentModePage)
+    value = qBound(value, 0, MaxModePages() - 1);
+    if (m_current_mode_page == value)
         return;
-    m_currentModePage = newCurrentModePage;
-    emit currentModePageChanged();
+    m_current_mode_page = value;
+    emit CurrentModePageChanged();
 }
 
-int PaletteControl::currentPalettePage() const
+int PaletteControl::CurrentPalettePage() const
 {
-    return m_currentPalettePage;
+    return m_current_palette_page;
 }
 
-void PaletteControl::setCurrentPalettePage(int newCurrentPalettePage)
+void PaletteControl::SetCurrentPalettePage(int value)
 {
-    newCurrentPalettePage = qBound(newCurrentPalettePage, 0, maxPalettePages() - 1);
-    if (m_currentPalettePage == newCurrentPalettePage)
+    value = qBound(value, 0, MaxPalettePages() - 1);
+    if (m_current_palette_page == value)
         return;
-    m_currentPalettePage = newCurrentPalettePage;
-    emit currentPalettePageChanged();
+    m_current_palette_page = value;
+    emit CurrentPalettePageChanged();
 }
 
-PaletteType PaletteControl::type() const
+PaletteType PaletteControl::Type() const
 {
     return m_type;
 }
 
-void PaletteControl::setType(PaletteType newType)
+void PaletteControl::SetType(PaletteType value)
 {
-    if (m_type == newType)
+    if (m_type == value)
         return;
-    m_type = newType;
-    emit typeChanged();
+    m_type = value;
+    emit TypeChanged();
 }
 
-QString PaletteControl::selectedPalette() const
+QString PaletteControl::SelectedPalette() const
 {
-    return m_selectedPalette;
+    return m_selected_palette;
 }
 
-void PaletteControl::setSelectedPalette(const QString &newSelectedPalette)
+void PaletteControl::SetSelectedPalette(const QString &value)
 {
-    if (m_selectedPalette == newSelectedPalette)
+    if (m_selected_palette == value)
         return;
-    m_selectedPalette = newSelectedPalette;
-    emit selectedPaletteChanged();
+    m_selected_palette = value;
+    emit SelectedPaletteChanged();
 }
 
-QString PaletteControl::selectedMode() const
+QString PaletteControl::SelectedMode() const
 {
-    return m_selectedMode;
+    return m_selected_mode;
 }
 
-void PaletteControl::setSelectedMode(const QString &newSelectedMode)
+void PaletteControl::SetSelectedMode(const QString &value)
 {
-    if (m_selectedMode == newSelectedMode)
+    if (m_selected_mode == value)
         return;
-    m_selectedMode = newSelectedMode;
-    emit selectedModeChanged();
+    m_selected_mode = value;
+    emit SelectedModeChanged();
 }

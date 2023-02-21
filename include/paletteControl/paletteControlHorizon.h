@@ -9,7 +9,7 @@ public:
     explicit PaletteControlHorizon(QWidget* parent = nullptr);
 
 protected:
-    virtual void onTypeChanged() override;
+    virtual void OnTypeChanged() override;
 };
 
 #endif // PALETTECONTROLHORIZON_H

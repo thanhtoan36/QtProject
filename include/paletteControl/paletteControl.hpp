@@ -11,25 +11,25 @@ class PaletteControl : public PanelControlBase
 {
     Q_OBJECT
 
-    Q_PROPERTY(int currentModePage READ currentModePage WRITE setCurrentModePage NOTIFY currentModePageChanged)
-    Q_PROPERTY(int currentPalettePage READ currentPalettePage WRITE setCurrentPalettePage NOTIFY currentPalettePageChanged)
-    Q_PROPERTY(PaletteType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(int CurrentModePage READ CurrentModePage WRITE SetCurrentModePage NOTIFY CurrentModePageChanged)
+    Q_PROPERTY(int CurrentPalettePage READ CurrentPalettePage WRITE SetCurrentPalettePage NOTIFY CurrentPalettePageChanged)
+    Q_PROPERTY(PaletteType Type READ Type WRITE SetType NOTIFY TypeChanged)
 
-    Q_PROPERTY(QString selectedPalette READ selectedPalette WRITE setSelectedPalette NOTIFY selectedPaletteChanged)
-    Q_PROPERTY(QString selectedMode READ selectedMode WRITE setSelectedMode NOTIFY selectedModeChanged)
+    Q_PROPERTY(QString SelectedPalette READ SelectedPalette WRITE SetSelectedPalette NOTIFY SelectedPaletteChanged)
+    Q_PROPERTY(QString SelectedMode READ SelectedMode WRITE SetSelectedMode NOTIFY SelectedModeChanged)
 
 public:
-    explicit PaletteControl(QWidget * parent = nullptr);
+    explicit PaletteControl(QWidget *parent = nullptr);
     virtual void SetDispParamData(PALETTE_DISP_PARAM *param);
 
-    PaletteType type() const;
-    QString selectedPalette() const;
-    QString selectedMode() const;
+    PaletteType Type() const;
+    QString SelectedPalette() const;
+    QString SelectedMode() const;
 
 signals:
-    void currentModePageChanged();
-    void currentPalettePageChanged();
-    void typeChanged();
+    void CurrentModePageChanged();
+    void CurrentPalettePageChanged();
+    void TypeChanged();
 
     void NextModePageClicked();
     void PrevModePageClicked();
@@ -37,45 +37,45 @@ signals:
     void PrevPalettePageClicked();
     void RevertButtonClicked();
 
-    void selectedPaletteChanged();
-    void selectedModeChanged();
+    void SelectedPaletteChanged();
+    void SelectedModeChanged();
 
 protected:
-    void setSelectedPalette(const QString &newSelectedPalette);
-    void setSelectedMode(const QString &newSelectedMode);
+    void SetSelectedPalette(const QString &value);
+    void SetSelectedMode(const QString &value);
 
-    uint16_t menuPageSize() const;
-    uint16_t buttonPageSize() const;
+    uint16_t MenuPageSize() const;
+    uint16_t ButtonPageSize() const;
 
-    QPoint buttonStartPoint() const;
-    void setButtonStartPoint(QPoint newButtonStartPoint);
+    QPoint ButtonStartPoint() const;
+    void SetButtonStartPoint(QPoint value);
 
-    QPoint modeStartPoint() const;
-    void setMenuStartPoint(QPoint newMenuStartPoint);
+    QPoint ModeStartPoint() const;
+    void SetMenuStartPoint(QPoint value);
 
-    int currentModePage() const;
-    void setCurrentModePage(int newCurrentModePage);
+    int CurrentModePage() const;
+    void SetCurrentModePage(int value);
 
-    int currentPalettePage() const;
-    void setCurrentPalettePage(int newCurrentPalettePage);
+    int CurrentPalettePage() const;
+    void SetCurrentPalettePage(int value);
 
-    void setType(PaletteType newType);
+    void SetType(PaletteType value);
 
 protected:
-    int maxModePages() const;
-    int maxPalettePages() const;
-    int modeButtonsPerPage() const;
-    int paletteButtonsPerPage() const;
-    int selectedModeIndex() const;
+    int MaxModePages() const;
+    int MaxPalettePages() const;
+    int ModeButtonsPerPage() const;
+    int PaletteButtonsPerPage() const;
+    int SelectedModeIndex() const;
 
 protected slots:
-    virtual void onModeButtonClicked();
-    virtual void onPaletteButtonClicked();
+    virtual void OnModeButtonClicked();
+    virtual void OnPaletteButtonClicked();
 
-    virtual void updateModePages();
-    virtual void updatePalettePages();
+    virtual void UpdateModePages();
+    virtual void UpdatePalettePages();
 
-    virtual void onTypeChanged();
+    virtual void OnTypeChanged();
 
 protected:
     GridBackground m_grid;
@@ -87,8 +87,8 @@ protected:
     CustomPushButton m_button_next_palette_page;
     CustomPushButton m_revert_button;
 
-    QPoint m_buttonStartPoint;
-    QPoint m_menuStartPoint;
+    QPoint m_button_start_point;
+    QPoint m_menu_start_point;
 
     QVector<QSharedPointer<SelectButton>> m_mode_buttons;
     QVector<QVector<QSharedPointer<SelectButton>>> m_palette_buttons;
@@ -99,11 +99,11 @@ protected:
     QSize m_palette_button_grid_size;
 
 private:
-    int m_currentModePage;
-    int m_currentPalettePage;
+    int m_current_mode_page;
+    int m_current_palette_page;
     PaletteType m_type;
-    QString m_selectedPalette;
-    QString m_selectedMode;
+    QString m_selected_palette;
+    QString m_selected_mode;
 };
 
 #endif // PALETTECONTROL_H
