@@ -50,6 +50,8 @@ public:
     void ConnectPaletteEvent();
     void ConnectEncoderEvent();
     void ConnectTrackEvent();
+    void ConnectGroupEvent();
+    void ConnectLibraryEvent();
 
 private slots:
     void on_ColorPickerControl_Fake_Open_clicked();

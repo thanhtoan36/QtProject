@@ -6,11 +6,24 @@
 #include "baseComponent/customPushButton.h"
 #include "baseComponent/gridBackground.h"
 
+struct GroupControlButton
+{
+    QString text;
+    QString title;
+    bool operator==(const GroupControlButton &rhs) const
+    {
+        return text == rhs.text && title == rhs.title;
+    }
+};
+
 class GroupControl : public PanelControlBase
 {
     Q_OBJECT
     Q_PROPERTY(int currentGroupPage READ currentGroupPage WRITE setCurrentGroupPage NOTIFY currentGroupPageChanged)
     Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
+    Q_PROPERTY(GroupControlButton CurrentGroupButton READ CurrentGroupButton WRITE SetCurrentGroupButton NOTIFY CurrentGroupButtonChanged)
+    Q_PROPERTY(GroupControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged)
+    Q_PROPERTY(QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged)
 
 public:
     explicit GroupControl(QWidget* parent = nullptr);
@@ -22,12 +35,23 @@ public:
     int currentHistoryPage() const;
     void setCurrentHistoryPage(int newCurrentHistoryPage);
 
-    void onButtonGroupCheck(const uint32_t index, QObject* sender);
-    void onButtonHistoryCheck(const uint32_t index, QObject* sender);
+    const GroupControlButton &CurrentGroupButton() const;
+    void SetCurrentGroupButton(const GroupControlButton &newCurrentGroupButton);
+
+    const GroupControlButton &CurrentHistoryButton() const;
+    void SetCurrentHistoryButton(const GroupControlButton &newCurrentHistoryButton);
+
+    const QString &CurrentFooterButton() const;
+    void SetCurrentFooterButton(const QString &newCurrentFooterButton);
 
 signals:
     void currentGroupPageChanged();
     void currentHistoryPageChanged();
+    void CurrentGroupButtonChanged();
+    void CurrentHistoryButtonChanged();
+    void ReturnButtonClicked();
+
+    void CurrentFooterButtonChanged();
 
 protected:
     int buttonsPerPage() const;
@@ -66,6 +90,9 @@ protected:
     int m_currentHistoryPage;
 
     QSize m_buttons_grid_size;
+    GroupControlButton m_CurrentGroupButton;
+    GroupControlButton m_CurrentHistoryButton;
+    QString m_CurrentFooterButton;
 };
 
 

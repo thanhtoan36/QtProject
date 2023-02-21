@@ -59,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
     ConnectInputNumEvent();
     ConnectPaletteEvent();
     ConnectEncoderEvent();
+    ConnectGroupEvent();
+    ConnectLibraryEvent();
 }
 
 MainWindow::~MainWindow()
@@ -256,6 +258,109 @@ void MainWindow::ConnectTrackEvent()
 
     connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, slot_track_points_changed);
     connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, slot_track_points_changed);
+}
+
+void MainWindow::ConnectGroupEvent()
+{
+    const auto slot_group_button_changed = [&]() {
+        QString log = "GC button changed: ";
+        auto button = ((GroupControl*)sender())->CurrentGroupButton();
+
+        log += QString("text: %1, title: %2").arg(button.text).arg(button.title);
+
+        logEvent(log);
+    };
+
+    const auto slot_history_button_changed = [&]() {
+        QString log = "GC history button changed: ";
+        auto button = ((GroupControl*)sender())->CurrentHistoryButton();
+
+        log += QString("text: %1, title: %2").arg(button.text).arg(button.title);
+
+        logEvent(log);
+    };
+    const auto slot_return_button_clicked = [&]() {
+        QString log = "GC return button clicked";
+
+        logEvent(log);
+    };
+    const auto slot_footer_button_changed = [&]() {
+        QString log = "GC footer button changed: "+((GroupControl*)sender())->CurrentFooterButton();
+
+        logEvent(log);
+    };
+
+    connect(m_group_control.get(), &GroupControl::CurrentGroupButtonChanged, this, slot_group_button_changed);
+    connect(m_group_control_horizon.get(), &GroupControl::CurrentGroupButtonChanged, this, slot_group_button_changed);
+    connect(m_group_control.get(), &GroupControl::CurrentHistoryButtonChanged, this, slot_history_button_changed);
+    connect(m_group_control_horizon.get(), &GroupControl::CurrentHistoryButtonChanged, this, slot_history_button_changed);
+    connect(m_group_control.get(), &GroupControl::ReturnButtonClicked, this, slot_return_button_clicked);
+    connect(m_group_control_horizon.get(), &GroupControl::ReturnButtonClicked, this, slot_return_button_clicked);
+    connect(m_group_control.get(), &GroupControl::CurrentFooterButtonChanged, this, slot_footer_button_changed);
+    connect(m_group_control_horizon.get(), &GroupControl::CurrentFooterButtonChanged, this, slot_footer_button_changed);
+}
+
+void MainWindow::ConnectLibraryEvent()
+{
+    const auto slot_mode_button_changed = [&]() {
+        QString log = "LC mode button changed: " + ((LibraryControl*)sender())->CurrentModeButton();
+
+        logEvent(log);
+    };
+
+    const auto slot_history_mode_button_changed = [&]() {
+        QString log = "LC history mode button changed: " + ((LibraryControl*)sender())->CurrentHistoryModeButton();
+
+        logEvent(log);
+    };
+
+    const auto slot_library_button_changed = [&]() {
+        QString log = "LC library button changed: ";
+        auto button = ((LibraryControl*)sender())->CurrentLibraryButton();
+
+        log += QString("text: %1, title: %2").arg(button.text).arg(button.title);
+
+        logEvent(log);
+    };
+
+    const auto slot_history_button_changed = [&]() {
+        QString log = "LC history button changed: ";
+        auto button = ((LibraryControl*)sender())->CurrentHistoryButton();
+
+        log += QString("text: %1, title: %2").arg(button.text).arg(button.title);
+
+        logEvent(log);
+    };
+
+    const auto slot_return_button_clicked = [&]() {
+        QString log = "LC return button clicked";
+
+        logEvent(log);
+    };
+    const auto slot_footer_button_changed = [&]() {
+        QString log = "LC footer button changed: "+((LibraryControl*)sender())->CurrentFooterButton();
+
+        logEvent(log);
+    };
+
+    connect(m_library_control.get(), &LibraryControl::CurrentModeButtonChanged, this, slot_mode_button_changed);
+    connect(m_library_control_horizon.get(), &LibraryControl::CurrentModeButtonChanged, this, slot_mode_button_changed);
+
+    connect(m_library_control.get(), &LibraryControl::CurrentHistoryModeButtonChanged, this, slot_history_mode_button_changed);
+    connect(m_library_control_horizon.get(), &LibraryControl::CurrentHistoryModeButtonChanged, this, slot_history_mode_button_changed);
+
+    connect(m_library_control.get(), &LibraryControl::CurrentLibraryButtonChanged, this, slot_library_button_changed);
+    connect(m_library_control_horizon.get(), &LibraryControl::CurrentLibraryButtonChanged, this, slot_library_button_changed);
+
+    connect(m_library_control.get(), &LibraryControl::CurrentHistoryButtonChanged, this, slot_history_button_changed);
+    connect(m_library_control_horizon.get(), &LibraryControl::CurrentHistoryButtonChanged, this, slot_history_button_changed);
+
+    connect(m_library_control.get(), &LibraryControl::CurrentFooterButtonChanged, this, slot_footer_button_changed);
+    connect(m_library_control_horizon.get(), &LibraryControl::CurrentFooterButtonChanged, this, slot_footer_button_changed);
+
+    connect(m_library_control.get(), &LibraryControl::ReturnButtonClicked, this, slot_return_button_clicked);
+    connect(m_library_control_horizon.get(), &LibraryControl::ReturnButtonClicked, this, slot_return_button_clicked);
+
 }
 
 void MainWindow::on_ColorPickerControl_Fake_Open_clicked()
