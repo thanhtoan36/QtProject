@@ -355,12 +355,12 @@ void LibraryControl::SetModeStartPoint(QPoint point)
 
 int LibraryControl::MaxGroupPages() const
 {
-    return calulateNumberOfPages(m_current_group_lib_buttons.size(), LibraryButtonsPerPage());
+    return CalulateNumberOfPages(m_current_group_lib_buttons.size(), LibraryButtonsPerPage());
 }
 
 int LibraryControl::MaxHistoryPages() const
 {
-    return calulateNumberOfPages(m_current_history_lib_buttons.size(), LibraryButtonsPerPage());
+    return CalulateNumberOfPages(m_current_history_lib_buttons.size(), LibraryButtonsPerPage());
 }
 
 int LibraryControl::ModeButtonsPerPage() const

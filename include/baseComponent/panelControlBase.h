@@ -2,6 +2,7 @@
 #define PANELCONTROLBASE_H
 
 #include <QWidget>
+#include "baseComponent/gridBackground.h"
 
 class PanelControlBase : public QWidget
 {
@@ -15,8 +16,8 @@ public:
 
     explicit PanelControlBase(QWidget *parent = nullptr);
 
-    static int calulateNumberOfPages(int itemCount, int itemsPerPage);
-    static int calculateNumberOfVisibleItems(int itemsCount, int itemsPerPage, int pageIndex);
+    static int CalulateNumberOfPages(int itemCount, int itemsPerPage);
+    static int CalculateNumberOfVisibleItems(int itemsCount, int itemsPerPage, int pageIndex);
 
     template <class T>
     static void placeChildrenIntoPanel(const QVector<QSharedPointer<T>> &children, QSize childSize, QPoint firstCellTopLeft, QSize gridSize, VerticalDirections vdirection = TopToBottom) {
@@ -47,6 +48,12 @@ public:
             child->setVisible(i >= pageBeginIndex && i < pageEndIndex);
         }
     }
+
+protected:
+    virtual void resizeEvent(QResizeEvent *event) override;
+
+protected:
+    GridBackground m_background;
 };
 
 #endif // PANELCONTROLBASE_H

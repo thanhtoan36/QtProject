@@ -235,12 +235,12 @@ void GroupControl::UpdateHistoryPage()
 
 int GroupControl::MaxGroupPages() const
 {
-    return calulateNumberOfPages(m_group_buttons.length(), ButtonsPerPage());
+    return CalulateNumberOfPages(m_group_buttons.length(), ButtonsPerPage());
 }
 
 int GroupControl::MaxHistoryPages() const
 {
-    return calulateNumberOfPages(m_history_buttons.length(), ButtonsPerPage());
+    return CalulateNumberOfPages(m_history_buttons.length(), ButtonsPerPage());
 }
 
 void GroupControl::AddButtonToHistory(QSharedPointer<TitleSelectButton> &button)

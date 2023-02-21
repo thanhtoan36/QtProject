@@ -273,7 +273,7 @@ void InputNumControl::SetCurrentGroupButtonsPage(int page)
 
 int InputNumControl::MaxGroupButtonPages() const
 {
-    return calulateNumberOfPages(m_group_buttons.length(), GroupButtonsPerPage());
+    return CalulateNumberOfPages(m_group_buttons.length(), GroupButtonsPerPage());
 }
 
 int InputNumControl::GroupButtonsPerPage() const

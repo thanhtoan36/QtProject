@@ -41,7 +41,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void logEvent(const QString &log);
+    void LogEvent(const QString &log);
 
     void ConnectColorPickerEvent();
     void ConnectColorFilterEvent();

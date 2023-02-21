@@ -237,7 +237,7 @@ void PaletteControl::SetMenuStartPoint(QPoint newMenuStartPoint)
 
 int PaletteControl::MaxModePages() const
 {
-    return calulateNumberOfPages(m_mode_buttons.size(), ModeButtonsPerPage());
+    return CalulateNumberOfPages(m_mode_buttons.size(), ModeButtonsPerPage());
 }
 
 int PaletteControl::MaxPalettePages() const
@@ -246,7 +246,7 @@ int PaletteControl::MaxPalettePages() const
     if (modeIndex == -1)
         return 0;
     auto &group = m_palette_buttons.at(modeIndex);
-    return calulateNumberOfPages(group.size(), PaletteButtonsPerPage());
+    return CalulateNumberOfPages(group.size(), PaletteButtonsPerPage());
 }
 
 int PaletteControl::ModeButtonsPerPage() const

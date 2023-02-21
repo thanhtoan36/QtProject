@@ -462,17 +462,17 @@ void ColorFilterControl::SetCurrentFooterButtonActive(const QString &newCurrentF
 
 int ColorFilterControl::MaxTBTabPages() const
 {
-    return calulateNumberOfPages(m_tb_tab_buttons.length(), BUTTONS_PER_PAGE);
+    return CalulateNumberOfPages(m_tb_tab_buttons.length(), BUTTONS_PER_PAGE);
 }
 
 int ColorFilterControl::MaxCustomTabPages() const
 {
-    return calulateNumberOfPages(m_custom_tab_buttons.length(), BUTTONS_PER_PAGE);
+    return CalulateNumberOfPages(m_custom_tab_buttons.length(), BUTTONS_PER_PAGE);
 }
 
 int ColorFilterControl::MaxHistoryPages() const
 {
-    return calulateNumberOfPages(m_history_buttons.length(), BUTTONS_PER_PAGE);
+    return CalulateNumberOfPages(m_history_buttons.length(), BUTTONS_PER_PAGE);
 }
 
 void ColorFilterControl::OnTBTabButtonClicked()
@@ -545,7 +545,7 @@ int ColorFilterControl::CurrentHeaderButtonsPage() const
 
 void ColorFilterControl::SetCurrentHeaderButtonsPage(int newCurrentHeaderButtonsPage)
 {
-    newCurrentHeaderButtonsPage = qBound(newCurrentHeaderButtonsPage, 0, calulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
+    newCurrentHeaderButtonsPage = qBound(newCurrentHeaderButtonsPage, 0, CalulateNumberOfPages(m_header_buttons.length(), m_header_buttons_per_page) - 1);
     if (m_current_header_buttons_page == newCurrentHeaderButtonsPage)
         return;
     m_current_header_buttons_page = newCurrentHeaderButtonsPage;

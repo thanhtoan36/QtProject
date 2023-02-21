@@ -141,7 +141,7 @@ void EncoderControl::SetupEncoderPages()
     UpdateChildrenVisibility(m_encoders, CurrentEncoderPage(), m_encoders_per_page);
     UpdateChildrenVisibility(m_encoder_labels, CurrentEncoderPage(), m_encoders_per_page);
 
-    int visible_items = calculateNumberOfVisibleItems(m_encoders.length(), m_encoders_per_page, CurrentEncoderPage());
+    int visible_items = CalculateNumberOfVisibleItems(m_encoders.length(), m_encoders_per_page, CurrentEncoderPage());
     m_encoder_background.setGridSize(QSize(visible_items, 1));
 }
 
@@ -217,7 +217,7 @@ void EncoderControl::SetCurrentEncoderPage(int value)
 
 int EncoderControl::MaxEncoderPages() const
 {
-    return calulateNumberOfPages(m_encoders.length(), m_encoders_per_page);
+    return CalulateNumberOfPages(m_encoders.length(), m_encoders_per_page);
 }
 
 EncoderMode EncoderControl::Mode() const

@@ -14,7 +14,6 @@ public:
     explicit PanelWindow(QWidget *parent = nullptr);
 
     void AttachPanelControl(QSharedPointer<PanelControlBase> panel);
-
     void DetachPanelControl();
 
 signals:
