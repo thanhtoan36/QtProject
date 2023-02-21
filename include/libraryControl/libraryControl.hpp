@@ -8,6 +8,16 @@
 #include "baseComponent/gridBackground.h"
 #include <QLabel>
 
+struct LibraryControlButton
+{
+    QString text;
+    QString title;
+    bool operator==(const LibraryControlButton &rhs) const
+    {
+        return text == rhs.text && title == rhs.title;
+    }
+};
+
 class LibraryControl : public PanelControlBase
 {
     Q_OBJECT
@@ -15,6 +25,11 @@ class LibraryControl : public PanelControlBase
     Q_PROPERTY(int currentHistoryPage READ currentHistoryPage WRITE setCurrentHistoryPage NOTIFY currentHistoryPageChanged)
     Q_PROPERTY(QString selectedGroupMode READ selectedGroupMode WRITE setSelectedGroupMode NOTIFY selectedGroupModeChanged)
     Q_PROPERTY(QString selectedHistoryMode READ selectedHistoryMode WRITE setSelectedHistoryMode NOTIFY selectedHistoryModeChanged)
+    Q_PROPERTY(QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged)
+    Q_PROPERTY(LibraryControlButton CurrentLibraryButton READ CurrentLibraryButton WRITE SetCurrentLibraryButton NOTIFY CurrentLibraryButtonChanged)
+    Q_PROPERTY(QString CurrentHistoryModeButton READ CurrentHistoryModeButton WRITE SetCurrentHistoryModeButton NOTIFY CurrentHistoryModeButtonChanged)
+    Q_PROPERTY(LibraryControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged)
+    Q_PROPERTY(QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged)
 
 public:
     struct LibraryButton
@@ -38,11 +53,39 @@ public:
     QString selectedHistoryMode() const;
     void setSelectedHistoryMode(const QString &newSelectedHistoryMode);
 
+
+    const LibraryControlButton &CurrentLibraryButton() const;
+    void SetCurrentLibraryButton(const LibraryControlButton &newCurrentLibraryButton);
+
+    const LibraryControlButton &CurrentHistoryButton() const;
+    void SetCurrentHistoryButton(const LibraryControlButton &newCurrentHistoryButton);
+
+    const QString &CurrentFooterButton() const;
+    void SetCurrentFooterButton(const QString &newCurrentFooterButton);
+
+    const QString &CurrentModeButton() const;
+    void SetCurrentModeButton(const QString &newCurrentModeButton);
+
+    const QString &CurrentHistoryModeButton() const;
+    void SetCurrentHistoryModeButton(const QString &newCurrentHistoryModeButton);
+
 signals:
     void currentGroupPageChanged();
     void currentHistoryPageChanged();
     void selectedGroupModeChanged();
     void selectedHistoryModeChanged();
+
+    void CurrentModeButtonChanged();
+
+    void CurrentLibraryButtonChanged();
+
+    void CurrentHistoryModeButtonChanged();
+
+    void CurrentHistoryButtonChanged();
+
+    void CurrentFooterButtonChanged();
+
+    void ReturnButtonClicked();
 
 protected:
     QPoint libStartPoint() const;
@@ -110,6 +153,11 @@ private:
     int m_currentHistoryPage;
     QString m_selectedGroupMode;
     QString m_selectedHistoryMode;
+    LibraryControlButton m_CurrentLibraryButton;
+    LibraryControlButton m_CurrentHistoryButton;
+    QString m_CurrentFooterButton;
+    QString m_CurrentModeButton;
+    QString m_CurrentHistoryModeButton;
 };
 
 #endif // LIBRARYCONTROL_HPP

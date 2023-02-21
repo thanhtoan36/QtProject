@@ -136,6 +136,7 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
     connect(&m_title_button, &QAbstractButton::toggled, this, &GroupControl::onTitleButonClicked);
     connect(&m_register_button, &QAbstractButton::toggled, this, &GroupControl::onRegisterButonClicked);
     connect(&m_delete_button, &QAbstractButton::toggled, this, &GroupControl::onDeleteButonClicked);
+    connect(&m_back_button, &QAbstractButton::clicked, this, &GroupControl::ReturnButtonClicked);
 }
 
 void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
@@ -146,6 +147,8 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
 
     setCurrentGroupPage(0);
     setCurrentHistoryPage(0);
+    GroupControlButton current_group_button;
+    GroupControlButton current_history_button;
 
     for (int i = 0; i< param->group.count;i++)
     {
@@ -154,6 +157,11 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         button->setTitle(param->group.group_param[i].title);
         button->setText(param->group.group_param[i].group_no);
         button->setChecked(param->group.group_param[i].select);
+        if (button->isChecked())
+        {
+            current_group_button.text = button->text();
+            current_group_button.title = button->title();
+        }
         connect(button.get(), &QAbstractButton::clicked, this, &GroupControl::onGroupButtonClicked);
         m_group_buttons.push_back(button);
     }
@@ -170,6 +178,11 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
         button->setText(param->history.group_param[i].group_no);
         button->setChecked(param->history.group_param[i].select);
         button->setVisible(false);
+        if (button->isChecked())
+        {
+            current_history_button.text = button->text();
+            current_history_button.title = button->title();
+        }
         connect(button.get(),&QAbstractButton::clicked, this, &GroupControl::onHistoryButtonClicked);
         m_history_buttons.push_back(button);
     }
@@ -178,6 +191,8 @@ void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
 
     m_up_button.setVisible(maxGroupPages() >1);
     m_down_button.setVisible(maxGroupPages() >1);
+    SetCurrentGroupButton(current_group_button);
+    SetCurrentHistoryButton(current_history_button);
 }
 
 int GroupControl::currentGroupPage() const
@@ -253,7 +268,7 @@ void GroupControl::onGroupButtonClicked()
     }
     auto button = *iter;
     addButtonToHistory(button);
-
+    SetCurrentGroupButton({button->text(),button->title()});
     for (const auto &b : qAsConst(m_group_buttons))
     {
         b->setChecked(b == button);
@@ -267,7 +282,7 @@ void GroupControl::onHistoryButtonClicked()
         return;
     }
     auto button = *iter;
-
+    SetCurrentHistoryButton({button->text(),button->title()});
     for (const auto &b : qAsConst(m_history_buttons))
     {
         b->setChecked(b == button);
@@ -280,6 +295,7 @@ void GroupControl::onTitleButonClicked(const bool check)
     {
         m_delete_button.setChecked(false);
         m_register_button.setChecked(false);
+        SetCurrentFooterButton("title");
     }
 }
 
@@ -289,6 +305,7 @@ void GroupControl::onRegisterButonClicked(const bool check)
     {
         m_delete_button.setChecked(false);
         m_title_button.setChecked(false);
+        SetCurrentFooterButton("register");
     }
 }
 
@@ -298,10 +315,50 @@ void GroupControl::onDeleteButonClicked(const bool check)
     {
         m_title_button.setChecked(false);
         m_register_button.setChecked(false);
+        SetCurrentFooterButton("delete");
     }
 }
 
 int GroupControl::buttonsPerPage() const
 {
     return m_buttons_grid_size.width() * m_buttons_grid_size.height();
+}
+
+const GroupControlButton &GroupControl::CurrentGroupButton() const
+{
+    return m_CurrentGroupButton;
+}
+
+void GroupControl::SetCurrentGroupButton(const GroupControlButton &newCurrentGroupButton)
+{
+    if (m_CurrentGroupButton == newCurrentGroupButton)
+        return;
+    m_CurrentGroupButton = newCurrentGroupButton;
+    emit CurrentGroupButtonChanged();
+}
+
+const GroupControlButton &GroupControl::CurrentHistoryButton() const
+{
+    return m_CurrentHistoryButton;
+}
+
+void GroupControl::SetCurrentHistoryButton(const GroupControlButton &newCurrentHistoryButton)
+{
+    if (m_CurrentHistoryButton == newCurrentHistoryButton)
+        return;
+    m_CurrentHistoryButton = newCurrentHistoryButton;
+    emit CurrentHistoryButtonChanged();
+}
+
+const QString &GroupControl::CurrentFooterButton() const
+{
+    return m_CurrentFooterButton;
+}
+
+void GroupControl::SetCurrentFooterButton(const QString &newCurrentFooterButton)
+{
+    if (m_CurrentFooterButton == newCurrentFooterButton)
+        return;
+    m_CurrentFooterButton = newCurrentFooterButton;
+    emit CurrentFooterButtonChanged();
 }
