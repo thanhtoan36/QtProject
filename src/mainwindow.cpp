@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     ConnectEncoderEvent();
     ConnectGroupEvent();
     ConnectLibraryEvent();
+    ConnectTrackEvent();
 }
 
 MainWindow::~MainWindow()
@@ -247,7 +248,7 @@ void MainWindow::ConnectTrackEvent()
 {
     const auto slot_track_points_changed = [&]() {
         QString log = "TC points changed\n";
-        auto points = ((TrackControl*)sender())->trackPoints();
+        auto points = ((TrackControl*)sender())->TrackPoints();
 
         for (const auto &p : points) {
             log += QString("(%1,%2), ").arg(p.pan.current).arg(p.tilt.current);
@@ -256,8 +257,8 @@ void MainWindow::ConnectTrackEvent()
         logEvent(log);
     };
 
-    connect(m_track_control.get(), &TrackControl::trackPointsChanged, this, slot_track_points_changed);
-    connect(m_track_control_horizon.get(), &TrackControl::trackPointsChanged, this, slot_track_points_changed);
+    connect(m_track_control.get(), &TrackControl::TrackPointsChanged, this, slot_track_points_changed);
+    connect(m_track_control_horizon.get(), &TrackControl::TrackPointsChanged, this, slot_track_points_changed);
 }
 
 void MainWindow::ConnectGroupEvent()

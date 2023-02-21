@@ -16,17 +16,8 @@ public:
     void SetCoordinate(QPoint pos);
     QPoint Coordinate();
 
-signals:
-    void moveRequested(QPoint new_pos);
-
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
-
-private:
-    bool m_pressed;
 };
 
 
@@ -51,9 +42,9 @@ public:
 
     explicit PantiltControl(QWidget *parent = nullptr);
 
-    void setValueMode(TrackValueMode value_mode);
+    void SetValueMode(TrackValueMode value_mode);
     void SetTrackPoints(const QVector<TrackPointFloatParamGroup> &points);
-    QVector<TrackPointFloatParamGroup> trackPoints() const;
+    QVector<TrackPointFloatParamGroup> TrackPoints() const;
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
@@ -68,10 +59,10 @@ protected:
     void MovePointWithConstraints(TrackPointData &point, QPointF new_value);
 
 signals:
-    void trackPointsUpdated();
+    void TrackPointsUpdated();
 
 private slots:
-    void onTrackPointMoveRequested(QPoint new_pos);
+    void OnTrackPointMoveRequested(QPoint new_pos);
 
 private:
     QLabel m_label_tilt, m_label_pan;

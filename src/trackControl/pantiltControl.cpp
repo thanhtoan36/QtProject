@@ -9,8 +9,7 @@
 #define TRACK_UI_PADDING 10
 
 TrackPoint::TrackPoint(QWidget *parent)
-    : QWidget{parent},
-      m_pressed(false)
+    : QWidget{parent}
 {
     setFixedSize(TRACK_POINT_SIZE);
     setFocusPolicy(Qt::FocusPolicy::NoFocus);
@@ -35,32 +34,8 @@ void TrackPoint::paintEvent(QPaintEvent *event)
 {
     QPainter p(this);
     p.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
-    if (m_pressed)
-        p.setPen(Qt::yellow);
     p.setBrush(QBrush(Qt::yellow));
     p.drawEllipse(QRect(QPoint(0, 0), geometry().size()));
-}
-
-void TrackPoint::mousePressEvent(QMouseEvent *event)
-{
-    m_pressed = true;
-    update();
-    event->ignore();
-}
-
-void TrackPoint::mouseReleaseEvent(QMouseEvent *event)
-{
-    m_pressed = false;
-    update();
-    event->ignore();
-}
-
-void TrackPoint::mouseMoveEvent(QMouseEvent *event)
-{
-    if (!m_pressed)
-        return;
-    // emit moveRequested(event->pos());
-    event->ignore();
 }
 
 PantiltControl::PantiltControl(QWidget *parent)
@@ -78,7 +53,7 @@ PantiltControl::PantiltControl(QWidget *parent)
     m_label_pan.setObjectName("graph_axis_label");
 }
 
-void PantiltControl::setValueMode(TrackValueMode value_mode)
+void PantiltControl::SetValueMode(TrackValueMode value_mode)
 {
     if (m_value_mode == value_mode)
     {
@@ -90,7 +65,8 @@ void PantiltControl::setValueMode(TrackValueMode value_mode)
 void PantiltControl::SetTrackPoints(const QVector<PantiltControl::TrackPointFloatParamGroup> &points)
 {
     m_track_points.clear();
-    foreach (const auto &point, points) {
+    foreach (const auto &point, points)
+    {
         TrackPointData data;
         data.param = point;
         data.widget = MakeSharedQObject<TrackPoint>(this);
@@ -104,10 +80,11 @@ void PantiltControl::SetTrackPoints(const QVector<PantiltControl::TrackPointFloa
     }
 }
 
-QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::trackPoints() const
+QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::TrackPoints() const
 {
     QVector<PantiltControl::TrackPointFloatParamGroup>  result;
-    for (const auto &p : m_track_points) {
+    for (const auto &p : m_track_points)
+    {
         result.append(p.param);
     }
     return result;
@@ -127,14 +104,16 @@ void PantiltControl::paintEvent(QPaintEvent *event)
     QSize bound = geometry().size();
 
     // Draw horizontal grid lines
-    for (int i = 0; i <= 100; i += 20) {
+    for (int i = 0; i <= 100; i += 20)
+    {
         p.setPen(QPen(Qt::darkGray, (i % 50 == 0) ? 1 : 0.2));
         p.drawLine(0, i * bound.height() / 100.0, bound.width(), i * bound.height() / 100.0);
     }
     p.setPen(QPen(Qt::darkGray));
     p.drawLine(0, bound.height() / 2, bound.width(), bound.height() / 2);
     // Draw vertical grid lines
-    for (int i = 0; i <= 100; i += 25) {
+    for (int i = 0; i <= 100; i += 25)
+    {
         p.setPen(QPen(Qt::darkGray, (i % 50 == 0) ? 1 : 0.2));
         p.drawLine(i * bound.width() / 100.0, 0, i * bound.width() / 100.0, bound.height());
     }
@@ -152,18 +131,20 @@ void PantiltControl::mousePressEvent(QMouseEvent *event)
     m_pressed = true;
     m_last_pos = event->pos();
 
-    if (m_value_mode == TRACK_MODE_ABSOLUTE) {
-        for (auto &p : m_track_points) {
+    if (m_value_mode == TRACK_MODE_ABSOLUTE)
+    {
+        for (auto &p : m_track_points)
+        {
             MovePointWithConstraints(p, ConvertCoordinateToValue(event->pos()));
         }
-        emit trackPointsUpdated();
+        emit TrackPointsUpdated();
     }
 }
 
 void PantiltControl::mouseReleaseEvent(QMouseEvent *event)
 {
     m_pressed = false;
-    emit trackPointsUpdated();
+    emit TrackPointsUpdated();
 }
 
 void PantiltControl::mouseMoveEvent(QMouseEvent *event)
@@ -171,11 +152,13 @@ void PantiltControl::mouseMoveEvent(QMouseEvent *event)
     if (!m_pressed)
         return;
 
-    if (m_value_mode == TRACK_MODE_RELATIVE) {
+    if (m_value_mode == TRACK_MODE_RELATIVE)
+    {
         // Move all track point at the same time
         const QPoint diff = event->pos() - m_last_pos;
 
-        for (auto &p : m_track_points) {
+        for (auto &p : m_track_points)
+        {
             const auto new_coordinate = p.widget->Coordinate() + diff;
             MovePointWithConstraints(p, ConvertCoordinateToValue(new_coordinate));
         }
@@ -207,15 +190,8 @@ QPointF PantiltControl::ConvertCoordinateToValue(QPointF coordinate)
 void PantiltControl::MovePointWithConstraints(TrackPointData &point, QPointF new_value)
 {
     // Limit pan/tilt to max / min of this object
-    if (new_value.x() < point.param.pan.min)
-        new_value.setX(point.param.pan.min);
-    if (new_value.x() > point.param.pan.max)
-        new_value.setX(point.param.pan.max);
-
-    if (new_value.y() < point.param.tilt.min)
-        new_value.setY(point.param.tilt.min);
-    if (new_value.y() > point.param.tilt.max)
-        new_value.setY(point.param.tilt.max);
+    new_value.setX(qBound(float(new_value.x()), point.param.pan.min, point.param.pan.max));
+    new_value.setY(qBound(float(new_value.x()), point.param.tilt.min, point.param.tilt.max));
 
     QPointF new_pos = ConvertValueToCoordinate(new_value);
     point.widget->SetCoordinate(new_pos.toPoint());
@@ -223,15 +199,18 @@ void PantiltControl::MovePointWithConstraints(TrackPointData &point, QPointF new
     point.param.tilt.current = new_value.y();
 }
 
-void PantiltControl::onTrackPointMoveRequested(QPoint new_pos)
+void PantiltControl::OnTrackPointMoveRequested(QPoint new_pos)
 {
     auto widget = static_cast<TrackPoint*>(QObject::sender());
     if (!widget)
+    {
         return;
+    }
 
     const QPoint diff = new_pos - widget->pos();
 
-    for (TrackPointData &p : m_track_points) {
+    for (TrackPointData &p : m_track_points)
+    {
         auto new_value = ConvertCoordinateToValue(p.widget->pos() + diff);
         MovePointWithConstraints(p, new_value);
     }
