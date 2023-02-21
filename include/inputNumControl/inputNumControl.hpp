@@ -17,51 +17,50 @@ enum InputNumValueMode
 class InputNumControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(InputNumMode mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(InputNumValueMode valueMode READ valueMode WRITE setValueMode NOTIFY valueModeChanged)
-    Q_PROPERTY(InputNumType type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(int currentGroupButtonsPage READ currentGroupButtonsPage WRITE setCurrentGroupButtonsPage NOTIFY currentGroupButtonsPageChanged)
+    Q_PROPERTY(InputNumMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged)
+    Q_PROPERTY(InputNumValueMode ValueMode READ ValueMode WRITE SetValueMode NOTIFY ValueModeChanged)
+    Q_PROPERTY(InputNumType Type READ Type WRITE SetType NOTIFY TypeChanged)
+    Q_PROPERTY(int CurrentGroupButtonsPage READ CurrentGroupButtonsPage WRITE SetCurrentGroupButtonsPage NOTIFY CurrentGroupButtonsPageChanged)
     Q_PROPERTY(QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged)
 
 public:
     explicit InputNumControl(QWidget* parent = nullptr);
     virtual void SetDispParamData(INPUT_NUM_DISP_PARAM *param);
 
-    InputNumMode mode() const;
-    void setMode(InputNumMode newMode);
+    InputNumMode Mode() const;
+    void SetMode(InputNumMode newMode);
 
-    InputNumType type() const;
-    void setType(InputNumType newType);
+    InputNumType Type() const;
+    void SetType(InputNumType newType);
 
-    InputNumValueMode valueMode() const;
-    void setValueMode(const InputNumValueMode &newValueMode);
+    InputNumValueMode ValueMode() const;
+    void SetValueMode(const InputNumValueMode &mode);
 
-    int currentGroupButtonsPage() const;
-    void setCurrentGroupButtonsPage(int newCurrentGroupButtonsPage);
+    int CurrentGroupButtonsPage() const;
+    void SetCurrentGroupButtonsPage(int page);
 
     const QString &CurrentModeButton() const;
-    void SetCurrentModeButton(const QString &newCurrentModeButton);
+    void SetCurrentModeButton(const QString &mode);
 
 signals:
-    void modeChanged();
-    void typeChanged();
-    void currentButtonModePageChanged();
-    void valueModeChanged();
-    void currentGroupButtonsPageChanged();
+    void ModeChanged();
+    void TypeChanged();
+    void ValueModeChanged();
+    void CurrentGroupButtonsPageChanged();
     void InputNumButtonClicked(const QString& text);
     void CurrentModeButtonChanged();
     void ReturnClicked();
 
 protected:
-    int maxGroupButtonPages() const;
-    virtual int groupButtonsPerPage() const;
-    virtual void setupGroupButtonPages();
-    void onGroupButtonClicked();
+    int MaxGroupButtonPages() const;
+    virtual int GroupButtonsPerPage() const;
+    virtual void SetupGroupButtonPages();
+    void OnGroupButtonClicked();
 
 protected slots:
-    void onModeChanged();
-    void onValueModeChanged();
-    virtual void onTypeChanged();
+    void OnModeChanged();
+    void OnValueModeChanged();
+    virtual void OnTypeChanged();
 
 protected:
     GridBackground m_grid;
@@ -82,10 +81,10 @@ protected:
     InputNumMode m_mode;
     InputNumValueMode m_valueMode;
     InputNumType m_type;
-    int m_currentGroupButtonsPage;
+    int m_current_group_buttons_page;
     int m_group_buttons_per_page;
 
-    QString m_currentModeButton;
+    QString m_current_mode_button;
 };
 
 

@@ -138,7 +138,7 @@ void MainWindow::ConnectInputNumEvent()
 {
     const auto slot_mode_changed = [&]() {
         QString log = "IC Mode Changed: ";
-        auto mode = ((InputNumControl*)sender())->mode();
+        auto mode = ((InputNumControl*)sender())->Mode();
 
         if (mode == INPUT_NUM_MODE_PERCENT)
         {
@@ -158,7 +158,7 @@ void MainWindow::ConnectInputNumEvent()
 
     const auto slot_value_mode_changed = [&]() {
         QString log = "IC Value Mode Changed: ";
-        auto mode = ((InputNumControl*)sender())->valueMode();
+        auto mode = ((InputNumControl*)sender())->ValueMode();
 
         if (mode == INPUT_NUM_MODE_RELATIVE)
         {
@@ -187,14 +187,14 @@ void MainWindow::ConnectInputNumEvent()
         this->logEvent(log);
     };
 
-    connect(m_input_num_control.get(),&InputNumControl::modeChanged, this, slot_mode_changed);
-    connect(m_input_num_control.get(),&InputNumControl::valueModeChanged, this, slot_value_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::ModeChanged, this, slot_mode_changed);
+    connect(m_input_num_control.get(),&InputNumControl::ValueModeChanged, this, slot_value_mode_changed);
     connect(m_input_num_control.get(),&InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked);
     connect(m_input_num_control.get(),&InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed);
     connect(m_input_num_control.get(),&InputNumControl::ReturnClicked, this, slot_return_clicked);
 
-    connect(m_input_num_control_horizon.get(),&InputNumControl::modeChanged, this, slot_mode_changed);
-    connect(m_input_num_control_horizon.get(),&InputNumControl::valueModeChanged, this, slot_value_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::ModeChanged, this, slot_mode_changed);
+    connect(m_input_num_control_horizon.get(),&InputNumControl::ValueModeChanged, this, slot_value_mode_changed);
     connect(m_input_num_control_horizon.get(),&InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked);
     connect(m_input_num_control_horizon.get(),&InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed);
     connect(m_input_num_control_horizon.get(),&InputNumControl::ReturnClicked, this, slot_return_clicked);

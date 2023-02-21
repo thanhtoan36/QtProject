@@ -10,10 +10,10 @@ public:
 
 protected slots:
     void onPanelSwitchButtonClicked();
-    virtual void onTypeChanged();
+    virtual void OnTypeChanged();
 
 protected:
-    virtual int groupButtonsPerPage() const;
+    virtual int GroupButtonsPerPage() const;
 
 private:
     SelectButton m_button_switch_panel_picker;

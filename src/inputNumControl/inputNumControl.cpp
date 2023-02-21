@@ -84,36 +84,36 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     }
     placeChildrenIntoPanel(m_input_num_buttons, IC_BUTTON_SIZE, IC_BUTTON_TOPLEFT, QSize(4, 4));
 
-    connect(this, &InputNumControl::modeChanged, this, &InputNumControl::onModeChanged);
-    connect(this, &InputNumControl::valueModeChanged, this, &InputNumControl::onValueModeChanged);
-    connect(this, &InputNumControl::typeChanged, this, &InputNumControl::onTypeChanged);
+    connect(this, &InputNumControl::ModeChanged, this, &InputNumControl::OnModeChanged);
+    connect(this, &InputNumControl::ValueModeChanged, this, &InputNumControl::OnValueModeChanged);
+    connect(this, &InputNumControl::TypeChanged, this, &InputNumControl::OnTypeChanged);
 
     connect(&m_button_previous_tab, &QPushButton::clicked, this, [&](){
-        setCurrentGroupButtonsPage(currentGroupButtonsPage() - 1);
+        SetCurrentGroupButtonsPage(CurrentGroupButtonsPage() - 1);
     });
     connect(&m_button_next_tab, &QPushButton::clicked, this, [&](){
-        setCurrentGroupButtonsPage(currentGroupButtonsPage() + 1);
+        SetCurrentGroupButtonsPage(CurrentGroupButtonsPage() + 1);
     });
-    connect(this, &InputNumControl::currentGroupButtonsPageChanged, this, &InputNumControl::setupGroupButtonPages);
+    connect(this, &InputNumControl::CurrentGroupButtonsPageChanged, this, &InputNumControl::SetupGroupButtonPages);
     connect(&m_button_mode_255, &QPushButton::clicked, this, [&](){
-        setMode(INPUT_NUM_MODE_255);
+        SetMode(INPUT_NUM_MODE_255);
     });
     connect(&m_button_mode_percent, &QPushButton::clicked, this, [&](){
-        setMode(INPUT_NUM_MODE_PERCENT);
+        SetMode(INPUT_NUM_MODE_PERCENT);
     });
     connect(&m_button_mode_angle, &QPushButton::clicked, this, [&](){
-        setMode(INPUT_NUM_MODE_ANGLE);
+        SetMode(INPUT_NUM_MODE_ANGLE);
     });
     connect(&m_button_relative, &QPushButton::clicked, this, [&](){
-        setValueMode(INPUT_NUM_MODE_RELATIVE);
+        SetValueMode(INPUT_NUM_MODE_RELATIVE);
     });
     connect(&m_button_absolute, &QPushButton::clicked, this, [&](){
-        setValueMode(INPUT_NUM_MODE_ABSOLUTE);
+        SetValueMode(INPUT_NUM_MODE_ABSOLUTE);
     });
     connect(&m_return_button, &QPushButton::clicked, this, &InputNumControl::ReturnClicked);
 
-    onModeChanged();
-    onValueModeChanged();
+    OnModeChanged();
+    OnValueModeChanged();
 }
 
 void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
@@ -143,7 +143,7 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
 
             button->setVisible(false);
             button->setCheckMarkVisible(true);
-            connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
+            connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::OnGroupButtonClicked);
             m_group_buttons.push_back(button);
         }
     }
@@ -162,72 +162,72 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
             }
             button->setVisible(false);
             button->setCheckMarkVisible(true);
-            connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::onGroupButtonClicked);
+            connect(button.get(),&QAbstractButton::clicked, this, &InputNumControl::OnGroupButtonClicked);
             m_group_buttons.push_back(button);
         }
     }
 
 
     placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(MODE_COLUMN, 1) );
-    setType(param->type);
-    setMode(param->mode);
+    SetType(param->type);
+    SetMode(param->mode);
 
-    setCurrentGroupButtonsPage(0);
-    setupGroupButtonPages();
-    onTypeChanged();
+    SetCurrentGroupButtonsPage(0);
+    SetupGroupButtonPages();
+    OnTypeChanged();
 
-    m_button_next_tab.setVisible(maxGroupButtonPages() > 1);
-    m_button_previous_tab.setVisible(maxGroupButtonPages() > 1);
+    m_button_next_tab.setVisible(MaxGroupButtonPages() > 1);
+    m_button_previous_tab.setVisible(MaxGroupButtonPages() > 1);
     SetCurrentModeButton(current_mode);
 }
 
-void InputNumControl::onModeChanged()
+void InputNumControl::OnModeChanged()
 {
-    m_button_mode_percent.setChecked(mode() == INPUT_NUM_MODE_PERCENT);
-    m_button_mode_255.setChecked(mode() == INPUT_NUM_MODE_255);
-    m_button_mode_angle.setChecked(mode() == INPUT_NUM_MODE_ANGLE);
+    m_button_mode_percent.setChecked(Mode() == INPUT_NUM_MODE_PERCENT);
+    m_button_mode_255.setChecked(Mode() == INPUT_NUM_MODE_255);
+    m_button_mode_angle.setChecked(Mode() == INPUT_NUM_MODE_ANGLE);
 }
 
-void InputNumControl::onValueModeChanged()
+void InputNumControl::OnValueModeChanged()
 {
-    m_button_relative.setChecked(valueMode() == INPUT_NUM_MODE_RELATIVE);
-    m_button_absolute.setChecked(valueMode() == INPUT_NUM_MODE_ABSOLUTE);
+    m_button_relative.setChecked(ValueMode() == INPUT_NUM_MODE_RELATIVE);
+    m_button_absolute.setChecked(ValueMode() == INPUT_NUM_MODE_ABSOLUTE);
 }
 
-void InputNumControl::onTypeChanged()
+void InputNumControl::OnTypeChanged()
 {
-    m_button_relative.setVisible(type() == INPUT_NUM_TYPE_POSITION);
-    m_button_absolute.setVisible(type() == INPUT_NUM_TYPE_POSITION);
-    placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(groupButtonsPerPage(), 1) );
+    m_button_relative.setVisible(Type() == INPUT_NUM_TYPE_POSITION);
+    m_button_absolute.setVisible(Type() == INPUT_NUM_TYPE_POSITION);
+    placeChildrenIntoPanel(m_group_buttons, IC_MODE_SIZE, IC_MODE_PLACEMENT_START, QSize(GroupButtonsPerPage(), 1) );
 }
 
-InputNumMode InputNumControl::mode() const
+InputNumMode InputNumControl::Mode() const
 {
     return m_mode;
 }
 
-void InputNumControl::setMode(InputNumMode newMode)
+void InputNumControl::SetMode(InputNumMode newMode)
 {
     if (m_mode == newMode)
         return;
     m_mode = newMode;
-    emit modeChanged();
+    emit ModeChanged();
 }
 
-InputNumType InputNumControl::type() const
+InputNumType InputNumControl::Type() const
 {
     return m_type;
 }
 
-void InputNumControl::setType(InputNumType newType)
+void InputNumControl::SetType(InputNumType newType)
 {
     if (m_type == newType)
         return;
     m_type = newType;
-    emit typeChanged();
+    emit TypeChanged();
 }
 
-void InputNumControl::onGroupButtonClicked()
+void InputNumControl::OnGroupButtonClicked()
 {
     for (const auto &button: qAsConst(m_group_buttons))
     {
@@ -236,62 +236,62 @@ void InputNumControl::onGroupButtonClicked()
     SetCurrentModeButton(((SelectButton*)sender())->text());
 }
 
-InputNumValueMode InputNumControl::valueMode() const
+InputNumValueMode InputNumControl::ValueMode() const
 {
     return m_valueMode;
 }
 
-void InputNumControl::setValueMode(const InputNumValueMode &newValueMode)
+void InputNumControl::SetValueMode(const InputNumValueMode &mode)
 {
-    if (m_valueMode == newValueMode)
+    if (m_valueMode == mode)
         return;
-    m_valueMode = newValueMode;
-    emit valueModeChanged();
+    m_valueMode = mode;
+    emit ValueModeChanged();
 }
 
-void InputNumControl::setupGroupButtonPages()
+void InputNumControl::SetupGroupButtonPages()
 {
-    m_button_previous_tab.setEnabled(currentGroupButtonsPage() > 0);
-    m_button_next_tab.setEnabled(currentGroupButtonsPage() < maxGroupButtonPages() - 1);
+    m_button_previous_tab.setEnabled(CurrentGroupButtonsPage() > 0);
+    m_button_next_tab.setEnabled(CurrentGroupButtonsPage() < MaxGroupButtonPages() - 1);
 
-    UpdateChildrenVisibility(m_group_buttons, currentGroupButtonsPage(), groupButtonsPerPage());
+    UpdateChildrenVisibility(m_group_buttons, CurrentGroupButtonsPage(), GroupButtonsPerPage());
 }
 
-int InputNumControl::currentGroupButtonsPage() const
+int InputNumControl::CurrentGroupButtonsPage() const
 {
-    return m_currentGroupButtonsPage;
+    return m_current_group_buttons_page;
 }
 
-void InputNumControl::setCurrentGroupButtonsPage(int newCurrentGroupButtonsPage)
+void InputNumControl::SetCurrentGroupButtonsPage(int page)
 {
-    newCurrentGroupButtonsPage = qBound(newCurrentGroupButtonsPage, 0, maxGroupButtonPages() - 1);
-    if (m_currentGroupButtonsPage == newCurrentGroupButtonsPage)
+    page = qBound(page, 0, MaxGroupButtonPages() - 1);
+    if (m_current_group_buttons_page == page)
         return;
-    m_currentGroupButtonsPage = newCurrentGroupButtonsPage;
-    emit currentGroupButtonsPageChanged();
+    m_current_group_buttons_page = page;
+    emit CurrentGroupButtonsPageChanged();
 }
 
-int InputNumControl::maxGroupButtonPages() const
+int InputNumControl::MaxGroupButtonPages() const
 {
-    return calulateNumberOfPages(m_group_buttons.length(), groupButtonsPerPage());
+    return calulateNumberOfPages(m_group_buttons.length(), GroupButtonsPerPage());
 }
 
-int InputNumControl::groupButtonsPerPage() const
+int InputNumControl::GroupButtonsPerPage() const
 {
-    if (type() == INPUT_NUM_TYPE_POSITION)
+    if (Type() == INPUT_NUM_TYPE_POSITION)
         return 3;
     return 4;
 }
 
 const QString &InputNumControl::CurrentModeButton() const
 {
-    return m_currentModeButton;
+    return m_current_mode_button;
 }
 
-void InputNumControl::SetCurrentModeButton(const QString &newCurrentModeButton)
+void InputNumControl::SetCurrentModeButton(const QString &mode)
 {
-    if (m_currentModeButton == newCurrentModeButton)
+    if (m_current_mode_button == mode)
         return;
-    m_currentModeButton = newCurrentModeButton;
+    m_current_mode_button = mode;
     emit CurrentModeButtonChanged();
 }
