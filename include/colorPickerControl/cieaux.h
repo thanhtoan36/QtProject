@@ -16,7 +16,7 @@ typedef struct{
     float r;
     float g;
     float b;
-}rgb_t;
+} rgb_t;
 
 // point
 class CPointF
@@ -26,48 +26,48 @@ public:
     CPointF() : CPointF(0, 0, 0, 0, 0){};
     CPointF(float x, float y) : CPointF(x, y, 0, 0, 0){};
     CPointF(float x, float y, float r, float g, float b) : CPointF(x, y, {r, g, b}){};
-    CPointF(float x, float y, rgb_t c) : _x(x), _y(y), _c(c){};
+    CPointF(float x, float y, rgb_t c) : m_x(x), m_y(y), m_c(c){};
 
-    float X() const{return _x;};
-    float Y() const{return _y;};
-    rgb_t C() const{return _c;};
+    float X() const{return m_x;};
+    float Y() const{return m_y;};
+    rgb_t C() const{return m_c;};
 
-    void setColor(rgb_t c){_c=c;};
-    void setX(float x){_x=x;};
-    void setY(float y){_y=y;};
+    void SetColor(rgb_t c) { m_c = c; };
+    void SetX(float x) { m_x = x; };
+    void SetY(float y) { m_y = y; };
 
-    static CPointF getInterpPoint(const CPointF &p1, const CPointF &p2, double pos);
-    void setInterpColor(const CPointF &p1, const CPointF &p2);
-    double getPointDist(const CPointF &) const;
+    static CPointF GetInterpPoint(const CPointF &p1, const CPointF &p2, double pos);
+    void SetInterpColor(const CPointF &p1, const CPointF &p2);
+    double GetPointDist(const CPointF &) const;
 
 private:
-    float _x, _y;
-    rgb_t _c;
+    float m_x, m_y;
+    rgb_t m_c;
 };
 
 // line
 class CLineF
 {
 public:
-    CLineF():_k(0.0), _b(0.0){};
+    CLineF() : m_k(0.0), m_b(0.0){};
     CLineF(const CPointF &p1, const CPointF &p2);
 
-    double k() const    {return _k;};
-    double b() const    {return _b;};
-    CPointF SP() const  {return startPoint;};
-    CPointF EP() const  {return endPoint;};
-    double Y(double x) const {return _k*x+_b;};
+    double K() const { return m_k; };
+    double B() const { return m_b; };
+    CPointF SP() const { return m_start_point; };
+    CPointF EP() const { return m_end_point; };
+    double Y(double x) const { return m_k * x + m_b; };
     CPointF P(double pos) const;
 
-    rgb_t  getInterColor(const CPointF &p) const;
-    rgb_t  getInterColor(double p) const;
-    CPointF getCrossPoint(const CLineF &l);
-    static void addSegment(const CLineF &l, std::vector<CPointF> &points, const CLineF &colorLine, int n);
+    rgb_t GetInterColor(const CPointF &p) const;
+    rgb_t GetInterColor(double p) const;
+    CPointF GetCrossPoint(const CLineF &l);
+    static void AddSegment(const CLineF &l, std::vector<CPointF> &points, const CLineF &colorLine, int n);
 
-private:
-    CPointF startPoint;
-    CPointF endPoint;
-    float _k, _b;
+  private:
+    CPointF m_start_point;
+    CPointF m_end_point;
+    float m_k, m_b;
 };
 
 

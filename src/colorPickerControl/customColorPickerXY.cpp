@@ -57,7 +57,7 @@ QColor CustomColorPickerXY::Color() const
 
 QColor CustomColorPickerXY::GetColor(QPointF xy) const
 {
-    return m_cie_maker.getColor(xy);
+    return m_cie_maker.GetColor(xy);
 }
 
 void CustomColorPickerXY::paintEvent(QPaintEvent *)
@@ -93,7 +93,7 @@ void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
     if(m_plot_area.contains(event->pos())){
         QPointF p = MapToValue(event->pos());
         CPointF curP(p.x(),p.y());
-        if(m_cie_maker.isPointInsideBound(curP)){
+        if(m_cie_maker.IsPointInsideBound(curP)){
             SetXy(p);
             emit Picked();
         }
@@ -129,14 +129,14 @@ void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, 
 
 QPointF CustomColorPickerXY::FindNearestXy(QPointF target)
 {
-    if (m_cie_maker.isPointInsideBound(CPointF(target.x(), target.y())))
+    if (m_cie_maker.IsPointInsideBound(CPointF(target.x(), target.y())))
         return target;
 
     // find nearest valid point from white center pont
     QPointF nearest = m_white_xy;
     auto diff = target - nearest;
 
-    for (auto i = nearest; m_cie_maker.isPointInsideBound(CPointF(i.x(), i.y())); i += diff * 0.001) {
+    for (auto i = nearest; m_cie_maker.IsPointInsideBound(CPointF(i.x(), i.y())); i += diff * 0.001) {
         nearest = i;
     }
 

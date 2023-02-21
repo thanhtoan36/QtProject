@@ -6,44 +6,40 @@
 #include <QPointF>
 #include <QImage>
 
-// cie painter
-using uint8_t = unsigned char;
-
-std::vector<CPointF>&  getCieCurve();
+std::vector<CPointF>&  GetCieCurve();
 
 class CIEMaker
 {
 private:
-    enum pointFlag{blue, cyan, green, yellow, red, bottom, left, top, right};
-    enum areaFlag{leftA, rightA, bottomA};
+    enum PointFlag { BLUE, CYAN, GREEN, YELLOW, RED, BOTTOM, LEFT, TOP, RIGHT };
+    enum AreaFlag { LEFT_A, RIGHT_A, BOTTOM_A };
 public:
-    CIEMaker(int interpNum=20, double brightness=1.0);
+    CIEMaker(int interpNum = 20, double brightness = 1.0);
 
-    QImage drawCIEDiagram(int picSize = 500);
-    std::vector<CPointF> getCieCurvePoints() const{return m_cieCurvePoints;};
-    bool isPointInsideBound(const CPointF &p) const;
-    QColor getColor(QPointF xy) const;
-
-private:
-    void initData();
-
-    areaFlag crossArea(const CPointF &p) const;
-    CPointF getCrossPoint(const CLineF &l, int start, int end) const;
-
-    bool _isPointInsideBound(const CPointF &p, int start, int end) const;
+    QImage DrawCIEDiagram(int picSize = 500);
+    std::vector<CPointF> GetCieCurvePoints() const { return m_cie_curve_points; };
+    bool IsPointInsideBound(const CPointF &p) const;
+    QColor GetColor(QPointF xy) const;
 
 private:
-    int m_interpNum;
+    void InitData();
+
+    AreaFlag CrossArea(const CPointF &p) const;
+    CPointF GetCrossPoint(const CLineF &l, int start, int end) const;
+
+    bool IsPointInsideBound(const CPointF &p, int start, int end) const;
+
+private:
+    int m_interp_num;
     double m_brightness;
 
-    std::vector<CPointF> m_cieCurvePoints;
-    CPointF m_whitePt{0.3333,0.3333};
+    std::vector<CPointF> m_cie_curve_points;
+    CPointF m_white_point{0.3333,0.3333};
 
-    int m_colorPointIdx[9]{0};
-    CPointF m_colorPoints[9]{};
-    CLineF m_colorLines[5]{};
-
-    CLineF m_whiteLines[3]{};
+    int m_color_point_idx[9]{0};
+    CPointF m_color_points[9]{};
+    CLineF m_color_lines[5]{};
+    CLineF m_white_lines[3]{};
 };
 
 #endif // CIEMAKER_H
