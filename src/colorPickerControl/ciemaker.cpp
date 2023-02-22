@@ -112,16 +112,22 @@ QColor CIEMaker::GetColor( QPointF xy ) const
         switch( areaflag )
         {
             case LEFT_A:
+            {
                 cross_point = GetCrossPoint( white_p, m_color_point_idx[BOTTOM], m_color_point_idx[TOP] );
                 break;
+            }
 
             case RIGHT_A:
+            {
                 cross_point = GetCrossPoint( white_p, m_color_point_idx[TOP], m_color_point_idx[RIGHT] );
                 break;
+            }
 
             default:
+            {
                 cross_point = GetCrossPoint( white_p, m_color_point_idx[RIGHT], m_cie_curve_points.size() );
                 break;
+            }
         }
 
         CLineF white_to_bound_line( m_white_point, cross_point );

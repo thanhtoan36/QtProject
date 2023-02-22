@@ -15,7 +15,7 @@ IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
     m_label_title.setObjectName( "title_label_with_border" );
     m_return_button.setGeometry( ISC_RETURN_GOEMETRY_HORIZON );
 
-    QStringList intensityModel =
+    QStringList intensity_model =
     {
         "FF", "+10", "+5", "+1",
         "00", "-10", "-5", "-1",
@@ -26,7 +26,7 @@ IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
 
     m_intensity_buttons.clear();
 
-    for( const QString &b : intensityModel )
+    for( const QString &b : intensity_model )
     {
         auto button = MakeSharedQObject<CustomPushButton>( this );
         button->setFixedSize( ISC_INTENSITY_BUTTON_SIZE_HORIZON );

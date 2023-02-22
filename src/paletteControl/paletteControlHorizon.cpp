@@ -47,25 +47,33 @@ void PaletteControlHorizon::OnTypeChanged()
     switch( Type() )
     {
         case PALETTE_TYPE_GOBO:
+        {
             m_title_label.setText( "ゴボ" );
             m_mode_button_grid_size = QSize( 1, 3 );
             m_palette_button_grid_size = QSize( 4, 4 );
             break;
+        }
 
         case PALETTE_BEAM_SHUTTER:
+        {
             m_title_label.setText( "モード" );
             m_mode_button_grid_size = QSize( 1, 3 );
             m_palette_button_grid_size = QSize( 4, 4 );
             break;
+        }
 
         case PALETTE_TYPE_CONTROL:
+        {
             m_title_label.setText( "モード" );
             m_mode_button_grid_size = QSize( 0, 3 );
             m_palette_button_grid_size = QSize( 4, 4 );
             break;
+        }
 
         default:
+        {
             break;
+        }
     }
 
     UpdateModePages();
