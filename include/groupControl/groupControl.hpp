@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControl.h
+// [ 概      要 ] : GroupControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef GROUPLIBCONTROL_H
 #define GROUPLIBCONTROL_H
 #include "baseComponent/panelControlBase.h"

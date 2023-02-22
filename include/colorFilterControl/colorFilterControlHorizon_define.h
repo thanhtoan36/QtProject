@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorFilterControl_define.h
+// [ 概      要 ] : Constant definitions for ColorFilterControl Horizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef COLORFILTERCONTROLHORIZON_DEFINE_H
 #define COLORFILTERCONTROLHORIZON_DEFINE_H
 

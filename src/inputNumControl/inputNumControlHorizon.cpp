@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : inputNumControlHorizon.cpp
+// [ 概      要 ] : InputNumControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "inputNumControl/inputNumControlHorizon.h"
 #include "inputNumControl/inputNumControlHorizon_define.h"
 #include "utility.h"
@@ -70,6 +75,12 @@ InputNumControlHorizon::InputNumControlHorizon(QWidget *parent) :InputNumControl
     connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnPanelSwitchButtonClicked
+//  [ 機　能   ] : Event handler for button click
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControlHorizon::OnPanelSwitchButtonClicked()
 {
     m_button_switch_panel_picker.setChecked(false);
@@ -78,6 +89,12 @@ void InputNumControlHorizon::OnPanelSwitchButtonClicked()
     ((QAbstractButton*)sender())->setChecked(true);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnTypeChanged
+//  [ 機　能   ] : Event handler for type changed
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControlHorizon::OnTypeChanged()
 {
     InputNumControl::OnTypeChanged();

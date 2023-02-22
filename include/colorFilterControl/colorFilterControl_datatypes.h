@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorFilterControl_datatypes.h
+// [ 概      要 ] : Type definitions for ColorFilterControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef COLORFILTERCONTROL_DATATYPES_H
 #define COLORFILTERCONTROL_DATATYPES_H
 

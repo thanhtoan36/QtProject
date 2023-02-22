@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : libraryControl_define.h
+// [ 概      要 ] : Constant definitions for LibraryControl Horizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef LIBRARYCONTROLHORIZON_DEFINE_H
 #define LIBRARYCONTROLHORIZON_DEFINE_H
 

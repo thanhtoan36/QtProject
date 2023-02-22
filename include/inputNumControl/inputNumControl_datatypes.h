@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : inputNumControl_datatypes.h
+// [ 概      要 ] : Type definitions for InputNumControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef INPUTNUMCONTROL_DATATYPES_H
 #define INPUTNUMCONTROL_DATATYPES_H
 

@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : libraryControl.h
+// [ 概      要 ] : LibraryControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef LIBRARYCONTROL_HPP
 #define LIBRARYCONTROL_HPP
 

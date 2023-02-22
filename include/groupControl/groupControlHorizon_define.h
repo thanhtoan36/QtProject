@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControl_define.h
+// [ 概      要 ] : Constant definitions for GroupControl Horizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef GROUPCONTROLHORIZON_DEFINE_H
 #define GROUPCONTROLHORIZON_DEFINE_H
 

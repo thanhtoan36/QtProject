@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControl_define.h
+// [ 概      要 ] : Constant definitions for GroupControl Vericcal
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef GROUPLIBCONTROL_DEFINE_H
 #define GROUPLIBCONTROL_DEFINE_H
 

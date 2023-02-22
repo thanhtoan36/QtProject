@@ -1,5 +1,10 @@
-﻿#include "colorPickerControl/cieaux.h"
+﻿//--------------------------------------------------------------------------
+// [ ファイル名 ] : cieaux.cpp
+// [ 概      要 ] : CIE data type
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 
+#include "colorPickerControl/cieaux.h"
 #include <cmath>
 // ***************************** CPointF *****************************
 

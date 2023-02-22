@@ -1,4 +1,9 @@
-﻿#ifndef CIEAUX_H
+﻿//--------------------------------------------------------------------------
+// [ ファイル名 ] : cieaux.h
+// [ 概      要 ] : CIE data type
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+#ifndef CIEAUX_H
 #define CIEAUX_H
 
 #include <vector>

@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : inputNumControl.h
+// [ 概      要 ] : InputNumControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef INPUTNUMCONTROL_H
 #define INPUTNUMCONTROL_H
 

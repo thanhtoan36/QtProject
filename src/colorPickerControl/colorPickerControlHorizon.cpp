@@ -80,8 +80,8 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnPanelSwitchButtonClicked
 //  [ 機能名   ] : Event button clicked
-//  [ 引数	  ] : None
-//  [ 戻り値    ] : None
+//  [ 引数	  ] : void
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControlHorizon::OnPanelSwitchButtonClicked()
 {
