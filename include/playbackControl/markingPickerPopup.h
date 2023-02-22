@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : markingPickerPopup.h
+// [ 概      要 ] : A popup control to present the markings for users to select
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef MARKINGPICKERPOPUP_H
 #define MARKINGPICKERPOPUP_H
 
@@ -20,8 +26,8 @@ public slots:
 private:
     struct Marking
     {
-        QString marking;
-        QColor color;
+        QString marking;  // The marking
+        QColor color;     // The marking color
     };
     QVector<QSharedPointer<CustomPushButton>> m_marking_buttons;
 };

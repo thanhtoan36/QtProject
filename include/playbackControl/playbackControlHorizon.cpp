@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : playbackControlHorizon.cpp
+// [ 概      要 ] : PlaybackControlHorizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "playbackControl/playbackControlHorizon.h"
 #include "playbackControl/playbackControl_define.hpp"
 #include "utility.h"
@@ -23,7 +29,6 @@ PlaybackControlHorizon::PlaybackControlHorizon(QWidget *parent)
 
         m_headers.append(label);
 
-        // Move to the right
         cell.moveLeft(cell.left() + cell.width());
     }
 

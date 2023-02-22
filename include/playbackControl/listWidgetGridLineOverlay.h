@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : listWidgetGridLineOverlay.h
+// [ 概      要 ] : Draw grid lines on the PlaybackControl's table
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef LISTWIDGETGRIDLINEOVERLAY_H
 #define LISTWIDGETGRIDLINEOVERLAY_H
 

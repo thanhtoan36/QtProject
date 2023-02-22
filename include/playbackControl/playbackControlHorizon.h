@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : playbackControlHorizon.h
+// [ 概      要 ] : PlaybackControlHorizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PLAYBACKCONTROLHORIZON_H
 #define PLAYBACKCONTROLHORIZON_H
 

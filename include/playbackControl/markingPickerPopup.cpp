@@ -1,11 +1,16 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : markingPickerPopup.cpp
+// [ 概      要 ] : A popup control to present the markings for users to select
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "markingPickerPopup.h"
 #include "utility.h"
+#include "baseComponent/designPolicyDefine.h"
 
 #include <QDebug>
 
 #include <baseComponent/panelControlBase.h>
-
-#define SCREEN_BACKGROUND_COLOR qRgb(34, 43, 53)  // background color of panels
 
 #define PLC_PICKER_CELL_SIZE QSize(78, 48)
 #define PLC_PICKER_GRID_SIZE QSize(2, 5)
@@ -33,7 +38,6 @@ MarkingPickerPopup::MarkingPickerPopup(QWidget *parent)
     for (const auto &m : markings) {
         const auto button = MakeSharedQObject<CustomPushButton>(this);
         button->setVisible(true);
-        // button->setTextPixelSize(24);
         button->setText(m.marking);
         button->SetTextColor(m.color);
         button->setFixedSize(PLC_PICKER_CELL_SIZE);
@@ -45,6 +49,12 @@ MarkingPickerPopup::MarkingPickerPopup(QWidget *parent)
     PanelControlBase::PlaceChildrenIntoPanel(m_marking_buttons, PLC_PICKER_CELL_SIZE, QPoint(0, 0), QSize(2, 5));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnMarkingClicked
+//  [ 機　能 ] : Occurs when user click on a marking button
+//  [ 引　数 ] : None
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void MarkingPickerPopup::OnMarkingClicked()
 {
     auto button = (CustomPushButton*) sender();

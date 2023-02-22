@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : playbackRowDelegate.cpp
+// [ 概      要 ] : Represent a delegate for QListWidget to paint the rows
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "playbackRowDelegate.h"
 #include <QPainter>
 #include <QDebug>
@@ -73,6 +79,12 @@ QSize PlaybackRowDelegate::sizeHint(const QStyleOptionViewItem &option, const QM
     return QSize(0, 36);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetColumnsWidth
+//  [ 機　能 ] : Set the widths for each columns
+//  [ 引　数 ] : const QVector<int> &value : the list of width values
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PlaybackRowDelegate::SetColumnsWidth(const QVector<int> &value)
 {
     m_columns_width = value;

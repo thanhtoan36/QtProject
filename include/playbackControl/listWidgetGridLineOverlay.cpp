@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : listWidgetGridLineOverlay.cpp
+// [ 概      要 ] : Draw grid lines on the PlaybackControl's table
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "playbackControl/listWidgetGridLineOverlay.h"
 #include <QPainter>
 
@@ -8,6 +14,12 @@ ListWidgetGridLineOverlay::ListWidgetGridLineOverlay(QWidget *parent)
     setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetColumnsWidth
+//  [ 機　能 ] : Set the width for the columns
+//  [ 引　数 ] : const QVector<int> &value : The width values
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ListWidgetGridLineOverlay::SetColumnsWidth(const QVector<int> &value)
 {
     m_columns_width = value;

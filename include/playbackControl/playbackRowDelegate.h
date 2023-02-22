@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : playbackRowDelegate.h
+// [ 概      要 ] : Represent a delegate for QListWidget to paint the rows
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PLAYBACKROWDELEGATE_H
 #define PLAYBACKROWDELEGATE_H
 

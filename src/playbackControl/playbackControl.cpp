@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : playbackControl.cpp
+// [ 概      要 ] : PlaybackControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "playbackControl/playbackControl.hpp"
 #include "playbackControl/playbackControl_define.hpp"
 #include "utility.h"
@@ -77,6 +83,12 @@ PlaybackControl::PlaybackControl(QWidget *parent)
     m_double_click_stablize_timer.setInterval(200);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetDispParamData
+//  [ 機　能 ] : Set the display parameters data for the control
+//  [ 引　数 ] : PLAYBACK_DISP_PARAM *param : the parameters
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -102,6 +114,13 @@ void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnMarkingSelected
+//  [ 機　能 ] : Occurs when user selected a marking on the popup
+//  [ 引　数 ] : const QString &marking : The marking
+//              const QColor &color : The color of the marking
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PlaybackControl::OnMarkingSelected(const QString &marking, const QColor &color)
 {
     if (!m_clicked_item)
@@ -111,6 +130,12 @@ void PlaybackControl::OnMarkingSelected(const QString &marking, const QColor &co
     m_marking_picker_popup.hide();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnItemClicked
+//  [ 機　能 ] : Occurs when user clicked on a row
+//  [ 引　数 ] : QListWidgetItem *item : The item which has been clicked on
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PlaybackControl::OnItemClicked(QListWidgetItem *item)
 {
     Q_ASSERT(item);
@@ -118,6 +143,12 @@ void PlaybackControl::OnItemClicked(QListWidgetItem *item)
     item->setData(PlaybackRowDelegate::Roles::MarkingColorRole, QColor(Qt::lightGray));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnItemDoubleClicked
+//  [ 機　能 ] : Occurs when user double-clicked on a row
+//  [ 引　数 ] : QListWidgetItem *item : The item which has been clicked on
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PlaybackControl::OnItemDoubleClicked(QListWidgetItem *item)
 {
     Q_ASSERT(item);
@@ -126,6 +157,12 @@ void PlaybackControl::OnItemDoubleClicked(QListWidgetItem *item)
     m_marking_picker_popup.show();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : IsMouseInsideMarkingColumn
+//  [ 機　能 ] : Check if the mouse is inside the marking column
+//  [ 引　数 ] :
+//  [ 戻り値 ] : bool : true if the mouse is inside the marking column
+//--------------------------------------------------------------------------
 bool PlaybackControl::IsMouseInsideMarkingColumn() const
 {
     int colSize = m_column_width[0];
