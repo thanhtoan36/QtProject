@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------
-// [ ファイル名 ] : inputNumControl.h
+// [ ファイル名 ] : inputNumControl.cpp
 // [ 概      要 ] : InputNumControl vertical widget
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
