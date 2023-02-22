@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : libraryControl.cpp
+// [ 概      要 ] : LibraryControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "libraryControl/libraryControl.hpp"
 #include "libraryControl/libraryControl_define.h"
 #include "utility.h"
@@ -110,6 +115,12 @@ LibraryControl::LibraryControl(QWidget *parent) : PanelControlBase(parent),
     connect(&m_return_button, &QPushButton::clicked, this, &LibraryControl::ReturnButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 引　数   ] : LIBRARY_DISP_PARAM *param : the parameters
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -223,6 +234,12 @@ void LibraryControl::SetDispParamData(LIBRARY_DISP_PARAM *param)
     UpdateHistoryTab();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : AddButtonToHistory
+//  [ 機　能   ] : Add button to history page
+//  [ 引　数   ] : const LibraryControl::LibraryButton &button: button need to add
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::AddButtonToHistory(const LibraryControl::LibraryButton &button)
 {
     const auto mode = button.mode;
@@ -258,6 +275,12 @@ void LibraryControl::AddButtonToHistory(const LibraryControl::LibraryButton &but
     UpdateHistoryTab();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnButtonTitleClicked
+//  [ 機　能   ] : Event handler for title button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnButtonTitleClicked()
 {
     m_register_button.setChecked(false);
@@ -265,6 +288,12 @@ void LibraryControl::OnButtonTitleClicked()
     SetCurrentFooterButton("title");
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnButtonRegisterClicked
+//  [ 機　能   ] : Event handler for register button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnButtonRegisterClicked()
 {
     m_title_button.setChecked(false);
@@ -272,6 +301,12 @@ void LibraryControl::OnButtonRegisterClicked()
     SetCurrentFooterButton("register");
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnButtonRegisterClicked
+//  [ 機　能   ] : Event handler for delete button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnButtonDeleteClicked()
 {
     m_register_button.setChecked(false);
@@ -279,6 +314,12 @@ void LibraryControl::OnButtonDeleteClicked()
     SetCurrentFooterButton("delete");
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnGroupModeButtonClicked
+//  [ 機　能   ] : Event handler for group mode button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnGroupModeButtonClicked()
 {
     const auto modeButton = ((SelectButton*)sender());
@@ -299,6 +340,12 @@ void LibraryControl::OnGroupModeButtonClicked()
     UpdateGroupTab();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnHistoryModeButtonClicked
+//  [ 機　能   ] : Event handler for history mode button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnHistoryModeButtonClicked()
 {
     const auto modeButton = ((SelectButton*)sender());
@@ -319,6 +366,12 @@ void LibraryControl::OnHistoryModeButtonClicked()
     UpdateHistoryTab();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnGroupLibButtonClicked
+//  [ 機　能   ] : Event handler for group library button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnGroupLibButtonClicked()
 {
     const auto lib_button = ((TitleSelectButton*)sender());
@@ -333,6 +386,12 @@ void LibraryControl::OnGroupLibButtonClicked()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnHistoryLibButtonClicked
+//  [ 機　能   ] : Event handler for group history button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::OnHistoryLibButtonClicked()
 {
     const auto lib_button = ((TitleSelectButton*)sender());
@@ -373,16 +432,35 @@ int LibraryControl::LibraryButtonsPerPage() const
     return m_lib_buttons_grid_size.width() * m_lib_buttons_grid_size.height();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : RefilterGroupButtonsByMode
+//  [ 機　能   ] : Filter group button by mode
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::RefilterGroupButtonsByMode()
 {
     m_current_group_lib_buttons = WidgetList(Filter(m_group_lib_buttons, SelectedGroupMode()));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : RefilterHistoryButtonsByMode
+//  [ 機　能   ] : Filter group history button by mode
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::RefilterHistoryButtonsByMode()
 {
     m_current_history_lib_buttons = WidgetList(Filter(m_history_lib_buttons, SelectedHistoryMode()));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Filter
+//  [ 機　能   ] : Get button list by mode
+//  [ 引　数   ] : const QVector<LibraryControl::LibraryButton> &buttons: all buttons
+//               const QString &mode: button mode
+//  [ 戻り値    ] : QVector<LibraryControl::LibraryButton>: button list of mode
+//--------------------------------------------------------------------------
 QVector<LibraryControl::LibraryButton> LibraryControl::Filter(const QVector<LibraryControl::LibraryButton> &buttons, const QString &mode)
 {
     if (mode.isEmpty())
@@ -394,6 +472,12 @@ QVector<LibraryControl::LibraryButton> LibraryControl::Filter(const QVector<Libr
     return result;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : WidgetList
+//  [ 機　能   ] : Get button widget list
+//  [ 引　数   ] : const QVector<LibraryButton> &buttons: all buttons
+//  [ 戻り値    ] : QVector<QSharedPointer<TitleSelectButton> >: widget button list
+//--------------------------------------------------------------------------
 QVector<QSharedPointer<TitleSelectButton> > LibraryControl::WidgetList(const QVector<LibraryButton> &buttons)
 {
     QVector<QSharedPointer<TitleSelectButton>> result;
@@ -403,6 +487,12 @@ QVector<QSharedPointer<TitleSelectButton> > LibraryControl::WidgetList(const QVe
     return result;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : UpdateGroupTab
+//  [ 機　能   ] : Update geometry visibility of current group buttons
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::UpdateGroupTab()
 {
     for (const auto &b : qAsConst(m_group_mode_buttons))
@@ -426,6 +516,12 @@ void LibraryControl::UpdateGroupTab()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : UpdateHistoryTab
+//  [ 機　能   ] : Update geometry visibility of current history group buttons
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::UpdateHistoryTab()
 {
     for (const auto &b : qAsConst(m_history_mode_buttons))

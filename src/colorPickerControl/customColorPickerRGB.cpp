@@ -42,7 +42,7 @@ hsv_t CustomColorPickerRGB::HSV() const
 //  [ 引数	  ] : const int h : h value
 //                const int s : s value
 //                const int v : v value
-//  [ 戻り値    ] : None
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::SetHSV(const int h, const int s, const int v)
 {
@@ -65,7 +65,7 @@ void CustomColorPickerRGB::SetHSV(const int h, const int s, const int v)
 //  [ 関数名   ] : SetColor
 //  [ 機能名   ] : Set picked color
 //  [ 引数	  ] : const QColor &color : color need to set
-//  [ 戻り値    ] : None
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::SetColor(const QColor &color)
 {
@@ -87,7 +87,7 @@ QColor CustomColorPickerRGB::Color() const
 //  [ 関数名   ] : paintEvent
 //  [ 機能名   ] : overwrite paint event and draw widget
 //  [ 引数	  ] : QPaintEvent *
-//  [ 戻り値    ] : None
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::paintEvent(QPaintEvent *)
 {
@@ -107,7 +107,7 @@ void CustomColorPickerRGB::paintEvent(QPaintEvent *)
 //  [ 関数名   ] : mousePressEvent
 //  [ 機能名   ] : handle press event to pick color
 //  [ 引数	  ] : QMouseEvent *event : press event
-//  [ 戻り値    ] : None
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::mousePressEvent(QMouseEvent *event)
 {

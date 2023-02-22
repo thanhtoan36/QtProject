@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControl_datatypes.h
+// [ 概      要 ] : Type definitions for GroupControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef GROUPCONTROL_DATATYPES_H
 #define GROUPCONTROL_DATATYPES_H
 

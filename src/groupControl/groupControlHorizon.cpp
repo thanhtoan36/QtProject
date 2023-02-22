@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControlHorizon.cpp
+// [ 概      要 ] : GroupControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "groupControl/groupControlHorizon.h"
 #include "groupControl/groupControlHorizon_define.h"
 
@@ -31,6 +36,12 @@ GroupControlHorizon::GroupControlHorizon(QWidget *parent) : GroupControl(parent)
     m_delete_button.setGeometry(GC_HORIZON_DELETE_GEOMETRY);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 引　数   ] : GROUP_DISP_PARAM *param : the parameters
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControlHorizon::SetDispParamData(GROUP_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -39,6 +50,12 @@ void GroupControlHorizon::SetDispParamData(GROUP_DISP_PARAM *param)
     PlaceChildrenIntoPanel(m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : AddButtonToHistory
+//  [ 機　能   ] : Add button to history page
+//  [ 引　数   ] : QSharedPointer<TitleSelectButton> &button: button need to add
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControlHorizon::AddButtonToHistory(QSharedPointer<TitleSelectButton> &button)
 {
     GroupControl::AddButtonToHistory(button);

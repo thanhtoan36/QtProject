@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControlHorizon.h
+// [ 概      要 ] : GroupControlHorizon vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef GROUPCONTROLHORIZON_H
 #define GROUPCONTROLHORIZON_H
 

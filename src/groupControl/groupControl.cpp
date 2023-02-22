@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : groupControl.cpp
+// [ 概      要 ] : GroupControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "groupControl/groupControl.hpp"
 #include "groupControl/groupControl_define.hpp"
 #include "utility.h"
@@ -139,6 +144,12 @@ GroupControl::GroupControl(QWidget *parent) : PanelControlBase(parent),
     connect(&m_back_button, &QAbstractButton::clicked, this, &GroupControl::ReturnButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 引　数   ] : GROUP_DISP_PARAM *param : the parameters
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::SetDispParamData(GROUP_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -223,11 +234,23 @@ void GroupControl::SetCurrentHistoryPage(int page)
     emit CurrentHistoryPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : UpdateGroupPage
+//  [ 機　能   ] : update visibility of group page
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::UpdateGroupPage()
 {
     UpdateChildrenVisibility(m_group_buttons, CurrentGroupPage(), ButtonsPerPage());
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : UpdateHistoryPage
+//  [ 機　能   ] : update visibility of history page
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::UpdateHistoryPage()
 {
     UpdateChildrenVisibility(m_history_buttons, CurrentHistoryPage(), ButtonsPerPage());
@@ -243,6 +266,12 @@ int GroupControl::MaxHistoryPages() const
     return CalulateNumberOfPages(m_history_buttons.length(), ButtonsPerPage());
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : AddButtonToHistory
+//  [ 機　能   ] : Add button to history page
+//  [ 引　数   ] : QSharedPointer<TitleSelectButton> &button: button need to add
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::AddButtonToHistory(QSharedPointer<TitleSelectButton> &button)
 {
     auto new_button = MakeSharedQObject<TitleSelectButton>(this);
@@ -260,6 +289,12 @@ void GroupControl::AddButtonToHistory(QSharedPointer<TitleSelectButton> &button)
     PlaceChildrenIntoPanel(m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnGroupButtonClicked
+//  [ 機　能   ] : Event handler for group button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::OnGroupButtonClicked()
 {
     auto iter = std::find(m_group_buttons.begin(), m_group_buttons.end(), sender());
@@ -275,6 +310,12 @@ void GroupControl::OnGroupButtonClicked()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnHistoryButtonClicked
+//  [ 機　能   ] : Event handler for history button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::OnHistoryButtonClicked()
 {
     auto iter = std::find(m_history_buttons.begin(), m_history_buttons.end(), sender());
@@ -289,6 +330,12 @@ void GroupControl::OnHistoryButtonClicked()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnTitleButonClicked
+//  [ 機　能   ] : Event handler for title button
+//  [ 引　数   ] : const bool check: check status of button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::OnTitleButonClicked(const bool check)
 {
     if (check)
@@ -299,6 +346,12 @@ void GroupControl::OnTitleButonClicked(const bool check)
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnRegisterButonClicked
+//  [ 機　能   ] : Event handler for register button
+//  [ 引　数   ] : const bool check: check status of button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::OnRegisterButonClicked(const bool check)
 {
     if (check)
@@ -309,6 +362,12 @@ void GroupControl::OnRegisterButonClicked(const bool check)
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnDeleteButonClicked
+//  [ 機　能   ] : Event handler for delete button
+//  [ 引　数   ] : const bool check: check status of button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void GroupControl::OnDeleteButonClicked(const bool check)
 {
     if (check)

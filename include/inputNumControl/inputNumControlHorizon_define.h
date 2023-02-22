@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : inputNumControl_define.h
+// [ 概      要 ] : Constant definitions for InputNumControl Horizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef INPUTNUMCONTROLHORIZON_DEFINE_H
 #define INPUTNUMCONTROLHORIZON_DEFINE_H
 

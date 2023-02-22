@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorFilterControlHorizon.cpp
+// [ 概      要 ] : ColorFilterControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "colorFilterControl/colorFilterControlHorizon.h"
 #include "colorFilterControl/colorFilterControlHorizon_define.h"
 
@@ -50,6 +55,12 @@ ColorFilterControlHorizon::ColorFilterControlHorizon(QWidget *parent) : ColorFil
     SetupHeaderTabButtons();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : the parameters
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControlHorizon::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -58,6 +69,13 @@ void ColorFilterControlHorizon::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
     PlaceChildrenIntoPanel(m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
     PlaceChildrenIntoPanel(m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE);
 }
+
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : AddButtonToHistory
+//  [ 機　能 ] : Add button to history list
+//  [ 引　数 ] : QSharedPointer<SelectButton> button: button need to add
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControlHorizon::AddButtonToHistory(QSharedPointer<SelectButton> button)
 {
     ColorFilterControl::AddButtonToHistory(button);

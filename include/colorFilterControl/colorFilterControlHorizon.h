@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorFilterControl.h
+// [ 概      要 ] : ColorFilterControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef COLORFILTERCONTROLHORIZON_H
 #define COLORFILTERCONTROLHORIZON_H
 

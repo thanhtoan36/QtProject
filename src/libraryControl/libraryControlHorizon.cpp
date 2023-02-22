@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : libraryControlHorizon.cpp
+// [ 概      要 ] : LibraryControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "libraryControl/libraryControlHorizon.h"
 #include "libraryControl/libraryControlHorizon_define.h"
 

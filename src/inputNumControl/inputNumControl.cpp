@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : inputNumControl.h
+// [ 概      要 ] : InputNumControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "inputNumControl/inputNumControl.hpp"
 #include "inputNumControl/inputNumControl_define.hpp"
 #include "utility.h"
@@ -116,6 +121,12 @@ InputNumControl::InputNumControl(QWidget *parent)  : PanelControlBase(parent),
     OnValueModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 引　数   ] : INPUT_NUM_DISP_PARAM *param : the parameters
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -181,6 +192,12 @@ void InputNumControl::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
     SetCurrentModeButton(current_mode);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnModeChanged
+//  [ 機　能   ] : Event handler for mode changed
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::OnModeChanged()
 {
     m_button_mode_percent.setChecked(Mode() == INPUT_NUM_MODE_PERCENT);
@@ -188,12 +205,24 @@ void InputNumControl::OnModeChanged()
     m_button_mode_angle.setChecked(Mode() == INPUT_NUM_MODE_ANGLE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnValueModeChanged
+//  [ 機　能   ] : Event handler for value mode changed
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::OnValueModeChanged()
 {
     m_button_relative.setChecked(ValueMode() == INPUT_NUM_MODE_RELATIVE);
     m_button_absolute.setChecked(ValueMode() == INPUT_NUM_MODE_ABSOLUTE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnTypeChanged
+//  [ 機　能   ] : Event handler for type changed
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::OnTypeChanged()
 {
     m_button_relative.setVisible(Type() == INPUT_NUM_TYPE_POSITION);
@@ -227,6 +256,12 @@ void InputNumControl::SetType(InputNumType newType)
     emit TypeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnGroupButtonClicked
+//  [ 機　能   ] : Event handler for group button clicked
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::OnGroupButtonClicked()
 {
     for (const auto &button: qAsConst(m_group_buttons))
@@ -249,6 +284,12 @@ void InputNumControl::SetValueMode(const InputNumValueMode &mode)
     emit ValueModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetupGroupButtonPages
+//  [ 機　能   ] : Update visibility of group buttons
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetupGroupButtonPages()
 {
     m_button_previous_tab.setEnabled(CurrentGroupButtonsPage() > 0);

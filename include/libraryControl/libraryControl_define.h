@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : libraryControl_define.h
+// [ 概      要 ] : Constant definitions for LibraryControl Vericcal
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef LIBRARYCONTROL_DEFINE_H
 #define LIBRARYCONTROL_DEFINE_H
 

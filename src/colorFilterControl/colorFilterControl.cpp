@@ -1,5 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorFilterControl.cpp
+// [ 概      要 ] : ColorFilterControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "colorFilterControl/colorFilterControl.hpp"
-
 #include "colorFilterControl/colorFilterControl_define.hpp"
 #include <QFont>
 #include <math.h>
@@ -168,6 +172,12 @@ ColorFilterControl::ColorFilterControl(QWidget* parent) : PanelControlBase(paren
     OnModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : the parameters
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -244,6 +254,12 @@ void ColorFilterControl::setDispParamData(COLOR_FILTER_DISP_PARAM *param)
     emit SelectedHistoryButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ScrollUp
+//  [ 機　能 ] : Scroll up group button
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::ScrollUp()
 {
     if (Mode() == COLOR_FILTER_MODE_TB)
@@ -260,6 +276,12 @@ void ColorFilterControl::ScrollUp()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ScrollDown
+//  [ 機　能 ] : Scroll down group button
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::ScrollDown()
 {
     if (Mode() == COLOR_FILTER_MODE_TB)
@@ -328,6 +350,12 @@ void ColorFilterControl::SetMode(ColorFilterDisplayMode value)
     emit ModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnModeChanged
+//  [ 機　能 ] : Event handler for mode changed
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::OnModeChanged()
 {
     for (const auto &button: qAsConst(m_header_buttons))
@@ -393,22 +421,46 @@ void ColorFilterControl::OnModeChanged()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdateTBTabPage
+//  [ 機　能 ] : Update visibility of TB tab buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::UpdateTBTabPage()
 {
-    qDebug() << CurrentTBTabPage();
     UpdateChildrenVisibility(m_tb_tab_buttons,CurrentTBTabPage(), BUTTONS_PER_PAGE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdateCustomTabPage
+//  [ 機　能 ] : Update visibility of Custom tab buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::UpdateCustomTabPage()
 {
     UpdateChildrenVisibility(m_custom_tab_buttons,CurrentCustomTabPage(),BUTTONS_PER_PAGE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdateCustomTabPage
+//  [ 機　能 ] : Update visibility of History tab buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::UpdateHistoryPage()
 {
     UpdateChildrenVisibility(m_history_buttons,CurrentHistoryPage(),BUTTONS_PER_PAGE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : AddHeaderButton
+//  [ 機　能 ] : Add header buttons
+//  [ 引　数 ] : ColorFilterDisplayMode mode: tab TB, Custom or History
+//             const QString &text: button text
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::AddHeaderButton(ColorFilterDisplayMode mode, const QString &text)
 {
     auto button = MakeSharedQObject<SelectButton>(this);
@@ -419,6 +471,12 @@ void ColorFilterControl::AddHeaderButton(ColorFilterDisplayMode mode, const QStr
     connect(button.get(), &QPushButton::clicked, this, &ColorFilterControl::OnDisplayTabButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : HeaderButtons
+//  [ 機　能 ] : Get header buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QVector<QSharedPointer<SelectButton>>: list of button
+//--------------------------------------------------------------------------
 QVector<QSharedPointer<SelectButton>> ColorFilterControl::HeaderButtons() const
 {
     QVector<QSharedPointer<SelectButton>> buttons;
@@ -427,6 +485,12 @@ QVector<QSharedPointer<SelectButton>> ColorFilterControl::HeaderButtons() const
     return buttons;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetupHeaderTabButtons
+//  [ 機　能 ] : Setup and update visibility of header buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetupHeaderTabButtons()
 {
     m_button_previous_header_buttons_page.setEnabled(CurrentHeaderButtonsPage() > 0);
@@ -446,6 +510,12 @@ void ColorFilterControl::SetupHeaderTabButtons()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnDisplayTabButtonClicked
+//  [ 機　能 ] : Event clicked handler for tab buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::OnDisplayTabButtonClicked()
 {
     auto button = std::find_if(m_header_buttons.begin(), m_header_buttons.end(), [&](const DisplayTabButton &button) {
@@ -482,6 +552,12 @@ int ColorFilterControl::MaxHistoryPages() const
     return CalulateNumberOfPages(m_history_buttons.length(), BUTTONS_PER_PAGE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnTBTabButtonClicked
+//  [ 機　能 ] : Event clicked handler for TB tab button
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::OnTBTabButtonClicked()
 {
     auto iter = std::find(m_tb_tab_buttons.begin(), m_tb_tab_buttons.end(), sender());
@@ -497,6 +573,12 @@ void ColorFilterControl::OnTBTabButtonClicked()
     emit SelectedTbButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnCustomTabButtonClicked
+//  [ 機　能 ] : Event clicked handler for Custom tab button
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::OnCustomTabButtonClicked()
 {
     auto iter = std::find(m_custom_tab_buttons.begin(), m_custom_tab_buttons.end(), sender());
@@ -512,6 +594,12 @@ void ColorFilterControl::OnCustomTabButtonClicked()
     emit SelectedCustomButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnHistoryButtonClicked
+//  [ 機　能 ] : Event clicked handler for History button
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::OnHistoryButtonClicked()
 {
     auto iter = std::find(m_history_buttons.begin(), m_history_buttons.end(), sender());
@@ -526,6 +614,12 @@ void ColorFilterControl::OnHistoryButtonClicked()
     emit SelectedHistoryButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : AddButtonToHistory
+//  [ 機　能 ] : Add button to history list
+//  [ 引　数 ] : QSharedPointer<SelectButton> button: button need to add
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::AddButtonToHistory(QSharedPointer<SelectButton> button)
 {
     auto new_button = MakeSharedQObject<SelectButton>(this);
@@ -559,6 +653,12 @@ void ColorFilterControl::SetCurrentHeaderButtonsPage(int value)
     emit CurrentHeaderButtonsPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedTbButton
+//  [ 機　能 ] : Current selected button of TB Tab
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 const ColorFilterButton ColorFilterControl::SelectedTbButton() const
 {
     auto iter = std::find_if(m_tb_tab_buttons.begin(), m_tb_tab_buttons.end(), [](const QSharedPointer<SelectButton> &b) {
@@ -572,6 +672,12 @@ const ColorFilterButton ColorFilterControl::SelectedTbButton() const
     return ColorFilterButton { (*iter)->text(), (*iter)->BackgroundColor() };
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedCustomButton
+//  [ 機　能 ] : Current selected button of Custom Tab
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 const ColorFilterButton ColorFilterControl::SelectedCustomButton() const
 {
     auto iter = std::find_if(m_custom_tab_buttons.begin(), m_custom_tab_buttons.end(), [](const QSharedPointer<SelectButton> &b) {
@@ -585,7 +691,12 @@ const ColorFilterButton ColorFilterControl::SelectedCustomButton() const
     return ColorFilterButton { (*iter)->text(), (*iter)->BackgroundColor() };
 }
 
-
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedHistoryButton
+//  [ 機　能 ] : Current selected button of History Tab
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 const ColorFilterButton ColorFilterControl::SelectedHistoryButton() const
 {
     auto iter = std::find_if(m_history_buttons.begin(), m_history_buttons.end(), [](const QSharedPointer<SelectButton> &b) {

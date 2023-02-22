@@ -224,7 +224,7 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
 //  [ 関数名   ] : SetDispParamData
 //  [ 機能名   ] : Set color and slider value
 //  [ 引数	  ] : COLOR_PICKER_DISP_PARAM *param: display parameter
-//  [ 戻り値    ] : None
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
 {
@@ -250,8 +250,8 @@ void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : PauseSliderEvents
 //  [ 機能名   ] : Disable signal slot
-//  [ 引数	  ] : None
-//  [ 戻り値    ] : None
+//  [ 引数	  ] : void
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::PauseSliderEvents()
 {
@@ -265,8 +265,8 @@ void ColorPickerControl::PauseSliderEvents()
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : ResumeSliderEvents
 //  [ 機能名   ] : Enable signal slot
-//  [ 引数	  ] : None
-//  [ 戻り値    ] : None
+//  [ 引数	  ] : void
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::ResumeSliderEvents()
 {
@@ -282,7 +282,7 @@ void ColorPickerControl::ResumeSliderEvents()
 //  [ 機能名   ] : Add header button
 //  [ 引数	  ] : ColorPickerType type: button type xy or rgb
 //                const QString &text: button text
-//  [ 戻り値    ] : None
+//  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::AddHeaderButton(ColorPickerType type, const QString &text)
 {
@@ -297,7 +297,7 @@ void ColorPickerControl::AddHeaderButton(ColorPickerType type, const QString &te
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : HeaderButtons
 //  [ 機能名   ] : Get header button list
-//  [ 引数	  ] : None
+//  [ 引数	  ] : void
 //  [ 戻り値    ] : QVector<QSharedPointer<SelectButton>> : list of SelectButton
 //--------------------------------------------------------------------------
 QVector<QSharedPointer<SelectButton>> ColorPickerControl::HeaderButtons() const
@@ -337,8 +337,8 @@ void ColorPickerControl::SetPickerColor(const QColor &type)
 //--------------------------------------------------------------------------
 //  [ 関数名  ] : OnPickerTypeChanged
 //  [ 機能名  ] : Handle event picker type changed
-//  [ 引数	 ] : None
-//  [ 戻り値   ] : None
+//  [ 引数	 ] : void
+//  [ 戻り値   ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::OnPickerTypeChanged()
 {
@@ -373,8 +373,8 @@ void ColorPickerControl::OnPickerTypeChanged()
 //--------------------------------------------------------------------------
 //  [ 関数名  ] : OnPickerTypeButtonClicked
 //  [ 機能名  ] : Handle header button clicked event
-//  [ 引数	 ] : None
-//  [ 戻り値   ] : None
+//  [ 引数	 ] : void
+//  [ 戻り値   ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::OnPickerTypeButtonClicked()
 {
@@ -389,8 +389,8 @@ void ColorPickerControl::OnPickerTypeButtonClicked()
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetupHeaderButtonPages
 //  [ 機能名 ] : Scroll header button
-//  [ 引数   ] : None
-//  [ 戻り値  ] : None
+//  [ 引数   ] : void
+//  [ 戻り値  ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::SetupHeaderButtonPages()
 {
