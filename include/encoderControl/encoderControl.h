@@ -19,13 +19,13 @@
 class EncoderControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int CurrentEncoderPage READ CurrentEncoderPage WRITE SetCurrentEncoderPage NOTIFY CurrentEncoderPageChanged)
-    Q_PROPERTY(EncoderMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged)
-    Q_PROPERTY(EncoderType Type READ Type WRITE SetType NOTIFY TypeChanged)
+    Q_PROPERTY( int CurrentEncoderPage READ CurrentEncoderPage WRITE SetCurrentEncoderPage NOTIFY CurrentEncoderPageChanged )
+    Q_PROPERTY( EncoderMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged )
+    Q_PROPERTY( EncoderType Type READ Type WRITE SetType NOTIFY TypeChanged )
 
 public:
-    EncoderControl(QWidget *parent = nullptr);
-    virtual void SetDispParamData(ENCODER_DISP_PARAM *param);
+    EncoderControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( ENCODER_DISP_PARAM *param );
 
     EncoderMode Mode() const;
     EncoderType Type() const;
@@ -34,21 +34,21 @@ signals:
     void CurrentEncoderPageChanged();
     void ModeChanged();
     void TypeChanged();
-    void EncoderValueChanged(int index, const QString &name, int value);
+    void EncoderValueChanged( int index, const QString &name, int value );
 
 protected:
     virtual void SetupEncoderPages();
     int CurrentEncoderPage() const;
-    void SetCurrentEncoderPage(int value);
+    void SetCurrentEncoderPage( int value );
     int MaxEncoderPages() const;
-    void SetMode(EncoderMode value);
-    void SetType(EncoderType value);
+    void SetMode( EncoderMode value );
+    void SetType( EncoderType value );
 
 protected slots:
     void OnModeChanged();
     void OnTypeChanged();
-    void UpdateEncoderLabelValue(int index);
-    void OnEncoderValueChanged(int index, int value);
+    void UpdateEncoderLabelValue( int index );
+    void OnEncoderValueChanged( int index, int value );
 
 protected:
     struct EncoderParamFloat
@@ -57,7 +57,7 @@ protected:
         float level, max_level;
 
         EncoderParamFloat() {}
-        EncoderParamFloat(const ENCODER_PARAM &param_int) : name(param_int.name), level(param_int.level), max_level(param_int.maxLevel) { }
+        EncoderParamFloat( const ENCODER_PARAM &param_int ) : name( param_int.name ), level( param_int.level ), max_level( param_int.maxLevel ) { }
     };
 
     GridBackground m_encoder_background;

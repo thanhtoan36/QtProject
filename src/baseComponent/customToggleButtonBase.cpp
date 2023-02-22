@@ -5,7 +5,7 @@
 #define CSS_BORDER_COLOR_CHECKED     "CSS_BORDER_COLOR_SELECTED"
 #define CSS_TEXT_COLOR_CHECKED       "CSS_TEXT_COLOR_SELECTED"
 
-static const char * g_stylesheet_template = R"~(
+static const char *g_stylesheet_template = R"~(
 
 CustomToggleButtonBase:checked {
     border-style: inset;

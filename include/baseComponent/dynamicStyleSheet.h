@@ -7,22 +7,22 @@
 class DynamicStyleSheet : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString StyleSheetTemplate READ StyleSheetTemplate WRITE SetStyleSheetTemplate NOTIFY StyleSheetTemplateChanged)
-    Q_PROPERTY(QString StyleSheet READ StyleSheet NOTIFY StyleSheetChanged)
+    Q_PROPERTY( QString StyleSheetTemplate READ StyleSheetTemplate WRITE SetStyleSheetTemplate NOTIFY StyleSheetTemplateChanged )
+    Q_PROPERTY( QString StyleSheet READ StyleSheet NOTIFY StyleSheetChanged )
 
 public:
-    DynamicStyleSheet(QWidget *parent);
+    DynamicStyleSheet( QWidget *parent );
 
     QString StyleSheetTemplate() const;
 
-    void SetStyleSheetTemplate(const QString &value);
-    void AppendStyleSheetTemplate(const QString &value);
+    void SetStyleSheetTemplate( const QString &value );
+    void AppendStyleSheetTemplate( const QString &value );
 
     void Polish();
 
     QString StyleSheet() const;
-    QString TemplateParam(const QString &key) const;
-    void SetTemplateParam(const QString &key, const QString &value);
+    QString TemplateParam( const QString &key ) const;
+    void SetTemplateParam( const QString &key, const QString &value );
 
 signals:
     void StyleSheetTemplateChanged();

@@ -7,7 +7,7 @@ class SelectButton : public ToggleButton
 {
     Q_OBJECT
 public:
-    explicit SelectButton(QWidget *parent = nullptr);
+    explicit SelectButton( QWidget *parent = nullptr );
 
 public slots:
     virtual void OnClicked();

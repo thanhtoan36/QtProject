@@ -24,12 +24,12 @@ public:
         MarkingColorRole,
         SelectedRole
     };
-    PlaybackRowDelegate(QObject *parent = nullptr);
+    PlaybackRowDelegate( QObject *parent = nullptr );
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+    QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
 
-    void SetColumnsWidth(const QVector<int> &value);
+    void SetColumnsWidth( const QVector<int> &value );
 
 private:
     QVector<int> m_columns_width;

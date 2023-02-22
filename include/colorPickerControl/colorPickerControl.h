@@ -23,13 +23,13 @@ class ColorPickerControl : public PanelControlBase
 {
     Q_OBJECT
 
-    Q_PROPERTY(ColorPickerType PickerType READ PickerType WRITE SetPickerType NOTIFY PickerTypeChanged)
-    Q_PROPERTY(QColor PickerColor READ PickerColor WRITE SetPickerColor NOTIFY PickerColorChanged)
-    Q_PROPERTY(int CurrentHeaderButtonsPage READ CurrentHeaderButtonsPage WRITE SetCurrentHeaderButtonsPage NOTIFY CurrentHeaderButtonsPageChanged)
+    Q_PROPERTY( ColorPickerType PickerType READ PickerType WRITE SetPickerType NOTIFY PickerTypeChanged )
+    Q_PROPERTY( QColor PickerColor READ PickerColor WRITE SetPickerColor NOTIFY PickerColorChanged )
+    Q_PROPERTY( int CurrentHeaderButtonsPage READ CurrentHeaderButtonsPage WRITE SetCurrentHeaderButtonsPage NOTIFY CurrentHeaderButtonsPageChanged )
 
 public:
-    ColorPickerControl(QWidget *parent = nullptr);
-    virtual void SetDispParamData(COLOR_PICKER_DISP_PARAM *param);
+    ColorPickerControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( COLOR_PICKER_DISP_PARAM *param );
 
     ColorPickerType PickerType() const;
     QColor PickerColor() const;
@@ -50,11 +50,11 @@ protected:
     void PauseSliderEvents();
     void ResumeSliderEvents();
     int CurrentHeaderButtonsPage() const;
-    void SetCurrentHeaderButtonsPage(int new_button_page);
-    void AddHeaderButton(ColorPickerType type, const QString &text);
+    void SetCurrentHeaderButtonsPage( int new_button_page );
+    void AddHeaderButton( ColorPickerType type, const QString &text );
     QVector<QSharedPointer<SelectButton> > HeaderButtons() const;
-    void SetPickerType(ColorPickerType type);
-    void SetPickerColor(const QColor &type);
+    void SetPickerType( ColorPickerType type );
+    void SetPickerColor( const QColor &type );
 
 protected:
     struct PickerButton
@@ -97,8 +97,8 @@ protected:
     QLabel m_label_value_v;
     QSlider m_slider_v;
 
-    QVector<QWidget*> m_children_xy;
-    QVector<QWidget*> m_children_rgb;
+    QVector<QWidget *> m_children_xy;
+    QVector<QWidget *> m_children_rgb;
     ColorPickerType m_picker_type;
     QColor m_picker_color;
     int m_header_buttons_per_page;

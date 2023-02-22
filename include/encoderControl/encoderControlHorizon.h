@@ -14,8 +14,8 @@ class EncoderControlHorizon : public EncoderControl
 {
     Q_OBJECT
 public:
-    EncoderControlHorizon(QWidget *parent = nullptr);
-    virtual void SetDispParamData(ENCODER_DISP_PARAM *param) override;
+    EncoderControlHorizon( QWidget *parent = nullptr );
+    virtual void SetDispParamData( ENCODER_DISP_PARAM *param ) override;
 
 protected slots:
     void OnPanelSwitchButtonClicked();

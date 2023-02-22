@@ -13,28 +13,28 @@ class CustomColorPickerXY : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CustomColorPickerXY(QWidget *parent = nullptr);
+    explicit CustomColorPickerXY( QWidget *parent = nullptr );
 
-    void SetColor(const QColor& color);
-    void SetXy(const QPointF& xy);
+    void SetColor( const QColor &color );
+    void SetXy( const QPointF &xy );
     QPointF Xy() const;
     QColor Color() const;
-    QColor GetColor(QPointF xy) const;
+    QColor GetColor( QPointF xy ) const;
 
 signals:
     void Picked();
-    void XyChanged(QPointF xy);
-    void ColorChanged(QColor color);
+    void XyChanged( QPointF xy );
+    void ColorChanged( QColor color );
 
 private:
-    QPointF MapToPosition(const QPointF &p);
-    QPointF MapToValue(const QPoint &p);
-    void RBG2XY(float R,float G, float B, float& x, float& y, float &z);
-    QPointF FindNearestXy(QPointF target);
+    QPointF MapToPosition( const QPointF &p );
+    QPointF MapToValue( const QPoint &p );
+    void RBG2XY( float R, float G, float B, float &x, float &y, float &z );
+    QPointF FindNearestXy( QPointF target );
 
 protected:
-    void paintEvent(QPaintEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
+    void paintEvent( QPaintEvent *event ) override;
+    void mousePressEvent( QMouseEvent *event ) override;
 
 private:
     QRectF m_plot_area;

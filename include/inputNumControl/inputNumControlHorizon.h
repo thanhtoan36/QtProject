@@ -11,7 +11,7 @@
 class InputNumControlHorizon : public InputNumControl
 {
 public:
-    explicit InputNumControlHorizon(QWidget* parent = nullptr);
+    explicit InputNumControlHorizon( QWidget *parent = nullptr );
 
 protected slots:
     void OnPanelSwitchButtonClicked();

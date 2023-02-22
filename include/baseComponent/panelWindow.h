@@ -11,9 +11,9 @@ class PanelWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit PanelWindow(QWidget *parent = nullptr);
+    explicit PanelWindow( QWidget *parent = nullptr );
 
-    void AttachPanelControl(QSharedPointer<PanelControlBase> panel);
+    void AttachPanelControl( QSharedPointer<PanelControlBase> panel );
     void DetachPanelControl();
 
 signals:

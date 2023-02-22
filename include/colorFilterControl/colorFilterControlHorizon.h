@@ -11,11 +11,11 @@ class ColorFilterControlHorizon : public ColorFilterControl
 {
     Q_OBJECT
 public:
-    explicit ColorFilterControlHorizon(QWidget * parent = nullptr);
-    virtual void setDispParamData(COLOR_FILTER_DISP_PARAM *param) override;
+    explicit ColorFilterControlHorizon( QWidget *parent = nullptr );
+    virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param ) override;
 
 protected:
-    virtual void AddButtonToHistory(QSharedPointer<SelectButton> button) override;
+    virtual void AddButtonToHistory( QSharedPointer<SelectButton> button ) override;
 
 };
 

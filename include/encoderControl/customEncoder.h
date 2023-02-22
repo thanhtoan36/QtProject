@@ -11,25 +11,26 @@
 #include <QLabel>
 #include "baseComponent/customPushButton.h"
 
-class CustomEncoder : public QAbstractSlider {
+class CustomEncoder : public QAbstractSlider
+{
     Q_OBJECT
-    Q_PROPERTY(int UpperRestrictValue READ UpperRestrictValue WRITE SetUpperRestrictValue NOTIFY UpperRestrictValueChanged)
+    Q_PROPERTY( int UpperRestrictValue READ UpperRestrictValue WRITE SetUpperRestrictValue NOTIFY UpperRestrictValueChanged )
 
 public:
-    CustomEncoder(QWidget *parent = nullptr);
+    CustomEncoder( QWidget *parent = nullptr );
 
     int UpperRestrictValue() const;
-    void SetUpperRestrictValue(int value);
+    void SetUpperRestrictValue( int value );
 
 signals:
     void UpperRestrictValueChanged();
 
 protected:
-    virtual void paintEvent(QPaintEvent *event) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void resizeEvent(QResizeEvent *event) override;
+    virtual void paintEvent( QPaintEvent *event ) override;
+    virtual void mousePressEvent( QMouseEvent *event ) override;
+    virtual void resizeEvent( QResizeEvent *event ) override;
     // disable mouse wheel scrolling
-    virtual void wheelEvent(QWheelEvent *) override {}
+    virtual void wheelEvent( QWheelEvent * ) override {}
 
     void SetupChildComponents();
 

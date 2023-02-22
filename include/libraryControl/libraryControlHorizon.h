@@ -12,7 +12,7 @@
 class LibraryControlHorizon : public LibraryControl
 {
 public:
-    explicit LibraryControlHorizon(QWidget* parent = nullptr);
+    explicit LibraryControlHorizon( QWidget *parent = nullptr );
 };
 
 #endif // LIBRARYCONTROLHORIZON_H

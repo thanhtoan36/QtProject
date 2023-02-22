@@ -15,10 +15,10 @@ class MarkingPickerPopup : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MarkingPickerPopup(QWidget *parent = nullptr);
+    explicit MarkingPickerPopup( QWidget *parent = nullptr );
 
 signals:
-    void MarkingSelected(const QString &marking, const QColor &color);
+    void MarkingSelected( const QString &marking, const QColor &color );
 
 public slots:
     void OnMarkingClicked();

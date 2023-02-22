@@ -6,24 +6,24 @@ class TitleSelectButton : public SelectButton
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool TitleVisible READ TitleVisible WRITE SetTitleVisible NOTIFY TitleVisibleChanged)
-    Q_PROPERTY(QString Title READ Title WRITE SetTitle NOTIFY TitleChanged)
+    Q_PROPERTY( bool TitleVisible READ TitleVisible WRITE SetTitleVisible NOTIFY TitleVisibleChanged )
+    Q_PROPERTY( QString Title READ Title WRITE SetTitle NOTIFY TitleChanged )
 
 public:
-    explicit TitleSelectButton(QWidget *parent = nullptr);
+    explicit TitleSelectButton( QWidget *parent = nullptr );
 
     bool TitleVisible() const;
-    void SetTitleVisible(bool value);
+    void SetTitleVisible( bool value );
 
     QString Title() const;
-    void SetTitle(const QString &value);
+    void SetTitle( const QString &value );
 
 signals:
     void TitleVisibleChanged();
     void TitleChanged();
 
 protected:
-    virtual void resizeEvent(QResizeEvent *event) override;
+    virtual void resizeEvent( QResizeEvent *event ) override;
 
 private:
     bool m_title_visible;

@@ -38,10 +38,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow( QWidget *parent = nullptr );
     ~MainWindow();
 
-    void LogEvent(const QString &log);
+    void LogEvent( const QString &log );
 
     void ConnectColorPickerEvent();
     void ConnectColorFilterEvent();

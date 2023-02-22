@@ -22,37 +22,37 @@ enum InputNumValueMode
 class InputNumControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(InputNumMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged)
-    Q_PROPERTY(InputNumValueMode ValueMode READ ValueMode WRITE SetValueMode NOTIFY ValueModeChanged)
-    Q_PROPERTY(InputNumType Type READ Type WRITE SetType NOTIFY TypeChanged)
-    Q_PROPERTY(int CurrentGroupButtonsPage READ CurrentGroupButtonsPage WRITE SetCurrentGroupButtonsPage NOTIFY CurrentGroupButtonsPageChanged)
-    Q_PROPERTY(QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged)
+    Q_PROPERTY( InputNumMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged )
+    Q_PROPERTY( InputNumValueMode ValueMode READ ValueMode WRITE SetValueMode NOTIFY ValueModeChanged )
+    Q_PROPERTY( InputNumType Type READ Type WRITE SetType NOTIFY TypeChanged )
+    Q_PROPERTY( int CurrentGroupButtonsPage READ CurrentGroupButtonsPage WRITE SetCurrentGroupButtonsPage NOTIFY CurrentGroupButtonsPageChanged )
+    Q_PROPERTY( QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged )
 
 public:
-    explicit InputNumControl(QWidget* parent = nullptr);
-    virtual void SetDispParamData(INPUT_NUM_DISP_PARAM *param);
+    explicit InputNumControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( INPUT_NUM_DISP_PARAM *param );
 
     InputNumMode Mode() const;
-    void SetMode(InputNumMode newMode);
+    void SetMode( InputNumMode newMode );
 
     InputNumType Type() const;
-    void SetType(InputNumType newType);
+    void SetType( InputNumType newType );
 
     InputNumValueMode ValueMode() const;
-    void SetValueMode(const InputNumValueMode &mode);
+    void SetValueMode( const InputNumValueMode &mode );
 
     int CurrentGroupButtonsPage() const;
-    void SetCurrentGroupButtonsPage(int page);
+    void SetCurrentGroupButtonsPage( int page );
 
     const QString &CurrentModeButton() const;
-    void SetCurrentModeButton(const QString &mode);
+    void SetCurrentModeButton( const QString &mode );
 
 signals:
     void ModeChanged();
     void TypeChanged();
     void ValueModeChanged();
     void CurrentGroupButtonsPageChanged();
-    void InputNumButtonClicked(const QString& text);
+    void InputNumButtonClicked( const QString &text );
     void CurrentModeButtonChanged();
     void ReturnClicked();
 

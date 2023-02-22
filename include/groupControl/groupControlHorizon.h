@@ -12,11 +12,11 @@
 class GroupControlHorizon : public GroupControl
 {
 public:
-    explicit GroupControlHorizon(QWidget* parent = nullptr);
-    virtual void SetDispParamData(GROUP_DISP_PARAM *param) override;
+    explicit GroupControlHorizon( QWidget *parent = nullptr );
+    virtual void SetDispParamData( GROUP_DISP_PARAM *param ) override;
 
 protected:
-    virtual void AddButtonToHistory(QSharedPointer<TitleSelectButton>& button) override;
+    virtual void AddButtonToHistory( QSharedPointer<TitleSelectButton> &button ) override;
 };
 
 #endif // GROUPCONTROLHORIZON_H

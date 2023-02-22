@@ -18,12 +18,12 @@ class TrackPoint : public QWidget
     Q_OBJECT
 
 public:
-    explicit TrackPoint(QWidget *parent = nullptr);
-    void SetCoordinate(QPoint pos);
+    explicit TrackPoint( QWidget *parent = nullptr );
+    void SetCoordinate( QPoint pos );
     QPoint Coordinate();
 
 protected:
-    virtual void paintEvent(QPaintEvent *event) override;
+    virtual void paintEvent( QPaintEvent *event ) override;
 };
 
 
@@ -40,29 +40,30 @@ public:
         TrackPointFloatParam pan, tilt;
     };
 
-    struct TrackPointData {
+    struct TrackPointData
+    {
         // range: 0..1000 (not 0..100 or 0..255)
         TrackPointFloatParamGroup param;
         QSharedPointer<TrackPoint> widget;
     };
 
-    explicit PantiltControl(QWidget *parent = nullptr);
+    explicit PantiltControl( QWidget *parent = nullptr );
 
-    void SetValueMode(TrackValueMode value_mode);
-    void SetTrackPoints(const QVector<TrackPointFloatParamGroup> &points);
+    void SetValueMode( TrackValueMode value_mode );
+    void SetTrackPoints( const QVector<TrackPointFloatParamGroup> &points );
     QVector<TrackPointFloatParamGroup> TrackPoints() const;
 
 protected:
-    virtual void paintEvent(QPaintEvent *event) override;
-    virtual void resizeEvent(QResizeEvent *event) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
+    virtual void paintEvent( QPaintEvent *event ) override;
+    virtual void resizeEvent( QResizeEvent *event ) override;
+    virtual void mousePressEvent( QMouseEvent *event ) override;
+    virtual void mouseReleaseEvent( QMouseEvent *event ) override;
+    virtual void mouseMoveEvent( QMouseEvent *event ) override;
 
-    QPointF ConvertValueToCoordinate(QPointF value);
-    QPointF ConvertCoordinateToValue(QPointF coordinate);
+    QPointF ConvertValueToCoordinate( QPointF value );
+    QPointF ConvertCoordinateToValue( QPointF coordinate );
 
-    void MovePointWithConstraints(TrackPointData &point, QPointF new_value);
+    void MovePointWithConstraints( TrackPointData &point, QPointF new_value );
 
 signals:
     void TrackPointsUpdated();

@@ -7,7 +7,7 @@ class CustomPushButton : public CustomButtonBase
 {
     Q_OBJECT
 public:
-    explicit CustomPushButton(QWidget *parent = nullptr);
+    explicit CustomPushButton( QWidget *parent = nullptr );
 
 public slots:
 

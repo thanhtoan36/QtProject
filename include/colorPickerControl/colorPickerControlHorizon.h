@@ -13,7 +13,7 @@ class ColorPickerControlHorizon : public ColorPickerControl
 {
     Q_OBJECT
 public:
-    explicit ColorPickerControlHorizon(QWidget* parent = nullptr);
+    explicit ColorPickerControlHorizon( QWidget *parent = nullptr );
 
 protected slots:
     void OnPanelSwitchButtonClicked();

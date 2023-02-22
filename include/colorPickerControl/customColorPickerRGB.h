@@ -9,7 +9,8 @@
 
 #include <QWidget>
 
-typedef struct{
+typedef struct
+{
     int h = 0;
     int s = 0;
     int v = 0;
@@ -19,23 +20,23 @@ class CustomColorPickerRGB : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CustomColorPickerRGB(QWidget *parent = nullptr);
+    explicit CustomColorPickerRGB( QWidget *parent = nullptr );
 
     hsv_t HSV() const;
 
-    void SetHSV(const int h, const int s, const int v);
+    void SetHSV( const int h, const int s, const int v );
 
-    void SetColor(const QColor& color);
+    void SetColor( const QColor &color );
 
     QColor Color() const;
 signals:
-    void HSVChanged(const hsv_t& value);
-    void ColorChanged(const QColor& color);
+    void HSVChanged( const hsv_t &value );
+    void ColorChanged( const QColor &color );
     void Picked();
 
 protected:
-    void paintEvent(QPaintEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
+    void paintEvent( QPaintEvent *event ) override;
+    void mousePressEvent( QMouseEvent *event ) override;
 
 private:
     QRectF m_plot_area;

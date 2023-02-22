@@ -7,7 +7,7 @@ class IntensityControlHorizon : public IntensityControl
 {
     Q_OBJECT
 public:
-    IntensityControlHorizon(QWidget *parent = nullptr);
+    IntensityControlHorizon( QWidget *parent = nullptr );
 
 protected:
     QVector<QSharedPointer<CustomPushButton>> m_menu_buttons;

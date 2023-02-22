@@ -24,7 +24,7 @@ struct ColorFilterButton
 {
     QString text;
     QColor color;
-    bool operator==(const ColorFilterButton &rhs) const
+    bool operator==( const ColorFilterButton &rhs ) const
     {
         return text == rhs.text && color == rhs.color;
     }
@@ -33,24 +33,24 @@ struct ColorFilterButton
 class ColorFilterControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int CurrentHeaderButtonsPage READ CurrentHeaderButtonsPage WRITE SetCurrentHeaderButtonsPage NOTIFY CurrentHeaderButtonsPageChanged)
-    Q_PROPERTY(int CurrentTBTabPage READ CurrentTBTabPage WRITE SetCurrentTBTabPage NOTIFY CurrentTBTabPageChanged)
-    Q_PROPERTY(int CurrentCustomTabPage READ CurrentCustomTabPage WRITE SetCurrentCustomTabPage NOTIFY CurrentCustomTabPageChanged)
-    Q_PROPERTY(int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged)
-    Q_PROPERTY(ColorFilterDisplayMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged)
+    Q_PROPERTY( int CurrentHeaderButtonsPage READ CurrentHeaderButtonsPage WRITE SetCurrentHeaderButtonsPage NOTIFY CurrentHeaderButtonsPageChanged )
+    Q_PROPERTY( int CurrentTBTabPage READ CurrentTBTabPage WRITE SetCurrentTBTabPage NOTIFY CurrentTBTabPageChanged )
+    Q_PROPERTY( int CurrentCustomTabPage READ CurrentCustomTabPage WRITE SetCurrentCustomTabPage NOTIFY CurrentCustomTabPageChanged )
+    Q_PROPERTY( int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged )
+    Q_PROPERTY( ColorFilterDisplayMode Mode READ Mode WRITE SetMode NOTIFY ModeChanged )
 
-    Q_PROPERTY(ColorFilterButton SelectedTbButton READ SelectedTbButton NOTIFY SelectedTbButtonChanged)
-    Q_PROPERTY(ColorFilterButton SelectedCustomButton READ SelectedCustomButton NOTIFY SelectedCustomButtonChanged)
-    Q_PROPERTY(ColorFilterButton SelectedHistoryButton READ SelectedHistoryButton NOTIFY SelectedHistoryButtonChanged)
+    Q_PROPERTY( ColorFilterButton SelectedTbButton READ SelectedTbButton NOTIFY SelectedTbButtonChanged )
+    Q_PROPERTY( ColorFilterButton SelectedCustomButton READ SelectedCustomButton NOTIFY SelectedCustomButtonChanged )
+    Q_PROPERTY( ColorFilterButton SelectedHistoryButton READ SelectedHistoryButton NOTIFY SelectedHistoryButtonChanged )
 
 public:
 
-    explicit ColorFilterControl(QWidget* parent = nullptr);
+    explicit ColorFilterControl( QWidget *parent = nullptr );
 
-    virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param);
+    virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param );
 
     ColorFilterDisplayMode Mode() const;
-    void SetMode(ColorFilterDisplayMode value);
+    void SetMode( ColorFilterDisplayMode value );
 
     const ColorFilterButton SelectedTbButton() const;
     const ColorFilterButton SelectedCustomButton() const;
@@ -76,27 +76,27 @@ signals:
 
 protected:
     int CurrentTBTabPage() const;
-    void SetCurrentTBTabPage(int value);
+    void SetCurrentTBTabPage( int value );
 
     int CurrentCustomTabPage() const;
-    void SetCurrentCustomTabPage(int value);
+    void SetCurrentCustomTabPage( int value );
 
     int CurrentHistoryPage() const;
-    void SetCurrentHistoryPage(int value);
+    void SetCurrentHistoryPage( int value );
 
-    void SetSelectedFooterButton(const QString &value);
+    void SetSelectedFooterButton( const QString &value );
 
     void ScrollUp();
     void ScrollDown();
 
-    virtual void AddButtonToHistory(QSharedPointer<SelectButton> button);
+    virtual void AddButtonToHistory( QSharedPointer<SelectButton> button );
 
     void OnModeChanged();
     void UpdateTBTabPage();
     void UpdateCustomTabPage();
     void UpdateHistoryPage();
 
-    void AddHeaderButton(ColorFilterDisplayMode mode, const QString &text);
+    void AddHeaderButton( ColorFilterDisplayMode mode, const QString &text );
     QVector<QSharedPointer<SelectButton> > HeaderButtons() const;
     void SetupHeaderTabButtons();
 
@@ -109,7 +109,7 @@ protected:
     void OnHistoryButtonClicked();
 
     int CurrentHeaderButtonsPage() const;
-    void SetCurrentHeaderButtonsPage(int value);
+    void SetCurrentHeaderButtonsPage( int value );
 
 protected slots:
     void OnDisplayTabButtonClicked();
@@ -138,9 +138,9 @@ protected:
     SelectButton m_register_button;
     SelectButton m_delete_button;
 
-    QVector<QWidget*> m_children_tb_tab;
-    QVector<QWidget*> m_children_custom_tab;
-    QVector<QWidget*> m_children_history;
+    QVector<QWidget *> m_children_tb_tab;
+    QVector<QWidget *> m_children_custom_tab;
+    QVector<QWidget *> m_children_history;
 
     QVector<QSharedPointer<SelectButton>> m_tb_tab_buttons;
     QVector<QSharedPointer<SelectButton>> m_custom_tab_buttons;

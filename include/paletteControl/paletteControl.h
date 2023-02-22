@@ -18,16 +18,16 @@ class PaletteControl : public PanelControlBase
 {
     Q_OBJECT
 
-    Q_PROPERTY(int CurrentModePage READ CurrentModePage WRITE SetCurrentModePage NOTIFY CurrentModePageChanged)
-    Q_PROPERTY(int CurrentPalettePage READ CurrentPalettePage WRITE SetCurrentPalettePage NOTIFY CurrentPalettePageChanged)
-    Q_PROPERTY(PaletteType Type READ Type WRITE SetType NOTIFY TypeChanged)
+    Q_PROPERTY( int CurrentModePage READ CurrentModePage WRITE SetCurrentModePage NOTIFY CurrentModePageChanged )
+    Q_PROPERTY( int CurrentPalettePage READ CurrentPalettePage WRITE SetCurrentPalettePage NOTIFY CurrentPalettePageChanged )
+    Q_PROPERTY( PaletteType Type READ Type WRITE SetType NOTIFY TypeChanged )
 
-    Q_PROPERTY(QString SelectedPalette READ SelectedPalette WRITE SetSelectedPalette NOTIFY SelectedPaletteChanged)
-    Q_PROPERTY(QString SelectedMode READ SelectedMode WRITE SetSelectedMode NOTIFY SelectedModeChanged)
+    Q_PROPERTY( QString SelectedPalette READ SelectedPalette WRITE SetSelectedPalette NOTIFY SelectedPaletteChanged )
+    Q_PROPERTY( QString SelectedMode READ SelectedMode WRITE SetSelectedMode NOTIFY SelectedModeChanged )
 
 public:
-    explicit PaletteControl(QWidget *parent = nullptr);
-    virtual void SetDispParamData(PALETTE_DISP_PARAM *param);
+    explicit PaletteControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( PALETTE_DISP_PARAM *param );
 
     PaletteType Type() const;
     QString SelectedPalette() const;
@@ -48,25 +48,25 @@ signals:
     void SelectedModeChanged();
 
 protected:
-    void SetSelectedPalette(const QString &value);
-    void SetSelectedMode(const QString &value);
+    void SetSelectedPalette( const QString &value );
+    void SetSelectedMode( const QString &value );
 
     uint16_t MenuPageSize() const;
     uint16_t ButtonPageSize() const;
 
     QPoint PaletteStartPoint() const;
-    void SetPaletteStartPoint(QPoint value);
+    void SetPaletteStartPoint( QPoint value );
 
     QPoint ModeStartPoint() const;
-    void SetMenuStartPoint(QPoint value);
+    void SetMenuStartPoint( QPoint value );
 
     int CurrentModePage() const;
-    void SetCurrentModePage(int value);
+    void SetCurrentModePage( int value );
 
     int CurrentPalettePage() const;
-    void SetCurrentPalettePage(int value);
+    void SetCurrentPalettePage( int value );
 
-    void SetType(PaletteType value);
+    void SetType( PaletteType value );
 
 protected:
     int MaxModePages() const;

@@ -23,15 +23,15 @@ class PlaybackControl : public PanelControlBase
     Q_OBJECT
 
 public:
-    PlaybackControl(QWidget *parent = nullptr);
-    virtual void SetDispParamData(PLAYBACK_DISP_PARAM *param);
+    PlaybackControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( PLAYBACK_DISP_PARAM *param );
 
 protected slots:
-    void OnMarkingSelected(const QString &marking, const QColor &color);
+    void OnMarkingSelected( const QString &marking, const QColor &color );
 
 protected:
-    void OnItemClicked(QListWidgetItem *item);
-    void OnItemDoubleClicked(QListWidgetItem *item);
+    void OnItemClicked( QListWidgetItem *item );
+    void OnItemDoubleClicked( QListWidgetItem *item );
     bool IsMouseInsideMarkingColumn() const;
 
 protected:

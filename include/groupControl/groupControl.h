@@ -15,7 +15,7 @@ struct GroupControlButton
 {
     QString text;
     QString title;
-    bool operator==(const GroupControlButton &rhs) const
+    bool operator==( const GroupControlButton &rhs ) const
     {
         return text == rhs.text && title == rhs.title;
     }
@@ -24,30 +24,30 @@ struct GroupControlButton
 class GroupControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY CurrentGroupPageChanged)
-    Q_PROPERTY(int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged)
-    Q_PROPERTY(GroupControlButton CurrentGroupButton READ CurrentGroupButton WRITE SetCurrentGroupButton NOTIFY CurrentGroupButtonChanged)
-    Q_PROPERTY(GroupControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged)
-    Q_PROPERTY(QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged)
+    Q_PROPERTY( int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY CurrentGroupPageChanged )
+    Q_PROPERTY( int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged )
+    Q_PROPERTY( GroupControlButton CurrentGroupButton READ CurrentGroupButton WRITE SetCurrentGroupButton NOTIFY CurrentGroupButtonChanged )
+    Q_PROPERTY( GroupControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged )
+    Q_PROPERTY( QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged )
 
 public:
-    explicit GroupControl(QWidget* parent = nullptr);
-    virtual void SetDispParamData(GROUP_DISP_PARAM *param);
+    explicit GroupControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( GROUP_DISP_PARAM *param );
 
     int CurrentGroupPage() const;
-    void SetCurrentGroupPage(int page);
+    void SetCurrentGroupPage( int page );
 
     int CurrentHistoryPage() const;
-    void SetCurrentHistoryPage(int page);
+    void SetCurrentHistoryPage( int page );
 
     const GroupControlButton &CurrentGroupButton() const;
-    void SetCurrentGroupButton(const GroupControlButton &button);
+    void SetCurrentGroupButton( const GroupControlButton &button );
 
     const GroupControlButton &CurrentHistoryButton() const;
-    void SetCurrentHistoryButton(const GroupControlButton &button);
+    void SetCurrentHistoryButton( const GroupControlButton &button );
 
     const QString &CurrentFooterButton() const;
-    void SetCurrentFooterButton(const QString &button);
+    void SetCurrentFooterButton( const QString &button );
 
 signals:
     void CurrentGroupPageChanged();
@@ -65,15 +65,15 @@ protected:
     int MaxGroupPages() const;
     int MaxHistoryPages() const;
 
-    virtual void AddButtonToHistory(QSharedPointer<TitleSelectButton>& button);
+    virtual void AddButtonToHistory( QSharedPointer<TitleSelectButton> &button );
 
 protected slots:
     void OnGroupButtonClicked();
     void OnHistoryButtonClicked();
 
-    void OnTitleButonClicked(const bool check);
-    void OnRegisterButonClicked(const bool check);
-    void OnDeleteButonClicked(const bool check);
+    void OnTitleButonClicked( const bool check );
+    void OnRegisterButonClicked( const bool check );
+    void OnDeleteButonClicked( const bool check );
 
 protected:
     GridBackground m_grid;

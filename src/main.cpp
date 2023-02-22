@@ -2,10 +2,10 @@
 #include "mainwindow.h"
 #include "loghandler.h"
 
-int main(int argc, char *argv[])
+int main( int argc, char *argv[] )
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
-    QApplication a(argc, argv);
+    QApplication::setAttribute( Qt::AA_EnableHighDpiScaling, true );
+    QApplication a( argc, argv );
 
     InitLog();
 
@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
     w.show();
 
     QFont font;
-    font.setStyleHint(QFont::Monospace);
-    font.setFamily("monospace");
-    font.setPointSize(9);
-    QApplication::setFont(font);
+    font.setStyleHint( QFont::Monospace );
+    font.setFamily( "monospace" );
+    font.setPointSize( 9 );
+    QApplication::setFont( font );
 
     return a.exec();
 }

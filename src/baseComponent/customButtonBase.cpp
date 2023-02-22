@@ -11,7 +11,7 @@
 #define CSS_TEXT_SIZE               "CSS_TEXT_SIZE"
 
 // see: https://linuxhint.com/c-multiline-string-literals/
-static const char * g_stylesheet_template = R"~(
+static const char *g_stylesheet_template = R"~(
 
 CustomButtonBase {
     border-style: solid;

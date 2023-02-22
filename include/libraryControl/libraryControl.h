@@ -17,7 +17,7 @@ struct LibraryControlButton
 {
     QString text;
     QString title;
-    bool operator==(const LibraryControlButton &rhs) const
+    bool operator==( const LibraryControlButton &rhs ) const
     {
         return text == rhs.text && title == rhs.title;
     }
@@ -26,15 +26,15 @@ struct LibraryControlButton
 class LibraryControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY(int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY currentGroupPageChanged)
-    Q_PROPERTY(int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged)
-    Q_PROPERTY(QString SelectedGroupMode READ SelectedGroupMode WRITE SetSelectedGroupMode NOTIFY SelectedGroupModeChanged)
-    Q_PROPERTY(QString SelectedHistoryMode READ SelectedHistoryMode WRITE SetSelectedHistoryMode NOTIFY SelectedHistoryModeChanged)
-    Q_PROPERTY(QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged)
-    Q_PROPERTY(LibraryControlButton CurrentLibraryButton READ CurrentLibraryButton WRITE SetCurrentLibraryButton NOTIFY CurrentLibraryButtonChanged)
-    Q_PROPERTY(QString CurrentHistoryModeButton READ CurrentHistoryModeButton WRITE SetCurrentHistoryModeButton NOTIFY CurrentHistoryModeButtonChanged)
-    Q_PROPERTY(LibraryControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged)
-    Q_PROPERTY(QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged)
+    Q_PROPERTY( int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY currentGroupPageChanged )
+    Q_PROPERTY( int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged )
+    Q_PROPERTY( QString SelectedGroupMode READ SelectedGroupMode WRITE SetSelectedGroupMode NOTIFY SelectedGroupModeChanged )
+    Q_PROPERTY( QString SelectedHistoryMode READ SelectedHistoryMode WRITE SetSelectedHistoryMode NOTIFY SelectedHistoryModeChanged )
+    Q_PROPERTY( QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged )
+    Q_PROPERTY( LibraryControlButton CurrentLibraryButton READ CurrentLibraryButton WRITE SetCurrentLibraryButton NOTIFY CurrentLibraryButtonChanged )
+    Q_PROPERTY( QString CurrentHistoryModeButton READ CurrentHistoryModeButton WRITE SetCurrentHistoryModeButton NOTIFY CurrentHistoryModeButtonChanged )
+    Q_PROPERTY( LibraryControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged )
+    Q_PROPERTY( QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged )
 
 public:
     struct LibraryButton
@@ -43,35 +43,35 @@ public:
         QSharedPointer<TitleSelectButton> widget;
     };
 
-    explicit LibraryControl(QWidget * parent = nullptr);
-    virtual void SetDispParamData(LIBRARY_DISP_PARAM *param);
+    explicit LibraryControl( QWidget *parent = nullptr );
+    virtual void SetDispParamData( LIBRARY_DISP_PARAM *param );
 
     int CurrentGroupPage() const;
-    void SetCurrentGroupPage(int page);
+    void SetCurrentGroupPage( int page );
 
     int CurrentHistoryPage() const;
-    void SetCurrentHistoryPage(int page);
+    void SetCurrentHistoryPage( int page );
 
     QString SelectedGroupMode() const;
-    void SetSelectedGroupMode(const QString &mode);
+    void SetSelectedGroupMode( const QString &mode );
 
     QString SelectedHistoryMode() const;
-    void SetSelectedHistoryMode(const QString &mode);
+    void SetSelectedHistoryMode( const QString &mode );
 
     const LibraryControlButton &CurrentLibraryButton() const;
-    void SetCurrentLibraryButton(const LibraryControlButton &button);
+    void SetCurrentLibraryButton( const LibraryControlButton &button );
 
     const LibraryControlButton &CurrentHistoryButton() const;
-    void SetCurrentHistoryButton(const LibraryControlButton &button);
+    void SetCurrentHistoryButton( const LibraryControlButton &button );
 
     const QString &CurrentFooterButton() const;
-    void SetCurrentFooterButton(const QString &button);
+    void SetCurrentFooterButton( const QString &button );
 
     const QString &CurrentModeButton() const;
-    void SetCurrentModeButton(const QString &button);
+    void SetCurrentModeButton( const QString &button );
 
     const QString &CurrentHistoryModeButton() const;
-    void SetCurrentHistoryModeButton(const QString &button);
+    void SetCurrentHistoryModeButton( const QString &button );
 
 signals:
     void currentGroupPageChanged();
@@ -87,10 +87,10 @@ signals:
 
 protected:
     QPoint LibraryStartPoint() const;
-    void SetLibraryStartPoint(QPoint point);
+    void SetLibraryStartPoint( QPoint point );
 
     QPoint ModeStartPoint() const;
-    void SetModeStartPoint(QPoint point);
+    void SetModeStartPoint( QPoint point );
 
     int MaxGroupPages() const;
     int MaxHistoryPages() const;
@@ -101,14 +101,14 @@ protected:
     void RefilterGroupButtonsByMode();
     void RefilterHistoryButtonsByMode();
 
-    static QVector<LibraryButton> Filter(const QVector<LibraryButton> &buttons, const QString &mode = QString());
-    static QVector<QSharedPointer<TitleSelectButton>> WidgetList(const QVector<LibraryButton> &buttons);
+    static QVector<LibraryButton> Filter( const QVector<LibraryButton> &buttons, const QString &mode = QString() );
+    static QVector<QSharedPointer<TitleSelectButton>> WidgetList( const QVector<LibraryButton> &buttons );
 
     void UpdateGroupTab();
     void UpdateHistoryTab();
 
 protected:
-    virtual void AddButtonToHistory(const LibraryButton &button);
+    virtual void AddButtonToHistory( const LibraryButton &button );
 
     void OnButtonTitleClicked();
     void OnButtonRegisterClicked();

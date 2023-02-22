@@ -8,39 +8,39 @@ class CustomButtonBase : public QPushButton
 {
     Q_OBJECT
 
-    Q_PROPERTY(QColor BackgroundColor READ BackgroundColor WRITE SetBackgroundColor NOTIFY BackgroundColorChanged)
-    Q_PROPERTY(QColor BorderColor READ BorderColor WRITE SetBorderColor NOTIFY BorderColorChanged)
-    Q_PROPERTY(QColor TextColor READ TextColor WRITE SetTextColor NOTIFY TextColorChanged)
+    Q_PROPERTY( QColor BackgroundColor READ BackgroundColor WRITE SetBackgroundColor NOTIFY BackgroundColorChanged )
+    Q_PROPERTY( QColor BorderColor READ BorderColor WRITE SetBorderColor NOTIFY BorderColorChanged )
+    Q_PROPERTY( QColor TextColor READ TextColor WRITE SetTextColor NOTIFY TextColorChanged )
 
-    Q_PROPERTY(QColor DisabledBackgroundColor READ DisabledBackgroundColor WRITE SetDisabledBackgroundColor NOTIFY DisabledBackgroundColorChanged)
-    Q_PROPERTY(QColor DisabledBorderColor READ DisabledBorderColor WRITE SetDisabledBorderColor NOTIFY DisabledBorderColorChanged)
-    Q_PROPERTY(QColor DisabledTextColor READ DisabledTextColor WRITE SetDisabledTextColor NOTIFY DisabledTextColorChanged)
+    Q_PROPERTY( QColor DisabledBackgroundColor READ DisabledBackgroundColor WRITE SetDisabledBackgroundColor NOTIFY DisabledBackgroundColorChanged )
+    Q_PROPERTY( QColor DisabledBorderColor READ DisabledBorderColor WRITE SetDisabledBorderColor NOTIFY DisabledBorderColorChanged )
+    Q_PROPERTY( QColor DisabledTextColor READ DisabledTextColor WRITE SetDisabledTextColor NOTIFY DisabledTextColorChanged )
 
-    Q_PROPERTY(int TextPixelSize READ TextPixelSize WRITE SetTextPixelSize NOTIFY TextPixelSizeChanged)
+    Q_PROPERTY( int TextPixelSize READ TextPixelSize WRITE SetTextPixelSize NOTIFY TextPixelSizeChanged )
 
 public:
-    explicit CustomButtonBase(QWidget *parent = nullptr);
+    explicit CustomButtonBase( QWidget *parent = nullptr );
 
     QColor BackgroundColor() const;
-    void SetBackgroundColor(const QColor &value);
+    void SetBackgroundColor( const QColor &value );
 
     QColor TextColor() const;
-    void SetTextColor(const QColor &value);
+    void SetTextColor( const QColor &value );
 
     int TextPixelSize() const;
-    void SetTextPixelSize(int value);
+    void SetTextPixelSize( int value );
 
     QColor BorderColor() const;
-    void SetBorderColor(const QColor &value);
+    void SetBorderColor( const QColor &value );
 
     QColor DisabledBackgroundColor() const;
-    void SetDisabledBackgroundColor(const QColor &value);
+    void SetDisabledBackgroundColor( const QColor &value );
 
     QColor DisabledBorderColor() const;
-    void SetDisabledBorderColor(const QColor &value);
+    void SetDisabledBorderColor( const QColor &value );
 
     QColor DisabledTextColor() const;
-    void SetDisabledTextColor(const QColor &value);
+    void SetDisabledTextColor( const QColor &value );
 
 public slots:
 
