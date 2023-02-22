@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : paletteControl.cpp
+// [ 概      要 ] : PaletteControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "paletteControl/paletteControl.hpp"
 #include "paletteControl/paletteControl_define.hpp"
 #include "utility.h"
@@ -20,7 +26,7 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
 
     m_revert_button.SetTextColor(Qt::yellow);
 
-    SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
+    SetPaletteStartPoint(PC_BUTTON_TOP_LEFT);
     SetMenuStartPoint(PC_MENU_TOP_LEFT);
 
     m_grid.SetGridSize(QSize(4, 6));
@@ -74,6 +80,12 @@ PaletteControl::PaletteControl(QWidget *parent) : PanelControlBase(parent),
     connect(this, &PaletteControl::TypeChanged, this, &PaletteControl::OnTypeChanged);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetDispParamData
+//  [ 機　能 ] : Set the display parameters data for the control
+//  [ 引　数 ] : PALETTE_DISP_PARAM *param : the parameters
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -154,6 +166,12 @@ void PaletteControl::SetDispParamData(PALETTE_DISP_PARAM *param)
     SetSelectedPalette(selected_palette);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnModeButtonClicked
+//  [ 機　能 ] : Occurs when user clicked on Mode buttons, to update controls
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::OnModeButtonClicked()
 {
     for (auto &button: m_mode_buttons) {
@@ -167,6 +185,12 @@ void PaletteControl::OnModeButtonClicked()
     UpdateModePages();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnPaletteButtonClicked
+//  [ 機　能 ] : Occurs when user clicked on Palette buttons, to update controls
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::OnPaletteButtonClicked()
 {
     UpdatePalettePages();
@@ -184,6 +208,12 @@ void PaletteControl::OnPaletteButtonClicked()
     SetSelectedPalette(m_palette_names.at(mode_index).at(palette_index));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdateModePages
+//  [ 機　能 ] : Display the current mode buttons according to current page
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::UpdateModePages()
 {
     UpdateChildrenVisibility(m_mode_buttons, CurrentModePage(), ModeButtonsPerPage());
@@ -197,6 +227,12 @@ void PaletteControl::UpdateModePages()
     UpdatePalettePages();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdatePalettePages
+//  [ 機　能 ] : Display the current palette buttons according to current page
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::UpdatePalettePages()
 {
     m_button_next_palette_page.setVisible(false);
@@ -222,24 +258,48 @@ void PaletteControl::UpdatePalettePages()
     auto &group = m_palette_buttons.at(mode_index);
 
     UpdateChildrenVisibility(group, CurrentPalettePage(), PaletteButtonsPerPage());
-    PlaceChildrenIntoPanel(group, PC_BUTTON_SIZE, ButtonStartPoint(), m_palette_button_grid_size);
+    PlaceChildrenIntoPanel(group, PC_BUTTON_SIZE, PaletteStartPoint(), m_palette_button_grid_size);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ModeStartPoint
+//  [ 機　能 ] : Get the coordinate of the first mode button's top left corner
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QPoint : coordinate
+//--------------------------------------------------------------------------
 QPoint PaletteControl::ModeStartPoint() const
 {
     return m_menu_start_point;
 }
 
-void PaletteControl::SetMenuStartPoint(QPoint newMenuStartPoint)
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetModeStartPoint
+//  [ 機　能 ] : Set the coordinate of the first mode button's top left corner
+//  [ 引　数 ] : QPoint value : coordinate
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
+void PaletteControl::SetMenuStartPoint(QPoint value)
 {
-    m_menu_start_point = newMenuStartPoint;
+    m_menu_start_point = value;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MaxModePages
+//  [ 機　能 ] : Get the number of mode pages
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : page count
+//--------------------------------------------------------------------------
 int PaletteControl::MaxModePages() const
 {
     return CalulateNumberOfPages(m_mode_buttons.size(), ModeButtonsPerPage());
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MaxPalettePages
+//  [ 機　能 ] : Get the number of palette pages
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : page count
+//--------------------------------------------------------------------------
 int PaletteControl::MaxPalettePages() const
 {
     int modeIndex = SelectedModeIndex();
@@ -249,16 +309,34 @@ int PaletteControl::MaxPalettePages() const
     return CalulateNumberOfPages(group.size(), PaletteButtonsPerPage());
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ModeButtonsPerPage
+//  [ 機　能 ] : Get number of mode buttons per page
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : buttons count
+//--------------------------------------------------------------------------
 int PaletteControl::ModeButtonsPerPage() const
 {
     return m_mode_button_grid_size.width() * m_mode_button_grid_size.height();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ModeButtonsPerPage
+//  [ 機　能 ] : Get number of palette buttons per page
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : buttons count
+//--------------------------------------------------------------------------
 int PaletteControl::PaletteButtonsPerPage() const
 {
     return m_palette_button_grid_size.width() * m_palette_button_grid_size.height();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedModeIndex
+//  [ 機　能 ] : Get the index of selected mode
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : index
+//--------------------------------------------------------------------------
 int PaletteControl::SelectedModeIndex() const
 {
     const auto iter = std::find_if(m_mode_buttons.cbegin(), m_mode_buttons.cend(), [](const QSharedPointer<SelectButton> &b) {
@@ -271,6 +349,12 @@ int PaletteControl::SelectedModeIndex() const
     return std::distance(m_mode_buttons.cbegin(), iter);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnTypeChanged
+//  [ 機　能 ] : Update title & palette button grid sizej
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::OnTypeChanged()
 {
     switch (Type()) {
@@ -278,19 +362,19 @@ void PaletteControl::OnTypeChanged()
             m_title_label.setText("ゴボ");
             m_mode_button_grid_size = QSize(4, 1);
             m_palette_button_grid_size = QSize(4, 3);
-            SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
+            SetPaletteStartPoint(PC_BUTTON_TOP_LEFT);
             break;
         case PALETTE_BEAM_SHUTTER:
             m_title_label.setText("モード");
             m_mode_button_grid_size = QSize(4, 1);
             m_palette_button_grid_size = QSize(4, 3);
-            SetButtonStartPoint(PC_BUTTON_TOP_LEFT);
+            SetPaletteStartPoint(PC_BUTTON_TOP_LEFT);
             break;
         case PALETTE_TYPE_CONTROL:
             m_title_label.setText("モード");
             m_mode_button_grid_size = QSize(4, 0);
             m_palette_button_grid_size = QSize(4, 4);
-            SetButtonStartPoint(PC_MENU_TOP_LEFT);
+            SetPaletteStartPoint(PC_MENU_TOP_LEFT);
             break;
         default:
             break;
@@ -298,21 +382,45 @@ void PaletteControl::OnTypeChanged()
     UpdateModePages();
 }
 
-QPoint PaletteControl::ButtonStartPoint() const
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PaletteStartPoint
+//  [ 機　能 ] : Get the coordinate of the first palette button's top left corner
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QPoint : coordinate
+//--------------------------------------------------------------------------
+QPoint PaletteControl::PaletteStartPoint() const
 {
     return m_button_start_point;
 }
 
-void PaletteControl::SetButtonStartPoint(QPoint newButtonStartPoint)
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetPaletteStartPoint
+//  [ 機　能 ] : Set the coordinate of the first palette button's top left corner
+//  [ 引　数 ] : QPoint value : new coordinate
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
+void PaletteControl::SetPaletteStartPoint(QPoint value)
 {
-    m_button_start_point = newButtonStartPoint;
+    m_button_start_point = value;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CurrentModePage
+//  [ 機　能 ] : Current page index of mode buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : page index
+//--------------------------------------------------------------------------
 int PaletteControl::CurrentModePage() const
 {
     return m_current_mode_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetCurrentModePage
+//  [ 機　能 ] : Set current page index of mode buttons
+//  [ 引　数 ] : int value : page index
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::SetCurrentModePage(int value)
 {
     value = qBound(0, value, MaxModePages() - 1);
@@ -322,11 +430,23 @@ void PaletteControl::SetCurrentModePage(int value)
     emit CurrentModePageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CurrentPalettePage
+//  [ 機　能 ] : Current page index of palette buttons
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : page index
+//--------------------------------------------------------------------------
 int PaletteControl::CurrentPalettePage() const
 {
     return m_current_palette_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetCurrentPalettePage
+//  [ 機　能 ] : Set current page index of palette buttons
+//  [ 引　数 ] : int value : page index
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::SetCurrentPalettePage(int value)
 {
     value = qBound(0, value, MaxPalettePages() - 1);
@@ -336,11 +456,23 @@ void PaletteControl::SetCurrentPalettePage(int value)
     emit CurrentPalettePageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : Type
+//  [ 機　能 ] : Get the current type
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : PaletteType : Palette type
+//--------------------------------------------------------------------------
 PaletteType PaletteControl::Type() const
 {
     return m_type;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetType
+//  [ 機　能 ] : Set the current type
+//  [ 引　数 ] : PaletteType value : new palette type
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::SetType(PaletteType value)
 {
     if (m_type == value)
@@ -349,11 +481,23 @@ void PaletteControl::SetType(PaletteType value)
     emit TypeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedPalette
+//  [ 機　能 ] : Get the selected palette name
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QString : selected palette name
+//--------------------------------------------------------------------------
 QString PaletteControl::SelectedPalette() const
 {
     return m_selected_palette;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetSelectedPalette
+//  [ 機　能 ] : Set the selected palette name
+//  [ 引　数 ] : const QStrin &value : new name
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::SetSelectedPalette(const QString &value)
 {
     if (m_selected_palette == value)
@@ -362,11 +506,23 @@ void PaletteControl::SetSelectedPalette(const QString &value)
     emit SelectedPaletteChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedMode
+//  [ 機　能 ] : Get the selected mode name
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QString : selected mode name
+//--------------------------------------------------------------------------
 QString PaletteControl::SelectedMode() const
 {
     return m_selected_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetSelectedMode
+//  [ 機　能 ] : Set the selected mode name
+//  [ 引　数 ] : const QStrin &value : new mode
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControl::SetSelectedMode(const QString &value)
 {
     if (m_selected_mode == value)

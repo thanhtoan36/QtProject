@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : paletteControl_define.h
+// [ 概      要 ] : Constant definitions for PaletteControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PALETTECONTROL_DEFINE_H
 #define PALETTECONTROL_DEFINE_H
 

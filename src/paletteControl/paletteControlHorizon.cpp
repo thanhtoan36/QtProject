@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : paletteControlHorizon.cpp
+// [ 概      要 ] : PaletteControlHorizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "paletteControl/paletteControlHorizon.h"
 #include "paletteControl/paletteControlHorizon_define.h"
 
@@ -6,7 +12,7 @@
 PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(parent)
 {
     setFixedSize(PC_HORIZON_SCREEN_SIZE);
-    SetButtonStartPoint(PC_HORIZON_BUTTON_TOP_LEFT);
+    SetPaletteStartPoint(PC_HORIZON_BUTTON_TOP_LEFT);
     SetMenuStartPoint(PC_HORIZON_MENU_TOP_LEFT);
     m_mode_button_grid_size = QSize(1, 3);
     m_palette_button_grid_size = QSize(4, 4);
@@ -30,6 +36,12 @@ PaletteControlHorizon::PaletteControlHorizon(QWidget *parent) : PaletteControl(p
     m_revert_button.setGeometry(PC_HORIZON_RETURN_GEOMETRY);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnTypeChanged
+//  [ 機　能 ] : Update title & palette button grid sizej
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PaletteControlHorizon::OnTypeChanged()
 {
     switch (Type()) {

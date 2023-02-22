@@ -244,7 +244,7 @@ QPointF PantiltControl::ConvertCoordinateToValue(QPointF coordinate)
 //--------------------------------------------------------------------------
 void PantiltControl::MovePointWithConstraints(TrackPointData &point, QPointF new_value)
 {
-    // Limit pan/tilt to max / min of this object
+    // Limit pan/tilt to min/ max of this track point
     new_value.setX(qBound(point.param.pan.min, float(new_value.x()), point.param.pan.max));
     new_value.setY(qBound(point.param.tilt.min, float(new_value.y()), point.param.tilt.max));
 

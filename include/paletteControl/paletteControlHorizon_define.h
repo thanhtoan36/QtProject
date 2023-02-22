@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : playbackControlHorizon_define.h
+// [ 概      要 ] : Constant definitions for PaletteControlHorizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PALETTECONTROLHORIZON_DEFINE_H
 #define PALETTECONTROLHORIZON_DEFINE_H
 

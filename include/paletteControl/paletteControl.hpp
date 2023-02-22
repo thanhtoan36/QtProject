@@ -1,5 +1,12 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : paletteControl.h
+// [ 概      要 ] : PaletteControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PALETTECONTROL_H
 #define PALETTECONTROL_H
+
 #include "paletteControl_datatypes.h"
 #include "baseComponent/panelControlBase.h"
 #include "baseComponent/selectButton.h"
@@ -47,8 +54,8 @@ protected:
     uint16_t MenuPageSize() const;
     uint16_t ButtonPageSize() const;
 
-    QPoint ButtonStartPoint() const;
-    void SetButtonStartPoint(QPoint value);
+    QPoint PaletteStartPoint() const;
+    void SetPaletteStartPoint(QPoint value);
 
     QPoint ModeStartPoint() const;
     void SetMenuStartPoint(QPoint value);
