@@ -89,7 +89,7 @@ PlaybackControl::PlaybackControl(QWidget *parent)
 //  [ 引　数 ] : PLAYBACK_DISP_PARAM *param : the parameters
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void PlaybackControl::setDispParamData(PLAYBACK_DISP_PARAM *param)
+void PlaybackControl::SetDispParamData(PLAYBACK_DISP_PARAM *param)
 {
     Q_ASSERT(param);
     m_double_clicked = false;

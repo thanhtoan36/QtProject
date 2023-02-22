@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : encoderControl.cpp
+// [ 概      要 ] : EncoderControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "encoderControl/encoderControl.hpp"
 #include "encoderControl/encoderControl_define.hpp"
 #include "utility.h"
@@ -85,6 +91,12 @@ EncoderControl::EncoderControl(QWidget *parent)
     connect(this, &EncoderControl::TypeChanged, this, &EncoderControl::OnTypeChanged);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetDispParamData
+//  [ 機　能 ] : Set the display parameters data for the control
+//  [ 引　数 ] : ENCODER_DISP_PARAM *param : the parameters
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -136,6 +148,12 @@ void EncoderControl::SetDispParamData(ENCODER_DISP_PARAM *param)
     m_button_previous_page.setVisible(MaxEncoderPages() > 1);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetupEncoderPages
+//  [ 機　能 ] : Set the coordinate and visibility of the encoders
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::SetupEncoderPages()
 {
     UpdateChildrenVisibility(m_encoders, CurrentEncoderPage(), m_encoders_per_page);
@@ -145,6 +163,12 @@ void EncoderControl::SetupEncoderPages()
     m_encoder_background.SetGridSize(QSize(visible_items, 1));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnModeChanged
+//  [ 機　能 ] : Occurs when the mode changed, to update the controls
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::OnModeChanged()
 {
     m_button_mode_percent.setChecked(Mode() == ENCODER_MODE_PERCENT);
@@ -181,11 +205,23 @@ void EncoderControl::OnModeChanged()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnTypeChanged
+//  [ 機　能 ] : Occurs when the type changed, to update the controls
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::OnTypeChanged()
 {
     m_button_mode_angle.setVisible(Type() == ENCODER_TYPE_POSITION);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdateEncoderLabelValue
+//  [ 機　能 ] : Update the encoder labels
+//  [ 引　数 ] : int index : The index of the encoder label
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::UpdateEncoderLabelValue(int index)
 {
     auto &label = m_encoder_labels[index];
@@ -193,6 +229,13 @@ void EncoderControl::UpdateEncoderLabelValue(int index)
     label->setText(QString(g_encoder_label_format).arg(param.name).arg((int)param.level));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnEncoderValueChanged
+//  [ 機　能 ] : Occurs when any encoder's value changed
+//  [ 引　数 ] : int index : The index of changed encoder
+//              int value : The value of encoder
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::OnEncoderValueChanged(int index, int value)
 {
     auto &param = m_params[index];
@@ -201,11 +244,23 @@ void EncoderControl::OnEncoderValueChanged(int index, int value)
     emit EncoderValueChanged(index, param.name, value);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CurrentEncoderPage
+//  [ 機　能 ] : Get the current page index of the encoders
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : the current page index
+//--------------------------------------------------------------------------
 int EncoderControl::CurrentEncoderPage() const
 {
     return m_current_encoder_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetCurrentEncoderPage
+//  [ 機　能 ] : Set the current page index of the encoders
+//  [ 引　数 ] : int value : the new page index
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::SetCurrentEncoderPage(int value)
 {
     value = qBound(0, value, MaxEncoderPages() - 1);
@@ -215,16 +270,34 @@ void EncoderControl::SetCurrentEncoderPage(int value)
     emit CurrentEncoderPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MaxEncoderPages
+//  [ 機　能 ] : Get the encoder page count
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : the encoder page count
+//--------------------------------------------------------------------------
 int EncoderControl::MaxEncoderPages() const
 {
     return CalulateNumberOfPages(m_encoders.length(), m_encoders_per_page);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : Mode
+//  [ 機　能 ] : Get the current mode
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : EncoderMode : the current mode
+//--------------------------------------------------------------------------
 EncoderMode EncoderControl::Mode() const
 {
     return m_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetMode
+//  [ 機　能 ] : Set the current mode
+//  [ 引　数 ] : EncoderMode mode : the new mode
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::SetMode(EncoderMode value)
 {
     if (m_mode == value)
@@ -233,11 +306,23 @@ void EncoderControl::SetMode(EncoderMode value)
     emit ModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : Type
+//  [ 機　能 ] : Get the current type
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : EncoderType : the current type
+//--------------------------------------------------------------------------
 EncoderType EncoderControl::Type() const
 {
     return m_type;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetType
+//  [ 機　能 ] : Set the current type
+//  [ 引　数 ] : EncoderType type : the new type
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControl::SetType(EncoderType value)
 {
     if (m_type == value)

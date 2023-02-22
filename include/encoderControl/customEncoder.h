@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customEncoder.h
+// [ 概      要 ] : CustomEncoderControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef CUSTOMENCODER_H
 #define CUSTOMENCODER_H
 

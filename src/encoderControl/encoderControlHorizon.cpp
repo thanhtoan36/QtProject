@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : encoderControlHorizon.cpp
+// [ 概      要 ] : EncoderControlHorizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "encoderControl/encoderControlHorizon.h"
 #include "encoderControl/encoderControl_define.hpp"
 
@@ -38,6 +44,12 @@ EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &EncoderControlHorizon::OnPanelSwitchButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetDispParamData
+//  [ 機　能 ] : Set the display parameters data for the control
+//  [ 引　数 ] : ENCODER_DISP_PARAM *param : the parameters
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
 {
     EncoderControl::SetDispParamData(param);
@@ -46,6 +58,12 @@ void EncoderControlHorizon::SetDispParamData(ENCODER_DISP_PARAM *param)
     PlaceChildrenIntoPanel(m_encoders, EC_CUSTOM_ENCODER_SIZE, EC_ENCODER_TOPLEFT_HORIZON, QSize(m_encoders_per_page, 1));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnPanelSwitchButtonClicked
+//  [ 機　能 ] : Occurs when panel switch buttons are clicked
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControlHorizon::OnPanelSwitchButtonClicked()
 {
     m_button_switch_panel_picker.setChecked(false);
@@ -54,6 +72,12 @@ void EncoderControlHorizon::OnPanelSwitchButtonClicked()
     ((QAbstractButton*)sender())->setChecked(true);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetupEncoderPages
+//  [ 機　能 ] : Set the coordinate and visibility of the encoders
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void EncoderControlHorizon::SetupEncoderPages()
 {
     UpdateChildrenVisibility(m_encoders, CurrentEncoderPage(), m_encoders_per_page);

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customEncoder.cpp
+// [ 概      要 ] : CustomEncoderControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "encoderControl/customEncoder.h"
 #include "encoderControl/encoderControl_define.hpp"
 
@@ -6,8 +12,6 @@
 #include "utility.h"
 
 #define EC_BUTTON_HEIGHT 25
-
-// NOTE: currently only support vertical orientation
 
 CustomEncoder::CustomEncoder(QWidget *parent)
     : QAbstractSlider(parent),
@@ -88,6 +92,12 @@ void CustomEncoder::resizeEvent(QResizeEvent *event)
     QAbstractSlider::resizeEvent(event);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetupChildComponents
+//  [ 機　能 ] : Setup children components for this widget
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomEncoder::SetupChildComponents()
 {
     m_slider_boundary = QRect(QPoint(EC_ENCODER_WIDTH_PADDING, EC_BUTTON_HEIGHT),
@@ -104,11 +114,23 @@ void CustomEncoder::SetupChildComponents()
     m_button_decrease.setText("▼");
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpperRestrictValue
+//  [ 機　能 ] : Get the upper limt value of the encoder
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : int : Upper limt value
+//--------------------------------------------------------------------------
 int CustomEncoder::UpperRestrictValue() const
 {
     return m_upper_restrict_value;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetUpperRestrictValue
+//  [ 機　能 ] : Set the upper limt value of the encoder
+//  [ 引　数 ] : int value : the new value to set
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomEncoder::SetUpperRestrictValue(int value)
 {
     if (m_upper_restrict_value == value)

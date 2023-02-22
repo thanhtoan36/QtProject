@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : encoderControl_datatypes.h
+// [ 概      要 ] : Type definitions for EncoderControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef ENCODERCONTROL_DATATYPES_H
 #define ENCODERCONTROL_DATATYPES_H
 

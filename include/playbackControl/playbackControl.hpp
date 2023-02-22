@@ -24,7 +24,7 @@ class PlaybackControl : public PanelControlBase
 
 public:
     PlaybackControl(QWidget *parent = nullptr);
-    virtual void setDispParamData(PLAYBACK_DISP_PARAM *param);
+    virtual void SetDispParamData(PLAYBACK_DISP_PARAM *param);
 
 protected slots:
     void OnMarkingSelected(const QString &marking, const QColor &color);

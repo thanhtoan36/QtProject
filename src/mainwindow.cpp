@@ -524,8 +524,8 @@ void MainWindow::on_TrackControl_Fake_Set_clicked()
 void MainWindow::on_PlaybackControl_Fake_Set_clicked()
 {
     PLAYBACK_DISP_PARAM params = ParseInput_Playback(ui->PlaybackControl_Fake_RawInput->toPlainText());
-    m_playback_control_horizon->setDispParamData(&params);
-    m_playback_control->setDispParamData(&params);
+    m_playback_control_horizon->SetDispParamData(&params);
+    m_playback_control->SetDispParamData(&params);
 }
 
 

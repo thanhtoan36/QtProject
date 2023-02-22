@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : encoderControlHorizon.h
+// [ 概      要 ] : EncoderControlHorizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef ENCODERCONTROLHORIZON_H
 #define ENCODERCONTROLHORIZON_H
 

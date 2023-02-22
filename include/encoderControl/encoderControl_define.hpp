@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : encoderControl_define.h
+// [ 概      要 ] : Constant definitions for EncoderControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef ENCODERCONTROL_DEFINE_H
 #define ENCODERCONTROL_DEFINE_H
 
