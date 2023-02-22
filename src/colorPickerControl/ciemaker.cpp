@@ -1,5 +1,9 @@
-﻿#include "colorPickerControl/ciemaker.h"
-
+﻿//--------------------------------------------------------------------------
+// [ ファイル名 ] : ciemaker.cpp
+// [ 概      要 ] : CIE helper class to generate CIE diagram
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+#include "colorPickerControl/ciemaker.h"
 #include <cmath>
 #include <QDebug>
 #include <QImage>

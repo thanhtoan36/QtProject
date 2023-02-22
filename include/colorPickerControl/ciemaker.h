@@ -1,4 +1,9 @@
-﻿#ifndef CIEMAKER_H
+﻿//--------------------------------------------------------------------------
+// [ ファイル名 ] : ciemaker.h
+// [ 概      要 ] : CIE helper class to generate CIE diagram
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+#ifndef CIEMAKER_H
 #define CIEMAKER_H
 
 #include "cieaux.h"
