@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorPickerControl.h
+// [ 概      要 ] : ColorPickerControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef COLORPICKERCONTROL_H
 #define COLORPICKERCONTROL_H
 
@@ -27,11 +32,7 @@ public:
     virtual void SetDispParamData(COLOR_PICKER_DISP_PARAM *param);
 
     ColorPickerType PickerType() const;
-    void SetPickerType(ColorPickerType newPickerType);
-
     QColor PickerColor() const;
-    void SetPickerColor(const QColor &newPickerColor);
-
 signals:
     void PickerTypeChanged();
     void PickerColorChanged();
@@ -50,9 +51,10 @@ protected:
     void ResumeSliderEvents();
     int CurrentHeaderButtonsPage() const;
     void SetCurrentHeaderButtonsPage(int new_button_page);
-
     void AddHeaderButton(ColorPickerType type, const QString &text);
     QVector<QSharedPointer<SelectButton> > HeaderButtons() const;
+    void SetPickerType(ColorPickerType type);
+    void SetPickerColor(const QColor &type);
 
 protected:
     struct PickerButton

@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customColorPickerXY.h
+// [ 概   要 ] : ColorPickerXY Widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "colorPickerControl/customColorPickerXY.h"
 #include "colorPickerControl/colorPickerControl_define.hpp"
 #include <QPainter>
@@ -5,9 +10,8 @@
 #include <QMouseEvent>
 #include <math.h>
 
-/**
- * @brief Inverse sRGB gamma correction, transforms R' to R
- */
+
+//Inverse sRGB gamma correction, transforms R' to R
 #define INV_GAMMA_CORRECTION(t)                                                \
   (((t) <= 0.0404482362771076) ? ((t) / 12.92)                                 \
                                : pow(((t) + 0.055) / 1.055, 2.4))
@@ -24,6 +28,12 @@ CustomColorPickerXY::CustomColorPickerXY(QWidget *parent) : QWidget(parent),
     m_white_xy = m_valid_xy;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetColor
+//  [ 機能名   ] : Set color and convert to x y value
+//  [ 引数	  ] : const QColor &color : color need to set
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void CustomColorPickerXY::SetColor(const QColor &color)
 {
     float x,y,z;
@@ -31,6 +41,12 @@ void CustomColorPickerXY::SetColor(const QColor &color)
     SetXy(QPointF(x, y));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetXy
+//  [ 機能名   ] : Set x y value
+//  [ 引数	  ] : const QPointF &xy : xy coordinate
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void CustomColorPickerXY::SetXy(const QPointF &xy)
 {
     QPointF nearest = FindNearestXy(xy);
@@ -60,6 +76,12 @@ QColor CustomColorPickerXY::GetColor(QPointF xy) const
     return m_cie_maker.GetColor(xy);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : paintEvent
+//  [ 機能名   ] : overwrite paint event and draw widget
+//  [ 引数	  ] : QPaintEvent *
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void CustomColorPickerXY::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
@@ -88,6 +110,12 @@ void CustomColorPickerXY::paintEvent(QPaintEvent *)
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : mousePressEvent
+//  [ 機能名   ] : handle press event to pick color and xy
+//  [ 引数	  ] : QMouseEvent *event : press event
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
 {
     if(m_plot_area.contains(event->pos())){
@@ -100,18 +128,41 @@ void CustomColorPickerXY::mousePressEvent(QMouseEvent *event)
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MapToPosition
+//  [ 機能名   ] : convert CIE xy value to coordinate of widget
+//  [ 引数	  ] : const QPointF &p : xy coordinate
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::MapToPosition(const QPointF &p)
 {
     return QPointF(m_plot_area.x()+m_plot_area.width()*p.x(),
                   m_offset.height()+m_plot_area.height()*(1-p.y()));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MapToPosition
+//  [ 機能名   ] : convert mouse press point to CIE xy
+//  [ 引数	  ] : const QPointF &p : xy coordinate
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::MapToValue(const QPoint &p)
 {
     return QPointF(1.0f*(p.x()-m_plot_area.x())/m_plot_area.width(),
                    1.0f*(m_plot_area.y()+m_plot_area.height()-p.y())/m_plot_area.height());
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : RBG2XY
+//  [ 機能名   ] : convert color RGB to xyz
+//  [ 引数	  ] : float R : red value
+//                float G : green value
+//                float B : blue value
+//                float &x : x value
+//                float &y : y value
+//                float &z : z value
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, float &z)
 {
     R = INV_GAMMA_CORRECTION(R);
@@ -127,12 +178,18 @@ void CustomColorPickerXY::RBG2XY(float R, float G, float B, float &x, float &y, 
     y = Y / (X + Y + Z);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : FindNearestXy
+//  [ 機能名   ] : find nereast xy when out of boudary
+//  [ 引数	  ] : QPointF target : target coordinate
+//  [ 戻り値    ] : QPointF: nearest xy
+//--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::FindNearestXy(QPointF target)
 {
     if (m_cie_maker.IsPointInsideBound(CPointF(target.x(), target.y())))
         return target;
 
-    // find nearest valid point from white center pont
+    // find nearest valid point from white center point
     QPointF nearest = m_white_xy;
     auto diff = target - nearest;
 

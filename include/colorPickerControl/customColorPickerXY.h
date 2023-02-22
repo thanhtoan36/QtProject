@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customColorPickerXY.h
+// [ 概   要 ] : ColorPickerXY Widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef CUSTOMCOLORPICKERXY_H
 #define CUSTOMCOLORPICKERXY_H
 

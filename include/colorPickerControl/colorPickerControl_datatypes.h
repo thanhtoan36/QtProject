@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorPickerControl_datatypes.h.h
+// [ 概      要 ] : Type definitions for ColorPickerControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef COLORPICKERCONTROL_DATATYPES_H
 #define COLORPICKERCONTROL_DATATYPES_H
 
