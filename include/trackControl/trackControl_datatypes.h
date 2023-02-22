@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : trackControl_datatypes.h
+// [ 概      要 ] : Type definitions for TrackControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef TRACKCONTROL_DATATYPES_H
 #define TRACKCONTROL_DATATYPES_H
 

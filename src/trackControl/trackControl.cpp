@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : trackControl.cpp
+// [ 概      要 ] : TrackControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "trackControl/trackControl.hpp"
 #include "trackControl/trackControl_define.hpp"
 
@@ -97,11 +103,16 @@ TrackControl::TrackControl(QWidget *parent)
     connect(this, &TrackControl::ValueModeChanged, this, &TrackControl::OnValueModeChanged);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetDispParamData
+//  [ 機　能 ] : Set the display parameters data for the control
+//  [ 引　数 ] : TRACK_DISP_PARAM *param : the parameters
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
 {
     Q_ASSERT(param);
 
-    // NOTE: mode must be set prior to trackPoints
     SetMode(param->mode);
     SetValueMode(param->valueMode);
 
@@ -117,37 +128,73 @@ void TrackControl::SetDispParamData(TRACK_DISP_PARAM *param)
     OnValueModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : Mode()
+//  [ 機　能 ] : Get the current mode
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : TrackMode : the current mode
+//--------------------------------------------------------------------------
 TrackMode TrackControl::Mode() const
 {
     return m_mode;
 }
 
-void TrackControl::SetMode(TrackMode newMode)
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetMode
+//  [ 機　能 ] : Set the current mode
+//  [ 引　数 ] : TrackMode value : the new track modej
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
+void TrackControl::SetMode(TrackMode value)
 {
-    if (m_mode == newMode)
+    if (m_mode == value)
         return;
-    m_mode = newMode;
+    m_mode = value;
     emit ModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ValueMode
+//  [ 機　能 ] : Get the current value mode
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : TrackValueMode : the current value mode
+//--------------------------------------------------------------------------
 TrackValueMode TrackControl::ValueMode() const
 {
     return m_value_mode;
 }
 
-void TrackControl::SetValueMode(TrackValueMode newValueMode)
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetValueMode
+//  [ 機　能 ] : Set the current value mode
+//  [ 引　数 ] : TrackValueMode value : The new track value mode
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
+void TrackControl::SetValueMode(TrackValueMode value)
 {
-    if (m_value_mode == newValueMode)
+    if (m_value_mode == value)
         return;
-    m_value_mode = newValueMode;
+    m_value_mode = value;
     emit ValueModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : TrackPoints
+//  [ 機　能 ] : Get the track points
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QVector<TRACK_PARAM_GROUP> : The track points
+//--------------------------------------------------------------------------
 QVector<TRACK_PARAM_GROUP> TrackControl::TrackPoints() const
 {
     return FloatParam2IntParam(MapToValue(m_pantilt_control.TrackPoints()));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MapToScreen
+//  [ 機　能 ] : Convert point value to PantiltControl resolution
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : The point value with Mode() unit
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : The values in PantiltControl resolution
+//--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const {
     float scale = Mode() == TRACK_MODE_PERCENT
             ? (TC_TRACK_RESOLUTION / 100.0)  // map from 0..100% to 0..TC_TRACK_RESOLUTION
@@ -165,6 +212,12 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen(con
     return result;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MapToScreen
+//  [ 機　能 ] : Convert point fro PantiltControl resolution to value
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : The values in PantiltControl resolution
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : The point value with Mode() unit
+//--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToValue(const QVector<PantiltControl::TrackPointFloatParamGroup> &points) const
 {
     float scale = Mode() == TRACK_MODE_PERCENT
@@ -183,6 +236,12 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToValue(cons
     return result;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : IntParam2FloatParam
+//  [ 機　能 ] : Convert track point data from integers to floats for accurate calculations
+//  [ 引　数 ] : const QVector<TRACK_PARAM_GROUP> &int_param : the integer values
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : the float values
+//--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::IntParam2FloatParam(const QVector<TRACK_PARAM_GROUP> &int_param)
 {
     QVector<PantiltControl::TrackPointFloatParamGroup> result;
@@ -200,6 +259,12 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::IntParam2FloatP
     return result;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : FloatParam2IntParam
+//  [ 機　能 ] : Convert track point data from floats to integers for accurate calculations
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &float_param: the float values
+//  [ 戻り値 ] : QVector<TRACK_PARAM_GROUP> : The integer values
+//--------------------------------------------------------------------------
 QVector<TRACK_PARAM_GROUP> TrackControl::FloatParam2IntParam(const QVector<PantiltControl::TrackPointFloatParamGroup> &float_param)
 {
     QVector<TRACK_PARAM_GROUP> result;
@@ -217,7 +282,12 @@ QVector<TRACK_PARAM_GROUP> TrackControl::FloatParam2IntParam(const QVector<Panti
     return result;
 }
 
-
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnModeChanged
+//  [ 機　能 ] : Occurs when the mode changed
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void TrackControl::OnModeChanged()
 {
     m_button_mode_percent.setChecked(Mode() == TRACK_MODE_PERCENT);
@@ -225,6 +295,12 @@ void TrackControl::OnModeChanged()
     m_button_mode_angle.setChecked(Mode() == TRACK_MODE_ANGLE);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : OnValueModeChanged
+//  [ 機　能 ] : Occurs when the value mode changed
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void TrackControl::OnValueModeChanged()
 {
     m_button_value_mode_relative.setChecked(ValueMode() == TRACK_MODE_RELATIVE);

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : trackControl.h
+// [ 概      要 ] : TrackControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef TRACKCONTROL_H
 #define TRACKCONTROL_H
 
@@ -51,7 +57,7 @@ protected:
 
   SelectButton m_button_value_mode_relative;
   SelectButton m_button_value_mode_absolute;
-  SelectButton m_button_emply_field; // place holder
+  SelectButton m_button_emply_field;
 
   PantiltControl m_pantilt_control;
 

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : pantiltControl.h
+// [ 概      要 ] : PantiltControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PANTILTCONTROL_H
 #define PANTILTCONTROL_H
 
@@ -60,9 +66,6 @@ protected:
 
 signals:
     void TrackPointsUpdated();
-
-private slots:
-    void OnTrackPointMoveRequested(QPoint new_pos);
 
 private:
     QLabel m_label_tilt, m_label_pan;

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : pantiltControl.cpp
+// [ 概      要 ] : PantiltControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "trackControl/pantiltControl.h"
 
 #include <QPainter>
@@ -15,6 +21,12 @@ TrackPoint::TrackPoint(QWidget *parent)
     setFocusPolicy(Qt::FocusPolicy::NoFocus);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : Coordinate
+//  [ 機　能 ] : Get the current coordinate
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QPoint : the current coordinate
+//--------------------------------------------------------------------------
 QPoint TrackPoint::Coordinate()
 {
     QPoint pos;
@@ -23,6 +35,12 @@ QPoint TrackPoint::Coordinate()
     return pos;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetCoordinate
+//  [ 機　能 ] : Set the current coordinate
+//  [ 引　数 ] : QPoint pos : new coordinate
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void TrackPoint::SetCoordinate(QPoint pos)
 {
     pos.setX(pos.x() - TRACK_POINT_SIZE.width() / 2);
@@ -53,6 +71,12 @@ PantiltControl::PantiltControl(QWidget *parent)
     m_label_pan.setObjectName("graph_axis_label");
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetValueMode
+//  [ 機　能 ] : Set the value mode
+//  [ 引　数 ] : TrackValueMode value_mode : new value mode
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::SetValueMode(TrackValueMode value_mode)
 {
     if (m_value_mode == value_mode)
@@ -62,6 +86,12 @@ void PantiltControl::SetValueMode(TrackValueMode value_mode)
     m_value_mode = value_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetTrackPoints
+//  [ 機　能 ] : Set the track points to paint
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : new points
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::SetTrackPoints(const QVector<PantiltControl::TrackPointFloatParamGroup> &points)
 {
     m_track_points.clear();
@@ -80,6 +110,12 @@ void PantiltControl::SetTrackPoints(const QVector<PantiltControl::TrackPointFloa
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : TrackPoints
+//  [ 機　能 ] : Get the current track points
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : The track points
+//--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::TrackPoints() const
 {
     QVector<PantiltControl::TrackPointFloatParamGroup>  result;
@@ -167,6 +203,12 @@ void PantiltControl::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ConvertValueToCoordinate
+//  [ 機　能 ] : Convert the track point value to screen coordinate
+//  [ 引　数 ] : QPointF value : track point value
+//  [ 戻り値 ] : QPointF : Screen coordinate
+//--------------------------------------------------------------------------
 QPointF PantiltControl::ConvertValueToCoordinate(QPointF value)
 {
     value.setY(TC_TRACK_RESOLUTION - value.y());
@@ -177,6 +219,12 @@ QPointF PantiltControl::ConvertValueToCoordinate(QPointF value)
     return coordinate;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ConvertCoordinateToValue
+//  [ 機　能 ] : Convert screen coordinate to track point values
+//  [ 引　数 ] : QPointF coordinate : Screen coordinate
+//  [ 戻り値 ] : QPointF : Track point value
+//--------------------------------------------------------------------------
 QPointF PantiltControl::ConvertCoordinateToValue(QPointF coordinate)
 {
     QPointF value(coordinate.x() * TC_TRACK_RESOLUTION / geometry().width(),
@@ -187,6 +235,13 @@ QPointF PantiltControl::ConvertCoordinateToValue(QPointF coordinate)
     return value;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MovePointWidthContrains
+//  [ 機　能 ] : Move a point but within its min/max constrains
+//  [ 引　数 ] : TrackPointData &point : The point widget to move
+//              QPointF new_value : New values
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::MovePointWithConstraints(TrackPointData &point, QPointF new_value)
 {
     // Limit pan/tilt to max / min of this object
@@ -197,21 +252,4 @@ void PantiltControl::MovePointWithConstraints(TrackPointData &point, QPointF new
     point.widget->SetCoordinate(new_pos.toPoint());
     point.param.pan.current = new_value.x();
     point.param.tilt.current = new_value.y();
-}
-
-void PantiltControl::OnTrackPointMoveRequested(QPoint new_pos)
-{
-    auto widget = static_cast<TrackPoint*>(QObject::sender());
-    if (!widget)
-    {
-        return;
-    }
-
-    const QPoint diff = new_pos - widget->pos();
-
-    for (TrackPointData &p : m_track_points)
-    {
-        auto new_value = ConvertCoordinateToValue(p.widget->pos() + diff);
-        MovePointWithConstraints(p, new_value);
-    }
 }

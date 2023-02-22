@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : trackControl_define.h
+// [ 概      要 ] : Constant definitions for TrackControl
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef TRACKCONTROL_DEFINE_H
 #define TRACKCONTROL_DEFINE_H
 
