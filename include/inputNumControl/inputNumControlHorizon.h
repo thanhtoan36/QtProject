@@ -6,7 +6,7 @@
 #ifndef INPUTNUMCONTROLHORIZON_H
 #define INPUTNUMCONTROLHORIZON_H
 
-#include "inputNumControl.hpp"
+#include "inputNumControl.h"
 
 class InputNumControlHorizon : public InputNumControl
 {

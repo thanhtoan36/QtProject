@@ -7,7 +7,7 @@
 #ifndef PALETTECONTROLHORIZON_H
 #define PALETTECONTROLHORIZON_H
 
-#include "paletteControl.hpp"
+#include "paletteControl.h"
 
 class PaletteControlHorizon : public PaletteControl
 {

@@ -3,8 +3,8 @@
 // [ 概      要 ] : ColorPickerControl vertical widget
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
-#include "colorPickerControl/colorPickerControl.hpp"
-#include "colorPickerControl/colorPickerControl_define.hpp"
+#include "colorPickerControl/colorPickerControl.h"
+#include "colorPickerControl/colorPickerControl_define.h"
 #include "utility.h"
 
 #include <QDebug>

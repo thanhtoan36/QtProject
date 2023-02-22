@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "colorPickerControl/colorPickerControlHorizon.h"
-#include "colorPickerControl/colorPickerControl.hpp"
-#include "trackControl/trackControl.hpp"
+#include "colorPickerControl/colorPickerControl.h"
+#include "trackControl/trackControl.h"
 #include "trackControl/trackControlHorizon.h"
-#include "intensityControl/intensityControl.hpp"
+#include "intensityControl/intensityControl.h"
 #include "utility.h"
 
 #include <cstring>

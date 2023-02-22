@@ -3,8 +3,8 @@
 // [ 概      要 ] : GroupControl vertical widget
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
-#include "groupControl/groupControl.hpp"
-#include "groupControl/groupControl_define.hpp"
+#include "groupControl/groupControl.h"
+#include "groupControl/groupControl_define.h"
 #include "utility.h"
 
 #define BASE_BUTTON_WIDTH GC_BUTTON1_GEOMETRY.width()

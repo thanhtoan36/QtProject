@@ -3,8 +3,8 @@
 // [ 概      要 ] : ColorFilterControl vertical widget
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
-#include "colorFilterControl/colorFilterControl.hpp"
-#include "colorFilterControl/colorFilterControl_define.hpp"
+#include "colorFilterControl/colorFilterControl.h"
+#include "colorFilterControl/colorFilterControl_define.h"
 #include <QFont>
 #include <math.h>
 #include "utility.h"

@@ -5,7 +5,7 @@
 //--------------------------------------------------------------------------
 
 #include "playbackControl/playbackControlHorizon.h"
-#include "playbackControl/playbackControl_define.hpp"
+#include "playbackControl/playbackControl_define.h"
 #include "utility.h"
 
 PlaybackControlHorizon::PlaybackControlHorizon(QWidget *parent)

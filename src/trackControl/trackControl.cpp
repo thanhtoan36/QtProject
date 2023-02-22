@@ -4,8 +4,8 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
-#include "trackControl/trackControl.hpp"
-#include "trackControl/trackControl_define.hpp"
+#include "trackControl/trackControl.h"
+#include "trackControl/trackControl_define.h"
 
 TrackControl::TrackControl(QWidget *parent)
     : PanelControlBase(parent),

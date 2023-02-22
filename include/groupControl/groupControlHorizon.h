@@ -6,7 +6,7 @@
 #ifndef GROUPCONTROLHORIZON_H
 #define GROUPCONTROLHORIZON_H
 
-#include "groupControl.hpp"
+#include "groupControl.h"
 
 
 class GroupControlHorizon : public GroupControl

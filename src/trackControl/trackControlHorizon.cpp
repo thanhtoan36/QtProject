@@ -5,7 +5,7 @@
 //--------------------------------------------------------------------------
 
 #include "trackControl/trackControlHorizon.h"
-#include "trackControl/trackControl_define.hpp"
+#include "trackControl/trackControl_define.h"
 
 TrackControlHorizon::TrackControlHorizon(QWidget *parent)
     : TrackControl(parent),

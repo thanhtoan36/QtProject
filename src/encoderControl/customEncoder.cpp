@@ -5,7 +5,7 @@
 //--------------------------------------------------------------------------
 
 #include "encoderControl/customEncoder.h"
-#include "encoderControl/encoderControl_define.hpp"
+#include "encoderControl/encoderControl_define.h"
 
 #include <QPainter>
 #include <QMouseEvent>

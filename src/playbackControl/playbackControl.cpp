@@ -4,8 +4,8 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
-#include "playbackControl/playbackControl.hpp"
-#include "playbackControl/playbackControl_define.hpp"
+#include "playbackControl/playbackControl.h"
+#include "playbackControl/playbackControl_define.h"
 #include "utility.h"
 
 #include <QListWidgetItem>

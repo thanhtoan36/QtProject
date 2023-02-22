@@ -3,8 +3,8 @@
 // [ 概      要 ] : InputNumControl vertical widget
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
-#include "inputNumControl/inputNumControl.hpp"
-#include "inputNumControl/inputNumControl_define.hpp"
+#include "inputNumControl/inputNumControl.h"
+#include "inputNumControl/inputNumControl_define.h"
 #include "utility.h"
 
 #define BASE_BUTTON_WIDTH IC_7_GEOMETRY.width()

@@ -6,7 +6,7 @@
 #ifndef COLORPICKERCONTROLHORIZON_H
 #define COLORPICKERCONTROLHORIZON_H
 
-#include "colorPickerControl.hpp"
+#include "colorPickerControl.h"
 #include "colorPickerControlHorizon_define.h"
 
 class ColorPickerControlHorizon : public ColorPickerControl

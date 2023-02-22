@@ -6,7 +6,7 @@
 #ifndef COLORFILTERCONTROLHORIZON_H
 #define COLORFILTERCONTROLHORIZON_H
 
-#include "colorFilterControl.hpp"
+#include "colorFilterControl.h"
 class ColorFilterControlHorizon : public ColorFilterControl
 {
     Q_OBJECT

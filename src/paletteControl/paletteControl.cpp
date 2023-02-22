@@ -4,8 +4,8 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
-#include "paletteControl/paletteControl.hpp"
-#include "paletteControl/paletteControl_define.hpp"
+#include "paletteControl/paletteControl.h"
+#include "paletteControl/paletteControl_define.h"
 #include "utility.h"
 
 #define BUTTON_SIZE PC_BUTTON1_GEOMETRY.size()
@@ -321,7 +321,7 @@ int PaletteControl::ModeButtonsPerPage() const
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名 ] : ModeButtonsPerPage
+//  [ 関数名 ] : PaletteButtonsPerPage
 //  [ 機　能 ] : Get number of palette buttons per page
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : int : buttons count

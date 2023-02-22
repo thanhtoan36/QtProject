@@ -5,7 +5,7 @@
 //--------------------------------------------------------------------------
 
 #include "encoderControl/encoderControlHorizon.h"
-#include "encoderControl/encoderControl_define.hpp"
+#include "encoderControl/encoderControl_define.h"
 
 EncoderControlHorizon::EncoderControlHorizon(QWidget *parent)
     : EncoderControl(parent),

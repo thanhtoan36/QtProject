@@ -7,7 +7,7 @@
 #ifndef ENCODERCONTROLHORIZON_H
 #define ENCODERCONTROLHORIZON_H
 
-#include "encoderControl/encoderControl.hpp"
+#include "encoderControl/encoderControl.h"
 #include "baseComponent/selectButton.h"
 
 class EncoderControlHorizon : public EncoderControl

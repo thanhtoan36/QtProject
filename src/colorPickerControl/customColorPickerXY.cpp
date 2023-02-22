@@ -4,7 +4,7 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorPickerControl/customColorPickerXY.h"
-#include "colorPickerControl/colorPickerControl_define.hpp"
+#include "colorPickerControl/colorPickerControl_define.h"
 #include <QPainter>
 #include <QDebug>
 #include <QMouseEvent>

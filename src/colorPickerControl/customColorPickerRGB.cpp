@@ -5,7 +5,7 @@
 //--------------------------------------------------------------------------
 
 #include "colorPickerControl/customColorPickerRGB.h"
-#include "colorPickerControl/colorPickerControl_define.hpp"
+#include "colorPickerControl/colorPickerControl_define.h"
 #include <QPainter>
 #include <QMouseEvent>
 #include <QDebug>

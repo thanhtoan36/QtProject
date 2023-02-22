@@ -3,7 +3,7 @@
 // [ 概      要 ] : LibraryControl vertical widget
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
-#include "libraryControl/libraryControl.hpp"
+#include "libraryControl/libraryControl.h"
 #include "libraryControl/libraryControl_define.h"
 #include "utility.h"
 

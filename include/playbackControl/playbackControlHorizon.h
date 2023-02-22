@@ -7,7 +7,7 @@
 #ifndef PLAYBACKCONTROLHORIZON_H
 #define PLAYBACKCONTROLHORIZON_H
 
-#include "playbackControl.hpp"
+#include "playbackControl.h"
 
 class PlaybackControlHorizon : public PlaybackControl
 {

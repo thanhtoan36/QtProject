@@ -5,26 +5,26 @@
 #include "baseComponent/panelWindow.h"
 
 #include "colorPickerControl/colorPickerControlHorizon.h"
-#include "colorPickerControl/colorPickerControl.hpp"
-#include "trackControl/trackControl.hpp"
+#include "colorPickerControl/colorPickerControl.h"
+#include "trackControl/trackControl.h"
 #include "trackControl/trackControlHorizon.h"
 
-#include "intensityControl/intensityControl.hpp"
+#include "intensityControl/intensityControl.h"
 #include "intensityControl/intensityControlHorizon.h"
 
-#include "encoderControl/encoderControl.hpp"
+#include "encoderControl/encoderControl.h"
 #include "encoderControl/encoderControlHorizon.h"
 
-#include "colorFilterControl/colorFilterControl.hpp"
+#include "colorFilterControl/colorFilterControl.h"
 #include "colorFilterControl/colorFilterControlHorizon.h"
 
-#include "inputNumControl/inputNumControl.hpp"
+#include "inputNumControl/inputNumControl.h"
 #include "inputNumControl/inputNumControlHorizon.h"
 
 #include "groupControl/groupControlHorizon.h"
 #include "libraryControl/libraryControlHorizon.h"
 
-#include "playbackControl/playbackControl.hpp"
+#include "playbackControl/playbackControl.h"
 #include "playbackControl/playbackControlHorizon.h"
 
 #include "paletteControl/paletteControlHorizon.h"

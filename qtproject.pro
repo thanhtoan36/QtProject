@@ -9,11 +9,11 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    include/playbackControl/listWidgetGridLineOverlay.cpp \
-    include/playbackControl/markingPickerPopup.cpp \
-    include/playbackControl/playbackControlHorizon.cpp \
-    include/playbackControl/playbackRowDelegate.cpp \
-    include/testDataParser.cpp \
+    src/playbackControl/listWidgetGridLineOverlay.cpp \
+    src/playbackControl/markingPickerPopup.cpp \
+    src/playbackControl/playbackControlHorizon.cpp \
+    src/playbackControl/playbackRowDelegate.cpp \
+    src/testDataParser.cpp \
     src/baseComponent/dynamicStyleSheet.cpp \
     src/baseComponent/gridBackground.cpp \
     src/colorFilterControl/colorFilterControlHorizon.cpp \
@@ -65,66 +65,66 @@ HEADERS += \
     include/baseComponent/selectButton.h \
     include/baseComponent/titleSelectButton.h \
     include/baseComponent/toggleButton.h \
-    include/colorFilterControl/colorFilterControl.hpp \
+    include/colorFilterControl/colorFilterControl.h \
     include/colorFilterControl/colorFilterControlHorizon.h \
     include/colorFilterControl/colorFilterControlHorizon_define.h \
     include/colorFilterControl/colorFilterControl_datatypes.h \
-    include/colorFilterControl/colorFilterControl_define.hpp \
+    include/colorFilterControl/colorFilterControl_define.h \
     include/colorPickerControl/cieaux.h \
     include/colorPickerControl/ciemaker.h \
-    include/colorPickerControl/colorPickerControl.hpp \
+    include/colorPickerControl/colorPickerControl.h \
     include/colorPickerControl/colorPickerControlHorizon.h \
     include/colorPickerControl/colorPickerControlHorizon_define.h \
     include/colorPickerControl/colorPickerControl_datatypes.h \
-    include/colorPickerControl/colorPickerControl_define.hpp \
+    include/colorPickerControl/colorPickerControl_define.h \
     include/colorPickerControl/customColorPickerRGB.h \
     include/colorPickerControl/customColorPickerXY.h \
     include/encoderControl/customEncoder.h \
-    include/encoderControl/encoderControl.hpp \
+    include/encoderControl/encoderControl.h \
     include/encoderControl/encoderControlHorizon.h \
     include/encoderControl/encoderControl_datatypes.h \
-    include/encoderControl/encoderControl_define.hpp \
-    include/groupLibContol/groupLibControl.hpp \
-    include/groupLibContol/groupLibControl_define.hpp \
+    include/encoderControl/encoderControl_define.h \
+    include/groupLibContol/groupLibControl.h \
+    include/groupLibContol/groupLibControl_define.h \
     include/encoderControl/encoderSlider.h \
-    include/groupControl/groupControl.hpp \
+    include/groupControl/groupControl.h \
     include/groupControl/groupControlHorizon.h \
     include/groupControl/groupControlHorizon_define.h \
     include/groupControl/groupControl_datatypes.h \
-    include/groupControl/groupControl_define.hpp \
-    include/inputNumControl/inputNumControl.hpp \
+    include/groupControl/groupControl_define.h \
+    include/inputNumControl/inputNumControl.h \
     include/inputNumControl/inputNumControlHorizon.h \
     include/inputNumControl/inputNumControlHorizon_define.h \
     include/inputNumControl/inputNumControl_datatypes.h \
-    include/inputNumControl/inputNumControl_define.hpp \
-    include/intensityControl/intensityControl.hpp \
+    include/inputNumControl/inputNumControl_define.h \
+    include/intensityControl/intensityControl.h \
     include/intensityControl/intensityControl_datatypes.h \
-    include/intensityControl/intensityControl_define.hpp \
+    include/intensityControl/intensityControl_define.h \
     include/intensityControl/intensityControlHorizon.h \
-    include/libraryControl/libraryControl.hpp \
+    include/libraryControl/libraryControl.h \
     include/libraryControl/libraryControlHorizon.h \
     include/libraryControl/libraryControlHorizon_define.h \
     include/libraryControl/libraryControl_datatypes.h \
     include/libraryControl/libraryControl_define.h \
     include/loghandler.h \
-    include/paletteControl/paletteControl.hpp \
+    include/paletteControl/paletteControl.h \
     include/paletteControl/paletteControlHorizon.h \
     include/paletteControl/paletteControlHorizon_define.h \
     include/paletteControl/paletteControl_datatypes.h \
-    include/paletteControl/paletteControl_define.hpp \
+    include/paletteControl/paletteControl_define.h \
     include/playbackControl/listWidgetGridLineOverlay.h \
     include/playbackControl/markingPickerPopup.h \
     include/playbackControl/playbackControlHorizon.h \
     include/playbackControl/playbackRowDelegate.h \
     include/testDataParser.h \
     include/trackControl/pantiltControl.h \
-    include/trackControl/trackControl.hpp \
+    include/trackControl/trackControl.h \
     include/trackControl/trackControlHorizon.h \
     include/trackControl/trackControl_datatypes.h \
-    include/trackControl/trackControl_define.hpp \
-    include/playbackControl/playbackControl.hpp \
+    include/trackControl/trackControl_define.h \
+    include/playbackControl/playbackControl.h \
     include/playbackControl/playbackControl_datatypes.h \
-    include/playbackControl/playbackControl_define.hpp \
+    include/playbackControl/playbackControl_define.h \
     include/mainwindow.h \
     include/utility.h \
     include/baseComponent/dynamicStyleSheet.h

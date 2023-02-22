@@ -7,7 +7,7 @@
 #ifndef TRACKCONTROLHORIZON_H
 #define TRACKCONTROLHORIZON_H
 
-#include "trackControl.hpp"
+#include "trackControl.h"
 
 
 class TrackControlHorizon : public TrackControl

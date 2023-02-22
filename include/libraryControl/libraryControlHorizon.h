@@ -6,7 +6,7 @@
 #ifndef LIBRARYCONTROLHORIZON_H
 #define LIBRARYCONTROLHORIZON_H
 
-#include "libraryControl.hpp"
+#include "libraryControl.h"
 
 
 class LibraryControlHorizon : public LibraryControl

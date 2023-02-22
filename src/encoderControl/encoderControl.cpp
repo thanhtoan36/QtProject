@@ -4,8 +4,8 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
-#include "encoderControl/encoderControl.hpp"
-#include "encoderControl/encoderControl_define.hpp"
+#include "encoderControl/encoderControl.h"
+#include "encoderControl/encoderControl_define.h"
 #include "utility.h"
 
 #include <QDebug>

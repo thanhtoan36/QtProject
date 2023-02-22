@@ -1,5 +1,5 @@
 #include "intensityControl/intensityControlHorizon.h"
-#include "intensityControl/intensityControl_define.hpp"
+#include "intensityControl/intensityControl_define.h"
 #include "utility.h"
 #include <QDebug>
 

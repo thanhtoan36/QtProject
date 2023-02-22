@@ -1,7 +1,7 @@
 #ifndef INTENSITYCONTROLHORIZON_H
 #define INTENSITYCONTROLHORIZON_H
 
-#include "intensityControl/intensityControl.hpp"
+#include "intensityControl/intensityControl.h"
 
 class IntensityControlHorizon : public IntensityControl
 {
