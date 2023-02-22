@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorPickerControl.h
+// [ 概      要 ] : ColorPickerControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "colorPickerControl/colorPickerControl.hpp"
 #include "colorPickerControl/colorPickerControl_define.hpp"
 #include "utility.h"
@@ -215,6 +220,12 @@ ColorPickerControl::ColorPickerControl(QWidget *parent)
     connect(&m_button_previous_menu_page, &QAbstractButton::clicked, this, &ColorPickerControl::PrevButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機能名   ] : Set color and slider value
+//  [ 引数	  ] : COLOR_PICKER_DISP_PARAM *param: display parameter
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
 {
     Q_ASSERT(param);
@@ -236,6 +247,12 @@ void ColorPickerControl::SetDispParamData(COLOR_PICKER_DISP_PARAM *param)
     ResumeSliderEvents();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : PauseSliderEvents
+//  [ 機能名   ] : Disable signal slot
+//  [ 引数	  ] : None
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::PauseSliderEvents()
 {
     m_slider_x.blockSignals(true);
@@ -245,6 +262,12 @@ void ColorPickerControl::PauseSliderEvents()
     m_slider_v.blockSignals(true);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ResumeSliderEvents
+//  [ 機能名   ] : Enable signal slot
+//  [ 引数	  ] : None
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::ResumeSliderEvents()
 {
     m_slider_x.blockSignals(false);
@@ -254,6 +277,13 @@ void ColorPickerControl::ResumeSliderEvents()
     m_slider_v.blockSignals(false);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : AddHeaderButton
+//  [ 機能名   ] : Add header button
+//  [ 引数	  ] : ColorPickerType type: button type xy or rgb
+//                const QString &text: button text
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::AddHeaderButton(ColorPickerType type, const QString &text)
 {
     auto button = MakeSharedQObject<SelectButton>(this);
@@ -264,6 +294,12 @@ void ColorPickerControl::AddHeaderButton(ColorPickerType type, const QString &te
     connect(button.get(), &QPushButton::clicked, this, &ColorPickerControl::OnPickerTypeButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : HeaderButtons
+//  [ 機能名   ] : Get header button list
+//  [ 引数	  ] : None
+//  [ 戻り値    ] : QVector<QSharedPointer<SelectButton>> : list of SelectButton
+//--------------------------------------------------------------------------
 QVector<QSharedPointer<SelectButton>> ColorPickerControl::HeaderButtons() const
 {
     QVector<QSharedPointer<SelectButton>> buttons;
@@ -277,11 +313,11 @@ ColorPickerType ColorPickerControl::PickerType() const
     return m_picker_type;
 }
 
-void ColorPickerControl::SetPickerType(ColorPickerType newPickerType)
+void ColorPickerControl::SetPickerType(ColorPickerType type)
 {
-    if (m_picker_type == newPickerType)
+    if (m_picker_type == type)
         return;
-    m_picker_type = newPickerType;
+    m_picker_type = type;
     emit PickerTypeChanged();
 }
 
@@ -290,14 +326,20 @@ QColor ColorPickerControl::PickerColor() const
     return m_picker_color;
 }
 
-void ColorPickerControl::SetPickerColor(const QColor &newPickerColor)
+void ColorPickerControl::SetPickerColor(const QColor &type)
 {
-    if (m_picker_color == newPickerColor)
+    if (m_picker_color == type)
         return;
-    m_picker_color = newPickerColor;
+    m_picker_color = type;
     emit PickerColorChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名  ] : OnPickerTypeChanged
+//  [ 機能名  ] : Handle event picker type changed
+//  [ 引数	 ] : None
+//  [ 戻り値   ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::OnPickerTypeChanged()
 {
     auto button = std::find_if(m_header_buttons.begin(), m_header_buttons.end(), [&](const PickerButton &button) {
@@ -328,6 +370,12 @@ void ColorPickerControl::OnPickerTypeChanged()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名  ] : OnPickerTypeButtonClicked
+//  [ 機能名  ] : Handle header button clicked event
+//  [ 引数	 ] : None
+//  [ 戻り値   ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::OnPickerTypeButtonClicked()
 {
     auto button = std::find_if(m_header_buttons.begin(), m_header_buttons.end(), [&](const PickerButton &button) {
@@ -338,6 +386,12 @@ void ColorPickerControl::OnPickerTypeButtonClicked()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetupHeaderButtonPages
+//  [ 機能名 ] : Scroll header button
+//  [ 引数   ] : None
+//  [ 戻り値  ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControl::SetupHeaderButtonPages()
 {
     m_button_previous_menu_page.setEnabled(CurrentHeaderButtonsPage() > 0);

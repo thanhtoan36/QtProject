@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorPickerControlHorizon_define.h
+// [ 概      要 ] : Constant definitions for ColorPickerControl Horizon
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef COLORPICKERCONTROLHORIZON_DEFINE_H
 #define COLORPICKERCONTROLHORIZON_DEFINE_H
 

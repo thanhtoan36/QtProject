@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customColorPickerRGB.h
+// [ 概   要 ] : ColorPickerRGB Widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef CUSTOMCOLORPICKERRGB_H
 #define CUSTOMCOLORPICKERRGB_H
 

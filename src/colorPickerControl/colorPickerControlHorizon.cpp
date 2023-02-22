@@ -1,5 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : colorPickerControlHorizon.cpp
+// [ 概      要 ] : ColorPickerControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "colorPickerControl/colorPickerControlHorizon.h"
-
 
 ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPickerControl(parent),
     m_button_switch_panel_picker(this),
@@ -73,6 +77,12 @@ ColorPickerControlHorizon::ColorPickerControlHorizon(QWidget *parent) : ColorPic
     connect(&m_button_switch_panel_input_num, &QAbstractButton::clicked, this, &ColorPickerControlHorizon::OnPanelSwitchButtonClicked);
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : OnPanelSwitchButtonClicked
+//  [ 機能名   ] : Event button clicked
+//  [ 引数	  ] : None
+//  [ 戻り値    ] : None
+//--------------------------------------------------------------------------
 void ColorPickerControlHorizon::OnPanelSwitchButtonClicked()
 {
     m_button_switch_panel_picker.setChecked(false);
