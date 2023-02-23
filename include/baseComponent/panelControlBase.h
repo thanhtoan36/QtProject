@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : panelControlBase.h
+// [ 概      要 ] : Base class for panel widgets
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PANELCONTROLBASE_H
 #define PANELCONTROLBASE_H
 

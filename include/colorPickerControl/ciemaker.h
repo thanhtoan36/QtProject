@@ -21,7 +21,7 @@ private:
 public:
     CIEMaker( int interpNum = 20, double brightness = 1.0 );
 
-    QImage DrawCIEDiagram( int picSize = 500 );
+    QImage DrawCIEDiagram( int pic_size = 500 );
     std::vector<CPointF> GetCieCurvePoints() const { return m_cie_curve_points; };
     bool IsPointInsideBound( const CPointF &p ) const;
     QColor GetColor( QPointF xy ) const;

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customToggleButtonBase.cpp
+// [ 概      要 ] : Base class for custom toggle buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include <QDebug>
 #include "baseComponent/customToggleButtonBase.h"
 
@@ -37,11 +43,23 @@ CustomToggleButtonBase::CustomToggleButtonBase(QWidget *parent) : CustomButtonBa
     SetDisabledTextColor(QColor::fromRgb(191, 191, 191));
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedBorderColor
+//  [ 機　能 ] : Get the border color when button is selected
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QColor : selected border color
+//--------------------------------------------------------------------------
 QColor CustomToggleButtonBase::SelectedBorderColor() const
 {
     return m_selected_border_color;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetSelectedBorderColor
+//  [ 機　能 ] : Set the border color when button is selected
+//  [ 引　数 ] : const QColor &value: Selected border color
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomToggleButtonBase::SetSelectedBorderColor(const QColor &value)
 {
     CssStyler().SetTemplateParam(CSS_BORDER_COLOR_CHECKED, value.name());
@@ -51,11 +69,23 @@ void CustomToggleButtonBase::SetSelectedBorderColor(const QColor &value)
     emit SelectedBorderColorChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedTextColor
+//  [ 機　能 ] : Get the text color when button is selected
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QColor : selected text color
+//--------------------------------------------------------------------------
 QColor CustomToggleButtonBase::SelectedTextColor() const
 {
     return m_selected_text_color;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetSelectedTextColor
+//  [ 機　能 ] : Set the text color when button is selected
+//  [ 引　数 ] : const QColor &value: Selected text color
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomToggleButtonBase::SetSelectedTextColor(const QColor &value)
 {
     CssStyler().SetTemplateParam(CSS_TEXT_COLOR_CHECKED, value.name());
@@ -65,11 +95,23 @@ void CustomToggleButtonBase::SetSelectedTextColor(const QColor &value)
     emit SelectedTextColorChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SelectedBackroundColor
+//  [ 機　能 ] : Get the backround color when button is selected
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QColor : selected backround color
+//--------------------------------------------------------------------------
 QColor CustomToggleButtonBase::SelectedBackgroundColor() const
 {
     return m_selected_background_color;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetSelectedBorderColor
+//  [ 機　能 ] : Set the background color when button is selected
+//  [ 引　数 ] : const QColor &value: Selected background color
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomToggleButtonBase::SetSelectedBackgroundColor(const QColor &value)
 {
     CssStyler().SetTemplateParam(CSS_BG_COLOR_CHECKED, value.name());

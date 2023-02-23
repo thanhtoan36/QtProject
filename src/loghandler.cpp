@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : logHandler.cpp
+// [ 概      要 ] : Not important, just to print qDebug() logs
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include <QRegularExpression>
 #include <QDebug>
 #include <QMap>

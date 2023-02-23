@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : titleSelectButton.h
+// [ 概      要 ] : Represents title select buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef TITLESELECTBUTTON_H
 #define TITLESELECTBUTTON_H
 #include "selectButton.h"

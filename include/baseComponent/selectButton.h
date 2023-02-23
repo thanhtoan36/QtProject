@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : selectButton.h
+// [ 概      要 ] : Represents select buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef SELECTBUTTON_H
 #define SELECTBUTTON_H
 

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : gridBackground.cpp
+// [ 概      要 ] : Widget to draw background with grid lines
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "baseComponent/gridBackground.h"
 #include <QPainter>
 #include <QDebug>
@@ -49,17 +55,35 @@ void GridBackground::paintEvent( QPaintEvent *e )
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : UpdateGridSize
+//  [ 機　能 ] : Update widget size base on the current grid size and cell size
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void GridBackground::UpdateGridSize()
 {
     setFixedSize( GridSize().width() * CellSize().width(), GridSize().height() * CellSize().height() );
     update();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : GridSize
+//  [ 機　能 ] : Get the grid size
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QSize : Grid size
+//--------------------------------------------------------------------------
 QSize GridBackground::GridSize() const
 {
     return m_gridSize;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetGridSize
+//  [ 機　能 ] : Set the grid size
+//  [ 引　数 ] : const QSize &value : new size
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void GridBackground::SetGridSize( const QSize &value )
 {
     if( m_gridSize == value )
@@ -71,11 +95,23 @@ void GridBackground::SetGridSize( const QSize &value )
     emit GridSizeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CellSize
+//  [ 機　能 ] : Get the cell size
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QSize : cell size
+//--------------------------------------------------------------------------
 QSize GridBackground::CellSize() const
 {
     return m_cellSize;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetCellSize
+//  [ 機　能 ] : Set the cell size
+//  [ 引　数 ] : const QSize &value : new cell size
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void GridBackground::SetCellSize( const QSize &value )
 {
     if( m_cellSize == value )
@@ -87,11 +123,23 @@ void GridBackground::SetCellSize( const QSize &value )
     emit CellSizeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : BackgroundColor
+//  [ 機　能 ] : Get the background color
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QColor : background color
+//--------------------------------------------------------------------------
 QColor GridBackground::BackgroundColor() const
 {
     return m_backgroundColor;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetBackgroundColor
+//  [ 機　能 ] : Set the background color
+//  [ 引　数 ] : const QColor &value : new background color
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void GridBackground::SetBackgroundColor( const QColor &value )
 {
     if( m_backgroundColor == value )
@@ -103,11 +151,23 @@ void GridBackground::SetBackgroundColor( const QColor &value )
     emit BackgroundColorChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : GridLineColor
+//  [ 機　能 ] : Get the grid line color
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QColor : grid line color
+//--------------------------------------------------------------------------
 QColor GridBackground::GridLineColor() const
 {
     return m_gridLineColor;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetGridLineColor
+//  [ 機　能 ] : Set the grid line color
+//  [ 引　数 ] : const QColor &value : new grid line color
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void GridBackground::SetGridLineColor( const QColor &value )
 {
     if( m_gridLineColor == value )

@@ -1,5 +1,10 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : toggleButton.cpp
+// [ 概      要 ] : Represents toggle buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #include "baseComponent/toggleButton.h"
-#include "baseComponent/designPolicyDefine.h"
 #include <QDebug>
 #include <QTimer>
 
@@ -24,11 +29,23 @@ ToggleButton::ToggleButton( QWidget *parent )
     m_check_label.setVisible( isChecked() && CheckMarkVisible() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CheckMarkVisible
+//  [ 機　能 ] : Get the visibility of checkmark
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : bool : checkmark visibility
+//--------------------------------------------------------------------------
 bool ToggleButton::CheckMarkVisible() const
 {
     return m_check_mark_vsible;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : SetCheckMarkVisible
+//  [ 機　能 ] : Set the visibility of checkmark
+//  [ 引　数 ] : bool value : new checkmark visibility
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ToggleButton::SetCheckMarkVisible( bool value )
 {
     if( m_check_mark_vsible == value )
