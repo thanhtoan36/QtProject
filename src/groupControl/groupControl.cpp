@@ -7,9 +7,6 @@
 #include "groupControl/groupControl_define.h"
 #include "utility.h"
 
-#define BASE_BUTTON_WIDTH GC_FIRST_BUTTON_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT GC_FIRST_BUTTON_GEOMETRY.height()
-
 GroupControl::GroupControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
     m_title_label( this ),
@@ -32,7 +29,7 @@ GroupControl::GroupControl( QWidget *parent ) : PanelControlBase( parent ),
     m_title_label.setObjectName( "title_label" );
 
     m_grid.SetGridSize( QSize( 4, 6 ) );
-    m_grid.SetCellSize( QSize( BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT ) );
+    m_grid.SetCellSize( GC_FIRST_BUTTON_GEOMETRY.size() );
     m_grid.move( 0, 32 );
 
     m_title_label.setGeometry( GC_TITLE_GEOMETRY );
@@ -195,7 +192,7 @@ void GroupControl::SetDispParamData( GROUP_DISP_PARAM *param )
     for( int i = 0; i < param->history.count; i++ )
     {
         auto button =  MakeSharedQObject<TitleSelectButton>( this );
-        button->setFixedSize( GC_MODE_SIZE );
+        button->setFixedSize( GC_FIRST_BUTTON_GEOMETRY.size() );
         button->SetTitle( param->history.group_param[i].title );
         button->setText( param->history.group_param[i].group_no );
         button->setChecked( param->history.group_param[i].select );
