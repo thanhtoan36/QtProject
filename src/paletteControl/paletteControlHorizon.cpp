@@ -5,27 +5,25 @@
 //--------------------------------------------------------------------------
 
 #include "paletteControl/paletteControlHorizon.h"
-#include "paletteControl/paletteControlHorizon_define.h"
-
-#define BUTTON_SIZE PC_HORIZON_BUTTON1_GEOMETRY.size()
+#include "paletteControl/paletteControl_define.h"
 
 PaletteControlHorizon::PaletteControlHorizon( QWidget *parent ) : PaletteControl( parent )
 {
     setFixedSize( PC_HORIZON_SCREEN_SIZE );
-    SetPaletteStartPoint( PC_HORIZON_BUTTON_TOP_LEFT );
+    SetPaletteStartPoint( PC_HORIZON_PALETTE_TOP_LEFT );
     SetMenuStartPoint( PC_HORIZON_MENU_TOP_LEFT );
     m_mode_button_grid_size = QSize( 1, 3 );
     m_palette_button_grid_size = QSize( 4, 4 );
     m_title_label.setObjectName( "title_label_with_border" );
 
     m_grid.SetGridSize( QSize( 6, 5 ) );
-    m_grid.SetCellSize( BUTTON_SIZE );
+    m_grid.SetCellSize( PC_BUTTON_SIZE );
     m_grid.move( 0, 34 );
 
     m_title_label.setGeometry( PC_HORIZON_TITLE_GEOMETRY );
 
-    m_button_previous_palette_page.setGeometry( PC_HORIZON_UP_BUTTON_GEOMETRY );
-    m_button_next_palette_page.setGeometry( PC_HORIZON_DOWN_BUTTON_GEOMETRY );
+    m_button_previous_palette_page.setGeometry( PC_HORIZON_UP_PALETTE_GEOMETRY );
+    m_button_next_palette_page.setGeometry( PC_HORIZON_DOWN_PALETTE_GEOMETRY );
 
     m_button_next_mode_page.setGeometry( PC_HORIZON_DOWN_MODE_GEOMETRY );
     m_button_next_mode_page.setText( "▼" );
@@ -38,7 +36,7 @@ PaletteControlHorizon::PaletteControlHorizon( QWidget *parent ) : PaletteControl
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnTypeChanged
-//  [ 機　能 ] : Update title & palette button grid sizej
+//  [ 機　能 ] : Update title & palette button grid size
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------

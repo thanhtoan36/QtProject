@@ -5,8 +5,9 @@
 //--------------------------------------------------------------------------
 
 #include "baseComponent/panelControlBase.h"
-#include "baseComponent/designPolicyDefine.h"
 #include <QFile>
+
+#define SCREEN_BACKGROUND_COLOR QColor(34, 43, 53) // 画面の背景色
 
 PanelControlBase::PanelControlBase( QWidget *parent )
     : QWidget{parent},

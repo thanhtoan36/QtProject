@@ -8,8 +8,6 @@
 #include "paletteControl/paletteControl_define.h"
 #include "utility.h"
 
-#define BUTTON_SIZE PC_BUTTON1_GEOMETRY.size()
-
 PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
     m_title_label( this ),
@@ -26,11 +24,11 @@ PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
 
     m_revert_button.SetTextColor( Qt::yellow );
 
-    SetPaletteStartPoint( PC_BUTTON_TOP_LEFT );
+    SetPaletteStartPoint( PC_PALETTE_TOP_LEFT );
     SetMenuStartPoint( PC_MENU_TOP_LEFT );
 
     m_grid.SetGridSize( QSize( 4, 6 ) );
-    m_grid.SetCellSize( BUTTON_SIZE );
+    m_grid.SetCellSize( PC_BUTTON_SIZE );
     m_grid.move( 0, 32 );
 
     m_title_label.setGeometry( PC_TITLE_GEOMETRY );
@@ -388,7 +386,7 @@ void PaletteControl::OnTypeChanged()
             m_title_label.setText( "ゴボ" );
             m_mode_button_grid_size = QSize( 4, 1 );
             m_palette_button_grid_size = QSize( 4, 3 );
-            SetPaletteStartPoint( PC_BUTTON_TOP_LEFT );
+            SetPaletteStartPoint( PC_PALETTE_TOP_LEFT );
             break;
         }
 
@@ -397,7 +395,7 @@ void PaletteControl::OnTypeChanged()
             m_title_label.setText( "モード" );
             m_mode_button_grid_size = QSize( 4, 1 );
             m_palette_button_grid_size = QSize( 4, 3 );
-            SetPaletteStartPoint( PC_BUTTON_TOP_LEFT );
+            SetPaletteStartPoint( PC_PALETTE_TOP_LEFT );
             break;
         }
 

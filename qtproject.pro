@@ -57,7 +57,6 @@ SOURCES += \
 HEADERS += \
     include/baseComponent/customButtonBase.h \
     include/baseComponent/customToggleButtonBase.h \
-    include/baseComponent/designPolicyDefine.h \
     include/baseComponent/gridBackground.h \
     include/baseComponent/panelControlBase.h \
     include/baseComponent/panelWindow.h \
@@ -103,7 +102,6 @@ HEADERS += \
     include/loghandler.h \
     include/paletteControl/paletteControl.h \
     include/paletteControl/paletteControlHorizon.h \
-    include/paletteControl/paletteControlHorizon_define.h \
     include/paletteControl/paletteControl_datatypes.h \
     include/paletteControl/paletteControl_define.h \
     include/playbackControl/listWidgetGridLineOverlay.h \

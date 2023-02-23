@@ -9,7 +9,6 @@
 
 #include "trackControl.h"
 
-
 class TrackControlHorizon : public TrackControl
 {
 public:
