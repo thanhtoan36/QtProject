@@ -4,12 +4,12 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "inputNumControl/inputNumControlHorizon.h"
-#include "inputNumControl/inputNumControlHorizon_define.h"
+#include "inputNumControl/inputNumControl_define.h"
 #include "utility.h"
 
 
-#define BASE_BUTTON_WIDTH IC_HORIZON_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT IC_HORIZON_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH IC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT IC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
 #define MODE_ROW 1
 #define MODE_COLUMN 5
 
@@ -61,7 +61,7 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
     for( const QString &b : input_num_model )
     {
         auto button = MakeSharedQObject<CustomPushButton>( this );
-        button->setFixedSize( IC_HORIZON_BUTTON_SIZE );
+        button->setFixedSize( IC_HORIZON_7_GEOMETRY.size() );
         button->setVisible( true );
         button->setText( b );
 
@@ -73,7 +73,7 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
         m_input_num_buttons.append( button );
     }
 
-    PlaceChildrenIntoPanel( m_input_num_buttons, IC_HORIZON_BUTTON_SIZE, IC_HORIZON_BUTTON_TOPLEFT, QSize( 4, 4 ) );
+    PlaceChildrenIntoPanel( m_input_num_buttons, IC_HORIZON_7_GEOMETRY.size(), IC_HORIZON_7_GEOMETRY.topLeft(), QSize( 4, 4 ) );
 
     connect( &m_button_switch_panel_picker, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked );
     connect( &m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked );
@@ -103,7 +103,7 @@ void InputNumControlHorizon::OnPanelSwitchButtonClicked()
 void InputNumControlHorizon::OnTypeChanged()
 {
     InputNumControl::OnTypeChanged();
-    PlaceChildrenIntoPanel( m_group_buttons, IC_HORIZON_MODE_SIZE, IC_HORIZON_MODE_PLACEMENT_START, QSize( GroupButtonsPerPage(), 1 ) );
+    PlaceChildrenIntoPanel( m_group_buttons, IC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), IC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), QSize( GroupButtonsPerPage(), 1 ) );
 }
 
 int InputNumControlHorizon::GroupButtonsPerPage() const

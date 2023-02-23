@@ -1,44 +1,41 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorFilterControl_define.h
-// [ 概      要 ] : Constant definitions for ColorFilterControl Vericcal
+// [ 概      要 ] : Constant definitions for ColorFilterControl
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef COLORFILTERCONTROL_DEFINE_H
 #define COLORFILTERCONTROL_DEFINE_H
 
-#define CFC_SCREENSIZE QSize(312, 402)
+#define CFC_SCREENSIZE QSize(312, 402) //screen size vertical
 
-#define CFC_TITLE_GEOMETRY           QRect(0, 0, 312, 32)
-#define CFC_TAB1_GEOMETRY            QRect(0, 32, 78, 48)
-#define CFC_TAB2_GEOMETRY            QRect(78, 32, 78, 48)
-#define CFC_PREVIOUS_BUTTON_GEOMETRY QRect(156, 32, 78, 48)
-#define CFC_NEXT_BUTTON_GEOMETRY     QRect(234, 32, 78, 48)
-#define CFC_BUTTON1_GEOMETRY         QRect(0, 80, 78, 48)
-#define CFC_BUTTON2_GEOMETRY         QRect(78, 80, 78, 48)
-#define CFC_BUTTON3_GEOMETRY         QRect(156, 80, 78, 48)
-#define CFC_BUTTON4_GEOMETRY         QRect(234, 80, 78, 48)
-#define CFC_BUTTON5_GEOMETRY         QRect(0, 128, 78, 48)
-#define CFC_BUTTON6_GEOMETRY         QRect(78, 128, 78, 48)
-#define CFC_BUTTON7_GEOMETRY         QRect(156, 128, 78, 48)
-#define CFC_BUTTON8_GEOMETRY         QRect(234, 128, 78, 48)
-#define CFC_BUTTON9_GEOMETRY         QRect(0, 176, 78, 48)
-#define CFC_BUTTON10_GEOMETRY        QRect(78, 176, 78, 48)
-#define CFC_BUTTON11_GEOMETRY        QRect(156, 176, 78, 48)
-#define CFC_BUTTON12_GEOMETRY        QRect(234, 176, 78, 48)
-#define CFC_BUTTON13_GEOMETRY        QRect(0, 224, 78, 48)
-#define CFC_BUTTON14_GEOMETRY        QRect(78, 224, 78, 48)
-#define CFC_BUTTON15_GEOMETRY        QRect(156, 224, 78, 48)
-#define CFC_BUTTON16_GEOMETRY        QRect(234, 224, 78, 48)
-#define CFC_HISTORY_GEOMETRY         QRect(0, 272, 78, 48)
-#define CFC_UP_BUTTON_GEOMETRY       QRect(78, 272, 78, 48)
-#define CFC_DOWN_BUTTON_GEOMETRY     QRect(156, 272, 78, 48)
-#define CFC_BACK_BUTTON_GEOMETRY     QRect(234, 272, 78, 48)
-#define CFC_SETTING_GEOMETRY         QRect(0, 320, 312, 32)
-#define CFC_TITLE_BUTTON_GEOMETRY    QRect(0, 354, 78, 48)
-#define CFC_EMPTY_GEOMETRY           QRect(78, 354, 78, 48)
-#define CFC_REGISTER_GEOMETRY        QRect(156, 354, 78, 48)
-#define CFC_DELETE_GEOMETRY          QRect(234, 354, 78, 48)
+#define CFC_TITLE_GEOMETRY           QRect(0, 0, 312, 32) //title geometry
+#define CFC_FIRST_TAB_GEOMETRY       QRect(0, 32, 78, 48) //first tab button geometry
+#define CFC_PREVIOUS_BUTTON_GEOMETRY QRect(156, 32, 78, 48) //previous button geometry
+#define CFC_NEXT_BUTTON_GEOMETRY     QRect(234, 32, 78, 48) //next button geometry
+#define CFC_FIRST_BUTTON_GEOMETRY    QRect(0, 80, 78, 48) //first color button geometry
+#define CFC_HISTORY_GEOMETRY         QRect(0, 272, 78, 48) //history button geometry
+#define CFC_UP_BUTTON_GEOMETRY       QRect(78, 272, 78, 48) //up button geometry
+#define CFC_DOWN_BUTTON_GEOMETRY     QRect(156, 272, 78, 48) //down button geometry
+#define CFC_BACK_BUTTON_GEOMETRY     QRect(234, 272, 78, 48) //back button geometry
+#define CFC_SETTING_GEOMETRY         QRect(0, 320, 312, 32) //setting label geometry
+#define CFC_TITLE_BUTTON_GEOMETRY    QRect(0, 354, 78, 48) //title button geometry
+#define CFC_EMPTY_GEOMETRY           QRect(78, 354, 78, 48) //empty button geometry
+#define CFC_REGISTER_GEOMETRY        QRect(156, 354, 78, 48) //register button geometry
+#define CFC_DELETE_GEOMETRY          QRect(234, 354, 78, 48) //delete button geometry
 
-// TODO: add _HORIZON for the horizontal screen
+#define CFC_HORIZON_SCREENSIZE               QSize(468, 276) //screen size horizon
+
+#define CFC_HORIZON_FIRST_TAB_GEOMETRY       QRect(0, 34, 78, 48) //first tab button geometry horizon
+#define CFC_HORIZON_UP_BUTTON_GEOMETRY       QRect(0, 178, 78, 48) //up button for tab button geometry horizon
+#define CFC_HORIZON_DOWN_BUTTON_GEOMETRY     QRect(0, 226, 78, 48) //down button for tab button geometry horizon
+#define CFC_HORIZON_TITLE_GEOMETRY           QRect(78, 2, 390, 32) //title geometry horizon
+#define CFC_HORIZON_FIRST_BUTTON_GEOMETRY    QRect(78, 34, 78, 48) //first color button geometry horizon
+#define CFC_HORIZON_TITLE_BUTTON_GEOMETRY    QRect(390, 34, 78, 48) //title button geometry horizon
+#define CFC_HORIZON_REGISTER_BUTTON_GEOMETRY QRect(390, 130, 78, 48) //register button geometry
+#define CFC_HORIZON_DELETE_BUTTON_GEOMETRY   QRect(390, 178, 78, 48) //delete button geometry horizon
+#define CFC_HORIZON_HISTORY_BUTTON_GEOMETRY  QRect(78, 226, 78, 48) //history button geometry horizon
+#define CFC_HORIZON_UP2_BUTTON_GEOMETRY      QRect(156, 226, 78, 48) //up button for color button geometry
+#define CFC_HORIZON_DOWN2_BUTTON_GEOMETRY    QRect(234, 226, 78, 48) //down button for color button geometry
+#define CFC_HORIZON_BACK_BUTTON_GEOMETRY     QRect(390, 226, 78, 48) //back button geometry
 
 #endif // COLORFILTERCONTROL_DEFINE_H

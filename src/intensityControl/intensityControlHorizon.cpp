@@ -1,11 +1,15 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : intensityControlHorizon.cpp
+// [ 概      要 ] : IntensityControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "intensityControl/intensityControlHorizon.h"
 #include "intensityControl/intensityControl_define.h"
 #include "utility.h"
 #include <QDebug>
 
 IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
-    : IntensityControl( parent ),
-      m_menu_buttons()
+    : IntensityControl( parent )
 {
     setFixedSize( ISC_SCREENSIZE_HORIZON );
     m_grid_background.SetGridSize( QSize( 6, 5 ) );
@@ -46,29 +50,6 @@ IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
         m_intensity_buttons.append( button );
     }
 
-    PlaceChildrenIntoPanel( m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE_HORIZON, ISC_INTENSITY_BUTTON_TOPLEFT_HORIZON, QSize( 5, 5 ) );
+    PlaceChildrenIntoPanel( m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE_HORIZON, ISC_INTENSITY_BUTTON_TOPLEFT_HORIZON, QSize( 4, 5 ) );
 
-
-    QStringList menuModel =
-    {
-        "", "", "", "", ""
-    };
-    m_menu_buttons.clear();
-
-    for( const QString &b : menuModel )
-    {
-        auto button = MakeSharedQObject<CustomPushButton>( this );
-        button->setFixedSize( ISC_MENU_BUTTON_SIZE_HORIZON );
-        button->setVisible( true );
-        button->setText( b );
-
-        if( b.isEmpty() )
-        {
-            button->setEnabled( false );
-        }
-
-        m_menu_buttons.append( button );
-    }
-
-    PlaceChildrenIntoPanel( m_menu_buttons, ISC_MENU_BUTTON_SIZE_HORIZON, ISC_MENU_BUTTON_TOPLEFT_HORIZON, QSize( 1, 5 ) );
 }

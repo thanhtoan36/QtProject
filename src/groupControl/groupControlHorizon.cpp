@@ -4,10 +4,10 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "groupControl/groupControlHorizon.h"
-#include "groupControl/groupControlHorizon_define.h"
+#include "groupControl/groupControl_define.h"
 
-#define BASE_BUTTON_WIDTH GC_HORIZON_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT GC_HORIZON_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH GC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT GC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
 
 GroupControlHorizon::GroupControlHorizon( QWidget *parent ) : GroupControl( parent )
 {
@@ -46,8 +46,8 @@ void GroupControlHorizon::SetDispParamData( GROUP_DISP_PARAM *param )
 {
     Q_ASSERT( param );
     GroupControl::SetDispParamData( param );
-    PlaceChildrenIntoPanel( m_group_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size );
-    PlaceChildrenIntoPanel( m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_group_buttons, GC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), GC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), m_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_history_buttons, GC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), GC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), m_buttons_grid_size );
 }
 
 //--------------------------------------------------------------------------
@@ -59,5 +59,5 @@ void GroupControlHorizon::SetDispParamData( GROUP_DISP_PARAM *param )
 void GroupControlHorizon::AddButtonToHistory( QSharedPointer<TitleSelectButton> &button )
 {
     GroupControl::AddButtonToHistory( button );
-    PlaceChildrenIntoPanel( m_history_buttons, GC_HORIZON_BUTTON1_GEOMETRY.size(), GC_HORIZON_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_history_buttons, GC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), GC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), m_buttons_grid_size );
 }

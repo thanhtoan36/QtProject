@@ -13,11 +13,11 @@
 #define BUTTONS_GRID_SIZE QSize(4, 4)
 #define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height())
 
-#define BASE_BUTTON_X CFC_BUTTON1_GEOMETRY.x()
-#define BASE_BUTTON_Y CFC_BUTTON1_GEOMETRY.y()
+#define BASE_BUTTON_X CFC_FIRST_BUTTON_GEOMETRY.x()
+#define BASE_BUTTON_Y CFC_FIRST_BUTTON_GEOMETRY.y()
 
-#define BASE_BUTTON_WIDTH CFC_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT CFC_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH CFC_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT CFC_FIRST_BUTTON_GEOMETRY.height()
 
 ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
@@ -96,7 +96,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     AddHeaderButton( COLOR_FILTER_MODE_TB, "TB標準" );
     AddHeaderButton( COLOR_FILTER_MODE_CUSTOM, "カスタム" );
 
-    PlaceChildrenIntoPanel( HeaderButtons(), CFC_TAB1_GEOMETRY.size(), CFC_TAB1_GEOMETRY.topLeft(), QSize( m_header_buttons_per_page, 1 ) );
+    PlaceChildrenIntoPanel( HeaderButtons(), CFC_FIRST_TAB_GEOMETRY.size(), CFC_FIRST_TAB_GEOMETRY.topLeft(), QSize( m_header_buttons_per_page, 1 ) );
     m_button_next_header_buttons_page.setVisible( HeaderButtons().size() > m_header_buttons_per_page );
     m_button_previous_header_buttons_page.setVisible( HeaderButtons().size() > m_header_buttons_per_page );
     SetupHeaderTabButtons();
@@ -197,7 +197,7 @@ void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
         auto button = MakeSharedQObject<SelectButton>( this );
         m_tb_tab_buttons.push_back( button );
 
-        button->setFixedSize( CFC_BUTTON1_GEOMETRY.size() );
+        button->setFixedSize( CFC_FIRST_BUTTON_GEOMETRY.size() );
         button->setText( param->tb.color_filter[i].name );
 
         button->SetBackgroundColor( param->tb.color_filter[i].color );
@@ -209,7 +209,7 @@ void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
 
     }
 
-    PlaceChildrenIntoPanel( m_tb_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_tb_tab_buttons, CFC_FIRST_BUTTON_GEOMETRY.size(), CFC_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
 
     m_custom_tab_buttons.clear();
 
@@ -217,7 +217,7 @@ void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
     {
         auto button = MakeSharedQObject<SelectButton>( this );
         m_custom_tab_buttons.push_back( button );
-        button->setFixedSize( CFC_BUTTON1_GEOMETRY.size() );
+        button->setFixedSize( CFC_FIRST_BUTTON_GEOMETRY.size() );
         button->setText( param->custom.color_filter[i].name );
         button->SetBackgroundColor( param->custom.color_filter[i].color );
         button->SetSelectedBackgroundColor( button->BackgroundColor() );
@@ -227,7 +227,7 @@ void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
         connect( button.get(), &QAbstractButton::clicked, this, &ColorFilterControl::OnCustomTabButtonClicked );
     }
 
-    PlaceChildrenIntoPanel( m_custom_tab_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_custom_tab_buttons, CFC_FIRST_BUTTON_GEOMETRY.size(), CFC_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
 
     m_history_buttons.clear();
 
@@ -238,14 +238,14 @@ void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
         button->setText( param->history.color_filter[i].name );
         button->SetBackgroundColor( param->history.color_filter[i].color );
         button->SetSelectedBackgroundColor( button->BackgroundColor() );
-        button->setFixedSize( CFC_BUTTON1_GEOMETRY.size() );
+        button->setFixedSize( CFC_FIRST_BUTTON_GEOMETRY.size() );
         button->SetCheckMarkVisible( true );
         button->setChecked( param->history.color_filter[i].select );
 
         connect( button.get(), &QAbstractButton::clicked, this, &ColorFilterControl::OnHistoryButtonClicked );
     }
 
-    PlaceChildrenIntoPanel( m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_history_buttons, CFC_FIRST_BUTTON_GEOMETRY.size(), CFC_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
 
     if( param->tb.select == true )
     {
@@ -494,7 +494,7 @@ void ColorFilterControl::AddHeaderButton( ColorFilterDisplayMode mode, const QSt
 {
     auto button = MakeSharedQObject<SelectButton>( this );
     button->setText( text );
-    button->setFixedSize( CFC_TAB1_GEOMETRY.size() );
+    button->setFixedSize( CFC_FIRST_TAB_GEOMETRY.size() );
 
     m_header_buttons.append( {mode, button} );
     connect( button.get(), &QPushButton::clicked, this, &ColorFilterControl::OnDisplayTabButtonClicked );
@@ -680,13 +680,13 @@ void ColorFilterControl::AddButtonToHistory( QSharedPointer<SelectButton> button
     auto new_button = MakeSharedQObject<SelectButton>( this );
     new_button->setText( button->text() );
     new_button->SetCheckMarkVisible( true );
-    new_button->setFixedSize( CFC_BUTTON1_GEOMETRY.size() );
+    new_button->setFixedSize( CFC_FIRST_BUTTON_GEOMETRY.size() );
     new_button->setVisible( false );
     new_button->SetBackgroundColor( button->BackgroundColor() );
     new_button->SetSelectedBackgroundColor( button->BackgroundColor() );
     connect( new_button.get(), &QAbstractButton::clicked, this, &ColorFilterControl::OnHistoryButtonClicked );
     m_history_buttons.push_front( new_button );
-    PlaceChildrenIntoPanel( m_history_buttons, CFC_BUTTON1_GEOMETRY.size(), CFC_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_history_buttons, CFC_FIRST_BUTTON_GEOMETRY.size(), CFC_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
 
     for( const auto &b : qAsConst( m_history_buttons ) )
     {

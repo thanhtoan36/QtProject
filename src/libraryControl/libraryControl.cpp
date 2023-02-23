@@ -7,8 +7,8 @@
 #include "libraryControl/libraryControl_define.h"
 #include "utility.h"
 
-#define BASE_BUTTON_WIDTH LC_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT LC_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH LC_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT LC_FIRST_BUTTON_GEOMETRY.height()
 
 LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
@@ -29,8 +29,8 @@ LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
     m_mode_buttons_grid_size = QSize( 4, 2 );
     m_lib_buttons_grid_size = QSize( 4, 3 );
 
-    SetLibraryStartPoint( LC_LIB_BUTTON_TOP_LEFT );
-    SetModeStartPoint( LC_MODE_TOP_LEFT );
+    SetLibraryStartPoint( LC_FIRST_BUTTON_GEOMETRY.topLeft() );
+    SetModeStartPoint( LC_ALL_GEOMETRY.topLeft() );
 
     m_grid.SetGridSize( QSize( 4, 6 ) );
     m_grid.SetCellSize( QSize( BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT ) );
@@ -164,7 +164,7 @@ void LibraryControl::SetDispParamData( LIBRARY_DISP_PARAM *param )
         button.mode = data.mode;
         button.widget = MakeSharedQObject<TitleSelectButton>( this );
         button.widget->setVisible( false );
-        button.widget->setFixedSize( LC_BUTTON_SIZE );
+        button.widget->setFixedSize( LC_ALL_GEOMETRY.size() );
         button.widget->setText( data.library_no );
         button.widget->SetTitle( data.title );
         button.widget->setChecked( data.select );
@@ -194,7 +194,7 @@ void LibraryControl::SetDispParamData( LIBRARY_DISP_PARAM *param )
         button.mode = data.mode;
         button.widget = MakeSharedQObject<TitleSelectButton>( this );
         button.widget->setVisible( false );
-        button.widget->setFixedSize( LC_BUTTON_SIZE );
+        button.widget->setFixedSize( LC_ALL_GEOMETRY.size() );
         button.widget->setText( data.library_no );
         button.widget->SetTitle( data.title );
         button.widget->setChecked( data.select );
@@ -219,7 +219,7 @@ void LibraryControl::SetDispParamData( LIBRARY_DISP_PARAM *param )
     for( const auto &mode : group_modes )
     {
         auto button = MakeSharedQObject<SelectButton>( this );
-        button->setFixedSize( LC_BUTTON_SIZE );
+        button->setFixedSize( LC_ALL_GEOMETRY.size() );
         button->setText( mode );
         button->setVisible( false );
         button->setChecked( mode == "ALL" );
@@ -232,7 +232,7 @@ void LibraryControl::SetDispParamData( LIBRARY_DISP_PARAM *param )
     for( const auto &mode : history_modes )
     {
         auto button = MakeSharedQObject<SelectButton>( this );
-        button->setFixedSize( LC_BUTTON_SIZE );
+        button->setFixedSize( LC_ALL_GEOMETRY.size() );
         button->setText( mode );
         button->setVisible( false );
         button->setChecked( mode == "ALL" );
@@ -265,7 +265,7 @@ void LibraryControl::AddButtonToHistory( const LibraryControl::LibraryButton &bu
     auto widget = MakeSharedQObject<TitleSelectButton>( this );
     widget->setText( button.widget->text() );
     widget->SetCheckMarkVisible( true );
-    widget->setFixedSize( LC_BUTTON1_GEOMETRY.size() );
+    widget->setFixedSize( LC_FIRST_BUTTON_GEOMETRY.size() );
     widget->setVisible( false );
     widget->SetBackgroundColor( button.widget->BackgroundColor() );
     widget->SetSelectedBackgroundColor( button.widget->BackgroundColor() );
@@ -280,7 +280,7 @@ void LibraryControl::AddButtonToHistory( const LibraryControl::LibraryButton &bu
     if( iter == m_history_mode_buttons.end() )
     {
         auto new_mode_button = MakeSharedQObject<SelectButton>( this );
-        new_mode_button->setFixedSize( LC_BUTTON_SIZE );
+        new_mode_button->setFixedSize( LC_ALL_GEOMETRY.size() );
         new_mode_button->setText( mode );
         new_mode_button->setVisible( false );
 
@@ -553,8 +553,8 @@ void LibraryControl::UpdateGroupTab()
         b.widget->setVisible( false );
     }
 
-    PlaceChildrenIntoPanel( m_group_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size );
-    PlaceChildrenIntoPanel( m_current_group_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_group_mode_buttons, LC_ALL_GEOMETRY.size(), ModeStartPoint(), m_mode_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_current_group_lib_buttons, LC_ALL_GEOMETRY.size(), LibraryStartPoint(), m_lib_buttons_grid_size );
 
     if( !m_history_button.isChecked() )
     {
@@ -584,8 +584,8 @@ void LibraryControl::UpdateHistoryTab()
         b.widget->setVisible( false );
     }
 
-    PlaceChildrenIntoPanel( m_history_mode_buttons, LC_BUTTON_SIZE, ModeStartPoint(), m_mode_buttons_grid_size );
-    PlaceChildrenIntoPanel( m_current_history_lib_buttons, LC_BUTTON_SIZE, LibraryStartPoint(), m_lib_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_history_mode_buttons, LC_ALL_GEOMETRY.size(), ModeStartPoint(), m_mode_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_current_history_lib_buttons, LC_ALL_GEOMETRY.size(), LibraryStartPoint(), m_lib_buttons_grid_size );
 
     if( m_history_button.isChecked() )
     {
