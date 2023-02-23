@@ -6,9 +6,6 @@
 #include "groupControl/groupControlHorizon.h"
 #include "groupControl/groupControl_define.h"
 
-#define BASE_BUTTON_WIDTH GC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT GC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
-
 GroupControlHorizon::GroupControlHorizon( QWidget *parent ) : GroupControl( parent )
 {
     setFixedSize( GC_HORIZON_SCREEN_SIZE );
@@ -16,7 +13,7 @@ GroupControlHorizon::GroupControlHorizon( QWidget *parent ) : GroupControl( pare
     m_title_label.setObjectName( "title_label_with_border" );
 
     m_grid.SetGridSize( QSize( 11, 5 ) );
-    m_grid.SetCellSize( QSize( BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT ) );
+    m_grid.SetCellSize( GC_HORIZON_FIRST_BUTTON_GEOMETRY.size() );
     m_grid.move( 0, 34 );
 
     m_title_label.setGeometry( GC_HORIZON_TITLE_GEOMETRY );
