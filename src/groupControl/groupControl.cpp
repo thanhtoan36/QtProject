@@ -7,8 +7,8 @@
 #include "groupControl/groupControl_define.h"
 #include "utility.h"
 
-#define BASE_BUTTON_WIDTH GC_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT GC_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH GC_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT GC_FIRST_BUTTON_GEOMETRY.height()
 
 GroupControl::GroupControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
@@ -171,7 +171,7 @@ void GroupControl::SetDispParamData( GROUP_DISP_PARAM *param )
     for( int i = 0; i < param->group.count; i++ )
     {
         auto button =  MakeSharedQObject<TitleSelectButton>( this );
-        button->setFixedSize( GC_BUTTON1_GEOMETRY.size() );
+        button->setFixedSize( GC_FIRST_BUTTON_GEOMETRY.size() );
         button->SetTitle( param->group.group_param[i].title );
         button->setText( param->group.group_param[i].group_no );
         button->setChecked( param->group.group_param[i].select );
@@ -186,7 +186,7 @@ void GroupControl::SetDispParamData( GROUP_DISP_PARAM *param )
         m_group_buttons.push_back( button );
     }
 
-    PlaceChildrenIntoPanel( m_group_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_group_buttons, GC_FIRST_BUTTON_GEOMETRY.size(), GC_FIRST_BUTTON_GEOMETRY.topLeft(), m_buttons_grid_size );
     UpdateGroupPage();
 
     m_up_button.setEnabled( CurrentGroupPage() > 0 );
@@ -211,7 +211,7 @@ void GroupControl::SetDispParamData( GROUP_DISP_PARAM *param )
         m_history_buttons.push_back( button );
     }
 
-    PlaceChildrenIntoPanel( m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_history_buttons, GC_FIRST_BUTTON_GEOMETRY.size(), GC_FIRST_BUTTON_GEOMETRY.topLeft(), m_buttons_grid_size );
     m_history_button.setChecked( false );
 
     m_up_button.setVisible( MaxGroupPages() > 1 );
@@ -299,7 +299,7 @@ void GroupControl::AddButtonToHistory( QSharedPointer<TitleSelectButton> &button
     auto new_button = MakeSharedQObject<TitleSelectButton>( this );
     new_button->setText( button->text() );
     new_button->SetCheckMarkVisible( true );
-    new_button->setFixedSize( GC_BUTTON1_GEOMETRY.size() );
+    new_button->setFixedSize( GC_FIRST_BUTTON_GEOMETRY.size() );
     new_button->setVisible( false );
     new_button->SetBackgroundColor( button->BackgroundColor() );
     new_button->SetSelectedBackgroundColor( button->BackgroundColor() );
@@ -308,7 +308,7 @@ void GroupControl::AddButtonToHistory( QSharedPointer<TitleSelectButton> &button
     connect( new_button.get(), &QAbstractButton::clicked, this, &GroupControl::OnHistoryButtonClicked );
     m_history_buttons.push_front( new_button );
 
-    PlaceChildrenIntoPanel( m_history_buttons, GC_BUTTON1_GEOMETRY.size(), GC_BUTTON1_GEOMETRY.topLeft(), m_buttons_grid_size );
+    PlaceChildrenIntoPanel( m_history_buttons, GC_FIRST_BUTTON_GEOMETRY.size(), GC_FIRST_BUTTON_GEOMETRY.topLeft(), m_buttons_grid_size );
 }
 
 //--------------------------------------------------------------------------

@@ -4,16 +4,16 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorFilterControl/colorFilterControlHorizon.h"
-#include "colorFilterControl/colorFilterControlHorizon_define.h"
+#include "colorFilterControl/colorFilterControl_define.h"
 
 #define BUTTONS_GRID_SIZE QSize(4, 4)
 #define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height())
 
-#define BASE_BUTTON_X CFC_HORIZON_BUTTON1_GEOMETRY.x()
-#define BASE_BUTTON_Y CFC_HORIZON_BUTTON1_GEOMETRY.y()
+#define BASE_BUTTON_X CFC_HORIZON_FIRST_BUTTON_GEOMETRY.x()
+#define BASE_BUTTON_Y CFC_HORIZON_FIRST_BUTTON_GEOMETRY.y()
 
-#define BASE_BUTTON_WIDTH CFC_HORIZON_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT CFC_HORIZON_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH CFC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT CFC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
 
 ColorFilterControlHorizon::ColorFilterControlHorizon( QWidget *parent ) : ColorFilterControl( parent )
 {
@@ -40,8 +40,8 @@ ColorFilterControlHorizon::ColorFilterControlHorizon( QWidget *parent ) : ColorF
 
     m_title_button.setGeometry( CFC_HORIZON_TITLE_BUTTON_GEOMETRY );
 
-    m_empty_button.setGeometry( CFC_HORIZON_EMPTY2_GEOMETRY );
-    m_empty_button.setEnabled( false );
+//    m_empty_button.setGeometry( CFC_HORIZON_EMPTY2_GEOMETRY );
+    m_empty_button.setVisible( false );
 
     m_register_button.setGeometry( CFC_HORIZON_REGISTER_BUTTON_GEOMETRY );
     m_delete_button.setGeometry( CFC_HORIZON_DELETE_BUTTON_GEOMETRY );
@@ -51,7 +51,7 @@ ColorFilterControlHorizon::ColorFilterControlHorizon( QWidget *parent ) : ColorF
     m_button_next_header_buttons_page.setVisible( false );
     m_button_previous_header_buttons_page.setVisible( false );
 
-    PlaceChildrenIntoPanel( HeaderButtons(), CFC_HORIZON_TB_TAB_GEOMETRY.size(), CFC_HORIZON_TB_TAB_GEOMETRY.topLeft(), QSize( 1, m_header_buttons_per_page ) );
+    PlaceChildrenIntoPanel( HeaderButtons(), CFC_HORIZON_FIRST_TAB_GEOMETRY.size(), CFC_HORIZON_FIRST_TAB_GEOMETRY.topLeft(), QSize( 1, m_header_buttons_per_page ) );
     SetupHeaderTabButtons();
 }
 
@@ -65,9 +65,9 @@ void ColorFilterControlHorizon::setDispParamData( COLOR_FILTER_DISP_PARAM *param
 {
     Q_ASSERT( param );
     ColorFilterControl::setDispParamData( param );
-    PlaceChildrenIntoPanel( m_tb_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
-    PlaceChildrenIntoPanel( m_custom_tab_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
-    PlaceChildrenIntoPanel( m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_tb_tab_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_custom_tab_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_history_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
 }
 
 //--------------------------------------------------------------------------
@@ -79,5 +79,5 @@ void ColorFilterControlHorizon::setDispParamData( COLOR_FILTER_DISP_PARAM *param
 void ColorFilterControlHorizon::AddButtonToHistory( QSharedPointer<SelectButton> button )
 {
     ColorFilterControl::AddButtonToHistory( button );
-    PlaceChildrenIntoPanel( m_history_buttons, CFC_HORIZON_BUTTON1_GEOMETRY.size(), CFC_HORIZON_BUTTON1_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
+    PlaceChildrenIntoPanel( m_history_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
 }

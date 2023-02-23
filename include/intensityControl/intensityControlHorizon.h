@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : intensityControlHorizon.h
+// [ 概      要 ] : IntensityControl horizon widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef INTENSITYCONTROLHORIZON_H
 #define INTENSITYCONTROLHORIZON_H
 
@@ -8,9 +13,6 @@ class IntensityControlHorizon : public IntensityControl
     Q_OBJECT
 public:
     IntensityControlHorizon( QWidget *parent = nullptr );
-
-protected:
-    QVector<QSharedPointer<CustomPushButton>> m_menu_buttons;
 };
 
 #endif // INTENSITYCONTROLHORIZON_H

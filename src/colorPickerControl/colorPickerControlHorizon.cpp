@@ -4,6 +4,7 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorPickerControl/colorPickerControlHorizon.h"
+#include "colorPickerControl/colorPickerControl_define.h"
 
 ColorPickerControlHorizon::ColorPickerControlHorizon( QWidget *parent ) : ColorPickerControl( parent ),
     m_button_switch_panel_picker( this ),

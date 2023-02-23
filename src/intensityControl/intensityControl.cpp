@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : intensityControl.cpp
+// [ 概      要 ] : IntensityControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #include "intensityControl/intensityControl.h"
 #include "intensityControl/intensityControl_define.h"
 #include "utility.h"

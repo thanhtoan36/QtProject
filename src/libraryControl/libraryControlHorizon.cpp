@@ -4,16 +4,16 @@
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "libraryControl/libraryControlHorizon.h"
-#include "libraryControl/libraryControlHorizon_define.h"
+#include "libraryControl/libraryControl_define.h"
 
-#define BASE_BUTTON_WIDTH LC_HORIZON_BUTTON1_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT LC_HORIZON_BUTTON1_GEOMETRY.height()
+#define BASE_BUTTON_WIDTH LC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
+#define BASE_BUTTON_HEIGHT LC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
 
 LibraryControlHorizon::LibraryControlHorizon( QWidget *parent ) : LibraryControl( parent )
 {
     setFixedSize( LC_HORIZON_SCREENSIZE );
-    SetLibraryStartPoint( LC_HORIZON_LIB_BUTTON_TOP_LEFT );
-    SetModeStartPoint( LC_HORIZON_MODE_TOP_LEFT );
+    SetLibraryStartPoint( LC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft() );
+    SetModeStartPoint( LC_HORIZON_ALL_GEOMETRY.topLeft() );
 
     m_mode_buttons_grid_size = QSize( 10, 1 );
     m_lib_buttons_grid_size = QSize( 10, 3 );

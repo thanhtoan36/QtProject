@@ -67,14 +67,12 @@ HEADERS += \
     include/baseComponent/toggleButton.h \
     include/colorFilterControl/colorFilterControl.h \
     include/colorFilterControl/colorFilterControlHorizon.h \
-    include/colorFilterControl/colorFilterControlHorizon_define.h \
     include/colorFilterControl/colorFilterControl_datatypes.h \
     include/colorFilterControl/colorFilterControl_define.h \
     include/colorPickerControl/cieaux.h \
     include/colorPickerControl/ciemaker.h \
     include/colorPickerControl/colorPickerControl.h \
     include/colorPickerControl/colorPickerControlHorizon.h \
-    include/colorPickerControl/colorPickerControlHorizon_define.h \
     include/colorPickerControl/colorPickerControl_datatypes.h \
     include/colorPickerControl/colorPickerControl_define.h \
     include/colorPickerControl/customColorPickerRGB.h \
@@ -89,21 +87,17 @@ HEADERS += \
     include/encoderControl/encoderSlider.h \
     include/groupControl/groupControl.h \
     include/groupControl/groupControlHorizon.h \
-    include/groupControl/groupControlHorizon_define.h \
     include/groupControl/groupControl_datatypes.h \
     include/groupControl/groupControl_define.h \
     include/inputNumControl/inputNumControl.h \
     include/inputNumControl/inputNumControlHorizon.h \
-    include/inputNumControl/inputNumControlHorizon_define.h \
     include/inputNumControl/inputNumControl_datatypes.h \
     include/inputNumControl/inputNumControl_define.h \
     include/intensityControl/intensityControl.h \
-    include/intensityControl/intensityControl_datatypes.h \
     include/intensityControl/intensityControl_define.h \
     include/intensityControl/intensityControlHorizon.h \
     include/libraryControl/libraryControl.h \
     include/libraryControl/libraryControlHorizon.h \
-    include/libraryControl/libraryControlHorizon_define.h \
     include/libraryControl/libraryControl_datatypes.h \
     include/libraryControl/libraryControl_define.h \
     include/loghandler.h \

@@ -7,7 +7,6 @@
 #define COLORPICKERCONTROLHORIZON_H
 
 #include "colorPickerControl.h"
-#include "colorPickerControlHorizon_define.h"
 
 class ColorPickerControlHorizon : public ColorPickerControl
 {

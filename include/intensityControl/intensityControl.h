@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : intensityControl.h
+// [ 概      要 ] : IntensityControl vertical widget
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
 #ifndef INTENSITYCONTROL_H
 #define INTENSITYCONTROL_H
 
