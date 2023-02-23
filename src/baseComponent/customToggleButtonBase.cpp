@@ -23,24 +23,24 @@ CustomToggleButtonBase:checked {
 
 )~";
 
-CustomToggleButtonBase::CustomToggleButtonBase(QWidget *parent) : CustomButtonBase(parent),
+CustomToggleButtonBase::CustomToggleButtonBase( QWidget *parent ) : CustomButtonBase( parent ),
     m_selected_background_color(),
     m_selected_border_color(),
     m_selected_text_color()
 {
-    setCheckable(true);
+    setCheckable( true );
 
-    CssStyler().AppendStyleSheetTemplate(g_stylesheet_template);
+    CssStyler().AppendStyleSheetTemplate( g_stylesheet_template );
 
-    SetBackgroundColor(QColor::fromRgb(13, 13, 13));
-    SetTextColor(QColor::fromRgb(128, 128, 128));
+    SetBackgroundColor( QColor::fromRgb( 13, 13, 13 ) );
+    SetTextColor( QColor::fromRgb( 128, 128, 128 ) );
 
-    SetSelectedBackgroundColor(QColor::fromRgb(89, 89, 89));
-    SetSelectedTextColor(QColor::fromRgb(255, 255, 255));
-    SetSelectedBorderColor(QColor::fromRgb(0, 176, 80));
+    SetSelectedBackgroundColor( QColor::fromRgb( 89, 89, 89 ) );
+    SetSelectedTextColor( QColor::fromRgb( 255, 255, 255 ) );
+    SetSelectedBorderColor( QColor::fromRgb( 0, 176, 80 ) );
 
-    SetDisabledBackgroundColor(QColor::fromRgb(22, 22, 22));
-    SetDisabledTextColor(QColor::fromRgb(191, 191, 191));
+    SetDisabledBackgroundColor( QColor::fromRgb( 22, 22, 22 ) );
+    SetDisabledTextColor( QColor::fromRgb( 191, 191, 191 ) );
 }
 
 //--------------------------------------------------------------------------
@@ -60,11 +60,15 @@ QColor CustomToggleButtonBase::SelectedBorderColor() const
 //  [ 引　数 ] : const QColor &value: Selected border color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomToggleButtonBase::SetSelectedBorderColor(const QColor &value)
+void CustomToggleButtonBase::SetSelectedBorderColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_BORDER_COLOR_CHECKED, value.name());
-    if (m_selected_border_color == value)
+    CssStyler().SetTemplateParam( CSS_BORDER_COLOR_CHECKED, value.name() );
+
+    if( m_selected_border_color == value )
+    {
         return;
+    }
+
     m_selected_border_color = value;
     emit SelectedBorderColorChanged();
 }
@@ -86,11 +90,15 @@ QColor CustomToggleButtonBase::SelectedTextColor() const
 //  [ 引　数 ] : const QColor &value: Selected text color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomToggleButtonBase::SetSelectedTextColor(const QColor &value)
+void CustomToggleButtonBase::SetSelectedTextColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_TEXT_COLOR_CHECKED, value.name());
-    if (m_selected_text_color == value)
+    CssStyler().SetTemplateParam( CSS_TEXT_COLOR_CHECKED, value.name() );
+
+    if( m_selected_text_color == value )
+    {
         return;
+    }
+
     m_selected_text_color = value;
     emit SelectedTextColorChanged();
 }
@@ -112,11 +120,15 @@ QColor CustomToggleButtonBase::SelectedBackgroundColor() const
 //  [ 引　数 ] : const QColor &value: Selected background color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomToggleButtonBase::SetSelectedBackgroundColor(const QColor &value)
+void CustomToggleButtonBase::SetSelectedBackgroundColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_BG_COLOR_CHECKED, value.name());
-    if (m_selected_background_color == value)
+    CssStyler().SetTemplateParam( CSS_BG_COLOR_CHECKED, value.name() );
+
+    if( m_selected_background_color == value )
+    {
         return;
+    }
+
     m_selected_background_color = value;
     emit SelectedBackgroundColorChanged();
 }

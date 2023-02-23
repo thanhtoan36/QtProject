@@ -40,8 +40,8 @@ CustomButtonBase:disabled {
 
 )~";
 
-CustomButtonBase::CustomButtonBase(QWidget *parent) : QPushButton(parent),
-    m_styler(this),
+CustomButtonBase::CustomButtonBase( QWidget *parent ) : QPushButton( parent ),
+    m_styler( this ),
     m_background_color(),
     m_border_color(),
     m_text_color(),
@@ -50,21 +50,21 @@ CustomButtonBase::CustomButtonBase(QWidget *parent) : QPushButton(parent),
     m_disabled_text_color(),
     m_text_pixel_size()
 {
-    setAutoFillBackground(true);
-    CssStyler().SetStyleSheetTemplate(g_stylesheet_template);
+    setAutoFillBackground( true );
+    CssStyler().SetStyleSheetTemplate( g_stylesheet_template );
 
     // NOTE: Must set all params here (to make sure all css templated arguments are populated)
-    SetBackgroundColor(QColor::fromRgb(0, 0, 0));
-    SetTextColor(QColor::fromRgb(191, 191, 191));
-    SetBorderColor(Qt::darkGray);
+    SetBackgroundColor( QColor::fromRgb( 0, 0, 0 ) );
+    SetTextColor( QColor::fromRgb( 191, 191, 191 ) );
+    SetBorderColor( Qt::darkGray );
 
-    SetDisabledBackgroundColor(QColor::fromRgb(22, 22, 22));
-    SetDisabledTextColor(QColor::fromRgb(191, 191, 191));
-    SetDisabledBorderColor(Qt::darkGray);
+    SetDisabledBackgroundColor( QColor::fromRgb( 22, 22, 22 ) );
+    SetDisabledTextColor( QColor::fromRgb( 191, 191, 191 ) );
+    SetDisabledBorderColor( Qt::darkGray );
 
-    SetTextPixelSize(16);
+    SetTextPixelSize( 16 );
 
-    connect(&m_styler, &DynamicStyleSheet::StyleSheetChanged, &m_styler, &DynamicStyleSheet::Polish, Qt::DirectConnection);
+    connect( &m_styler, &DynamicStyleSheet::StyleSheetChanged, &m_styler, &DynamicStyleSheet::Polish, Qt::DirectConnection );
     CssStyler().Polish();
 }
 
@@ -85,11 +85,15 @@ QColor CustomButtonBase::BackgroundColor() const
 //  [ 引　数 ] : const QColor &value : New background color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetBackgroundColor(const QColor &value)
+void CustomButtonBase::SetBackgroundColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_BG_COLOR_NORMAL, value.name());
-    if (m_background_color == value)
+    CssStyler().SetTemplateParam( CSS_BG_COLOR_NORMAL, value.name() );
+
+    if( m_background_color == value )
+    {
         return;
+    }
+
     m_background_color = value;
     emit BackgroundColorChanged();
 }
@@ -111,11 +115,15 @@ QColor CustomButtonBase::TextColor() const
 //  [ 引　数 ] : QColor color : New text color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetTextColor(const QColor &value)
+void CustomButtonBase::SetTextColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_TEXT_COLOR_NORMAL, value.name());
-    if (m_text_color == value)
+    CssStyler().SetTemplateParam( CSS_TEXT_COLOR_NORMAL, value.name() );
+
+    if( m_text_color == value )
+    {
         return;
+    }
+
     m_text_color = value;
     emit TextColorChanged();
 }
@@ -137,11 +145,15 @@ int CustomButtonBase::TextPixelSize() const
 //  [ 引　数 ] : int value : new text size
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetTextPixelSize(int value)
+void CustomButtonBase::SetTextPixelSize( int value )
 {
-    CssStyler().SetTemplateParam(CSS_TEXT_SIZE, QString::number(value));
-    if (m_text_pixel_size == value)
+    CssStyler().SetTemplateParam( CSS_TEXT_SIZE, QString::number( value ) );
+
+    if( m_text_pixel_size == value )
+    {
         return;
+    }
+
     m_text_pixel_size = value;
     emit TextPixelSizeChanged();
 }
@@ -163,11 +175,15 @@ QColor CustomButtonBase::BorderColor() const
 //  [ 引　数 ] : const QColor &value : new border color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetBorderColor(const QColor &value)
+void CustomButtonBase::SetBorderColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_BORDER_COLOR_NORMAL, value.name());
-    if (m_border_color == value)
+    CssStyler().SetTemplateParam( CSS_BORDER_COLOR_NORMAL, value.name() );
+
+    if( m_border_color == value )
+    {
         return;
+    }
+
     m_border_color = value;
     emit BorderColorChanged();
 }
@@ -200,11 +216,15 @@ QColor CustomButtonBase::DisabledBackgroundColor() const
 //  [ 引　数 ] : const QColor &value : new disabled background color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetDisabledBackgroundColor(const QColor &value)
+void CustomButtonBase::SetDisabledBackgroundColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_BG_COLOR_DISABLED, value.name());
-    if (m_disabled_background_color == value)
+    CssStyler().SetTemplateParam( CSS_BG_COLOR_DISABLED, value.name() );
+
+    if( m_disabled_background_color == value )
+    {
         return;
+    }
+
     m_disabled_background_color = value;
     emit DisabledBackgroundColorChanged();
 }
@@ -226,11 +246,15 @@ QColor CustomButtonBase::DisabledBorderColor() const
 //  [ 引　数 ] : const QColor &value : new disabled border color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetDisabledBorderColor(const QColor &value)
+void CustomButtonBase::SetDisabledBorderColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_BORDER_COLOR_DISABLED, value.name());
-    if (m_disabled_border_color == value)
+    CssStyler().SetTemplateParam( CSS_BORDER_COLOR_DISABLED, value.name() );
+
+    if( m_disabled_border_color == value )
+    {
         return;
+    }
+
     m_disabled_border_color = value;
     emit DisabledBorderColorChanged();
 }
@@ -252,11 +276,15 @@ QColor CustomButtonBase::DisabledTextColor() const
 //  [ 引　数 ] : const QColor &value : new disabled text color
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void CustomButtonBase::SetDisabledTextColor(const QColor &value)
+void CustomButtonBase::SetDisabledTextColor( const QColor &value )
 {
-    CssStyler().SetTemplateParam(CSS_TEXT_COLOR_DISABLED, value.name());
-    if (m_disabled_text_color == value)
+    CssStyler().SetTemplateParam( CSS_TEXT_COLOR_DISABLED, value.name() );
+
+    if( m_disabled_text_color == value )
+    {
         return;
+    }
+
     m_disabled_text_color = value;
     emit DisabledTextColorChanged();
 }
