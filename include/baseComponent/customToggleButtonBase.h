@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customToggleButtonBase.h
+// [ 概      要 ] : Base class for custom toggle buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef CUSTOMTOGGLEBUTTONBASE_H
 #define CUSTOMTOGGLEBUTTONBASE_H
 

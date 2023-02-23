@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : dynamicStyleSheet.h
+// [ 概      要 ] : Helper class to generate CSS style sheet at runtime
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef DYNAMICSTYLESHEET_H
 #define DYNAMICSTYLESHEET_H
 

@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : panelWindow.h
+// [ 概      要 ] : Window to test panel widgets
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef PANELWINDOW_H
 #define PANELWINDOW_H
 

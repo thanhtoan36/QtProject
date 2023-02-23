@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : customButtonBase.h
+// [ 概      要 ] : Base class for buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef CUSTOMBUTTONBASE_H
 #define CUSTOMBUTTONBASE_H
 

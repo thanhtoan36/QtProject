@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : designPolicyDefine.h
+// [ 概      要 ] : Design color definitions
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef DESIGNPOLICYDEFINE_H
 #define DESIGNPOLICYDEFINE_H
 

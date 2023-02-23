@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : toggleButton.h
+// [ 概      要 ] : Represents toggle buttons
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef TOGGLEBUTTON_H
 #define TOGGLEBUTTON_H
 

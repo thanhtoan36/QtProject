@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : gridBackground.h
+// [ 概      要 ] : Widget to draw background with grid lines
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef GRIDBACKGROUND_H
 #define GRIDBACKGROUND_H
 

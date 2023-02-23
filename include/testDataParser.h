@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------------
+// [ ファイル名 ] : testDataParser.h
+// [ 概      要 ] : Create test data from JSON
+// [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
+//--------------------------------------------------------------------------
+
 #ifndef TESTDATAPARSER_H
 #define TESTDATAPARSER_H
 
