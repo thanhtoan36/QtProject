@@ -17,8 +17,8 @@ IntensityControl::IntensityControl( QWidget *parent ) : PanelControlBase( parent
 {
     setFixedSize( ISC_SCREENSIZE );
     m_grid_background.SetGridSize( QSize( 4, 6 ) );
-    m_grid_background.SetCellSize( ISC_INTENSITY_BUTTON_SIZE );
-    m_grid_background.move( ISC_MENU_BUTTON_TOPLEFT );
+    m_grid_background.SetCellSize( ISC_EMPTY_BUTON_GOEMETRY.size() );
+    m_grid_background.move( ISC_EMPTY_BUTON_GOEMETRY.topLeft() );
 
     m_label_title.setObjectName( "title_label" );
     m_return_button.SetTextColor( Qt::yellow );
@@ -45,7 +45,7 @@ IntensityControl::IntensityControl( QWidget *parent ) : PanelControlBase( parent
     for( const QString &b : intensity_model )
     {
         auto button = MakeSharedQObject<CustomPushButton>( this );
-        button->setFixedSize( ISC_INTENSITY_BUTTON_SIZE );
+        button->setFixedSize( ISC_FF_BUTON_GOEMETRY.size() );
         button->setVisible( true );
         button->setText( b );
 
@@ -62,5 +62,5 @@ IntensityControl::IntensityControl( QWidget *parent ) : PanelControlBase( parent
         m_intensity_buttons.append( button );
     }
 
-    PlaceChildrenIntoPanel( m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE, ISC_INTENSITY_BUTTON_TOPLEFT, QSize( 4, 5 ) );
+    PlaceChildrenIntoPanel( m_intensity_buttons, ISC_FF_BUTON_GOEMETRY.size(), ISC_FF_BUTON_GOEMETRY.topLeft(), QSize( 4, 5 ) );
 }

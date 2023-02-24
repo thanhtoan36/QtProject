@@ -13,7 +13,7 @@ IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
 {
     setFixedSize( ISC_SCREENSIZE_HORIZON );
     m_grid_background.SetGridSize( QSize( 6, 5 ) );
-    m_grid_background.move( ISC_MENU_BUTTON_TOPLEFT_HORIZON );
+    m_grid_background.move( ISC_EMPTY_BUTON_GOEMETRY_HORIZON.topLeft() );
 
     m_label_title.setGeometry( ISC_TITLE_GOEMETRY_HORIZON );
     m_label_title.setObjectName( "title_label_with_border" );
@@ -33,7 +33,7 @@ IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
     for( const QString &b : intensity_model )
     {
         auto button = MakeSharedQObject<CustomPushButton>( this );
-        button->setFixedSize( ISC_INTENSITY_BUTTON_SIZE_HORIZON );
+        button->setFixedSize( ISC_FF_BUTON_GOEMETRY_HORIZON.size() );
         button->setVisible( true );
         button->setText( b );
 
@@ -50,6 +50,6 @@ IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
         m_intensity_buttons.append( button );
     }
 
-    PlaceChildrenIntoPanel( m_intensity_buttons, ISC_INTENSITY_BUTTON_SIZE_HORIZON, ISC_INTENSITY_BUTTON_TOPLEFT_HORIZON, QSize( 4, 5 ) );
+    PlaceChildrenIntoPanel( m_intensity_buttons, ISC_FF_BUTON_GOEMETRY_HORIZON.size(), ISC_FF_BUTON_GOEMETRY_HORIZON.topLeft(), QSize( 4, 5 ) );
 
 }
