@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : inputNumControlHorizon.cpp
-// [ 概      要 ] : InputNumControl horizon widget
+// [ 概      要 ] : 数値入力コントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "inputNumControl/inputNumControlHorizon.h"
@@ -82,7 +82,7 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnPanelSwitchButtonClicked
-//  [ 機　能   ] : Event handler for button click
+//  [ 機　能   ] : ボタンのクリックを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ void InputNumControlHorizon::OnPanelSwitchButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnTypeChanged
-//  [ 機　能   ] : Event handler for type changed
+//  [ 機　能   ] : タイプ変更を処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------

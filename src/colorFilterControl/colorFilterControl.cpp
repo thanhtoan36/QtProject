@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorFilterControl.cpp
-// [ 概      要 ] : ColorFilterControl vertical widget
+// [ 概      要 ] : カラーフィルターコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorFilterControl/colorFilterControl.h"
@@ -183,8 +183,8 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetDispParamData
-//  [ 機　能   ] : Set the display parameters data for the control
-//  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : the parameters
+//  [ 機　能   ] : コントロールの表示パラメータデータを設する·
+//  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
@@ -271,7 +271,7 @@ void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ScrollUp
-//  [ 機　能 ] : Scroll up group button
+//  [ 機　能 ] : グループボタンを上にスクロールする
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -293,7 +293,7 @@ void ColorFilterControl::ScrollUp()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ScrollDown
-//  [ 機　能 ] : Scroll down group button
+//  [ 機　能 ] : グループボタンを下にスクロールする
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -379,7 +379,7 @@ void ColorFilterControl::SetMode( ColorFilterDisplayMode value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnModeChanged
-//  [ 機　能 ] : Event handler for mode changed
+//  [ 機　能 ] : モード変更を処理するイベント
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -452,7 +452,7 @@ void ColorFilterControl::OnModeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpdateTBTabPage
-//  [ 機　能 ] : Update visibility of TB tab buttons
+//  [ 機　能 ] : TBタブボタンの可視性を更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -463,7 +463,7 @@ void ColorFilterControl::UpdateTBTabPage()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpdateCustomTabPage
-//  [ 機　能 ] : Update visibility of Custom tab buttons
+//  [ 機　能 ] : カスタムタブボタンの可視性を更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -473,8 +473,8 @@ void ColorFilterControl::UpdateCustomTabPage()
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名 ] : UpdateCustomTabPage
-//  [ 機　能 ] : Update visibility of History tab buttons
+//  [ 関数名 ] : UpdateHistoryPage
+//  [ 機　能 ] : 最近使ったものタブボタンの可視性を更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -485,9 +485,9 @@ void ColorFilterControl::UpdateHistoryPage()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : AddHeaderButton
-//  [ 機　能 ] : Add header buttons
-//  [ 引　数 ] : ColorFilterDisplayMode mode: tab TB, Custom or History
-//             const QString &text: button text
+//  [ 機　能 ] : ヘッダーボタンを追加する
+//  [ 引　数 ] : ColorFilterDisplayMode mode: TBタブ、Custom or History
+//             const QString &text: 次へボタン
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void ColorFilterControl::AddHeaderButton( ColorFilterDisplayMode mode, const QString &text )
@@ -502,9 +502,9 @@ void ColorFilterControl::AddHeaderButton( ColorFilterDisplayMode mode, const QSt
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : HeaderButtons
-//  [ 機　能 ] : Get header buttons
+//  [ 機　能 ] : ヘッダーボタンを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QVector<QSharedPointer<SelectButton>>: list of button
+//  [ 戻り値 ] : QVector<QSharedPointer<SelectButton>>: ボタンリスト
 //--------------------------------------------------------------------------
 QVector<QSharedPointer<SelectButton>> ColorFilterControl::HeaderButtons() const
 {
@@ -520,7 +520,7 @@ QVector<QSharedPointer<SelectButton>> ColorFilterControl::HeaderButtons() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetupHeaderTabButtons
-//  [ 機　能 ] : Setup and update visibility of header buttons
+//  [ 機　能 ] : ヘッダーボタンの可視性を設定、更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -549,7 +549,7 @@ void ColorFilterControl::SetupHeaderTabButtons()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnDisplayTabButtonClicked
-//  [ 機　能 ] : Event clicked handler for tab buttons
+//  [ 機　能 ] : タブボタンをクリックするイベントを処理する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -594,7 +594,7 @@ int ColorFilterControl::MaxHistoryPages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnTBTabButtonClicked
-//  [ 機　能 ] : Event clicked handler for TB tab button
+//  [ 機　能 ] : TBタブボタンをクリックするイベントを処理する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -620,7 +620,7 @@ void ColorFilterControl::OnTBTabButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnCustomTabButtonClicked
-//  [ 機　能 ] : Event clicked handler for Custom tab button
+//  [ 機　能 ] : カスタムタブボタンをクリックするイベントを処理する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -646,7 +646,7 @@ void ColorFilterControl::OnCustomTabButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnHistoryButtonClicked
-//  [ 機　能 ] : Event clicked handler for History button
+//  [ 機　能 ] : 最近使ったものボタンをクリックするイベントを処理する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -671,8 +671,8 @@ void ColorFilterControl::OnHistoryButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : AddButtonToHistory
-//  [ 機　能 ] : Add button to history list
-//  [ 引　数 ] : QSharedPointer<SelectButton> button: button need to add
+//  [ 機　能 ] : ボタンを最近使ったものリストに追加する
+//  [ 引　数 ] : QSharedPointer<SelectButton> button: 要追加のボタン
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void ColorFilterControl::AddButtonToHistory( QSharedPointer<SelectButton> button )
@@ -711,10 +711,9 @@ void ColorFilterControl::SetCurrentHeaderButtonsPage( int value )
     m_current_header_buttons_page = value;
     emit CurrentHeaderButtonsPageChanged();
 }
-
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedTbButton
-//  [ 機　能 ] : Current selected button of TB Tab
+//  [ 機　能 ] : TBタブの現在選択されているボタン
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -735,7 +734,7 @@ const ColorFilterButton ColorFilterControl::SelectedTbButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedCustomButton
-//  [ 機　能 ] : Current selected button of Custom Tab
+//  [ 機　能 ] : カスタムタブの現在選択されているボタン
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -756,7 +755,7 @@ const ColorFilterButton ColorFilterControl::SelectedCustomButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedHistoryButton
-//  [ 機　能 ] : Current selected button of History Tab
+//  [ 機　能 ] : 最近使ったものタブの現在選択されているボタン
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------

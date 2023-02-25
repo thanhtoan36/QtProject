@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : groupControlHorizon.cpp
-// [ 概      要 ] : GroupControl horizon widget
+// [ 概      要 ] : グループコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "groupControl/groupControlHorizon.h"

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : customColorPickerRGB.cpp
-// [ 概      要 ] : ColorPickerRGB Widget
+// [ 概      要 ] : カラーピッカーRGBウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -40,10 +40,10 @@ hsv_t CustomColorPickerRGB::HSV() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetHSV
-//  [ 機能名   ] : Set H S V value and update pointer to picker widget
-//  [ 引数      ] : const int h : h value
-//                const int s : s value
-//                const int v : v value
+//  [ 機能名   ] : H S V 値を設定し、ポインターをピッカーウィジェットに更新する
+//  [ 引数          ] : const int h : h値
+//                      const int s : s値
+//                      const int v : v値
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::SetHSV( const int h, const int s, const int v )
@@ -65,8 +65,8 @@ void CustomColorPickerRGB::SetHSV( const int h, const int s, const int v )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetColor
-//  [ 機能名   ] : Set picked color
-//  [ 引数      ] : const QColor &color : color need to set
+//  [ 機能名   ] : 選択した色を設定する
+//  [ 引数          ] : const QColor &color : 要設定の色
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::SetColor( const QColor &color )
@@ -89,8 +89,8 @@ QColor CustomColorPickerRGB::Color() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : paintEvent
-//  [ 機能名   ] : overwrite paint event and draw widget
-//  [ 引数      ] : QPaintEvent *
+//  [ 機能名   ] : ペイントイベントを上書きして、ウィジェットを描画する
+//  [ 引数          ] : QPaintEvent *
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::paintEvent( QPaintEvent * )
@@ -110,8 +110,8 @@ void CustomColorPickerRGB::paintEvent( QPaintEvent * )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : mousePressEvent
-//  [ 機能名   ] : handle press event to pick color
-//  [ 引数      ] : QMouseEvent *event : press event
+//  [ 機能名   ] : 押下イベントを処理して、色を選択する
+//  [ 引数          ] : QMouseEvent *event : 押下イベント
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerRGB::mousePressEvent( QMouseEvent *event )

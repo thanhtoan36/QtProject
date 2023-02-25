@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : inputNumControl_datatypes.h
-// [ 概      要 ] : Type definitions for InputNumControl
+// [ 概      要 ] : 数値入力コントロールの型定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef INPUTNUMCONTROL_DATATYPES_H

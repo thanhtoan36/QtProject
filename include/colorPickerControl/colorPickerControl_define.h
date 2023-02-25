@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorPickerControl_define.h
-// [ 概      要 ] : Constant definitions for ColorPickerControl
+// [ 概      要 ] : カラー ピッカー コントロールの定数定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef COLORPICKERCONTROL_DEFINE_H

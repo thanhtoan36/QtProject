@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : inputNumControl_define.h
-// [ 概      要 ] : Constant definitions for InputNumControl Vericcal
+// [ 概      要 ] : 数値入力制御定数定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef INPUTNUMCONTROL_DEFINE_H

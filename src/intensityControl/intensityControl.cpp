@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : intensityControl.cpp
-// [ 概      要 ] : IntensityControl vertical widget
+// [ 概      要 ] : インテンシティコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "intensityControl/intensityControl.h"

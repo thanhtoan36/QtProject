@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : intensityControlHorizon.cpp
-// [ 概      要 ] : IntensityControl horizon widget
+// [ 概      要 ] : インテンシティコントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "intensityControl/intensityControlHorizon.h"

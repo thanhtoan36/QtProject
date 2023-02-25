@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorPickerControlHorizon.h
-// [ 概      要 ] : ColorPickerControl horizon widget
+// [ 概      要 ] : カラーピッカーコントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef COLORPICKERCONTROLHORIZON_H

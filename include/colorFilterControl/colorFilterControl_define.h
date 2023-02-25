@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorFilterControl_define.h
-// [ 概      要 ] : Constant definitions for ColorFilterControl
+// [ 概      要 ] : カラーフィルターコントロール垂直の定数定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef COLORFILTERCONTROL_DEFINE_H

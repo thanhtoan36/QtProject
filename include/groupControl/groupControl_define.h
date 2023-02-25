@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : groupControl_define.h
-// [ 概      要 ] : Constant definitions for GroupControl
+// [ 概      要 ] : グループ制御定数定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef GROUPLIBCONTROL_DEFINE_H
