@@ -33,19 +33,10 @@ public:
     virtual void SetDispParamData( INPUT_NUM_DISP_PARAM *param );
 
     InputNumMode Mode() const;
-    void SetMode( InputNumMode newMode );
-
     InputNumType Type() const;
-    void SetType( InputNumType newType );
-
     InputNumValueMode ValueMode() const;
-    void SetValueMode( const InputNumValueMode &mode );
-
     int CurrentGroupButtonsPage() const;
-    void SetCurrentGroupButtonsPage( int page );
-
     const QString &CurrentModeButton() const;
-    void SetCurrentModeButton( const QString &mode );
 
 signals:
     void ModeChanged();
@@ -61,6 +52,12 @@ protected:
     virtual int GroupButtonsPerPage() const;
     virtual void SetupGroupButtonPages();
     void OnGroupButtonClicked();
+
+    void SetMode( InputNumMode newMode );
+    void SetType( InputNumType newType );
+    void SetValueMode( const InputNumValueMode &mode );
+    void SetCurrentGroupButtonsPage( int page );
+    void SetCurrentModeButton( const QString &mode );
 
 protected slots:
     void OnModeChanged();

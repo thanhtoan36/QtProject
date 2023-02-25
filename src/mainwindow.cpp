@@ -172,59 +172,26 @@ void MainWindow::ConnectInputNumEvent()
 {
     const auto slot_mode_changed = [&]()
     {
-        QString log = "IC Mode Changed: ";
         auto mode = ( ( InputNumControl * )sender() )->Mode();
-
-        if( mode == INPUT_NUM_MODE_PERCENT )
-        {
-            log += "PERCENT";
-        }
-        else if( mode == INPUT_NUM_MODE_255 )
-        {
-            log += "255";
-        }
-        else
-        {
-            log += "ANGEL";
-        }
-
-        this->LogEvent( log );
+        QStringList modes = {"INPUT_NUM_MODE_PERCENT", "INPUT_NUM_MODE_255", "INPUT_NUM_MODE_ANGLE"};
+        LogEvent( QString( "IC Mode: %1" ).arg( modes[mode] ) );
     };
 
     const auto slot_value_mode_changed = [&]()
     {
-        QString log = "IC Value Mode Changed: ";
         auto mode = ( ( InputNumControl * )sender() )->ValueMode();
-
-        if( mode == INPUT_NUM_MODE_RELATIVE )
-        {
-            log += "RELATIVE";
-        }
-        else
-        {
-            log += "ABSOLUTE";
-        }
-
-        this->LogEvent( log );
-    };
-
-    const auto slot_num_button_clicked = [&]( const QString & text )
-    {
-        QString log = "IC Button Clicked: " + text;
-        this->LogEvent( log );
+        QStringList modes = {"INPUT_NUM_MODE_RELATIVE", "INPUT_NUM_MODE_ABSOLUTE"};
+        LogEvent( QString( "IC ValueMode: %1" ).arg( modes[mode] ) );
     };
 
     const auto slot_current_mode_changed = [&]()
     {
         QString log = "IC Button Mode Changed: " + ( ( InputNumControl * )sender() )->CurrentModeButton();
-        this->LogEvent( log );
+        LogEvent( log );
     };
 
-    const auto slot_return_clicked = [&]()
-    {
-        QString log = "IC Return clicked";
-        this->LogEvent( log );
-    };
+    const auto slot_num_button_clicked = [&]( const QString & text ) { LogEvent( "IC Button Clicked: " + text ); };
+    const auto slot_return_clicked = [&]() { LogEvent( "IC Return clicked" ); };
 
     connect( m_input_num_control.get(), &InputNumControl::ModeChanged, this, slot_mode_changed );
     connect( m_input_num_control.get(), &InputNumControl::ValueModeChanged, this, slot_value_mode_changed );
