@@ -46,8 +46,8 @@ EncoderControlHorizon::EncoderControlHorizon( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDispParamData
-//  [ 機　能 ] : Set the display parameters data for the control
-//  [ 引　数 ] : ENCODER_DISP_PARAM *param : the parameters
+//  [ 機　能 ] : コントロールに表示パラメータデータを設定する
+//  [ 引　数 ] : ENCODER_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControlHorizon::SetDispParamData( ENCODER_DISP_PARAM *param )
@@ -60,7 +60,7 @@ void EncoderControlHorizon::SetDispParamData( ENCODER_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnPanelSwitchButtonClicked
-//  [ 機　能 ] : Occurs when panel switch buttons are clicked
+//  [ 機　能 ] : パネルスイッチ ボタンがクリックされたときに発生する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -74,7 +74,7 @@ void EncoderControlHorizon::OnPanelSwitchButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetupEncoderPages
-//  [ 機　能 ] : Set the coordinate and visibility of the encoders
+//  [ 機　能 ] : エンコーダーの座標と可視性を設定しする
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------

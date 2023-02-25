@@ -17,7 +17,7 @@ CustomEncoder::CustomEncoder( QWidget *parent )
     : QAbstractSlider( parent ),
       m_button_decrease( this ),
       m_button_increase( this ),
-      m_upper_restrict_value( -1 ) // -1 means unset
+      m_upper_restrict_value( -1 ) // -1 は未設定を意味します
 {
     setOrientation( Qt::Vertical );
     setFixedSize( EC_CUSTOM_ENCODER_SIZE );
@@ -35,7 +35,7 @@ CustomEncoder::CustomEncoder( QWidget *parent )
     } );
     connect( this, &QAbstractSlider::valueChanged, this, [&]()
     {
-        // limit the slider movement
+        // スライダーの動きを制限する
         if( UpperRestrictValue() > minimum() && value() > UpperRestrictValue() )
         {
             setValue( UpperRestrictValue() );
@@ -48,20 +48,19 @@ void CustomEncoder::paintEvent( QPaintEvent *event )
     Q_UNUSED( event );
 
     QPainter p( this );
-    // p.fillRect(QRect(0, 0, width(), height()), Qt::black); // black background
-    p.fillRect( m_slider_boundary, Qt::black ); // black background
+    p.fillRect( m_slider_boundary, Qt::black ); // 黒の背景
 
     p.setPen( Qt::darkGray );
-    p.drawRect( m_slider_boundary.left(), 0, m_slider_boundary.width(), height() ); // border
+    p.drawRect( m_slider_boundary.left(), 0, m_slider_boundary.width(), height() ); // 国境
 
-    p.fillRect( m_slider_boundary, QColor::fromRgb( 64, 64, 64 ) ); // gray background
+    p.fillRect( m_slider_boundary, QColor::fromRgb( 64, 64, 64 ) ); // 灰色の背景
 
     constexpr int EC_YELLOW_SLIDER_WIDTH = 10;
     constexpr int GRID_LINES = 13;
 
     float normalized_value = Map( value(), minimum(), maximum(), 0.0f, 1.0f );
 
-    // Draw grid lines
+    // グリッド線を描く
     const float grid_spacing = m_slider_boundary.height() * 1.0f / GRID_LINES;
 
     for( int i = 0; i < GRID_LINES; i++ )
@@ -70,7 +69,7 @@ void CustomEncoder::paintEvent( QPaintEvent *event )
         p.drawLine( m_slider_boundary.left() + EC_YELLOW_SLIDER_WIDTH, y, m_slider_boundary.right(), y );
     }
 
-    // Draw yellow bar
+    // 黄色いバーを描く
     p.setBrush( QColor::fromRgb( 34, 43, 53 ) ); // blue gray (background of the yellow bar)
     p.drawRect( QRect( m_slider_boundary.left(), m_slider_boundary.top(), EC_YELLOW_SLIDER_WIDTH, m_slider_boundary.height() ) );
 
@@ -100,7 +99,7 @@ void CustomEncoder::resizeEvent( QResizeEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetupChildComponents
-//  [ 機　能 ] : Setup children components for this widget
+//  [ 機　能 ] : このウィジェットの子コンポーネントを設定する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -122,9 +121,9 @@ void CustomEncoder::SetupChildComponents()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpperRestrictValue
-//  [ 機　能 ] : Get the upper limt value of the encoder
+//  [ 機　能 ] : エンコーダの上限値を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : int : Upper limt value
+//  [ 戻り値 ] : int : 上限値
 //--------------------------------------------------------------------------
 int CustomEncoder::UpperRestrictValue() const
 {
@@ -133,8 +132,8 @@ int CustomEncoder::UpperRestrictValue() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetUpperRestrictValue
-//  [ 機　能 ] : Set the upper limt value of the encoder
-//  [ 引　数 ] : int value : the new value to set
+//  [ 機　能 ] : エンコーダの上限値を設定する
+//  [ 引　数 ] : int value : 設定する新しい値
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomEncoder::SetUpperRestrictValue( int value )

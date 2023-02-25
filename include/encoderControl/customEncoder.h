@@ -29,7 +29,7 @@ protected:
     virtual void paintEvent( QPaintEvent *event ) override;
     virtual void mousePressEvent( QMouseEvent *event ) override;
     virtual void resizeEvent( QResizeEvent *event ) override;
-    // disable mouse wheel scrolling
+    // マウスホイールのスクロールを無効にする
     virtual void wheelEvent( QWheelEvent * ) override {}
 
     void SetupChildComponents();

@@ -99,8 +99,8 @@ EncoderControl::EncoderControl( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDispParamData
-//  [ 機　能 ] : Set the display parameters data for the control
-//  [ 引　数 ] : ENCODER_DISP_PARAM *param : the parameters
+//  [ 機　能 ] : コントロールに表示パラメータ データを設定する
+//  [ 引　数 ] : ENCODER_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
@@ -163,7 +163,7 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetupEncoderPages
-//  [ 機　能 ] : Set the coordinate and visibility of the encoders
+//  [ 機　能 ] : エンコーダーの座標と可視性を設定する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -178,7 +178,7 @@ void EncoderControl::SetupEncoderPages()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnModeChanged
-//  [ 機　能 ] : Occurs when the mode changed, to update the controls
+//  [ 機　能 ] : モードが変更されたときに発生する。コントロールを更新するため
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -225,7 +225,7 @@ void EncoderControl::OnModeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnTypeChanged
-//  [ 機　能 ] : Occurs when the type changed, to update the controls
+//  [ 機　能 ] : タイプが変更されたときに発生する。コントロールを更新するため
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -236,8 +236,8 @@ void EncoderControl::OnTypeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpdateEncoderLabelValue
-//  [ 機　能 ] : Update the encoder labels
-//  [ 引　数 ] : int index : The index of the encoder label
+//  [ 機　能 ] : エンコーダーラベルを更新する
+//  [ 引　数 ] : int index : エンコーダーラベルのインデックス
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControl::UpdateEncoderLabelValue( int index )
@@ -249,9 +249,9 @@ void EncoderControl::UpdateEncoderLabelValue( int index )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnEncoderValueChanged
-//  [ 機　能 ] : Occurs when any encoder's value changed
-//  [ 引　数 ] : int index : The index of changed encoder
-//              int value : The value of encoder
+//  [ 機　能 ] : いずれかのエンコーダの値が変更されたときに発生する
+//  [ 引　数 ] : int index : 変更されたエンコーダーのインデックス
+//              int value : Tエンコーダーの値
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControl::OnEncoderValueChanged( int index, int value )
@@ -264,9 +264,9 @@ void EncoderControl::OnEncoderValueChanged( int index, int value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CurrentEncoderPage
-//  [ 機　能 ] : Get the current page index of the encoders
+//  [ 機　能 ] : エンコーダーの現在のページインデックスを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : int : the current page index
+//  [ 戻り値 ] : int : 現在のページインデックス
 //--------------------------------------------------------------------------
 int EncoderControl::CurrentEncoderPage() const
 {
@@ -275,8 +275,8 @@ int EncoderControl::CurrentEncoderPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetCurrentEncoderPage
-//  [ 機　能 ] : Set the current page index of the encoders
-//  [ 引　数 ] : int value : the new page index
+//  [ 機　能 ] : エンコーダーの現在のページインデックスを設定する
+//  [ 引　数 ] : int value : 新しいページインデックス
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControl::SetCurrentEncoderPage( int value )
@@ -294,9 +294,9 @@ void EncoderControl::SetCurrentEncoderPage( int value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : MaxEncoderPages
-//  [ 機　能 ] : Get the encoder page count
+//  [ 機　能 ] : エンコーダーのページカウントを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : int : the encoder page count
+//  [ 戻り値 ] : int : エンコーダーのページカウント
 //--------------------------------------------------------------------------
 int EncoderControl::MaxEncoderPages() const
 {
@@ -305,9 +305,9 @@ int EncoderControl::MaxEncoderPages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Mode
-//  [ 機　能 ] : Get the current mode
+//  [ 機　能 ] : 現在のモードを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : EncoderMode : the current mode
+//  [ 戻り値 ] : EncoderMode : 現在のモード
 //--------------------------------------------------------------------------
 EncoderMode EncoderControl::Mode() const
 {
@@ -316,8 +316,8 @@ EncoderMode EncoderControl::Mode() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetMode
-//  [ 機　能 ] : Set the current mode
-//  [ 引　数 ] : EncoderMode mode : the new mode
+//  [ 機　能 ] : 現在のモードを設定する
+//  [ 引　数 ] : EncoderMode mode : 新しいモード
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControl::SetMode( EncoderMode value )
@@ -333,9 +333,9 @@ void EncoderControl::SetMode( EncoderMode value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Type
-//  [ 機　能 ] : Get the current type
+//  [ 機　能 ] : 現在のモードを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : EncoderType : the current type
+//  [ 戻り値 ] : EncoderType : 現在のモード
 //--------------------------------------------------------------------------
 EncoderType EncoderControl::Type() const
 {
@@ -344,8 +344,8 @@ EncoderType EncoderControl::Type() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetType
-//  [ 機　能 ] : Set the current type
-//  [ 引　数 ] : EncoderType type : the new type
+//  [ 機　能 ] : 現在のタイプを設定する
+//  [ 引　数 ] : EncoderType type : 新しいタイプ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void EncoderControl::SetType( EncoderType value )
