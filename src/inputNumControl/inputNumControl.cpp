@@ -34,7 +34,7 @@ InputNumControl::InputNumControl( QWidget *parent )  : PanelControlBase( parent 
     m_return_button.SetTextColor( Qt::yellow );
 
     m_grid.SetGridSize( QSize( 4, 6 ) );
-    m_grid.SetCellSize( IC_7_GEOMETRY.size() );
+    m_grid.SetCellSize( IC_FIRST_NUM_BUTTON_GEOMETRY.size() );
     m_grid.move( 0, 32 );
 
     m_label_title.setGeometry( IC_TITLE_GEOMETRY );
@@ -78,7 +78,7 @@ InputNumControl::InputNumControl( QWidget *parent )  : PanelControlBase( parent 
     for( const QString &b : input_num_model )
     {
         auto button = MakeSharedQObject<CustomPushButton>( this );
-        button->setFixedSize( IC_7_GEOMETRY.size() );
+        button->setFixedSize( IC_FIRST_NUM_BUTTON_GEOMETRY.size() );
         button->setVisible( true );
         button->setText( b );
 
@@ -90,7 +90,7 @@ InputNumControl::InputNumControl( QWidget *parent )  : PanelControlBase( parent 
         m_input_num_buttons.append( button );
     }
 
-    PlaceChildrenIntoPanel( m_input_num_buttons, IC_7_GEOMETRY.size(), IC_7_GEOMETRY.topLeft(), QSize( 4, 4 ) );
+    PlaceChildrenIntoPanel( m_input_num_buttons, IC_FIRST_NUM_BUTTON_GEOMETRY.size(), IC_FIRST_NUM_BUTTON_GEOMETRY.topLeft(), QSize( 4, 4 ) );
 
     connect( this, &InputNumControl::ModeChanged, this, &InputNumControl::OnModeChanged );
     connect( this, &InputNumControl::ValueModeChanged, this, &InputNumControl::OnValueModeChanged );
@@ -151,7 +151,7 @@ void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
         for( int i = 0; i < 2; i++ )
         {
             auto button =  MakeSharedQObject<SelectButton>( this );
-            button->setFixedSize( IC_FIRST_BUTTON_GEOMETRY.size() );
+            button->setFixedSize( IC_FIRST_MODE_BUTTON_GEOMETRY.size() );
 
             if( i == 0 )
             {
@@ -178,7 +178,7 @@ void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
         for( int i = 0; i < param->count; i++ )
         {
             auto button =  MakeSharedQObject<SelectButton>( this );
-            button->setFixedSize( IC_FIRST_BUTTON_GEOMETRY.size() );
+            button->setFixedSize( IC_FIRST_MODE_BUTTON_GEOMETRY.size() );
             button->setText( param->param[i].name );
             button->setChecked( param->param[i].select );
 
@@ -195,7 +195,7 @@ void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
     }
 
 
-    PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_BUTTON_GEOMETRY.size(), IC_FIRST_BUTTON_GEOMETRY.topLeft(), QSize( MODE_COLUMN, 1 ) );
+    PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( MODE_COLUMN, 1 ) );
     SetType( param->type );
     SetMode( param->mode );
 
@@ -243,7 +243,7 @@ void InputNumControl::OnTypeChanged()
 {
     m_button_relative.setVisible( Type() == INPUT_NUM_TYPE_POSITION );
     m_button_absolute.setVisible( Type() == INPUT_NUM_TYPE_POSITION );
-    PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_BUTTON_GEOMETRY.size(), IC_FIRST_BUTTON_GEOMETRY.topLeft(), QSize( GroupButtonsPerPage(), 1 ) );
+    PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( GroupButtonsPerPage(), 1 ) );
 }
 
 InputNumMode InputNumControl::Mode() const

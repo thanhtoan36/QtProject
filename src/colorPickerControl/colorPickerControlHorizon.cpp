@@ -17,12 +17,12 @@ ColorPickerControlHorizon::ColorPickerControlHorizon( QWidget *parent ) : ColorP
     m_slider_background.setVisible( false );
     m_label_setting.setVisible( false );
     m_menu_background.SetGridSize( QSize( 1, 5 ) );
-    m_menu_background.SetCellSize( CPC_HORIZON_BUTTON_1_GEOMETRY.size() );
-    m_menu_background.move( CPC_HORIZON_BUTTON_1_GEOMETRY.topLeft() );
+    m_menu_background.SetCellSize( CPC_HORIZON_BUTTON_SWITCH_PANEL_PICKER_GEOMETRY.size() );
+    m_menu_background.move( CPC_HORIZON_BUTTON_SWITCH_PANEL_PICKER_GEOMETRY.topLeft() );
 
     m_label_title.setGeometry( CPC_HORIZON_TITLE_GEOMETRY );
 
-    m_button_switch_panel_picker.setGeometry( CPC_HORIZON_BUTTON_1_GEOMETRY );
+    m_button_switch_panel_picker.setGeometry( CPC_HORIZON_BUTTON_SWITCH_PANEL_PICKER_GEOMETRY );
     m_button_switch_panel_picker.setText( "ピッカー" );
     m_button_switch_panel_picker.setChecked( true );
     m_button_switch_panel_picker.SetTextPixelSize( 13 );
