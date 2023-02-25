@@ -184,9 +184,9 @@ void MainWindow::ConnectInputNumEvent()
         LogEvent( QString( "IC ValueMode: %1" ).arg( modes[mode] ) );
     };
 
-    const auto slot_current_mode_changed = [&]()
+    const auto slot_selected_mode_changed = [&]()
     {
-        QString log = "IC Button Mode Changed: " + ( ( InputNumControl * )sender() )->CurrentModeButton();
+        QString log = "IC Button Mode Changed: " + ( ( InputNumControl * )sender() )->SelectedModeButton();
         LogEvent( log );
     };
 
@@ -196,13 +196,13 @@ void MainWindow::ConnectInputNumEvent()
     connect( m_input_num_control.get(), &InputNumControl::ModeChanged, this, slot_mode_changed );
     connect( m_input_num_control.get(), &InputNumControl::ValueModeChanged, this, slot_value_mode_changed );
     connect( m_input_num_control.get(), &InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked );
-    connect( m_input_num_control.get(), &InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed );
+    connect( m_input_num_control.get(), &InputNumControl::SelectedModeButtonChanged, this, slot_selected_mode_changed );
     connect( m_input_num_control.get(), &InputNumControl::ReturnClicked, this, slot_return_clicked );
 
     connect( m_input_num_control_horizon.get(), &InputNumControl::ModeChanged, this, slot_mode_changed );
     connect( m_input_num_control_horizon.get(), &InputNumControl::ValueModeChanged, this, slot_value_mode_changed );
     connect( m_input_num_control_horizon.get(), &InputNumControl::InputNumButtonClicked, this, slot_num_button_clicked );
-    connect( m_input_num_control_horizon.get(), &InputNumControl::CurrentModeButtonChanged, this, slot_current_mode_changed );
+    connect( m_input_num_control_horizon.get(), &InputNumControl::SelectedModeButtonChanged, this, slot_selected_mode_changed );
     connect( m_input_num_control_horizon.get(), &InputNumControl::ReturnClicked, this, slot_return_clicked );
 }
 
@@ -336,14 +336,14 @@ void MainWindow::ConnectLibraryEvent()
 {
     const auto slot_mode_button_changed = [&]()
     {
-        QString log = "LC mode button changed: " + ( ( LibraryControl * )sender() )->CurrentModeButton();
+        QString log = "LC mode button changed: " + ( ( LibraryControl * )sender() )->SelectedModeButton();
 
         LogEvent( log );
     };
 
     const auto slot_history_mode_button_changed = [&]()
     {
-        QString log = "LC history mode button changed: " + ( ( LibraryControl * )sender() )->CurrentHistoryModeButton();
+        QString log = "LC history mode button changed: " + ( ( LibraryControl * )sender() )->SelectedHistoryModeButton();
 
         LogEvent( log );
     };
@@ -351,7 +351,7 @@ void MainWindow::ConnectLibraryEvent()
     const auto slot_library_button_changed = [&]()
     {
         QString log = "LC library button changed: ";
-        auto button = ( ( LibraryControl * )sender() )->CurrentLibraryButton();
+        auto button = ( ( LibraryControl * )sender() )->SelectedLibraryButton();
 
         log += QString( "text: %1, title: %2" ).arg( button.text ).arg( button.title );
 
@@ -361,7 +361,7 @@ void MainWindow::ConnectLibraryEvent()
     const auto slot_history_button_changed = [&]()
     {
         QString log = "LC history button changed: ";
-        auto button = ( ( LibraryControl * )sender() )->CurrentHistoryButton();
+        auto button = ( ( LibraryControl * )sender() )->SelectedHistoryButton();
 
         log += QString( "text: %1, title: %2" ).arg( button.text ).arg( button.title );
 
@@ -376,25 +376,25 @@ void MainWindow::ConnectLibraryEvent()
     };
     const auto slot_footer_button_changed = [&]()
     {
-        QString log = "LC footer button changed: " + ( ( LibraryControl * )sender() )->CurrentFooterButton();
+        QString log = "LC footer button changed: " + ( ( LibraryControl * )sender() )->SelectedFooterButton();
 
         LogEvent( log );
     };
 
-    connect( m_library_control.get(), &LibraryControl::CurrentModeButtonChanged, this, slot_mode_button_changed );
-    connect( m_library_control_horizon.get(), &LibraryControl::CurrentModeButtonChanged, this, slot_mode_button_changed );
+    connect( m_library_control.get(), &LibraryControl::SelectedModeButtonChanged, this, slot_mode_button_changed );
+    connect( m_library_control_horizon.get(), &LibraryControl::SelectedModeButtonChanged, this, slot_mode_button_changed );
 
-    connect( m_library_control.get(), &LibraryControl::CurrentHistoryModeButtonChanged, this, slot_history_mode_button_changed );
-    connect( m_library_control_horizon.get(), &LibraryControl::CurrentHistoryModeButtonChanged, this, slot_history_mode_button_changed );
+    connect( m_library_control.get(), &LibraryControl::SelectedHistoryModeButtonChanged, this, slot_history_mode_button_changed );
+    connect( m_library_control_horizon.get(), &LibraryControl::SelectedHistoryModeButtonChanged, this, slot_history_mode_button_changed );
 
-    connect( m_library_control.get(), &LibraryControl::CurrentLibraryButtonChanged, this, slot_library_button_changed );
-    connect( m_library_control_horizon.get(), &LibraryControl::CurrentLibraryButtonChanged, this, slot_library_button_changed );
+    connect( m_library_control.get(), &LibraryControl::SelectedLibraryButtonChanged, this, slot_library_button_changed );
+    connect( m_library_control_horizon.get(), &LibraryControl::SelectedLibraryButtonChanged, this, slot_library_button_changed );
 
-    connect( m_library_control.get(), &LibraryControl::CurrentHistoryButtonChanged, this, slot_history_button_changed );
-    connect( m_library_control_horizon.get(), &LibraryControl::CurrentHistoryButtonChanged, this, slot_history_button_changed );
+    connect( m_library_control.get(), &LibraryControl::SelectedHistoryButtonChanged, this, slot_history_button_changed );
+    connect( m_library_control_horizon.get(), &LibraryControl::SelectedHistoryButtonChanged, this, slot_history_button_changed );
 
-    connect( m_library_control.get(), &LibraryControl::CurrentFooterButtonChanged, this, slot_footer_button_changed );
-    connect( m_library_control_horizon.get(), &LibraryControl::CurrentFooterButtonChanged, this, slot_footer_button_changed );
+    connect( m_library_control.get(), &LibraryControl::SelectedFooterButtonChanged, this, slot_footer_button_changed );
+    connect( m_library_control_horizon.get(), &LibraryControl::SelectedFooterButtonChanged, this, slot_footer_button_changed );
 
     connect( m_library_control.get(), &LibraryControl::ReturnButtonClicked, this, slot_return_button_clicked );
     connect( m_library_control_horizon.get(), &LibraryControl::ReturnButtonClicked, this, slot_return_button_clicked );

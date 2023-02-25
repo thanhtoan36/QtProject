@@ -26,15 +26,15 @@ struct LibraryControlButton
 class LibraryControl : public PanelControlBase
 {
     Q_OBJECT
-    Q_PROPERTY( int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY currentGroupPageChanged )
+    Q_PROPERTY( int CurrentGroupPage READ CurrentGroupPage WRITE SetCurrentGroupPage NOTIFY CurrentGroupPageChanged )
     Q_PROPERTY( int CurrentHistoryPage READ CurrentHistoryPage WRITE SetCurrentHistoryPage NOTIFY CurrentHistoryPageChanged )
     Q_PROPERTY( QString SelectedGroupMode READ SelectedGroupMode WRITE SetSelectedGroupMode NOTIFY SelectedGroupModeChanged )
     Q_PROPERTY( QString SelectedHistoryMode READ SelectedHistoryMode WRITE SetSelectedHistoryMode NOTIFY SelectedHistoryModeChanged )
-    Q_PROPERTY( QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged )
-    Q_PROPERTY( LibraryControlButton CurrentLibraryButton READ CurrentLibraryButton WRITE SetCurrentLibraryButton NOTIFY CurrentLibraryButtonChanged )
-    Q_PROPERTY( QString CurrentHistoryModeButton READ CurrentHistoryModeButton WRITE SetCurrentHistoryModeButton NOTIFY CurrentHistoryModeButtonChanged )
-    Q_PROPERTY( LibraryControlButton CurrentHistoryButton READ CurrentHistoryButton WRITE SetCurrentHistoryButton NOTIFY CurrentHistoryButtonChanged )
-    Q_PROPERTY( QString CurrentFooterButton READ CurrentFooterButton WRITE SetCurrentFooterButton NOTIFY CurrentFooterButtonChanged )
+    Q_PROPERTY( QString SelectedModeButton READ SelectedModeButton WRITE SetSelectedModeButton NOTIFY SelectedModeButtonChanged )
+    Q_PROPERTY( LibraryControlButton SelectedLibraryButton READ SelectedLibraryButton WRITE SetSelectedLibraryButton NOTIFY SelectedLibraryButtonChanged )
+    Q_PROPERTY( QString SelectedHistoryModeButton READ SelectedHistoryModeButton WRITE SetSelectedHistoryModeButton NOTIFY SelectedHistoryModeButtonChanged )
+    Q_PROPERTY( LibraryControlButton SelectedHistoryButton READ SelectedHistoryButton WRITE SetSelectedHistoryButton NOTIFY SelectedHistoryButtonChanged )
+    Q_PROPERTY( QString SelectedFooterButton READ SelectedFooterButton WRITE SetSelectedFooterButton NOTIFY SelectedFooterButtonChanged )
 
 public:
     struct LibraryButton
@@ -46,46 +46,46 @@ public:
     explicit LibraryControl( QWidget *parent = nullptr );
     virtual void SetDispParamData( LIBRARY_DISP_PARAM *param );
 
-    int CurrentGroupPage() const;
-    void SetCurrentGroupPage( int page );
-
-    int CurrentHistoryPage() const;
-    void SetCurrentHistoryPage( int page );
-
     QString SelectedGroupMode() const;
     void SetSelectedGroupMode( const QString &mode );
 
     QString SelectedHistoryMode() const;
     void SetSelectedHistoryMode( const QString &mode );
 
-    const LibraryControlButton &CurrentLibraryButton() const;
-    void SetCurrentLibraryButton( const LibraryControlButton &button );
+    const LibraryControlButton &SelectedLibraryButton() const;
+    void SetSelectedLibraryButton( const LibraryControlButton &button );
 
-    const LibraryControlButton &CurrentHistoryButton() const;
-    void SetCurrentHistoryButton( const LibraryControlButton &button );
+    const LibraryControlButton &SelectedHistoryButton() const;
+    void SetSelectedHistoryButton( const LibraryControlButton &button );
 
-    const QString &CurrentFooterButton() const;
-    void SetCurrentFooterButton( const QString &button );
+    const QString &SelectedFooterButton() const;
+    void SetSelectedFooterButton( const QString &button );
 
-    const QString &CurrentModeButton() const;
-    void SetCurrentModeButton( const QString &button );
+    const QString &SelectedModeButton() const;
+    void SetSelectedModeButton( const QString &button );
 
-    const QString &CurrentHistoryModeButton() const;
-    void SetCurrentHistoryModeButton( const QString &button );
+    const QString &SelectedHistoryModeButton() const;
+    void SetSelectedHistoryModeButton( const QString &button );
 
 signals:
-    void currentGroupPageChanged();
+    void CurrentGroupPageChanged();
     void CurrentHistoryPageChanged();
     void SelectedGroupModeChanged();
     void SelectedHistoryModeChanged();
-    void CurrentModeButtonChanged();
-    void CurrentLibraryButtonChanged();
-    void CurrentHistoryModeButtonChanged();
-    void CurrentHistoryButtonChanged();
-    void CurrentFooterButtonChanged();
+    void SelectedModeButtonChanged();
+    void SelectedLibraryButtonChanged();
+    void SelectedHistoryModeButtonChanged();
+    void SelectedHistoryButtonChanged();
+    void SelectedFooterButtonChanged();
     void ReturnButtonClicked();
 
 protected:
+    int CurrentGroupPage() const;
+    void SetCurrentGroupPage( int page );
+
+    int CurrentHistoryPage() const;
+    void SetCurrentHistoryPage( int page );
+
     QPoint LibraryStartPoint() const;
     void SetLibraryStartPoint( QPoint point );
 
@@ -151,11 +151,11 @@ private:
     int m_current_history_page;
     QString m_selected_group_mode;
     QString m_selected_history_mode;
-    LibraryControlButton m_current_library_button;
-    LibraryControlButton m_current_historybutton;
-    QString m_current_footer_button;
-    QString m_current_mode_button;
-    QString m_current_history_mode_button;
+    LibraryControlButton m_selected_library_button;
+    LibraryControlButton m_selected_historybutton;
+    QString m_selected_footer_button;
+    QString m_selected_mode_button;
+    QString m_selected_history_mode_button;
 };
 
 #endif // LIBRARYCONTROL_HPP

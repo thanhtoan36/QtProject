@@ -205,7 +205,7 @@ void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
 
     m_button_next_tab.setVisible( MaxGroupButtonPages() > 1 );
     m_button_previous_tab.setVisible( MaxGroupButtonPages() > 1 );
-    SetCurrentModeButton( current_mode );
+    SetSelectedModeButton( current_mode );
 }
 
 //--------------------------------------------------------------------------
@@ -291,7 +291,7 @@ void InputNumControl::OnGroupButtonClicked()
         button->setChecked( button == sender() );
     }
 
-    SetCurrentModeButton( ( ( SelectButton * )sender() )->text() );
+    SetSelectedModeButton( ( ( SelectButton * )sender() )->text() );
 }
 
 InputNumValueMode InputNumControl::ValueMode() const
@@ -357,18 +357,18 @@ int InputNumControl::GroupButtonsPerPage() const
     return 4;
 }
 
-const QString &InputNumControl::CurrentModeButton() const
+const QString &InputNumControl::SelectedModeButton() const
 {
-    return m_current_mode_button;
+    return m_selected_mode_button;
 }
 
-void InputNumControl::SetCurrentModeButton( const QString &mode )
+void InputNumControl::SetSelectedModeButton( const QString &mode )
 {
-    if( m_current_mode_button == mode )
+    if( m_selected_mode_button == mode )
     {
         return;
     }
 
-    m_current_mode_button = mode;
-    emit CurrentModeButtonChanged();
+    m_selected_mode_button = mode;
+    emit SelectedModeButtonChanged();
 }

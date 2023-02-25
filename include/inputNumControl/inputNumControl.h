@@ -26,7 +26,7 @@ class InputNumControl : public PanelControlBase
     Q_PROPERTY( InputNumValueMode ValueMode READ ValueMode WRITE SetValueMode NOTIFY ValueModeChanged )
     Q_PROPERTY( InputNumType Type READ Type WRITE SetType NOTIFY TypeChanged )
     Q_PROPERTY( int CurrentGroupButtonsPage READ CurrentGroupButtonsPage WRITE SetCurrentGroupButtonsPage NOTIFY CurrentGroupButtonsPageChanged )
-    Q_PROPERTY( QString CurrentModeButton READ CurrentModeButton WRITE SetCurrentModeButton NOTIFY CurrentModeButtonChanged )
+    Q_PROPERTY( QString SelectedModeButton READ SelectedModeButton WRITE SetSelectedModeButton NOTIFY SelectedModeButtonChanged )
 
 public:
     explicit InputNumControl( QWidget *parent = nullptr );
@@ -36,7 +36,7 @@ public:
     InputNumType Type() const;
     InputNumValueMode ValueMode() const;
     int CurrentGroupButtonsPage() const;
-    const QString &CurrentModeButton() const;
+    const QString &SelectedModeButton() const;
 
 signals:
     void ModeChanged();
@@ -44,7 +44,7 @@ signals:
     void ValueModeChanged();
     void CurrentGroupButtonsPageChanged();
     void InputNumButtonClicked( const QString &text );
-    void CurrentModeButtonChanged();
+    void SelectedModeButtonChanged();
     void ReturnClicked();
 
 protected:
@@ -57,7 +57,7 @@ protected:
     void SetType( InputNumType newType );
     void SetValueMode( const InputNumValueMode &mode );
     void SetCurrentGroupButtonsPage( int page );
-    void SetCurrentModeButton( const QString &mode );
+    void SetSelectedModeButton( const QString &mode );
 
 protected slots:
     void OnModeChanged();
@@ -86,7 +86,7 @@ protected:
     int m_current_group_buttons_page;
     int m_group_buttons_per_page;
 
-    QString m_current_mode_button;
+    QString m_selected_mode_button;
 };
 
 

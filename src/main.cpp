@@ -1,13 +1,10 @@
 #include <QApplication>
 #include "mainwindow.h"
-#include "loghandler.h"
 
 int main( int argc, char *argv[] )
 {
     QApplication::setAttribute( Qt::AA_EnableHighDpiScaling, true );
     QApplication a( argc, argv );
-
-    InitLog();
 
     MainWindow w;
     w.show();

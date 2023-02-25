@@ -46,7 +46,6 @@ SOURCES += \
     src/groupControl/groupControl.cpp \
     src/inputNumControl/inputNumControl.cpp \
     src/intensityControl/intensityControl.cpp \
-    src/loghandler.cpp \
     src/paletteControl/paletteControl.cpp \
     src/trackControl/trackControl.cpp \
     src/playbackControl/playbackControl.cpp \
@@ -99,7 +98,6 @@ HEADERS += \
     include/libraryControl/libraryControlHorizon.h \
     include/libraryControl/libraryControl_datatypes.h \
     include/libraryControl/libraryControl_define.h \
-    include/loghandler.h \
     include/paletteControl/paletteControl.h \
     include/paletteControl/paletteControlHorizon.h \
     include/paletteControl/paletteControl_datatypes.h \
