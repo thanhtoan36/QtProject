@@ -117,7 +117,7 @@ ColorPickerControl::ColorPickerControl( QWidget *parent )
     m_slider_v.setGeometry( CPC_SLIDER_V_GEOMETRY );
     m_slider_v.setOrientation( Qt::Horizontal );
 
-    // Setup menu buttons pages
+    // セットアップメニューボタン
     AddHeaderButton( COLOR_PICKER_TYPE_XY, "xy" );
     AddHeaderButton( COLOR_PICKER_TYPE_RGB, "RGB" );
 

@@ -43,6 +43,8 @@ class ColorFilterControl : public PanelControlBase
     Q_PROPERTY( ColorFilterButton SelectedCustomButton READ SelectedCustomButton NOTIFY SelectedCustomButtonChanged )
     Q_PROPERTY( ColorFilterButton SelectedHistoryButton READ SelectedHistoryButton NOTIFY SelectedHistoryButtonChanged )
 
+    Q_PROPERTY( QString SelectedFooterButton READ SelectedFooterButton WRITE SetSelectedFooterButton NOTIFY SelectedFooterButtonChanged )
+
 public:
 
     explicit ColorFilterControl( QWidget *parent = nullptr );
@@ -73,6 +75,8 @@ signals:
     void ReturnButtonClicked();
     void NextButtonClicked();
     void PrevButtonClicked();
+
+    void SelectedFooterButtonChanged();
 
 protected:
     int CurrentTBTabPage() const;

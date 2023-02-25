@@ -574,7 +574,13 @@ const QString &ColorFilterControl::SelectedFooterButton() const
 
 void ColorFilterControl::SetSelectedFooterButton( const QString &value )
 {
+    if( m_current_footer_button_active == value )
+    {
+        return;
+    }
+
     m_current_footer_button_active = value;
+    emit SelectedFooterButtonChanged();
 }
 
 int ColorFilterControl::MaxTBTabPages() const

@@ -79,8 +79,23 @@ void MainWindow::LogEvent( const QString &log )
 void MainWindow::ConnectColorPickerEvent()
 {
     const auto slot_color_changed = [&]() { LogEvent( QString( "CPC color changed: %1" ).arg( ( ( ColorPickerControl * )sender() )->PickerColor().name() ) ); };
+    const auto slot_picker_type_changed = [&]()
+    {
+        const QStringList types = {"COLOR_PICKER_TYPE_XY", "COLOR_PICKER_TYPE_RGB"};
+        LogEvent( QString( "CPC picker type changed: %1" ).arg( types[( ( ColorPickerControl * )sender() )->PickerType()] ) );
+    };
+    const auto slot_next_clicked = [&]() { LogEvent( QString( "CPC next clicked" ) ); };
+    const auto slot_prev_clicked = [&]() { LogEvent( QString( "CPC prev clicked" ) ); };
+
     connect( m_color_picker_control.get(), &ColorPickerControl::PickerColorChanged, this, slot_color_changed );
+    connect( m_color_picker_control.get(), &ColorPickerControl::PickerTypeChanged, this, slot_picker_type_changed );
+    connect( m_color_picker_control.get(), &ColorPickerControl::NextButtonClicked, this, slot_next_clicked );
+    connect( m_color_picker_control.get(), &ColorPickerControl::PrevButtonClicked, this, slot_prev_clicked );
+
     connect( m_color_picker_control_horizon.get(), &ColorPickerControl::PickerColorChanged, this, slot_color_changed );
+    connect( m_color_picker_control_horizon.get(), &ColorPickerControl::PickerTypeChanged, this, slot_picker_type_changed );
+    connect( m_color_picker_control_horizon.get(), &ColorPickerControl::NextButtonClicked, this, slot_next_clicked );
+    connect( m_color_picker_control_horizon.get(), &ColorPickerControl::PrevButtonClicked, this, slot_prev_clicked );
 }
 
 void MainWindow::ConnectColorFilterEvent()
@@ -109,17 +124,31 @@ void MainWindow::ConnectColorFilterEvent()
         LogEvent( log );
     };
 
+    const auto slot_footer_button_changed = [&]()
+    {
+        QString log = QString( "CFC Footer Button Active Changed: %1" ).arg( ( ( ColorFilterControl * )sender() )->SelectedFooterButton() );
+        LogEvent( log );
+    };
+
     const auto slot_return_button_clicked = [&]() { LogEvent( "CFC Return Button Clicked" ); };
+    const auto slot_next_clicked = [&]() { LogEvent( QString( "CFC next clicked" ) ); };
+    const auto slot_prev_clicked = [&]() { LogEvent( QString( "CFC prev clicked" ) ); };
 
     connect( m_color_filter_control.get(), &ColorFilterControl::SelectedTbButtonChanged, this, slot_tb_selected_button_changed );
     connect( m_color_filter_control.get(), &ColorFilterControl::SelectedCustomButtonChanged, this, slot_custom_selected_button_changed );
     connect( m_color_filter_control.get(), &ColorFilterControl::SelectedHistoryButtonChanged, this, slot_history_selected_button_changed );
+    connect( m_color_filter_control.get(), &ColorFilterControl::SelectedFooterButtonChanged, this, slot_footer_button_changed );
     connect( m_color_filter_control.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked );
+    connect( m_color_filter_control.get(), &ColorFilterControl::NextButtonClicked, this, slot_next_clicked );
+    connect( m_color_filter_control.get(), &ColorFilterControl::PrevButtonClicked, this, slot_prev_clicked );
 
     connect( m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedTbButtonChanged, this, slot_tb_selected_button_changed );
     connect( m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedCustomButtonChanged, this, slot_custom_selected_button_changed );
     connect( m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedHistoryButtonChanged, this, slot_history_selected_button_changed );
+    connect( m_color_filter_control_horizon.get(), &ColorFilterControl::SelectedFooterButtonChanged, this, slot_footer_button_changed );
     connect( m_color_filter_control_horizon.get(), &ColorFilterControl::ReturnButtonClicked, this, slot_return_button_clicked );
+    connect( m_color_filter_control_horizon.get(), &ColorFilterControl::NextButtonClicked, this, slot_next_clicked );
+    connect( m_color_filter_control_horizon.get(), &ColorFilterControl::PrevButtonClicked, this, slot_prev_clicked );
 }
 
 void MainWindow::ConnectIntensityEvent()
