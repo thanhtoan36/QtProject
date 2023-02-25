@@ -43,7 +43,7 @@ PlaybackControl::PlaybackControl( QWidget *parent )
 
         m_headers.append( label );
 
-        // Move to the right
+        // 右に移動
         cell.moveLeft( cell.left() + cell.width() );
     }
 
@@ -54,7 +54,7 @@ PlaybackControl::PlaybackControl( QWidget *parent )
     m_grid_overlay.SetColumnsWidth( m_column_width );
     m_grid_overlay.raise();
 
-    // Use timer to prevent onItemClicked() from being miss fired before & after onItemDoubleClicked() event
+    // onItemDoubleClicked() イベントの前後に onItemClicked() が発生しないようにタイマーを使用する
     connect( &m_list_view, &QListWidget::itemClicked, this, [&]( QListWidgetItem * item )
     {
         if( !IsMouseInsideMarkingColumn() )
@@ -103,7 +103,7 @@ PlaybackControl::PlaybackControl( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDispParamData
-//  [ 機　能 ] : Set the display parameters data for the control
+//  [ 機　能 ] : コントロールに表示パラメータデータを設定する
 //  [ 引　数 ] : PLAYBACK_DISP_PARAM *param : the parameters
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -134,9 +134,9 @@ void PlaybackControl::SetDispParamData( PLAYBACK_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnMarkingSelected
-//  [ 機　能 ] : Occurs when user selected a marking on the popup
-//  [ 引　数 ] : const QString &marking : The marking
-//              const QColor &color : The color of the marking
+//  [ 機　能 ] : ユーザーがポップアップでマーキングを選択したときに発生する
+//  [ 引　数 ] : const QString &marking : マーキング
+//              const QColor &color : マーキングの色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PlaybackControl::OnMarkingSelected( const QString &marking, const QColor &color )
@@ -153,8 +153,8 @@ void PlaybackControl::OnMarkingSelected( const QString &marking, const QColor &c
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnItemClicked
-//  [ 機　能 ] : Occurs when user clicked on a row
-//  [ 引　数 ] : QListWidgetItem *item : The item which has been clicked on
+//  [ 機　能 ] : ユーザーが行をクリックしたときに発生する
+//  [ 引　数 ] : QListWidgetItem *item : クリックされたアイテム
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PlaybackControl::OnItemClicked( QListWidgetItem *item )
@@ -166,23 +166,23 @@ void PlaybackControl::OnItemClicked( QListWidgetItem *item )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnItemDoubleClicked
-//  [ 機　能 ] : Occurs when user double-clicked on a row
-//  [ 引　数 ] : QListWidgetItem *item : The item which has been clicked on
+//  [ 機　能 ] : ユーザーが行をダブルクリックしたときに発生する
+//  [ 引　数 ] : QListWidgetItem *item : クリックされたアイテム
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PlaybackControl::OnItemDoubleClicked( QListWidgetItem *item )
 {
     Q_ASSERT( item );
-    // item->setData(PlaybackRowDelegate::Roles::MarkingRole, " ");
+
     m_marking_picker_popup.move( QCursor::pos() );
     m_marking_picker_popup.show();
 }
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : IsMouseInsideMarkingColumn
-//  [ 機　能 ] : Check if the mouse is inside the marking column
-//  [ 引　数 ] :
-//  [ 戻り値 ] : bool : true if the mouse is inside the marking column
+//  [ 機　能 ] : マウスがマーキング列内にあるかどうかを確認する
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : bool : マウスがマーキング列内にある場合は true
 //--------------------------------------------------------------------------
 bool PlaybackControl::IsMouseInsideMarkingColumn() const
 {

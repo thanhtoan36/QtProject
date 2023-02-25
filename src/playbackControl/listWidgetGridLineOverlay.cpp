@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : listWidgetGridLineOverlay.cpp
-// [ 概      要 ] : Draw grid lines on the PlaybackControl's table
+// [ 概      要 ] : プレイバックのテーブルへグリッド線を描画する
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -16,8 +16,8 @@ ListWidgetGridLineOverlay::ListWidgetGridLineOverlay( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetColumnsWidth
-//  [ 機　能 ] : Set the width for the columns
-//  [ 引　数 ] : const QVector<int> &value : The width values
+//  [ 機　能 ] : 列の幅を設定する
+//  [ 引　数 ] : const QVector<int> &value : 各幅の値
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void ListWidgetGridLineOverlay::SetColumnsWidth( const QVector<int> &value )

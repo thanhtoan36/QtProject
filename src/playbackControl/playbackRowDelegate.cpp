@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : playbackRowDelegate.cpp
-// [ 概      要 ] : Represent a delegate for QListWidget to paint the rows
+// [ 概      要 ] : 行を描画するためのQListWidgetのデリゲートを表す
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -90,8 +90,8 @@ QSize PlaybackRowDelegate::sizeHint( const QStyleOptionViewItem &option, const Q
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetColumnsWidth
-//  [ 機　能 ] : Set the widths for each columns
-//  [ 引　数 ] : const QVector<int> &value : the list of width values
+//  [ 機　能 ] : 各列の幅を設定する
+//  [ 引　数 ] : const QVector<int> &value : 幅の値のリスト
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PlaybackRowDelegate::SetColumnsWidth( const QVector<int> &value )

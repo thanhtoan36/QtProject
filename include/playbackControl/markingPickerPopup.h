@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : markingPickerPopup.h
-// [ 概      要 ] : A popup control to present the markings for users to select
+// [ 概      要 ] : ユーザーが選択できるマーキングを表示するポップアップコントロール
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -26,8 +26,8 @@ public slots:
 private:
     struct Marking
     {
-        QString marking;  // The marking
-        QColor color;     // The marking color
+        QString marking;  // マーキング
+        QColor color;     // カラー
     };
     QVector<QSharedPointer<CustomPushButton>> m_marking_buttons;
 };

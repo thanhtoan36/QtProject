@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : playbackControl_datatypes.h
-// [ 概      要 ] : Type definitions for PlaybackControl
+// [ 概      要 ] : プレイバックコントロールの型定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
 // マーキング
 typedef struct
 {
-    char    marking[PLAYBACK_MARKING_SIZE]; // マーキング/
+    char    marking[PLAYBACK_MARKING_SIZE]; // マーキング
     QColor  color;                          // カラー
 } MARKING;
 

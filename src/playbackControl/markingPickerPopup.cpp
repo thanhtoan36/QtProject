@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : markingPickerPopup.cpp
-// [ 概      要 ] : A popup control to present the markings for users to select
+// [ 概      要 ] : ユーザーが選択できるマーキングを表示するポップアップコントロール
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@
 MarkingPickerPopup::MarkingPickerPopup( QWidget *parent )
     : QWidget{parent}
 {
-    // Turn off window border and default buttons
+    // ウィンドウの枠線とデフォルトのボタンをオフにする
     setWindowFlags( Qt::CustomizeWindowHint | Qt::FramelessWindowHint | Qt::Popup );
 
     QPalette palette {};
@@ -53,7 +53,7 @@ MarkingPickerPopup::MarkingPickerPopup( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnMarkingClicked
-//  [ 機　能 ] : Occurs when user click on a marking button
+//  [ 機　能 ] : ユーザーがマーキングボタンをクリックすると発生する
 //  [ 引　数 ] : None
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------

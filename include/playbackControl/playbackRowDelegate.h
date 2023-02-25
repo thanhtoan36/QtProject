@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : playbackRowDelegate.h
-// [ 概      要 ] : Represent a delegate for QListWidget to paint the rows
+// [ 概      要 ] : 行を描画するためのQListWidgetのデリゲートを表す
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
