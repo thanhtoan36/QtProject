@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorPickerControlHorizon.cpp
-// [ 概      要 ] : ColorPickerControl horizon widget
+// [ 概      要 ] : カラーピッカーコントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorPickerControl/colorPickerControlHorizon.h"
@@ -80,8 +80,8 @@ ColorPickerControlHorizon::ColorPickerControlHorizon( QWidget *parent ) : ColorP
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnPanelSwitchButtonClicked
-//  [ 機能名   ] : Event button clicked
-//  [ 引数      ] : void
+//  [ 機能名   ] : ボタンクリックイベント
+//  [ 引数     ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControlHorizon::OnPanelSwitchButtonClicked()

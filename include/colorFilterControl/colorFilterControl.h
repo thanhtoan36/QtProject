@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorFilterControl.h
-// [ 概      要 ] : ColorFilterControl vertical widget
+// [ 概      要 ] : カラーフィルターコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef COLORFILTERCONTROL_H

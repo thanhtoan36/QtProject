@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : intensityControl_define.h
-// [ 概      要 ] : Constant definitions for IntensityControl
+// [ 概      要 ] : インテンシティコントロールの定数定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef INTENSITYCONTROL_DEFINE_H

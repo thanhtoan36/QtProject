@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
-// [ ファイル名 ] : customColorPickerXY.h
-// [ 概   要 ] : ColorPickerXY Widget
+// [ ファイル名 ] : customColorPickerXY.cpp
+// [ 概   要 ] : カラーピッカーXYウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorPickerControl/customColorPickerXY.h"
@@ -16,22 +16,20 @@
     (((t) <= 0.0404482362771076) ? ((t) / 12.92)                               \
      : pow(((t) + 0.055) / 1.055, 2.4))
 
-#define PICKER_XY_WIDTH  CPC_PICKER_XY_GEOMETRY.width()
-#define PICKER_XY_HIEGHT CPC_PICKER_XY_GEOMETRY.height()
 
 CustomColorPickerXY::CustomColorPickerXY( QWidget *parent ) : QWidget( parent ),
-    m_plot_area( QRectF( 36, 0, PICKER_XY_HIEGHT, PICKER_XY_HIEGHT ) )
+    m_plot_area( QRectF( 36, 0, CPC_PICKER_XY_GEOMETRY.height(), CPC_PICKER_XY_GEOMETRY.height() ) )
 {
     QImage img( ":/resources/cie_img.png" );
-    m_img = img.scaled( PICKER_XY_HIEGHT, PICKER_XY_HIEGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation );
+    m_img = img.scaled( CPC_PICKER_XY_GEOMETRY.height(), CPC_PICKER_XY_GEOMETRY.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation );
     SetColor( Qt::white );
     m_white_xy = m_valid_xy;
 }
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetColor
-//  [ 機能名   ] : Set color and convert to x y value
-//  [ 引数     ] : const QColor &color : color need to set
+//  [ 機能名   ] : 色を設定し、x y値に変換する
+//  [ 引数          ] : const QColor &color : 要設定の色
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerXY::SetColor( const QColor &color )
@@ -43,8 +41,8 @@ void CustomColorPickerXY::SetColor( const QColor &color )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetXy
-//  [ 機能名   ] : Set x y value
-//  [ 引数     ] : const QPointF &xy : xy coordinate
+//  [ 機能名   ] : x yの値を設定する
+//  [ 引数          ] : const QPointF &xy : xy座標
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerXY::SetXy( const QPointF &xy )
@@ -79,8 +77,8 @@ QColor CustomColorPickerXY::GetColor( QPointF xy ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : paintEvent
-//  [ 機能名   ] : overwrite paint event and draw widget
-//  [ 引数      ] : QPaintEvent *
+//  [ 機能名   ] : ペイントイベントを上書きして、ウィジェットを描画する
+//  [ 引数          ] : QPaintEvent *
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerXY::paintEvent( QPaintEvent * )
@@ -115,8 +113,8 @@ void CustomColorPickerXY::paintEvent( QPaintEvent * )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : mousePressEvent
-//  [ 機能名   ] : handle press event to pick color and xy
-//  [ 引数      ] : QMouseEvent *event : press event
+//  [ 機能名   ] : 押下イベントを処理して、色とxyを選択する
+//  [ 引数          ] : QMouseEvent *event : 押下イベント
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerXY::mousePressEvent( QMouseEvent *event )
@@ -136,8 +134,8 @@ void CustomColorPickerXY::mousePressEvent( QMouseEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : MapToPosition
-//  [ 機能名   ] : convert CIE xy value to coordinate of widget
-//  [ 引数      ] : const QPointF &p : xy coordinate
+//  [ 機能名   ] : CIE xyの値をウィジェットの座標に変換する
+//  [ 引数          ] : const QPointF &p : xy座標
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::MapToPosition( const QPointF &p )
@@ -147,9 +145,9 @@ QPointF CustomColorPickerXY::MapToPosition( const QPointF &p )
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名   ] : MapToPosition
-//  [ 機能名   ] : convert mouse press point to CIE xy
-//  [ 引数      ] : const QPointF &p : xy coordinate
+//  [ 関数名   ] : MapToValue
+//  [ 機能名   ] : マウスプレスポイントをCIE xyに変換する
+//  [ 引数          ] : const QPointF &p : xy座標
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::MapToValue( const QPoint &p )
@@ -160,13 +158,13 @@ QPointF CustomColorPickerXY::MapToValue( const QPoint &p )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : RBG2XY
-//  [ 機能名   ] : convert color RGB to xyz
-//  [ 引数      ] : float R : red value
-//                float G : green value
-//                float B : blue value
-//                float &x : x value
-//                float &y : y value
-//                float &z : z value
+//  [ 機能名   ] : RGBの色をxyzに変換する
+//  [ 引数          ] : float R : 赤値
+//                float G : グリーンバリュー
+//                float B : ブルーバリュー
+//                float &x : x値
+//                float &y : y値
+//                float &z : z値
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void CustomColorPickerXY::RBG2XY( float R, float G, float B, float &x, float &y, float &z )

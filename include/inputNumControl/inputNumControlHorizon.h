@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : inputNumControlHorizon.h
-// [ 概      要 ] : InputNumControl horizon widget
+// [ 概      要 ] : 数値入力コントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef INPUTNUMCONTROLHORIZON_H

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : libraryControlHorizon.h
-// [ 概      要 ] : LibraryControl horizon widget
+// [ 概      要 ] : ライブラリコントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef LIBRARYCONTROLHORIZON_H

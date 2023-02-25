@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : libraryControl.cpp
-// [ 概      要 ] : LibraryControl vertical widget
+// [ 概      要 ] : ライブラリコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "libraryControl/libraryControl.h"
@@ -127,7 +127,7 @@ LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetDispParamData
-//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 機　能   ] : コントロールに表示パラメータデータを設定する
 //  [ 引　数   ] : LIBRARY_DISP_PARAM *param : the parameters
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -254,8 +254,8 @@ void LibraryControl::SetDispParamData( LIBRARY_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : AddButtonToHistory
-//  [ 機　能   ] : Add button to history page
-//  [ 引　数   ] : const LibraryControl::LibraryButton &button: button need to add
+//  [ 機　能   ] : 最近使ったものページにボタンを追加する
+//  [ 引　数   ] : const LibraryControl::LibraryButton &button: 要追加のボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::AddButtonToHistory( const LibraryControl::LibraryButton &button )
@@ -297,7 +297,7 @@ void LibraryControl::AddButtonToHistory( const LibraryControl::LibraryButton &bu
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnButtonTitleClicked
-//  [ 機　能   ] : Event handler for title button
+//  [ 機　能   ] : タイトルボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -310,7 +310,7 @@ void LibraryControl::OnButtonTitleClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnButtonRegisterClicked
-//  [ 機　能   ] : Event handler for register button
+//  [ 機　能   ] : 登録ボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -322,8 +322,8 @@ void LibraryControl::OnButtonRegisterClicked()
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名   ] : OnButtonRegisterClicked
-//  [ 機　能   ] : Event handler for delete button
+//  [ 関数名   ] : OnButtonDeleteClicked
+//  [ 機　能   ] : 削除ボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -336,7 +336,7 @@ void LibraryControl::OnButtonDeleteClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnGroupModeButtonClicked
-//  [ 機　能   ] : Event handler for group mode button
+//  [ 機　能   ] : グループモードボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -369,7 +369,7 @@ void LibraryControl::OnGroupModeButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnHistoryModeButtonClicked
-//  [ 機　能   ] : Event handler for history mode button
+//  [ 機　能   ] : 最近使ったもののモードボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -402,7 +402,7 @@ void LibraryControl::OnHistoryModeButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnGroupLibButtonClicked
-//  [ 機　能   ] : Event handler for group library button
+//  [ 機　能   ] : グループライブラリボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -427,7 +427,7 @@ void LibraryControl::OnGroupLibButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnHistoryLibButtonClicked
-//  [ 機　能   ] : Event handler for group history button
+//  [ 機　能   ] : グループの最近使ったもののボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -475,7 +475,7 @@ int LibraryControl::LibraryButtonsPerPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : RefilterGroupButtonsByMode
-//  [ 機　能   ] : Filter group button by mode
+//  [ 機　能   ] : グループボタンをモードでフィルターする
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -486,7 +486,7 @@ void LibraryControl::RefilterGroupButtonsByMode()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : RefilterHistoryButtonsByMode
-//  [ 機　能   ] : Filter group history button by mode
+//  [ 機　能   ] : 最近使ったもののボタンをモードでフィルターする
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -497,10 +497,10 @@ void LibraryControl::RefilterHistoryButtonsByMode()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : Filter
-//  [ 機　能   ] : Get button list by mode
-//  [ 引　数   ] : const QVector<LibraryControl::LibraryButton> &buttons: all buttons
-//               const QString &mode: button mode
-//  [ 戻り値    ] : QVector<LibraryControl::LibraryButton>: button list of mode
+//  [ 機　能   ] : ボタンリストをモードで取得する
+//  [ 引　数   ] : const QVector<LibraryControl::LibraryButton> &buttons: 全ボタン
+//               const QString &mode: モードボタン
+//  [ 戻り値    ] : QVector<LibraryControl::LibraryButton>: モードリストボタン
 //--------------------------------------------------------------------------
 QVector<LibraryControl::LibraryButton> LibraryControl::Filter( const QVector<LibraryControl::LibraryButton> &buttons, const QString &mode )
 {
@@ -519,9 +519,9 @@ QVector<LibraryControl::LibraryButton> LibraryControl::Filter( const QVector<Lib
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : WidgetList
-//  [ 機　能   ] : Get button widget list
-//  [ 引　数   ] : const QVector<LibraryButton> &buttons: all buttons
-//  [ 戻り値    ] : QVector<QSharedPointer<TitleSelectButton> >: widget button list
+//  [ 機　能   ] : ウィジェッボタントリストの取得
+//  [ 引　数   ] : const QVector<LibraryButton> &buttons: 全ボタン
+//  [ 戻り値    ] : QVector<QSharedPointer<TitleSelectButton> >: ウィジェッボタントリスト
 //--------------------------------------------------------------------------
 QVector<QSharedPointer<TitleSelectButton> > LibraryControl::WidgetList( const QVector<LibraryButton> &buttons )
 {
@@ -537,7 +537,7 @@ QVector<QSharedPointer<TitleSelectButton> > LibraryControl::WidgetList( const QV
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : UpdateGroupTab
-//  [ 機　能   ] : Update geometry visibility of current group buttons
+//  [ 機　能   ] : 現在のグループボタンのジオメトリの可視性を更新する
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -568,7 +568,7 @@ void LibraryControl::UpdateGroupTab()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : UpdateHistoryTab
-//  [ 機　能   ] : Update geometry visibility of current history group buttons
+//  [ 機　能   ] : 現在の最近使ったもののグループボタンのジオメトリの可視性を更新する
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------

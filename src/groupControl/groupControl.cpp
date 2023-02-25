@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : groupControl.cpp
-// [ 概      要 ] : GroupControl vertical widget
+// [ 概      要 ] : グループコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "groupControl/groupControl.h"
@@ -150,7 +150,7 @@ GroupControl::GroupControl( QWidget *parent ) : PanelControlBase( parent ),
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetDispParamData
-//  [ 機　能   ] : Set the display parameters data for the control
+//  [ 機　能   ] : コントロールに表示パラメータデータを設定する
 //  [ 引　数   ] : GROUP_DISP_PARAM *param : the parameters
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -255,7 +255,7 @@ void GroupControl::SetCurrentHistoryPage( int page )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : UpdateGroupPage
-//  [ 機　能   ] : update visibility of group page
+//  [ 機　能   ] : グループページの可視性を更新する·
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -266,7 +266,7 @@ void GroupControl::UpdateGroupPage()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : UpdateHistoryPage
-//  [ 機　能   ] : update visibility of history page
+//  [ 機　能   ] : 最近使ったものページの可視性を更新
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -287,8 +287,8 @@ int GroupControl::MaxHistoryPages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : AddButtonToHistory
-//  [ 機　能   ] : Add button to history page
-//  [ 引　数   ] : QSharedPointer<TitleSelectButton> &button: button need to add
+//  [ 機　能   ] : 最近使ったものページにボタンを追加する
+//  [ 引　数   ] : QSharedPointer<TitleSelectButton> &button: 要追加のボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void GroupControl::AddButtonToHistory( QSharedPointer<TitleSelectButton> &button )
@@ -310,7 +310,7 @@ void GroupControl::AddButtonToHistory( QSharedPointer<TitleSelectButton> &button
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnGroupButtonClicked
-//  [ 機　能   ] : Event handler for group button
+//  [ 機　能   ] : グループボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -335,7 +335,7 @@ void GroupControl::OnGroupButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnHistoryButtonClicked
-//  [ 機　能   ] : Event handler for history button
+//  [ 関数名   ] : 最近使ったもののボタンを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -359,8 +359,8 @@ void GroupControl::OnHistoryButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnTitleButonClicked
-//  [ 機　能   ] : Event handler for title button
-//  [ 引　数   ] : const bool check: check status of button
+//  [ 機　能   ] : タイトルボタンを処理するイベント
+//  [ 引　数   ] : const bool check: ボタンのステータスをチェックする
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void GroupControl::OnTitleButonClicked( const bool check )
@@ -375,8 +375,8 @@ void GroupControl::OnTitleButonClicked( const bool check )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnRegisterButonClicked
-//  [ 機　能   ] : Event handler for register button
-//  [ 引　数   ] : const bool check: check status of button
+//  [ 機　能   ] : 登録ボタンを処理するイベント
+//  [ 引　数   ] : const bool check: ボタンのステータスをチェックする
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void GroupControl::OnRegisterButonClicked( const bool check )
@@ -391,7 +391,7 @@ void GroupControl::OnRegisterButonClicked( const bool check )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnDeleteButonClicked
-//  [ 機　能   ] : Event handler for delete button
+//  [ 機　能   ] : 削除ボタンを処理するイベント
 //  [ 引　数   ] : const bool check: check status of button
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------

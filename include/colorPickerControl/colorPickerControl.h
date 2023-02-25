@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorPickerControl.h
-// [ 概      要 ] : ColorPickerControl vertical widget
+// [ 概      要 ] : カラーピッカーコントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef COLORPICKERCONTROL_H

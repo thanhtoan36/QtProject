@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : libraryControl_datatypes.h
-// [ 概      要 ] : Type definitions for LibraryControl
+// [ 概      要 ] : ライブラリコントロールの型定義
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #ifndef LIBRARYCONTROL_DATATYPES_H

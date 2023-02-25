@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : colorFilterControlHorizon.cpp
-// [ 概      要 ] : ColorFilterControl horizon widget
+// [ ファイル名 ]カラーフィルターコントロール水平ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "colorFilterControl/colorFilterControlHorizon.h"
@@ -57,8 +57,8 @@ ColorFilterControlHorizon::ColorFilterControlHorizon( QWidget *parent ) : ColorF
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetDispParamData
-//  [ 機　能   ] : Set the display parameters data for the control
-//  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : the parameters
+//  [ 機　能   ] : コントロールの表示パラメータデータを設する·
+//  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void ColorFilterControlHorizon::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
@@ -72,8 +72,8 @@ void ColorFilterControlHorizon::setDispParamData( COLOR_FILTER_DISP_PARAM *param
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : AddButtonToHistory
-//  [ 機　能 ] : Add button to history list
-//  [ 引　数 ] : QSharedPointer<SelectButton> button: button need to add
+//  [ 機　能 ] : ボタンを最近使ったものリストに追加する
+//  [ 引　数 ] : QSharedPointer<SelectButton> button: 要追加のボタン
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void ColorFilterControlHorizon::AddButtonToHistory( QSharedPointer<SelectButton> button )

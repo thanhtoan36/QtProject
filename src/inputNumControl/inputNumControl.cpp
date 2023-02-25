@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : inputNumControl.cpp
-// [ 概      要 ] : InputNumControl vertical widget
+// [ 概      要 ] : 数値入力コントロール垂直ウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 #include "inputNumControl/inputNumControl.h"
@@ -133,8 +133,8 @@ InputNumControl::InputNumControl( QWidget *parent )  : PanelControlBase( parent 
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetDispParamData
-//  [ 機　能   ] : Set the display parameters data for the control
-//  [ 引　数   ] : INPUT_NUM_DISP_PARAM *param : the parameters
+//  [ 機　能   ] : コントロールに表示パラメータデータを設定する
+//  [ 引　数   ] : INPUT_NUM_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
@@ -210,7 +210,7 @@ void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnModeChanged
-//  [ 機　能   ] : Event handler for mode changed
+//  [ 機　能   ] : モード変更を処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -223,7 +223,7 @@ void InputNumControl::OnModeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnValueModeChanged
-//  [ 機　能   ] : Event handler for value mode changed
+//  [ 機　能   ] : モード値変更を処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -235,7 +235,7 @@ void InputNumControl::OnValueModeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnTypeChanged
-//  [ 機　能   ] : Event handler for type changed
+//  [ 機　能   ] : タイプ変更を処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -280,7 +280,7 @@ void InputNumControl::SetType( InputNumType newType )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : OnGroupButtonClicked
-//  [ 機　能   ] : Event handler for group button clicked
+//  [ 機　能   ] : グループボタンのクリックを処理するイベント
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
@@ -312,7 +312,7 @@ void InputNumControl::SetValueMode( const InputNumValueMode &mode )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetupGroupButtonPages
-//  [ 機　能   ] : Update visibility of group buttons
+//  [ 機　能   ] : グループボタンの可視性を更新する
 //  [ 引　数   ] : void
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
