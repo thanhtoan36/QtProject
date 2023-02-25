@@ -84,8 +84,8 @@ PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDispParamData
-//  [ 機　能 ] : Set the display parameters data for the control
-//  [ 引　数 ] : PALETTE_DISP_PARAM *param : the parameters
+//  [ 機　能 ] : コントロールに表示パラメータ データを設定する
+//  [ 引　数 ] : PALETTE_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetDispParamData( PALETTE_DISP_PARAM *param )
@@ -174,7 +174,7 @@ void PaletteControl::SetDispParamData( PALETTE_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnModeButtonClicked
-//  [ 機　能 ] : Occurs when user clicked on Mode buttons, to update controls
+//  [ 機　能 ] : ユーザーがモードボタンをクリックしたときに発生する。コントロールを更新するため·
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -194,7 +194,7 @@ void PaletteControl::OnModeButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnPaletteButtonClicked
-//  [ 機　能 ] : Occurs when user clicked on Palette buttons, to update controls
+//  [ 機　能 ] : ユーザーがパレットボタンをクリックしたときに発生する。コントロールを更新するため·
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -222,7 +222,7 @@ void PaletteControl::OnPaletteButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpdateModePages
-//  [ 機　能 ] : Display the current mode buttons according to current page
+//  [ 機　能 ] : 現在のページに応じて現在のモードボタンを表示する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -241,7 +241,7 @@ void PaletteControl::UpdateModePages()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpdatePalettePages
-//  [ 機　能 ] : Display the current palette buttons according to current page
+//  [ 機　能 ] : 現在のページに応じて現在のパレットボタンを表示する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -278,7 +278,7 @@ void PaletteControl::UpdatePalettePages()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ModeStartPoint
-//  [ 機　能 ] : Get the coordinate of the first mode button's top left corner
+//  [ 機　能 ] : 左上にある最初のモードボタンの座標を取得する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : QPoint : coordinate
 //--------------------------------------------------------------------------
@@ -289,7 +289,7 @@ QPoint PaletteControl::ModeStartPoint() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetModeStartPoint
-//  [ 機　能 ] : Set the coordinate of the first mode button's top left corner
+//  [ 機　能 ] : 左上にある最初のモードボタンの座標を設定する
 //  [ 引　数 ] : QPoint value : coordinate
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -300,7 +300,7 @@ void PaletteControl::SetMenuStartPoint( QPoint value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : MaxModePages
-//  [ 機　能 ] : Get the number of mode pages
+//  [ 機　能 ] : モードのページ数を取得する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : int : page count
 //--------------------------------------------------------------------------
@@ -311,7 +311,7 @@ int PaletteControl::MaxModePages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : MaxPalettePages
-//  [ 機　能 ] : Get the number of palette pages
+//  [ 機　能 ] : パレットのページ数を取得する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : int : page count
 //--------------------------------------------------------------------------
@@ -330,7 +330,7 @@ int PaletteControl::MaxPalettePages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ModeButtonsPerPage
-//  [ 機　能 ] : Get number of mode buttons per page
+//  [ 機　能 ] : ページごとのモードボタンの数を取得する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : int : buttons count
 //--------------------------------------------------------------------------
@@ -341,7 +341,7 @@ int PaletteControl::ModeButtonsPerPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PaletteButtonsPerPage
-//  [ 機　能 ] : Get number of palette buttons per page
+//  [ 機　能 ] : ページごとのパレットボタンの数を取得する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : int : buttons count
 //--------------------------------------------------------------------------
@@ -352,7 +352,7 @@ int PaletteControl::PaletteButtonsPerPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedModeIndex
-//  [ 機　能 ] : Get the index of selected mode
+//  [ 機　能 ] : 選択したモードのインデックスを取得する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : int : index
 //--------------------------------------------------------------------------
@@ -373,7 +373,7 @@ int PaletteControl::SelectedModeIndex() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnTypeChanged
-//  [ 機　能 ] : Update title & palette button grid sizej
+//  [ 機　能 ] : タイトルとパレットボタンのグリッドサイズを更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -419,9 +419,9 @@ void PaletteControl::OnTypeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PaletteStartPoint
-//  [ 機　能 ] : Get the coordinate of the first palette button's top left corner
+//  [ 機　能 ] : 左上にある最初のパレットボタンの座標を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QPoint : coordinate
+//  [ 戻り値 ] : QPoint : 座標
 //--------------------------------------------------------------------------
 QPoint PaletteControl::PaletteStartPoint() const
 {
@@ -430,8 +430,8 @@ QPoint PaletteControl::PaletteStartPoint() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetPaletteStartPoint
-//  [ 機　能 ] : Set the coordinate of the first palette button's top left corner
-//  [ 引　数 ] : QPoint value : new coordinate
+//  [ 機　能 ] : 左上にある最初のパレットボタンの座標を設定する
+//  [ 引　数 ] : QPoint value : 新しい座標
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetPaletteStartPoint( QPoint value )
@@ -441,9 +441,9 @@ void PaletteControl::SetPaletteStartPoint( QPoint value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CurrentModePage
-//  [ 機　能 ] : Current page index of mode buttons
+//  [ 機　能 ] : モードボタンの現在のページ インデックス
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : int : page index
+//  [ 戻り値 ] : int : ページ インデックス
 //--------------------------------------------------------------------------
 int PaletteControl::CurrentModePage() const
 {
@@ -452,8 +452,8 @@ int PaletteControl::CurrentModePage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetCurrentModePage
-//  [ 機　能 ] : Set current page index of mode buttons
-//  [ 引　数 ] : int value : page index
+//  [ 機　能 ] : モードボタンの現在のページ インデックスを設定する
+//  [ 引　数 ] : int value : ページ インデックス
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetCurrentModePage( int value )
@@ -471,9 +471,9 @@ void PaletteControl::SetCurrentModePage( int value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CurrentPalettePage
-//  [ 機　能 ] : Current page index of palette buttons
+//  [ 機　能 ] : パレットボタンの現在のページ インデックス
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : int : page index
+//  [ 戻り値 ] : int : ページ インデックス
 //--------------------------------------------------------------------------
 int PaletteControl::CurrentPalettePage() const
 {
@@ -482,8 +482,8 @@ int PaletteControl::CurrentPalettePage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetCurrentPalettePage
-//  [ 機　能 ] : Set current page index of palette buttons
-//  [ 引　数 ] : int value : page index
+//  [ 機　能 ] : パレットボタンの現在のページ インデックスを設定する
+//  [ 引　数 ] : int value : ページ インデックス
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetCurrentPalettePage( int value )
@@ -501,9 +501,9 @@ void PaletteControl::SetCurrentPalettePage( int value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Type
-//  [ 機　能 ] : Get the current type
+//  [ 機　能 ] : 現在のタイプを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : PaletteType : Palette type
+//  [ 戻り値 ] : PaletteType : パレットタイプ
 //--------------------------------------------------------------------------
 PaletteType PaletteControl::Type() const
 {
@@ -512,8 +512,8 @@ PaletteType PaletteControl::Type() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetType
-//  [ 機　能 ] : Set the current type
-//  [ 引　数 ] : PaletteType value : new palette type
+//  [ 機　能 ] : 現在のタイプを設定する
+//  [ 引　数 ] : PaletteType value : 新しいパレットタイプ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetType( PaletteType value )
@@ -529,9 +529,9 @@ void PaletteControl::SetType( PaletteType value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedPalette
-//  [ 機　能 ] : Get the selected palette name
+//  [ 機　能 ] : 選択したパレット名を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QString : selected palette name
+//  [ 戻り値 ] : QString : 選択したパレット名
 //--------------------------------------------------------------------------
 QString PaletteControl::SelectedPalette() const
 {
@@ -540,8 +540,8 @@ QString PaletteControl::SelectedPalette() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetSelectedPalette
-//  [ 機　能 ] : Set the selected palette name
-//  [ 引　数 ] : const QStrin &value : new name
+//  [ 機　能 ] : 選択したパレット名を設定する
+//  [ 引　数 ] : const QStrin &value : 新しい名
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetSelectedPalette( const QString &value )
@@ -557,9 +557,9 @@ void PaletteControl::SetSelectedPalette( const QString &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedMode
-//  [ 機　能 ] : Get the selected mode name
+//  [ 機　能 ] : 選択したモード名を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QString : selected mode name
+//  [ 戻り値 ] : QString : 選択したモード名
 //--------------------------------------------------------------------------
 QString PaletteControl::SelectedMode() const
 {
@@ -568,8 +568,8 @@ QString PaletteControl::SelectedMode() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetSelectedMode
-//  [ 機　能 ] : Set the selected mode name
-//  [ 引　数 ] : const QStrin &value : new mode
+//  [ 機　能 ] : 選択したモード名を設定する
+//  [ 引　数 ] : const QStrin &value : 新しいモード
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PaletteControl::SetSelectedMode( const QString &value )

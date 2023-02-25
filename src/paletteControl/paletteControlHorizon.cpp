@@ -36,7 +36,7 @@ PaletteControlHorizon::PaletteControlHorizon( QWidget *parent ) : PaletteControl
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnTypeChanged
-//  [ 機　能 ] : Update title & palette button grid size
+//  [ 機　能 ] : タイトルとパレットボタンのグリッドサイズを更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
