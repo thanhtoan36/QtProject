@@ -30,6 +30,8 @@ public:
     EncoderMode Mode() const;
     EncoderType Type() const;
 
+    QVector<ENCODER_PARAM> Encoders() const;
+
 signals:
     void CurrentEncoderPageChanged();
     void ModeChanged();

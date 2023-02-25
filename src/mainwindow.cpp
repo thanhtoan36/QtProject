@@ -280,9 +280,26 @@ void MainWindow::ConnectEncoderEvent()
         LogEvent( "Encoder mode changed: " + modes[( ( EncoderControl * )sender() )->Mode()] );
     };
 
+    const auto slot_encoder_value_changed = [&]( int index, const QString & name, int value )
+    {
+        LogEvent( QString( "Encoder #%1 (%2) value changed %3" ).arg( index ).arg( name ).arg( value ) );
+        const auto encoders = ( ( EncoderControl * )sender() )->Encoders();
+
+        QString log = "All encoders: ";
+
+        for( const auto &e : encoders )
+        {
+            log += QString( "(%1 %2), " ).arg( QString( e.name ) ).arg( e.level );
+        }
+
+        LogEvent( log );
+    };
+
     connect( m_encoder_control.get(), &EncoderControl::ModeChanged, this, slot_mode_changed );
+    connect( m_encoder_control.get(), &EncoderControl::EncoderValueChanged, this, slot_encoder_value_changed );
 
     connect( m_encoder_control_horizon.get(), &EncoderControl::ModeChanged, this, slot_mode_changed );
+    connect( m_encoder_control_horizon.get(), &EncoderControl::EncoderValueChanged, this, slot_encoder_value_changed );
 }
 
 void MainWindow::ConnectTrackEvent()

@@ -148,7 +148,8 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
         } );
 
         m_encoders.append( encoder );
-        OnEncoderValueChanged( i, param->param[i].level * EC_FLOAT_TO_INT_SCALE );
+        // OnEncoderValueChanged( i, param->param[i].level * EC_FLOAT_TO_INT_SCALE );
+        UpdateEncoderLabelValue( i );
     }
 
     PlaceChildrenIntoPanel( m_encoder_labels, EC_ENCODER_LABEL_SIZE, EC_ENCODER_LABELS_TOPLEFT + QPoint( EC_ENCODER_WIDTH_PADDING, 0 ), QSize( m_encoders_per_page, 1 ) );
@@ -259,7 +260,7 @@ void EncoderControl::OnEncoderValueChanged( int index, int value )
     auto &param = m_params[index];
     param.level = value / EC_FLOAT_TO_INT_SCALE;
     UpdateEncoderLabelValue( index );
-    emit EncoderValueChanged( index, param.name, value );
+    emit EncoderValueChanged( index, param.name, param.level );
 }
 
 //--------------------------------------------------------------------------
@@ -340,6 +341,28 @@ void EncoderControl::SetMode( EncoderMode value )
 EncoderType EncoderControl::Type() const
 {
     return m_type;
+}
+
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : Encoders
+//  [ 機　能 ] : エンコーダーを取得する
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : QVector<ENCODER_PARAM> : エンコーダ パラメータ
+//--------------------------------------------------------------------------
+QVector<ENCODER_PARAM> EncoderControl::Encoders() const
+{
+    QVector<ENCODER_PARAM> encoders;
+
+    for( int i = 0; i < m_encoders.length(); ++i )
+    {
+        ENCODER_PARAM p;
+        p.level = m_encoders.at( i )->value() / EC_FLOAT_TO_INT_SCALE;
+        p.maxLevel = m_encoders.at( i )->UpperRestrictValue() / EC_FLOAT_TO_INT_SCALE;
+        strncpy( p.name, qUtf8Printable( m_params.at( i ).name ), sizeof( p.name ) );
+        encoders.append( p );
+    }
+
+    return encoders;
 }
 
 //--------------------------------------------------------------------------
