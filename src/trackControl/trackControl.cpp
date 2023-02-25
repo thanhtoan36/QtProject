@@ -128,8 +128,8 @@ TrackControl::TrackControl( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDispParamData
-//  [ 機　能 ] : Set the display parameters data for the control
-//  [ 引　数 ] : TRACK_DISP_PARAM *param : the parameters
+//  [ 機　能 ] : コントロールに表示パラメータ データを設定する
+//  [ 引　数 ] : TRACK_DISP_PARAM *param :各パラメータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TrackControl::SetDispParamData( TRACK_DISP_PARAM *param )
@@ -155,9 +155,9 @@ void TrackControl::SetDispParamData( TRACK_DISP_PARAM *param )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Mode()
-//  [ 機　能 ] : Get the current mode
+//  [ 機　能 ] : 現在のモードを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : TrackMode : the current mode
+//  [ 戻り値 ] : TrackMode : 現在のモード
 //--------------------------------------------------------------------------
 TrackMode TrackControl::Mode() const
 {
@@ -166,8 +166,8 @@ TrackMode TrackControl::Mode() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetMode
-//  [ 機　能 ] : Set the current mode
-//  [ 引　数 ] : TrackMode value : the new track modej
+//  [ 機　能 ] : 現在のモードを設定する
+//  [ 引　数 ] : TrackMode value : 新しいトラックモード
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TrackControl::SetMode( TrackMode value )
@@ -183,9 +183,9 @@ void TrackControl::SetMode( TrackMode value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ValueMode
-//  [ 機　能 ] : Get the current value mode
+//  [ 機　能 ] : 現在値モードを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : TrackValueMode : the current value mode
+//  [ 戻り値 ] : TrackValueMode : 現在値モード
 //--------------------------------------------------------------------------
 TrackValueMode TrackControl::ValueMode() const
 {
@@ -194,8 +194,8 @@ TrackValueMode TrackControl::ValueMode() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetValueMode
-//  [ 機　能 ] : Set the current value mode
-//  [ 引　数 ] : TrackValueMode value : The new track value mode
+//  [ 機　能 ] : 現在値モードを設定する
+//  [ 引　数 ] : TrackValueMode value : 新しいトラック値モード
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TrackControl::SetValueMode( TrackValueMode value )
@@ -211,9 +211,9 @@ void TrackControl::SetValueMode( TrackValueMode value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TrackPoints
-//  [ 機　能 ] : Get the track points
+//  [ 機　能 ] : トラックポイントを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QVector<TRACK_PARAM_GROUP> : The track points
+//  [ 戻り値 ] : QVector<TRACK_PARAM_GROUP> : 各トラックポイント
 //--------------------------------------------------------------------------
 QVector<TRACK_PARAM_GROUP> TrackControl::TrackPoints() const
 {
@@ -222,9 +222,9 @@ QVector<TRACK_PARAM_GROUP> TrackControl::TrackPoints() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : MapToScreen
-//  [ 機　能 ] : Convert point value to PantiltControl resolution
-//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : The point value with Mode() unit
-//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : The values in PantiltControl resolution
+//  [ 機　能 ] : ポイント値をパンチルトコントロールの解像度に変換する
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : Mode()単位でのポイント値
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : パンチルトコントロー解像度の値
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const
 {
@@ -249,9 +249,9 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen( co
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : MapToScreen
-//  [ 機　能 ] : Convert point fro PantiltControl resolution to value
-//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : The values in PantiltControl resolution
-//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : The point value with Mode() unit
+//  [ 機　能 ] : パンチルトコントロールの解像度をポイント値に変換する
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : パンチルトコントロー解像度の値
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : Mode()単位でのポイント値
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToValue( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const
 {
@@ -276,9 +276,9 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToValue( con
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : IntParam2FloatParam
-//  [ 機　能 ] : Convert track point data from integers to floats for accurate calculations
-//  [ 引　数 ] : const QVector<TRACK_PARAM_GROUP> &int_param : the integer values
-//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : the float values
+//  [ 機　能 ] : 正確な計算を行うため、トラック ポイント データを整数から浮動小数点数に変換する
+//  [ 引　数 ] : const QVector<TRACK_PARAM_GROUP> &int_param : 整数の値
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : 浮動小数点数の値
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::IntParam2FloatParam( const QVector<TRACK_PARAM_GROUP> &int_param )
 {
@@ -301,9 +301,9 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::IntParam2FloatP
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : FloatParam2IntParam
-//  [ 機　能 ] : Convert track point data from floats to integers for accurate calculations
-//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &float_param: the float values
-//  [ 戻り値 ] : QVector<TRACK_PARAM_GROUP> : The integer values
+//  [ 機　能 ] : 正確な計算を行うため、トラック ポイント データを浮動小数点数から整数に変換する
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &float_param: 各浮動小数点数の値
+//  [ 戻り値 ] : QVector<TRACK_PARAM_GROUP> : 各整数の値
 //--------------------------------------------------------------------------
 QVector<TRACK_PARAM_GROUP> TrackControl::FloatParam2IntParam( const QVector<PantiltControl::TrackPointFloatParamGroup> &float_param )
 {
@@ -326,7 +326,7 @@ QVector<TRACK_PARAM_GROUP> TrackControl::FloatParam2IntParam( const QVector<Pant
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnModeChanged
-//  [ 機　能 ] : Occurs when the mode changed
+//  [ 機　能 ] : モードが変更されたときに発生する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -339,7 +339,7 @@ void TrackControl::OnModeChanged()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnValueModeChanged
-//  [ 機　能 ] : Occurs when the value mode changed
+//  [ 機　能 ] : 値モードが変更されたときに発生する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------

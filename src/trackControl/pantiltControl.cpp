@@ -23,9 +23,9 @@ TrackPoint::TrackPoint( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Coordinate
-//  [ 機　能 ] : Get the current coordinate
+//  [ 機　能 ] : 現在の座標を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QPoint : the current coordinate
+//  [ 戻り値 ] : QPoint : 現在の座標
 //--------------------------------------------------------------------------
 QPoint TrackPoint::Coordinate()
 {
@@ -37,8 +37,8 @@ QPoint TrackPoint::Coordinate()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetCoordinate
-//  [ 機　能 ] : Set the current coordinate
-//  [ 引　数 ] : QPoint pos : new coordinate
+//  [ 機　能 ] : 現在の座標を設定する
+//  [ 引　数 ] : QPoint pos : 新しい座標
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TrackPoint::SetCoordinate( QPoint pos )
@@ -73,8 +73,8 @@ PantiltControl::PantiltControl( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetValueMode
-//  [ 機　能 ] : Set the value mode
-//  [ 引　数 ] : TrackValueMode value_mode : new value mode
+//  [ 機　能 ] : 値モードの設定
+//  [ 引　数 ] : TrackValueMode value_mode : 新しい値モード
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::SetValueMode( TrackValueMode value_mode )
@@ -89,8 +89,8 @@ void PantiltControl::SetValueMode( TrackValueMode value_mode )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetTrackPoints
-//  [ 機　能 ] : Set the track points to paint
-//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : new points
+//  [ 機　能 ] : ペイントへトラック ポイントを設定する
+//  [ 引　数 ] : const QVector<PantiltControl::TrackPointFloatParamGroup> &points : 各新しいポイント
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::SetTrackPoints( const QVector<PantiltControl::TrackPointFloatParamGroup> &points )
@@ -114,9 +114,9 @@ void PantiltControl::SetTrackPoints( const QVector<PantiltControl::TrackPointFlo
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TrackPoints
-//  [ 機　能 ] : Get the current track points
+//  [ 機　能 ] : 現在のトラック ポイントを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> : The track points
+//  [ 戻り値 ] : QVector<PantiltControl::TrackPointFloatParamGroup> :各トラック ポイント
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::TrackPoints() const
 {
@@ -136,14 +136,14 @@ void PantiltControl::paintEvent( QPaintEvent *event )
     QPainter p( this );
 
     p.setRenderHints( QPainter::Antialiasing | QPainter::HighQualityAntialiasing );
-    // Black background
+    // 黒の背景
     p.fillRect( QRect( QPoint( 0, 0 ), geometry().size() ), QBrush( Qt::black ) );
     p.setPen( QPen( Qt::darkGray ) );
     p.drawRect( QRect( QPoint( 0, 0 ), geometry().size() ) );
 
     QSize bound = geometry().size();
 
-    // Draw horizontal grid lines
+    // 水平グリッド線を描画する
     for( int i = 0; i <= 100; i += 20 )
     {
         p.setPen( QPen( Qt::darkGray, ( i % 50 == 0 ) ? 1 : 0.2 ) );
@@ -153,7 +153,7 @@ void PantiltControl::paintEvent( QPaintEvent *event )
     p.setPen( QPen( Qt::darkGray ) );
     p.drawLine( 0, bound.height() / 2, bound.width(), bound.height() / 2 );
 
-    // Draw vertical grid lines
+    // 垂直のグリッド線を引く
     for( int i = 0; i <= 100; i += 25 )
     {
         p.setPen( QPen( Qt::darkGray, ( i % 50 == 0 ) ? 1 : 0.2 ) );
@@ -199,7 +199,7 @@ void PantiltControl::mouseMoveEvent( QMouseEvent *event )
 
     if( m_value_mode == TRACK_MODE_RELATIVE )
     {
-        // Move all track point at the same time
+        // すべてのトラックポイントを同時に移動させる·
         const QPoint diff = event->pos() - m_last_pos;
 
         for( auto &p : m_track_points )
@@ -214,9 +214,9 @@ void PantiltControl::mouseMoveEvent( QMouseEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ConvertValueToCoordinate
-//  [ 機　能 ] : Convert the track point value to screen coordinate
-//  [ 引　数 ] : QPointF value : track point value
-//  [ 戻り値 ] : QPointF : Screen coordinate
+//  [ 機　能 ] : トラックポイント値をスクリーン座標に変換する
+//  [ 引　数 ] : QPointF value : トラックポイント値
+//  [ 戻り値 ] : QPointF : スクリーン座標
 //--------------------------------------------------------------------------
 QPointF PantiltControl::ConvertValueToCoordinate( QPointF value )
 {
@@ -230,9 +230,9 @@ QPointF PantiltControl::ConvertValueToCoordinate( QPointF value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ConvertCoordinateToValue
-//  [ 機　能 ] : Convert screen coordinate to track point values
-//  [ 引　数 ] : QPointF coordinate : Screen coordinate
-//  [ 戻り値 ] : QPointF : Track point value
+//  [ 機　能 ] : スクリーン座標をトラックポイント値に変換する
+//  [ 引　数 ] : QPointF coordinate : スクリーン座標
+//  [ 戻り値 ] : QPointF : トラックポイント値
 //--------------------------------------------------------------------------
 QPointF PantiltControl::ConvertCoordinateToValue( QPointF coordinate )
 {
@@ -245,15 +245,15 @@ QPointF PantiltControl::ConvertCoordinateToValue( QPointF coordinate )
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名 ] : MovePointWidthContrains
-//  [ 機　能 ] : Move a point but within its min/max constrains
-//  [ 引　数 ] : TrackPointData &point : The point widget to move
-//              QPointF new_value : New values
+//  [ 関数名 ] : MovePointWithContrains
+//  [ 機　能 ] : 最小/最大の制約内でポイントを移動する
+//  [ 引　数 ] : TrackPointData &point : 移動するポイントウィジェット
+//              QPointF new_value : 各新しい値
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::MovePointWithConstraints( TrackPointData &point, QPointF new_value )
 {
-    // Limit pan/tilt to min/ max of this track point
+    // パン/チルトをこのトラックポイントの最小/最大に制限する
     new_value.setX( qBound( point.param.pan.min, float( new_value.x() ), point.param.pan.max ) );
     new_value.setY( qBound( point.param.tilt.min, float( new_value.y() ), point.param.tilt.max ) );
 
