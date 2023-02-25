@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : customButtonBase.cpp
-// [ 概      要 ] : Base class for buttons
+// [ 概      要 ] : ボタンの基底クラス
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ CustomButtonBase::CustomButtonBase( QWidget *parent ) : QPushButton( parent ),
     setAutoFillBackground( true );
     CssStyler().SetStyleSheetTemplate( g_stylesheet_template );
 
-    // NOTE: Must set all params here (to make sure all css templated arguments are populated)
+    // NOTE: ここですべてのパラメーターを設定する必要がある (すべての css テンプレート引数が入力されていることを確認するため)
     SetBackgroundColor( QColor::fromRgb( 0, 0, 0 ) );
     SetTextColor( QColor::fromRgb( 191, 191, 191 ) );
     SetBorderColor( Qt::darkGray );
@@ -70,9 +70,9 @@ CustomButtonBase::CustomButtonBase( QWidget *parent ) : QPushButton( parent ),
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : BackgroundColor
-//  [ 機　能 ] : Get the background color
+//  [ 機　能 ] : 背景色取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : background color
+//  [ 戻り値 ] : QColor : 背景色
 //--------------------------------------------------------------------------
 QColor CustomButtonBase::BackgroundColor() const
 {
@@ -81,8 +81,8 @@ QColor CustomButtonBase::BackgroundColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetBackgroundColor
-//  [ 機　能 ] : Set the background color
-//  [ 引　数 ] : const QColor &value : New background color
+//  [ 機　能 ] : 背景色設定
+//  [ 引　数 ] : const QColor &value : 新しい背景色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetBackgroundColor( const QColor &value )
@@ -100,9 +100,9 @@ void CustomButtonBase::SetBackgroundColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TextColor
-//  [ 機　能 ] : Get the text color
+//  [ 機　能 ] : 文字色取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : text color
+//  [ 戻り値 ] : QColor : 文字色
 //--------------------------------------------------------------------------
 QColor CustomButtonBase::TextColor() const
 {
@@ -111,8 +111,8 @@ QColor CustomButtonBase::TextColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetTextColor
-//  [ 機　能 ] : Set the text color
-//  [ 引　数 ] : QColor color : New text color
+//  [ 機　能 ] : 文字色設定
+//  [ 引　数 ] : QColor color : 新しい文字色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetTextColor( const QColor &value )
@@ -130,9 +130,9 @@ void CustomButtonBase::SetTextColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TextPixelSize
-//  [ 機　能 ] : Get the text size
+//  [ 機　能 ] : 文字サイズ取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : int : text size
+//  [ 戻り値 ] : int : 文字サイズ
 //--------------------------------------------------------------------------
 int CustomButtonBase::TextPixelSize() const
 {
@@ -141,8 +141,8 @@ int CustomButtonBase::TextPixelSize() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetTextPixelSize
-//  [ 機　能 ] : Set the text size
-//  [ 引　数 ] : int value : new text size
+//  [ 機　能 ] : 文字サイズ設定
+//  [ 引　数 ] : int value : 新しい文字サイズ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetTextPixelSize( int value )
@@ -160,9 +160,9 @@ void CustomButtonBase::SetTextPixelSize( int value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : BorderColor
-//  [ 機　能 ] : Get the button border color
+//  [ 機　能 ] : ボタンの枠線の色を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : border color
+//  [ 戻り値 ] : QColor : 枠線の色
 //--------------------------------------------------------------------------
 QColor CustomButtonBase::BorderColor() const
 {
@@ -170,9 +170,9 @@ QColor CustomButtonBase::BorderColor() const
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名 ] : GetBorderColor
-//  [ 機　能 ] : Set the button border color
-//  [ 引　数 ] : const QColor &value : new border color
+//  [ 関数名 ] : SetBorderColor
+//  [ 機　能 ] : ボタンの枠線の色を設定する
+//  [ 引　数 ] : const QColor &value : 新しい枠線の色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetBorderColor( const QColor &value )
@@ -190,9 +190,9 @@ void CustomButtonBase::SetBorderColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CssStyler
-//  [ 機　能 ] : Get the current styler
+//  [ 機　能 ] : 現在のスタイラーを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : DynamicStyleSheet &: The current styler
+//  [ 戻り値 ] : DynamicStyleSheet &: 現在のスタイラー
 //--------------------------------------------------------------------------
 DynamicStyleSheet &CustomButtonBase::CssStyler()
 {
@@ -201,9 +201,9 @@ DynamicStyleSheet &CustomButtonBase::CssStyler()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : DisabledBackgroundColor
-//  [ 機　能 ] : Get the background color when button is disabled
+//  [ 機　能 ] : ボタン無効時の背景色取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : Disabled background color
+//  [ 戻り値 ] : QColor :無効な背景色
 //--------------------------------------------------------------------------
 QColor CustomButtonBase::DisabledBackgroundColor() const
 {
@@ -212,8 +212,8 @@ QColor CustomButtonBase::DisabledBackgroundColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDisabledBackgroundColor
-//  [ 機　能 ] : Set the background color when button is disabled
-//  [ 引　数 ] : const QColor &value : new disabled background color
+//  [ 機　能 ] : ボタン無効時の背景色設定
+//  [ 引　数 ] : const QColor &value : 新しい無効な背景色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetDisabledBackgroundColor( const QColor &value )
@@ -231,9 +231,9 @@ void CustomButtonBase::SetDisabledBackgroundColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : DisabledBorderColor
-//  [ 機　能 ] : Get the border color when button is disabled
+//  [ 機　能 ] : ボタン無効時の枠線の色の取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : disabled text color
+//  [ 戻り値 ] : QColor : 無効な文字色
 //--------------------------------------------------------------------------
 QColor CustomButtonBase::DisabledBorderColor() const
 {
@@ -242,8 +242,8 @@ QColor CustomButtonBase::DisabledBorderColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDisabledBorderColor
-//  [ 機　能 ] : Set the border color when button is disabled
-//  [ 引　数 ] : const QColor &value : new disabled border color
+//  [ 機　能 ] : ボタン無効時の枠線の色の取得
+//  [ 引　数 ] : const QColor &value : 新しい無効な枠線の色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetDisabledBorderColor( const QColor &value )
@@ -261,9 +261,9 @@ void CustomButtonBase::SetDisabledBorderColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : DisabledTextColor
-//  [ 機　能 ] : Get the text color when button is disabled
+//  [ 機　能 ] : ボタン無効時の文字色の取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : disabled text color
+//  [ 戻り値 ] : QColor : 無効な文字色
 //--------------------------------------------------------------------------
 QColor CustomButtonBase::DisabledTextColor() const
 {
@@ -272,8 +272,8 @@ QColor CustomButtonBase::DisabledTextColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetDisabledTextColor
-//  [ 機　能 ] : Set the text color when button is disabled
-//  [ 引　数 ] : const QColor &value : new disabled text color
+//  [ 機　能 ] : ボタン無効時の文字色の設定
+//  [ 引　数 ] : const QColor &value : 新しい無効な文字色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomButtonBase::SetDisabledTextColor( const QColor &value )

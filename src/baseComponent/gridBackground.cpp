@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : gridBackground.cpp
-// [ 概      要 ] : Widget to draw background with grid lines
+// [ 概      要 ] : グリッド線で背景を描画するウィジェット
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ void GridBackground::paintEvent( QPaintEvent *e )
 
         if( i == GridSize().width() )
         {
-            x -= 1;    // keep the last line inside boundary
+            x -= 1;    // 最後の行を境界内に保つ
         }
 
         p.drawLine( x, 0, x, height() );
@@ -48,7 +48,7 @@ void GridBackground::paintEvent( QPaintEvent *e )
 
         if( i == GridSize().height() )
         {
-            y -= 1;    // keep the last line inside boundary
+            y -= 1;    // 最後の行を境界内に保つ
         }
 
         p.drawLine( 0, y, width(), y );
@@ -57,7 +57,7 @@ void GridBackground::paintEvent( QPaintEvent *e )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : UpdateGridSize
-//  [ 機　能 ] : Update widget size base on the current grid size and cell size
+//  [ 機　能 ] : 現在のグリッド サイズとセル サイズに基づいてウィジェット サイズを更新する
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -69,9 +69,9 @@ void GridBackground::UpdateGridSize()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GridSize
-//  [ 機　能 ] : Get the grid size
+//  [ 機　能 ] : グリッド サイズ取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QSize : Grid size
+//  [ 戻り値 ] : QSize : グリッド サイズ
 //--------------------------------------------------------------------------
 QSize GridBackground::GridSize() const
 {
@@ -80,8 +80,8 @@ QSize GridBackground::GridSize() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetGridSize
-//  [ 機　能 ] : Set the grid size
-//  [ 引　数 ] : const QSize &value : new size
+//  [ 機　能 ] : グリッド サイズ設定
+//  [ 引　数 ] : const QSize &value : 新しいサイズ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void GridBackground::SetGridSize( const QSize &value )
@@ -97,9 +97,9 @@ void GridBackground::SetGridSize( const QSize &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CellSize
-//  [ 機　能 ] : Get the cell size
+//  [ 機　能 ] : セル サイズ取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QSize : cell size
+//  [ 戻り値 ] : QSize : セル サイズ
 //--------------------------------------------------------------------------
 QSize GridBackground::CellSize() const
 {
@@ -108,8 +108,8 @@ QSize GridBackground::CellSize() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetCellSize
-//  [ 機　能 ] : Set the cell size
-//  [ 引　数 ] : const QSize &value : new cell size
+//  [ 機　能 ] : セル サイズ設定
+//  [ 引　数 ] : const QSize &value : 新しいセルサイズ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void GridBackground::SetCellSize( const QSize &value )
@@ -125,9 +125,9 @@ void GridBackground::SetCellSize( const QSize &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : BackgroundColor
-//  [ 機　能 ] : Get the background color
+//  [ 機　能 ] : 背景色取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : background color
+//  [ 戻り値 ] : QColor : 背景色
 //--------------------------------------------------------------------------
 QColor GridBackground::BackgroundColor() const
 {
@@ -136,8 +136,8 @@ QColor GridBackground::BackgroundColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetBackgroundColor
-//  [ 機　能 ] : Set the background color
-//  [ 引　数 ] : const QColor &value : new background color
+//  [ 機　能 ] : 背景色設定
+//  [ 引　数 ] : const QColor &value : 新しい背景色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void GridBackground::SetBackgroundColor( const QColor &value )
@@ -153,9 +153,9 @@ void GridBackground::SetBackgroundColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GridLineColor
-//  [ 機　能 ] : Get the grid line color
+//  [ 機　能 ] : グリッド線の色を取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : grid line color
+//  [ 戻り値 ] : QColor : グリッド線の色
 //--------------------------------------------------------------------------
 QColor GridBackground::GridLineColor() const
 {
@@ -164,8 +164,8 @@ QColor GridBackground::GridLineColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetGridLineColor
-//  [ 機　能 ] : Set the grid line color
-//  [ 引　数 ] : const QColor &value : new grid line color
+//  [ 機　能 ] : グリッド線の色を設定する
+//  [ 引　数 ] : const QColor &value : 新しいグリッド線の色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void GridBackground::SetGridLineColor( const QColor &value )

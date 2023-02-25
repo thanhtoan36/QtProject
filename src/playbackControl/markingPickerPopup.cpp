@@ -6,14 +6,14 @@
 
 #include "playbackControl/markingPickerPopup.h"
 #include "utility.h"
-#include "baseComponent/designPolicyDefine.h"
 
 #include <QDebug>
 
 #include <baseComponent/panelControlBase.h>
 
-#define PLC_PICKER_CELL_SIZE QSize(78, 48)
-#define PLC_PICKER_GRID_SIZE QSize(2, 5)
+#define SCREEN_BACKGROUND_COLOR QColor(34, 43, 53) // 画面の背景色
+#define PLC_PICKER_CELL_SIZE    QSize(78, 48)
+#define PLC_PICKER_GRID_SIZE    QSize(2, 5)
 
 MarkingPickerPopup::MarkingPickerPopup( QWidget *parent )
     : QWidget{parent}

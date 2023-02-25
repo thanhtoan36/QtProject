@@ -1,11 +1,10 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : titleSelectButton.cpp
-// [ 概      要 ] : Represents title select buttons
+// [ 概      要 ] : 選択ボタンのタイトルを表す
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
 #include "baseComponent/titleSelectButton.h"
-#include "baseComponent/designPolicyDefine.h"
 #include <QDebug>
 
 #define TITLE_PADDING 1
@@ -25,9 +24,9 @@ TitleSelectButton::TitleSelectButton( QWidget *parent ) : SelectButton( parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TitleVisible
-//  [ 機　能 ] : Get the visibility of title
+//  [ 機　能 ] : タイトル可視性取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : bool : TRUE if the title is visible, otherwise FALSE
+//  [ 戻り値 ] : bool : タイトルが表示されている場合は TRUE、そうでない場合は FALSE
 //--------------------------------------------------------------------------
 bool TitleSelectButton::TitleVisible() const
 {
@@ -36,8 +35,8 @@ bool TitleSelectButton::TitleVisible() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetTitleVisible
-//  [ 機　能 ] : Set the visibility of title
-//  [ 引　数 ] : bool value : new title visibility
+//  [ 機　能 ] : タイトル可視性設定
+//  [ 引　数 ] : bool value : 新しいタイトルの可視性
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TitleSelectButton::SetTitleVisible( bool value )
@@ -55,9 +54,9 @@ void TitleSelectButton::SetTitleVisible( bool value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Title
-//  [ 機　能 ] : Get the title text
+//  [ 機　能 ] : タイトル文字取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QString : title text
+//  [ 戻り値 ] : QString : タイトル文字
 //--------------------------------------------------------------------------
 QString TitleSelectButton::Title() const
 {
@@ -66,8 +65,8 @@ QString TitleSelectButton::Title() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetTitle
-//  [ 機　能 ] : Set the title text
-//  [ 引　数 ] : const QString &value : new title text
+//  [ 機　能 ] : タイトル文字設定
+//  [ 引　数 ] : const QString &value : 新しいタイトル文字
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TitleSelectButton::SetTitle( const QString &value )

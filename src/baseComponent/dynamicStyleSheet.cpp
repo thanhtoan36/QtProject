@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : dynamicStyleSheet.cpp
-// [ 概      要 ] : Helper class to generate CSS style sheet at runtime
+// [ 概      要 ] : 実行時に CSS スタイルシートを生成するヘルパー クラス
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -18,9 +18,9 @@ DynamicStyleSheet::DynamicStyleSheet( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : StyleSheetTemplate
-//  [ 機　能 ] : Get the stylesheet template
+//  [ 機　能 ] :スタイルシート テンプレートの取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QString : the stylesheet template
+//  [ 戻り値 ] : QString : スタイルシート テンプレート
 //--------------------------------------------------------------------------
 QString DynamicStyleSheet::StyleSheetTemplate() const
 {
@@ -29,8 +29,8 @@ QString DynamicStyleSheet::StyleSheetTemplate() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetStyleSheetTemplate
-//  [ 機　能 ] : Set the stylesheet template
-//  [ 引　数 ] : const QString &value: New stylesheet template
+//  [ 機　能 ] : スタイルシート テンプレートの設定
+//  [ 引　数 ] : const QString &value: 新しいスタイルシート テンプレート
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void DynamicStyleSheet::SetStyleSheetTemplate( const QString &value )
@@ -47,8 +47,8 @@ void DynamicStyleSheet::SetStyleSheetTemplate( const QString &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : AppendStyleSheetTemplate
-//  [ 機　能 ] : Append stylesheet to the current stylesheet
-//  [ 引　数 ] : const QString &value: the stylesheet to append
+//  [ 機　能 ] : スタイルシートを現在のスタイルシートに付加する
+//  [ 引　数 ] : const QString &value: 付加するスタイルシート
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void DynamicStyleSheet::AppendStyleSheetTemplate( const QString &value )
@@ -58,7 +58,7 @@ void DynamicStyleSheet::AppendStyleSheetTemplate( const QString &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : Polish
-//  [ 機　能 ] : Update parent widget's appearance
+//  [ 機　能 ] : 親ウィジェットの外観の更新
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -69,9 +69,9 @@ void DynamicStyleSheet::Polish()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : StyleSheet
-//  [ 機　能 ] : Get the generated stylesheet
+//  [ 機　能 ] : 生成されたスタイルシートの取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QString : genrated stylesheet
+//  [ 戻り値 ] : QString : 生成されたスタイルシート
 //--------------------------------------------------------------------------
 QString DynamicStyleSheet::StyleSheet() const
 {
@@ -88,9 +88,9 @@ QString DynamicStyleSheet::StyleSheet() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TemplateParam
-//  [ 機　能 ] : Get the template parameter base on key
-//  [ 引　数 ] : const QStrin &key : the key of parameter to get
-//  [ 戻り値 ] : QString : value of parameter
+//  [ 機　能 ] : キーに基づいてテンプレート パラメータを取得する
+//  [ 引　数 ] : const QString &key : 取得するパラメータのキー
+//  [ 戻り値 ] : QString : パラメータの値
 //--------------------------------------------------------------------------
 QString DynamicStyleSheet::TemplateParam( const QString &key ) const
 {
@@ -99,9 +99,9 @@ QString DynamicStyleSheet::TemplateParam( const QString &key ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetTemplateParam
-//  [ 機　能 ] : Set the template parameter base on key
-//  [ 引　数 ] : const QStrin &key : the key of parameter to set
-//              const QStrin &value : the value of parameter to set
+//  [ 機　能 ] : キーに基づいてテンプレート パラメータを設定する
+//  [ 引　数 ] : const QString &key : 設定するパラメータのキー
+//              const QString &value : 設定するパラメータの値
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void DynamicStyleSheet::SetTemplateParam( const QString &key, const QString &value )

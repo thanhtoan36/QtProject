@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : toggleButton.cpp
-// [ 概      要 ] : Represents toggle buttons
+// [ 概      要 ] : トグルボタンを表す
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -31,9 +31,9 @@ ToggleButton::ToggleButton( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CheckMarkVisible
-//  [ 機　能 ] : Get the visibility of checkmark
+//  [ 機　能 ] : チェックマーク可視性取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : bool : checkmark visibility
+//  [ 戻り値 ] : bool : チェックマーク可視性
 //--------------------------------------------------------------------------
 bool ToggleButton::CheckMarkVisible() const
 {
@@ -42,8 +42,8 @@ bool ToggleButton::CheckMarkVisible() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetCheckMarkVisible
-//  [ 機　能 ] : Set the visibility of checkmark
-//  [ 引　数 ] : bool value : new checkmark visibility
+//  [ 機　能 ] : チェックマーク可視性設定
+//  [ 引　数 ] : bool value : 新しいチェックマーク可視性
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void ToggleButton::SetCheckMarkVisible( bool value )

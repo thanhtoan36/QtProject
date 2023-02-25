@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // [ ファイル名 ] : customToggleButtonBase.cpp
-// [ 概      要 ] : Base class for custom toggle buttons
+// [ 概      要 ] : カスタム トグル ボタンの基底クラス
 // [ 作成  環境 ] : Linux （RedHatEnterpriseLinux 7.9 （64bit））
 //--------------------------------------------------------------------------
 
@@ -45,9 +45,9 @@ CustomToggleButtonBase::CustomToggleButtonBase( QWidget *parent ) : CustomButton
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedBorderColor
-//  [ 機　能 ] : Get the border color when button is selected
+//  [ 機　能 ] : ボタン選択時の枠線の色の取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : selected border color
+//  [ 戻り値 ] : QColor : 選択した枠線のの色
 //--------------------------------------------------------------------------
 QColor CustomToggleButtonBase::SelectedBorderColor() const
 {
@@ -56,8 +56,8 @@ QColor CustomToggleButtonBase::SelectedBorderColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetSelectedBorderColor
-//  [ 機　能 ] : Set the border color when button is selected
-//  [ 引　数 ] : const QColor &value: Selected border color
+//  [ 機　能 ] : ボタン選択時の枠線の色の設定
+//  [ 引　数 ] : const QColor &value: 選択した枠線のの色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomToggleButtonBase::SetSelectedBorderColor( const QColor &value )
@@ -75,9 +75,9 @@ void CustomToggleButtonBase::SetSelectedBorderColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedTextColor
-//  [ 機　能 ] : Get the text color when button is selected
+//  [ 機　能 ] : ボタン選択時の文字色の取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : selected text color
+//  [ 戻り値 ] : QColor : 選択した文字色
 //--------------------------------------------------------------------------
 QColor CustomToggleButtonBase::SelectedTextColor() const
 {
@@ -86,8 +86,8 @@ QColor CustomToggleButtonBase::SelectedTextColor() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetSelectedTextColor
-//  [ 機　能 ] : Set the text color when button is selected
-//  [ 引　数 ] : const QColor &value: Selected text color
+//  [ 機　能 ] : ボタン選択時の文字色の設定
+//  [ 引　数 ] : const QColor &value: 選択した文字色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomToggleButtonBase::SetSelectedTextColor( const QColor &value )
@@ -105,9 +105,9 @@ void CustomToggleButtonBase::SetSelectedTextColor( const QColor &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectedBackroundColor
-//  [ 機　能 ] : Get the backround color when button is selected
+//  [ 機　能 ] : ボタン選択時の背景色の取得
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : QColor : selected backround color
+//  [ 戻り値 ] : QColor : 選択した背景色
 //--------------------------------------------------------------------------
 QColor CustomToggleButtonBase::SelectedBackgroundColor() const
 {
@@ -115,9 +115,9 @@ QColor CustomToggleButtonBase::SelectedBackgroundColor() const
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名 ] : SetSelectedBorderColor
-//  [ 機　能 ] : Set the background color when button is selected
-//  [ 引　数 ] : const QColor &value: Selected background color
+//  [ 関数名 ] : SetSelectedBackgroundColor
+//  [ 機　能 ] : ボタン選択時の背景色の設定
+//  [ 引　数 ] : const QColor &value: 選択した背景色
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomToggleButtonBase::SetSelectedBackgroundColor( const QColor &value )
