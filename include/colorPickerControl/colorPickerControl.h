@@ -33,6 +33,7 @@ public:
 
     ColorPickerType PickerType() const;
     QColor PickerColor() const;
+
 signals:
     void PickerTypeChanged();
     void PickerColorChanged();

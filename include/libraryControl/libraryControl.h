@@ -47,25 +47,13 @@ public:
     virtual void SetDispParamData( LIBRARY_DISP_PARAM *param );
 
     QString SelectedGroupMode() const;
-    void SetSelectedGroupMode( const QString &mode );
-
     QString SelectedHistoryMode() const;
-    void SetSelectedHistoryMode( const QString &mode );
 
     const LibraryControlButton &SelectedLibraryButton() const;
-    void SetSelectedLibraryButton( const LibraryControlButton &button );
-
     const LibraryControlButton &SelectedHistoryButton() const;
-    void SetSelectedHistoryButton( const LibraryControlButton &button );
-
     const QString &SelectedFooterButton() const;
-    void SetSelectedFooterButton( const QString &button );
-
     const QString &SelectedModeButton() const;
-    void SetSelectedModeButton( const QString &button );
-
     const QString &SelectedHistoryModeButton() const;
-    void SetSelectedHistoryModeButton( const QString &button );
 
 signals:
     void CurrentGroupPageChanged();
@@ -80,6 +68,14 @@ signals:
     void ReturnButtonClicked();
 
 protected:
+    void SetSelectedGroupMode( const QString &mode );
+    void SetSelectedHistoryMode( const QString &mode );
+    void SetSelectedLibraryButton( const LibraryControlButton &button );
+    void SetSelectedHistoryButton( const LibraryControlButton &button );
+    void SetSelectedFooterButton( const QString &button );
+    void SetSelectedModeButton( const QString &button );
+    void SetSelectedHistoryModeButton( const QString &button );
+
     int CurrentGroupPage() const;
     void SetCurrentGroupPage( int page );
 

@@ -35,19 +35,10 @@ public:
     virtual void SetDispParamData( GROUP_DISP_PARAM *param );
 
     int CurrentGroupPage() const;
-    void SetCurrentGroupPage( int page );
-
     int CurrentHistoryPage() const;
-    void SetCurrentHistoryPage( int page );
-
     const GroupControlButton &CurrentGroupButton() const;
-    void SetCurrentGroupButton( const GroupControlButton &button );
-
     const GroupControlButton &CurrentHistoryButton() const;
-    void SetCurrentHistoryButton( const GroupControlButton &button );
-
     const QString &CurrentFooterButton() const;
-    void SetCurrentFooterButton( const QString &button );
 
 signals:
     void CurrentGroupPageChanged();
@@ -58,6 +49,12 @@ signals:
     void CurrentFooterButtonChanged();
 
 protected:
+    void SetCurrentGroupPage( int page );
+    void SetCurrentHistoryPage( int page );
+    void SetCurrentGroupButton( const GroupControlButton &button );
+    void SetCurrentHistoryButton( const GroupControlButton &button );
+    void SetCurrentFooterButton( const QString &button );
+
     int ButtonsPerPage() const;
     virtual void UpdateGroupPage();
     virtual void UpdateHistoryPage();
