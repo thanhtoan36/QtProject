@@ -61,7 +61,7 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
     for( const QString &b : input_num_model )
     {
         auto button = MakeSharedQObject<CustomPushButton>( this );
-        button->setFixedSize( IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.size() );
+        button->setFixedSize( IC_HORIZON_FIRST_NUM_BUTTON_GEOMETRY.size() );
         button->setVisible( true );
         button->setText( b );
 
@@ -73,7 +73,7 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
         m_input_num_buttons.append( button );
     }
 
-    PlaceChildrenIntoPanel( m_input_num_buttons, IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( 4, 4 ) );
+    PlaceChildrenIntoPanel( m_input_num_buttons, IC_HORIZON_FIRST_NUM_BUTTON_GEOMETRY.size(), IC_HORIZON_FIRST_NUM_BUTTON_GEOMETRY.topLeft(), QSize( 4, 4 ) );
 
     connect( &m_button_switch_panel_picker, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked );
     connect( &m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &InputNumControlHorizon::OnPanelSwitchButtonClicked );

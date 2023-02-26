@@ -151,7 +151,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     {
         if( m_title_button.isChecked() )
         {
-            SetSelectedFooterButton( "title" );
+            SetSelectedFooterButton( m_title_button.text() );
             m_register_button.setChecked( false );
             m_delete_button.setChecked( false );
         }
@@ -160,7 +160,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     {
         if( m_register_button.isChecked() )
         {
-            SetSelectedFooterButton( "register" );
+            SetSelectedFooterButton( m_register_button.text() );
             m_title_button.setChecked( false );
             m_delete_button.setChecked( false );
         }
@@ -169,7 +169,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     {
         if( m_delete_button.isChecked() )
         {
-            SetSelectedFooterButton( "delete" );
+            SetSelectedFooterButton( m_delete_button.text() );
             m_register_button.setChecked( false );
             m_title_button.setChecked( false );
         }
