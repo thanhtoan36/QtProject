@@ -106,17 +106,7 @@ TrackControl::TrackControl( QWidget *parent )
         }
 
         SetValueMode( TRACK_MODE_ABSOLUTE );
-        auto trackPoints = m_pantilt_control.TrackPoints();
-
-        for( auto &p : trackPoints )
-        {
-            p.pan.current = 0;
-            p.tilt.current = 0;
-        }
-
         m_pantilt_control.SetValueMode( ValueMode() );
-        m_pantilt_control.SetTrackPoints( trackPoints );
-        emit TrackPointsChanged();
     } );
     connect( &m_pantilt_control, &PantiltControl::TrackPointsUpdated, this, [&]()
     {

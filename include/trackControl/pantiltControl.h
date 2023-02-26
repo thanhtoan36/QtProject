@@ -75,6 +75,7 @@ private:
     TrackValueMode m_value_mode;
 
     bool m_pressed;
+    bool m_moved;
     QPoint m_last_pos;
 };
 

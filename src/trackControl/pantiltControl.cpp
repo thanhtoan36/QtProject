@@ -62,6 +62,7 @@ PantiltControl::PantiltControl( QWidget *parent )
       m_track_points(),
       m_value_mode(),
       m_pressed( false ),
+      m_moved( false ),
       m_last_pos()
 {
     m_label_tilt.setText( "チルト" );
@@ -171,6 +172,7 @@ void PantiltControl::resizeEvent( QResizeEvent *event )
 void PantiltControl::mousePressEvent( QMouseEvent *event )
 {
     m_pressed = true;
+    m_moved = false;
     m_last_pos = event->pos();
 
     if( m_value_mode == TRACK_MODE_ABSOLUTE )
@@ -187,7 +189,11 @@ void PantiltControl::mousePressEvent( QMouseEvent *event )
 void PantiltControl::mouseReleaseEvent( QMouseEvent *event )
 {
     m_pressed = false;
-    emit TrackPointsUpdated();
+
+    if( m_value_mode == TRACK_MODE_RELATIVE && m_moved )
+    {
+        emit TrackPointsUpdated();
+    }
 }
 
 void PantiltControl::mouseMoveEvent( QMouseEvent *event )
@@ -199,6 +205,7 @@ void PantiltControl::mouseMoveEvent( QMouseEvent *event )
 
     if( m_value_mode == TRACK_MODE_RELATIVE )
     {
+        m_moved = true;
         // すべてのトラックポイントを同時に移動させる·
         const QPoint diff = event->pos() - m_last_pos;
 
