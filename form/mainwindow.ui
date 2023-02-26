@@ -36,7 +36,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -88,7 +88,7 @@
           <property name="plainText">
            <string>{
     &quot;tb&quot;: {
-        &quot;select&quot;: false,
+        &quot;select&quot;: true,
         &quot;buttons&quot;: [
             { &quot;name&quot;: &quot;T0&quot;, &quot;color&quot;: &quot;#00ff00&quot;, &quot;select&quot;: true },
             { &quot;name&quot;: &quot;T1&quot;, &quot;color&quot;: &quot;#200f08&quot;, &quot;select&quot;: false },
@@ -108,7 +108,7 @@
         ]
     },
     &quot;history&quot;: {
-        &quot;select&quot;: true,
+        &quot;select&quot;: false,
         &quot;buttons&quot;: [
             { &quot;name&quot;: &quot;T3&quot;, &quot;color&quot;: &quot;#001100&quot;, &quot;select&quot;: false },
             { &quot;name&quot;: &quot;T0&quot;, &quot;color&quot;: &quot;#00fff0&quot;, &quot;select&quot;: true },
@@ -408,7 +408,7 @@
     &quot;history&quot;: [
         {
             &quot;mode&quot;: &quot;mode 1&quot;,
-            &quot;select&quot;: false,
+            &quot;select&quot;: true,
             &quot;library_no&quot;: &quot;N1&quot;,
             &quot;title&quot;: &quot;title1&quot;
         },

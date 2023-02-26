@@ -3,7 +3,7 @@
 
 int main( int argc, char *argv[] )
 {
-    QApplication::setAttribute( Qt::AA_EnableHighDpiScaling, true );
+    // QApplication::setAttribute( Qt::AA_EnableHighDpiScaling, true );
     QApplication a( argc, argv );
 
     MainWindow w;
@@ -12,7 +12,7 @@ int main( int argc, char *argv[] )
     QFont font;
     font.setStyleHint( QFont::Monospace );
     font.setFamily( "monospace" );
-    font.setPointSize( 9 );
+    font.setPixelSize( 16 );
     QApplication::setFont( font );
 
     return a.exec();
