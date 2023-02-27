@@ -46,7 +46,7 @@ EncoderControl::EncoderControl( QWidget *parent )
 
     m_label_title.setGeometry( EC_LABEL_TITLE_GEOMETRY );
     m_label_title.setObjectName( "title_label" );
-    m_label_title.setText( "エンコーダー　ホイール" );
+    m_label_title.setText( "エンコーダ　ホイール" );
 
     m_button_mode_percent.setGeometry( EC_BUTTON_PERCENT_GEOMETRY );
     m_button_mode_percent.setText( "%" );

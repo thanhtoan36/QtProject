@@ -24,7 +24,7 @@ EncoderControlHorizon::EncoderControlHorizon( QWidget *parent )
 
     m_label_title.setGeometry( EC_HORIZON_LABEL_TITLE_GEOMETRY );
     m_label_title.setObjectName( "title_label_with_border" );
-    m_label_title.setText( "エンコーダー" );
+    m_label_title.setText( "エンコーダ" );
 
     m_button_mode_percent.setGeometry( EC_HORIZON_BUTTON_PERCENT_GEOMETRY );
     m_button_mode_255.setGeometry( EC_HORIZON_BUTTON_255_GEOMETRY );

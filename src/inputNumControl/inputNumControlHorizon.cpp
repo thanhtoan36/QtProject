@@ -86,18 +86,20 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
 //  [ 引　数   ] : INPUT_NUM_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
-void InputNumControlHorizon::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
+void InputNumControlHorizon::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
 {
-    InputNumControl::SetDispParamData(param);
+    InputNumControl::SetDispParamData( param );
+    m_button_mode_angle.setVisible( false );
+
     if( param->type == INPUT_NUM_TYPE_POSITION )
     {
-        m_button_mode_255.setVisible(false);
-        m_button_mode_percent.setVisible(false);
+        m_button_mode_255.setVisible( false );
+        m_button_mode_percent.setVisible( false );
     }
     else
     {
-        m_button_mode_255.setVisible(true);
-        m_button_mode_percent.setVisible(true);
+        m_button_mode_255.setVisible( true );
+        m_button_mode_percent.setVisible( true );
     }
 }
 
@@ -123,7 +125,7 @@ void InputNumControlHorizon::OnPanelSwitchButtonClicked()
 //--------------------------------------------------------------------------
 void InputNumControlHorizon::OnTypeChanged()
 {
-    InputNumControl::OnTypeChanged();
+    m_button_switch_panel_picker.setVisible( Type() == INPUT_NUM_TYPE_COLOR );
     PlaceChildrenIntoPanel( m_group_buttons, IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( GroupButtonsPerPage(), 1 ) );
 }
 

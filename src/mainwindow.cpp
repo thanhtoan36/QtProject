@@ -102,7 +102,7 @@ void MainWindow::ConnectColorFilterEvent()
 {
     const auto slot_tb_selected_button_changed = [&]()
     {
-        QString log = "TB Tab Button Active Changed: ";
+        QString log = "Selected TB Tab Button Changed: ";
         auto button_active = ( ( ColorFilterControl * )sender() )->SelectedTbButton();
         log += QString( "(text: %1, %2)" ).arg( button_active.text ).arg( button_active.color.name() );
         LogEvent( log );
@@ -110,7 +110,7 @@ void MainWindow::ConnectColorFilterEvent()
 
     const auto slot_custom_selected_button_changed = [&]()
     {
-        QString log = "Custom Tab Button Active Changed: ";
+        QString log = "Selected Custom Tab Button Changed: ";
         auto button_active = ( ( ColorFilterControl * )sender() )->SelectedCustomButton();
         log += QString( "(text: %1, %2)" ).arg( button_active.text ).arg( button_active.color.name() );
         LogEvent( log );
@@ -118,7 +118,7 @@ void MainWindow::ConnectColorFilterEvent()
 
     const auto slot_history_selected_button_changed = [&]()
     {
-        QString log = "History Button Active Changed: ";
+        QString log = "Selected history Button Changed: ";
         auto button_active = ( ( ColorFilterControl * )sender() )->SelectedHistoryButton();
         log += QString( "(text: %1, %2)" ).arg( button_active.text ).arg( button_active.color.name() );
         LogEvent( log );
@@ -126,7 +126,7 @@ void MainWindow::ConnectColorFilterEvent()
 
     const auto slot_footer_button_changed = [&]()
     {
-        QString log = QString( "Footer Button Active Changed: %1" ).arg( ( ( ColorFilterControl * )sender() )->SelectedFooterButton() );
+        QString log = QString( "Selected Footer Button Changed: %1" ).arg( ( ( ColorFilterControl * )sender() )->SelectedFooterButton() );
         LogEvent( log );
     };
 
