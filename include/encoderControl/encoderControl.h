@@ -48,7 +48,7 @@ protected:
 
 protected slots:
     void OnModeChanged();
-    void OnTypeChanged();
+    virtual void OnTypeChanged();
     void UpdateEncoderLabelValue( int index );
     void OnEncoderValueChanged( int index, int value );
 

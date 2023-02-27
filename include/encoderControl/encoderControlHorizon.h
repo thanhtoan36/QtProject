@@ -19,9 +19,7 @@ public:
 
 protected slots:
     void OnPanelSwitchButtonClicked();
-
-protected:
-    virtual void SetupEncoderPages() override;
+    virtual void OnTypeChanged() override;
 
 protected:
     SelectButton m_button_switch_panel_picker;

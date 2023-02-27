@@ -55,6 +55,7 @@ EncoderControl::EncoderControl( QWidget *parent )
     m_button_mode_angle.setGeometry( EC_BUTTON_ANGLE_GEOMETRY );
     m_button_mode_angle.setText( "°角度" );
     m_button_mode_angle.setEnabled( false );
+    m_button_mode_angle.setVisible( false );
 
     m_button_previous_page.setGeometry( EC_BUTTON_PREVIOUS_GEOMETRY );
     m_button_previous_page.setText( "◀" );
@@ -65,7 +66,6 @@ EncoderControl::EncoderControl( QWidget *parent )
     m_button_next_page.setVisible( false );
 
     OnModeChanged();
-    OnTypeChanged();
 
     connect( &m_button_previous_page, &QPushButton::clicked, this, [&]()
     {
@@ -90,8 +90,6 @@ EncoderControl::EncoderControl( QWidget *parent )
     connect( this, &EncoderControl::CurrentEncoderPageChanged, this, [&]()
     {
         SetupEncoderPages();
-        m_button_previous_page.setEnabled( CurrentEncoderPage() > 0 );
-        m_button_next_page.setEnabled( CurrentEncoderPage() < MaxEncoderPages() - 1 );
     } );
     connect( this, &EncoderControl::ModeChanged, this, &EncoderControl::OnModeChanged );
     connect( this, &EncoderControl::TypeChanged, this, &EncoderControl::OnTypeChanged );
@@ -158,8 +156,7 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
     SetCurrentEncoderPage( 0 );
     SetupEncoderPages();
 
-    m_button_next_page.setVisible( MaxEncoderPages() > 1 );
-    m_button_previous_page.setVisible( MaxEncoderPages() > 1 );
+    OnTypeChanged();
 }
 
 //--------------------------------------------------------------------------
@@ -170,6 +167,11 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
 //--------------------------------------------------------------------------
 void EncoderControl::SetupEncoderPages()
 {
+    m_button_next_page.setVisible( MaxEncoderPages() > 1 );
+    m_button_previous_page.setVisible( MaxEncoderPages() > 1 );
+    m_button_previous_page.setEnabled( CurrentEncoderPage() > 0 );
+    m_button_next_page.setEnabled( CurrentEncoderPage() < MaxEncoderPages() - 1 );
+
     UpdateChildrenVisibility( m_encoders, CurrentEncoderPage(), m_encoders_per_page );
     UpdateChildrenVisibility( m_encoder_labels, CurrentEncoderPage(), m_encoders_per_page );
 
@@ -187,6 +189,7 @@ void EncoderControl::OnModeChanged()
 {
     m_button_mode_percent.setChecked( Mode() == ENCODER_MODE_PERCENT );
     m_button_mode_255.setChecked( Mode() == ENCODER_MODE_255 );
+    m_button_mode_angle.setChecked( Mode() == ENCODER_MODE_255 );
 
     Q_ASSERT( m_params.length() == m_encoders.length() );
     Q_ASSERT( m_params.length() == m_encoder_labels.length() );

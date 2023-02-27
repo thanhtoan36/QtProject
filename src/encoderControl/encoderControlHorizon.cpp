@@ -24,10 +24,12 @@ EncoderControlHorizon::EncoderControlHorizon( QWidget *parent )
 
     m_label_title.setGeometry( EC_HORIZON_LABEL_TITLE_GEOMETRY );
     m_label_title.setObjectName( "title_label_with_border" );
+    m_label_title.setText( "エンコーダー" );
 
     m_button_mode_percent.setGeometry( EC_HORIZON_BUTTON_PERCENT_GEOMETRY );
     m_button_mode_255.setGeometry( EC_HORIZON_BUTTON_255_GEOMETRY );
     m_button_mode_angle.setGeometry( EC_HORIZON_BUTTON_ANGLE_GEOMETRY );
+    m_button_mode_angle.setVisible( false );
 
     m_button_previous_page.setGeometry( EC_HORIZON_BUTTON_PREVIOUS_GEOMETRY );
     m_button_next_page.setGeometry( EC_HORIZON_BUTTON_NEXT_GEOMETRY );
@@ -73,13 +75,16 @@ void EncoderControlHorizon::OnPanelSwitchButtonClicked()
 }
 
 //--------------------------------------------------------------------------
-//  [ 関数名 ] : SetupEncoderPages
-//  [ 機　能 ] : エンコーダーの座標と可視性を設定しする
+//  [ 関数名 ] : OnTypeChanged
+//  [ 機　能 ] : タイプが変更されたときに発生する。コントロールを更新するため
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
-void EncoderControlHorizon::SetupEncoderPages()
+void EncoderControlHorizon::OnTypeChanged()
 {
-    UpdateChildrenVisibility( m_encoders, CurrentEncoderPage(), m_encoders_per_page );
-    UpdateChildrenVisibility( m_encoder_labels, CurrentEncoderPage(), m_encoders_per_page );
+    m_button_mode_percent.setVisible( Type() != ENCODER_TYPE_POSITION );
+    m_button_mode_255.setVisible( Type() != ENCODER_TYPE_POSITION );
+    // m_button_mode_angle.setVisible( Type() != ENCODER_TYPE_POSITION );
+
+    m_button_switch_panel_picker.setVisible( Type() == ENCODER_TYPE_COLOR );
 }
