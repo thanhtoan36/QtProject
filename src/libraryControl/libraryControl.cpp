@@ -105,6 +105,7 @@ LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
             m_title_button.setVisible( false );
             m_delete_button.setVisible( false );
             m_empty_button.setVisible( false );
+            m_title_label.setText( "ライブラリ （最近使ったもの）" );
         }
         else
         {
@@ -113,6 +114,7 @@ LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
             m_title_button.setVisible( true );
             m_delete_button.setVisible( true );
             m_empty_button.setVisible( true );
+            m_title_label.setText( "ライブラリ" );
         }
     } );
 
