@@ -369,7 +369,7 @@ void GroupControl::OnTitleButonClicked( const bool check )
     {
         m_delete_button.setChecked( false );
         m_register_button.setChecked( false );
-        SetCurrentFooterButton( "title" );
+        SetCurrentFooterButton( m_title_button.text() );
     }
 }
 
@@ -385,7 +385,7 @@ void GroupControl::OnRegisterButonClicked( const bool check )
     {
         m_delete_button.setChecked( false );
         m_title_button.setChecked( false );
-        SetCurrentFooterButton( "register" );
+        SetCurrentFooterButton( m_register_button.text() );
     }
 }
 
@@ -401,7 +401,7 @@ void GroupControl::OnDeleteButonClicked( const bool check )
     {
         m_title_button.setChecked( false );
         m_register_button.setChecked( false );
-        SetCurrentFooterButton( "delete" );
+        SetCurrentFooterButton( m_delete_button.text() );
     }
 }
 
