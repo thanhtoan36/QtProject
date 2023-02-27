@@ -133,7 +133,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
         m_button_previous_filter_buttons_page.setEnabled( CurrentHistoryPage() < MaxHistoryPages() - 1 );
     } );
 
-    connect( &m_history_button, &QAbstractButton::toggled, this, [&]()
+    connect( &m_history_button, &QAbstractButton::clicked, this, [&]()
     {
         if( m_history_button.isChecked() )
         {
@@ -177,8 +177,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     connect( &m_back_button, &QAbstractButton::clicked, this, &ColorFilterControl::ReturnButtonClicked );
     connect( &m_button_next_header_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::NextButtonClicked );
     connect( &m_button_previous_header_buttons_page, &QAbstractButton::clicked, this, &ColorFilterControl::PrevButtonClicked );
-    SetupHeaderTabButtons();
-    OnModeChanged();
+
 }
 
 //--------------------------------------------------------------------------
@@ -495,7 +494,7 @@ void ColorFilterControl::AddHeaderButton( ColorFilterDisplayMode mode, const QSt
     auto button = MakeSharedQObject<SelectButton>( this );
     button->setText( text );
     button->setFixedSize( CFC_FIRST_TAB_GEOMETRY.size() );
-
+    button->setChecked( mode == COLOR_FILTER_MODE_TB );
     m_header_buttons.append( {mode, button} );
     connect( button.get(), &QPushButton::clicked, this, &ColorFilterControl::OnDisplayTabButtonClicked );
 }

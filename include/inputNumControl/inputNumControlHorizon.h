@@ -13,12 +13,14 @@ class InputNumControlHorizon : public InputNumControl
 public:
     explicit InputNumControlHorizon( QWidget *parent = nullptr );
 
+    virtual void SetDispParamData( INPUT_NUM_DISP_PARAM *param ) override;
+
 protected slots:
     void OnPanelSwitchButtonClicked();
-    virtual void OnTypeChanged();
+    virtual void OnTypeChanged() override;
 
 protected:
-    virtual int GroupButtonsPerPage() const;
+    virtual int GroupButtonsPerPage() const override;
 
 private:
     SelectButton m_button_switch_panel_picker;
