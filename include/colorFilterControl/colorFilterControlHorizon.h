@@ -18,6 +18,8 @@ public:
 protected:
     virtual void AddButtonToHistory( QSharedPointer<SelectButton> button ) override;
 
+    virtual void OnModeChanged() override;
+
 };
 
 #endif // COLORFILTERCONTROLHORIZON_H

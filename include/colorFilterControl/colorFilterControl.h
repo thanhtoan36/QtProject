@@ -76,8 +76,9 @@ signals:
     void SelectedFooterButtonChanged();
 
 protected:
-    void SetMode( ColorFilterDisplayMode value );
+    virtual void OnModeChanged();
 
+    void SetMode( ColorFilterDisplayMode value );
     int CurrentTBTabPage() const;
     void SetCurrentTBTabPage( int value );
 
@@ -94,7 +95,7 @@ protected:
 
     virtual void AddButtonToHistory( QSharedPointer<SelectButton> button );
 
-    void OnModeChanged();
+
     void UpdateTBTabPage();
     void UpdateCustomTabPage();
     void UpdateHistoryPage();
@@ -155,8 +156,8 @@ protected:
     int m_current_custom_tab_page;
     int m_current_history_page;
 
-    ColorFilterDisplayMode m_mode;
-    ColorFilterDisplayMode m_previous_tab;
+    ColorFilterDisplayMode m_mode  = COLOR_FILTER_MODE_TB;
+    ColorFilterDisplayMode m_previous_tab = COLOR_FILTER_MODE_TB;
 
 private:
     int m_current_header_buttons_page;
