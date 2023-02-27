@@ -186,7 +186,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
 //  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
-void ColorFilterControl::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
+void ColorFilterControl::SetDispParamData( COLOR_FILTER_DISP_PARAM *param )
 {
     Q_ASSERT( param );
     m_tb_tab_buttons.clear();

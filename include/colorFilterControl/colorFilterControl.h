@@ -48,7 +48,7 @@ class ColorFilterControl : public PanelControlBase
 public:
 
     explicit ColorFilterControl( QWidget *parent = nullptr );
-    virtual void setDispParamData( COLOR_FILTER_DISP_PARAM *param );
+    virtual void SetDispParamData( COLOR_FILTER_DISP_PARAM *param );
 
     ColorFilterDisplayMode Mode() const;
     const ColorFilterButton SelectedTbButton() const;

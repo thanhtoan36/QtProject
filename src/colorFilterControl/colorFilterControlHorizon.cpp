@@ -60,10 +60,10 @@ ColorFilterControlHorizon::ColorFilterControlHorizon( QWidget *parent ) : ColorF
 //  [ 引　数   ] : COLOR_FILTER_DISP_PARAM *param : 各パラメータ
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
-void ColorFilterControlHorizon::setDispParamData( COLOR_FILTER_DISP_PARAM *param )
+void ColorFilterControlHorizon::SetDispParamData( COLOR_FILTER_DISP_PARAM *param )
 {
     Q_ASSERT( param );
-    ColorFilterControl::setDispParamData( param );
+    ColorFilterControl::SetDispParamData( param );
     PlaceChildrenIntoPanel( m_tb_tab_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
     PlaceChildrenIntoPanel( m_custom_tab_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );
     PlaceChildrenIntoPanel( m_history_buttons, CFC_HORIZON_FIRST_BUTTON_GEOMETRY.size(), CFC_HORIZON_FIRST_BUTTON_GEOMETRY.topLeft(), BUTTONS_GRID_SIZE );

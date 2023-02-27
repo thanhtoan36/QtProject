@@ -185,25 +185,8 @@ void PaletteControl::OnModeButtonClicked()
         button->setChecked( button == sender() );
     }
 
-    int mode_index = std::distance( m_mode_buttons.begin(), std::find( m_mode_buttons.begin(), m_mode_buttons.end(), sender() ) );
-
-    auto &group = m_palette_buttons.at( mode_index );
-    SetSelectedMode( m_mode_names.at( mode_index ) );
-
-    auto palette_iter = std::find_if( group.begin(), group.end(), []( const QSharedPointer<SelectButton> &b )
-    {
-        return b->isChecked();
-    } );
-
-    if( palette_iter != group.end() )
-    {
-        int palette_index = std::distance( group.begin(), palette_iter );
-        SetSelectedPalette( m_palette_names.at( mode_index ).at( palette_index ) );
-    }
-    else
-    {
-        SetSelectedPalette( QString() );
-    }
+    int index = std::distance( m_mode_buttons.begin(), std::find( m_mode_buttons.begin(), m_mode_buttons.end(), sender() ) );
+    SetSelectedMode( m_mode_names.at( index ) );
 
     SetCurrentPalettePage( 0 );
     UpdateModePages();
@@ -225,13 +208,15 @@ void PaletteControl::OnPaletteButtonClicked()
         return;
     }
 
-    auto &group = m_palette_buttons.at( mode_index );
-
-    for( auto &button : group )
+    for( auto &group : m_palette_buttons )
     {
-        button->setChecked( button == sender() );
+        for( auto &button : group )
+        {
+            button->setChecked( button == sender() );
+        }
     }
 
+    auto &group = m_palette_buttons.at( mode_index );
     int palette_index = std::distance( group.begin(), std::find( group.begin(), group.end(), sender() ) );
     SetSelectedMode( m_mode_names.at( mode_index ) );
     SetSelectedPalette( m_palette_names.at( mode_index ).at( palette_index ) );

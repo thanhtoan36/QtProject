@@ -569,8 +569,8 @@ void MainWindow::on_ColorFilterControl_Fake_Set_clicked()
 {
     COLOR_FILTER_DISP_PARAM param = ParseInput_ColorFilter( ui->ColorFilterControl_RawInput->toPlainText() );
 
-    m_color_filter_control_horizon->setDispParamData( &param );
-    m_color_filter_control->setDispParamData( &param );
+    m_color_filter_control_horizon->SetDispParamData( &param );
+    m_color_filter_control->SetDispParamData( &param );
 }
 
 
