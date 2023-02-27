@@ -81,6 +81,27 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
 }
 
 //--------------------------------------------------------------------------
+//  [ 関数名   ] : SetDispParamData
+//  [ 機　能   ] : コントロールに表示パラメータデータを設定する
+//  [ 引　数   ] : INPUT_NUM_DISP_PARAM *param : 各パラメータ
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
+void InputNumControlHorizon::SetDispParamData(INPUT_NUM_DISP_PARAM *param)
+{
+    InputNumControl::SetDispParamData(param);
+    if( param->type == INPUT_NUM_TYPE_POSITION )
+    {
+        m_button_mode_255.setVisible(false);
+        m_button_mode_percent.setVisible(false);
+    }
+    else
+    {
+        m_button_mode_255.setVisible(true);
+        m_button_mode_percent.setVisible(true);
+    }
+}
+
+//--------------------------------------------------------------------------
 //  [ 関数名   ] : OnPanelSwitchButtonClicked
 //  [ 機　能   ] : ボタンのクリックを処理するイベント
 //  [ 引　数   ] : void
