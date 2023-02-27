@@ -15,14 +15,14 @@ PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
     m_button_next_mode_page( this ),
     m_button_previous_palette_page( this ),
     m_button_next_palette_page( this ),
-    m_revert_button( this )
+    m_return_button( this )
 {
     setFixedSize( PC_SCREEN_SIZE );
 
     m_mode_button_grid_size = QSize( 4, 1 );
     m_palette_button_grid_size = QSize( 4, 3 );
 
-    m_revert_button.SetTextColor( Qt::yellow );
+    m_return_button.SetTextColor( Qt::yellow );
 
     SetPaletteStartPoint( PC_PALETTE_TOP_LEFT );
     SetMenuStartPoint( PC_MENU_TOP_LEFT );
@@ -51,10 +51,10 @@ PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
     m_button_previous_mode_page.setText( "◀" );
     m_button_previous_mode_page.setVisible( false );
 
-    m_revert_button.setGeometry( PC_RETURN_GEOMETRY );
-    m_revert_button.setText( "戻す" );
+    m_return_button.setGeometry( PC_RETURN_GEOMETRY );
+    m_return_button.setText( "戻す" );
 
-    connect( &m_revert_button, &QPushButton::clicked, this, &PaletteControl::RevertButtonClicked );
+    connect( &m_return_button, &QPushButton::clicked, this, &PaletteControl::ReturnButtonClicked );
 
     connect( &m_button_previous_palette_page, &QPushButton::clicked, this, [&]()
     {

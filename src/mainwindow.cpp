@@ -73,19 +73,19 @@ void MainWindow::LogEvent( const QString &log )
 {
     const QString TIME_FORMAT = "HH:mm:ss.zzz";
     const auto time = QTime::currentTime().toString( TIME_FORMAT );
-    ui->EventOutput->appendPlainText( QString( "[%1] %2" ).arg( time ).arg( log ) );
+    ui->EventOutput->appendPlainText( QString( "[%1 %2] %3" ).arg( time,  sender()->metaObject()->className(), log) );
 }
 
 void MainWindow::ConnectColorPickerEvent()
 {
-    const auto slot_color_changed = [&]() { LogEvent( QString( "CPC color changed: %1" ).arg( ( ( ColorPickerControl * )sender() )->PickerColor().name() ) ); };
+    const auto slot_color_changed = [&]() { LogEvent( QString( "color changed: %1" ).arg( ( ( ColorPickerControl * )sender() )->PickerColor().name() ) ); };
     const auto slot_picker_type_changed = [&]()
     {
         const QStringList types = {"COLOR_PICKER_TYPE_XY", "COLOR_PICKER_TYPE_RGB"};
-        LogEvent( QString( "CPC picker type changed: %1" ).arg( types[( ( ColorPickerControl * )sender() )->PickerType()] ) );
+        LogEvent( QString( "picker type changed: %1" ).arg( types[( ( ColorPickerControl * )sender() )->PickerType()] ) );
     };
-    const auto slot_next_clicked = [&]() { LogEvent( QString( "CPC next clicked" ) ); };
-    const auto slot_prev_clicked = [&]() { LogEvent( QString( "CPC prev clicked" ) ); };
+    const auto slot_next_clicked = [&]() { LogEvent( QString( "next clicked" ) ); };
+    const auto slot_prev_clicked = [&]() { LogEvent( QString( "prev clicked" ) ); };
 
     connect( m_color_picker_control.get(), &ColorPickerControl::PickerColorChanged, this, slot_color_changed );
     connect( m_color_picker_control.get(), &ColorPickerControl::PickerTypeChanged, this, slot_picker_type_changed );
@@ -102,7 +102,7 @@ void MainWindow::ConnectColorFilterEvent()
 {
     const auto slot_tb_selected_button_changed = [&]()
     {
-        QString log = "CFC TB Tab Button Active Changed: ";
+        QString log = "TB Tab Button Active Changed: ";
         auto button_active = ( ( ColorFilterControl * )sender() )->SelectedTbButton();
         log += QString( "(text: %1, %2)" ).arg( button_active.text ).arg( button_active.color.name() );
         LogEvent( log );
@@ -110,7 +110,7 @@ void MainWindow::ConnectColorFilterEvent()
 
     const auto slot_custom_selected_button_changed = [&]()
     {
-        QString log = "CFC Custom Tab Button Active Changed: ";
+        QString log = "Custom Tab Button Active Changed: ";
         auto button_active = ( ( ColorFilterControl * )sender() )->SelectedCustomButton();
         log += QString( "(text: %1, %2)" ).arg( button_active.text ).arg( button_active.color.name() );
         LogEvent( log );
@@ -118,7 +118,7 @@ void MainWindow::ConnectColorFilterEvent()
 
     const auto slot_history_selected_button_changed = [&]()
     {
-        QString log = "CFC History Button Active Changed: ";
+        QString log = "History Button Active Changed: ";
         auto button_active = ( ( ColorFilterControl * )sender() )->SelectedHistoryButton();
         log += QString( "(text: %1, %2)" ).arg( button_active.text ).arg( button_active.color.name() );
         LogEvent( log );
@@ -126,13 +126,13 @@ void MainWindow::ConnectColorFilterEvent()
 
     const auto slot_footer_button_changed = [&]()
     {
-        QString log = QString( "CFC Footer Button Active Changed: %1" ).arg( ( ( ColorFilterControl * )sender() )->SelectedFooterButton() );
+        QString log = QString( "Footer Button Active Changed: %1" ).arg( ( ( ColorFilterControl * )sender() )->SelectedFooterButton() );
         LogEvent( log );
     };
 
-    const auto slot_return_button_clicked = [&]() { LogEvent( "CFC Return Button Clicked" ); };
-    const auto slot_next_clicked = [&]() { LogEvent( QString( "CFC next clicked" ) ); };
-    const auto slot_prev_clicked = [&]() { LogEvent( QString( "CFC prev clicked" ) ); };
+    const auto slot_return_button_clicked = [&]() { LogEvent( "Return Button Clicked" ); };
+    const auto slot_next_clicked = [&]() { LogEvent( QString( "next clicked" ) ); };
+    const auto slot_prev_clicked = [&]() { LogEvent( QString( "prev clicked" ) ); };
 
     connect( m_color_filter_control.get(), &ColorFilterControl::SelectedTbButtonChanged, this, slot_tb_selected_button_changed );
     connect( m_color_filter_control.get(), &ColorFilterControl::SelectedCustomButtonChanged, this, slot_custom_selected_button_changed );
@@ -155,11 +155,11 @@ void MainWindow::ConnectIntensityEvent()
 {
     const auto slot_intensity_button_clicked = [&]( const QString & name )
     {
-        QString log = QString( "IC Button %1 Clicked" ).arg( name );
+        QString log = QString( "Button %1 Clicked" ).arg( name );
         LogEvent( log );
     };
 
-    const auto slot_return_button_clicked = [&]() { LogEvent( "Intensity Return Button Clicked" ); };
+    const auto slot_return_button_clicked = [&]() { LogEvent( "Return Button Clicked" ); };
 
     connect( m_intensity_control.get(), &IntensityControl::IntensityButtonClicked, this, slot_intensity_button_clicked );
     connect( m_intensity_control.get(), &IntensityControl::ReturnButtonClicked, this, slot_return_button_clicked );
@@ -174,24 +174,24 @@ void MainWindow::ConnectInputNumEvent()
     {
         auto mode = ( ( InputNumControl * )sender() )->Mode();
         QStringList modes = {"INPUT_NUM_MODE_PERCENT", "INPUT_NUM_MODE_255", "INPUT_NUM_MODE_ANGLE"};
-        LogEvent( QString( "IC Mode: %1" ).arg( modes[mode] ) );
+        LogEvent( QString( "Mode: %1" ).arg( modes[mode] ) );
     };
 
     const auto slot_value_mode_changed = [&]()
     {
         auto mode = ( ( InputNumControl * )sender() )->ValueMode();
         QStringList modes = {"INPUT_NUM_MODE_RELATIVE", "INPUT_NUM_MODE_ABSOLUTE"};
-        LogEvent( QString( "IC ValueMode: %1" ).arg( modes[mode] ) );
+        LogEvent( QString( "ValueMode: %1" ).arg( modes[mode] ) );
     };
 
     const auto slot_selected_mode_changed = [&]()
     {
-        QString log = "IC Button Mode Changed: " + ( ( InputNumControl * )sender() )->SelectedModeButton();
+        QString log = "Button Mode Changed: " + ( ( InputNumControl * )sender() )->SelectedModeButton();
         LogEvent( log );
     };
 
-    const auto slot_num_button_clicked = [&]( const QString & text ) { LogEvent( "IC Button Clicked: " + text ); };
-    const auto slot_return_clicked = [&]() { LogEvent( "IC Return clicked" ); };
+    const auto slot_num_button_clicked = [&]( const QString & text ) { LogEvent( "Button Clicked: " + text ); };
+    const auto slot_return_clicked = [&]() { LogEvent( "Return clicked" ); };
 
     connect( m_input_num_control.get(), &InputNumControl::ModeChanged, this, slot_mode_changed );
     connect( m_input_num_control.get(), &InputNumControl::ValueModeChanged, this, slot_value_mode_changed );
@@ -210,17 +210,17 @@ void MainWindow::ConnectPaletteEvent()
 {
     const auto slot_mode_changed = [&]()
     {
-        LogEvent( "Palette mode changed: " + ( ( PaletteControl * )sender() )->SelectedMode() );
+        LogEvent( "mode changed: " + ( ( PaletteControl * )sender() )->SelectedMode() );
     };
     const auto slot_palette_changed = [&]()
     {
-        LogEvent( "Palette palette changed: " + ( ( PaletteControl * )sender() )->SelectedPalette() );
+        LogEvent( "palette changed: " + ( ( PaletteControl * )sender() )->SelectedPalette() );
     };
-    const auto slot_next_mode_page_clicked = [&]() { LogEvent( "Palette next mode page" ); };
-    const auto slot_prev_mode_page_clicked = [&]() { LogEvent( "Palette prev mode page" ); };
-    const auto slot_next_palette_page_clicked = [&]() { LogEvent( "Palette next palette page" ); };
-    const auto slot_prev_palette_page_clicked = [&]() { LogEvent( "Palette prev palette page" ); };
-    const auto slot_revert_clicked = [&]() { LogEvent( "Palette revert clicked" ); };
+    const auto slot_next_mode_page_clicked = [&]() { LogEvent( "next mode page" ); };
+    const auto slot_prev_mode_page_clicked = [&]() { LogEvent( "prev mode page" ); };
+    const auto slot_next_palette_page_clicked = [&]() { LogEvent( "next palette page" ); };
+    const auto slot_prev_palette_page_clicked = [&]() { LogEvent( "prev palette page" ); };
+    const auto slot_return_clicked = [&]() { LogEvent( "Return clicked" ); };
 
     connect( m_palette_control.get(), &PaletteControl::SelectedModeChanged, this, slot_mode_changed );
     connect( m_palette_control.get(), &PaletteControl::SelectedPaletteChanged, this, slot_palette_changed );
@@ -228,7 +228,7 @@ void MainWindow::ConnectPaletteEvent()
     connect( m_palette_control.get(), &PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked );
     connect( m_palette_control.get(), &PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked );
     connect( m_palette_control.get(), &PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked );
-    connect( m_palette_control.get(), &PaletteControl::RevertButtonClicked, this, slot_revert_clicked );
+    connect( m_palette_control.get(), &PaletteControl::ReturnButtonClicked, this, slot_return_clicked );
 
     connect( m_palette_control_horizon.get(), &PaletteControl::SelectedModeChanged, this, slot_mode_changed );
     connect( m_palette_control_horizon.get(), &PaletteControl::SelectedPaletteChanged, this, slot_palette_changed );
@@ -236,7 +236,7 @@ void MainWindow::ConnectPaletteEvent()
     connect( m_palette_control_horizon.get(), &PaletteControl::PrevModePageClicked, this, slot_prev_mode_page_clicked );
     connect( m_palette_control_horizon.get(), &PaletteControl::NextPalettePageClicked, this, slot_next_palette_page_clicked );
     connect( m_palette_control_horizon.get(), &PaletteControl::PrevPalettePageClicked, this, slot_prev_palette_page_clicked );
-    connect( m_palette_control_horizon.get(), &PaletteControl::RevertButtonClicked, this, slot_revert_clicked );
+    connect( m_palette_control_horizon.get(), &PaletteControl::ReturnButtonClicked, this, slot_return_clicked );
 }
 
 void MainWindow::ConnectEncoderEvent()
@@ -244,7 +244,7 @@ void MainWindow::ConnectEncoderEvent()
     const auto slot_mode_changed = [&]()
     {
         QStringList modes = { "ENCODER_MODE_PERCENT", "ENCODER_MODE_255", "ENCODER_MODE_ANGLE", };
-        LogEvent( "Encoder mode changed: " + modes[( ( EncoderControl * )sender() )->Mode()] );
+        LogEvent( "mode changed: " + modes[( ( EncoderControl * )sender() )->Mode()] );
     };
 
     const auto slot_encoder_value_changed = [&]( int index, const QString & name, int value )
@@ -273,7 +273,7 @@ void MainWindow::ConnectTrackEvent()
 {
     const auto slot_track_points_changed = [&]()
     {
-        QString log = "TC points changed\n";
+        QString log = "track points changed\n";
         auto points = ( ( TrackControl * )sender() )->TrackPoints();
 
         for( const auto &p : points )
@@ -292,7 +292,7 @@ void MainWindow::ConnectGroupEvent()
 {
     const auto slot_group_button_changed = [&]()
     {
-        QString log = "GC button changed: ";
+        QString log = "button changed: ";
         auto button = ( ( GroupControl * )sender() )->CurrentGroupButton();
 
         log += QString( "text: %1, title: %2" ).arg( button.text ).arg( button.title );
@@ -302,7 +302,7 @@ void MainWindow::ConnectGroupEvent()
 
     const auto slot_history_button_changed = [&]()
     {
-        QString log = "GC history button changed: ";
+        QString log = "history button changed: ";
         auto button = ( ( GroupControl * )sender() )->CurrentHistoryButton();
 
         log += QString( "text: %1, title: %2" ).arg( button.text ).arg( button.title );
@@ -311,13 +311,13 @@ void MainWindow::ConnectGroupEvent()
     };
     const auto slot_return_button_clicked = [&]()
     {
-        QString log = "GC return button clicked";
+        QString log = "return button clicked";
 
         LogEvent( log );
     };
     const auto slot_footer_button_changed = [&]()
     {
-        QString log = "GC footer button changed: " + ( ( GroupControl * )sender() )->CurrentFooterButton();
+        QString log = "footer button changed: " + ( ( GroupControl * )sender() )->CurrentFooterButton();
 
         LogEvent( log );
     };
@@ -336,21 +336,21 @@ void MainWindow::ConnectLibraryEvent()
 {
     const auto slot_mode_button_changed = [&]()
     {
-        QString log = "LC mode button changed: " + ( ( LibraryControl * )sender() )->SelectedModeButton();
+        QString log = "mode button changed: " + ( ( LibraryControl * )sender() )->SelectedModeButton();
 
         LogEvent( log );
     };
 
     const auto slot_history_mode_button_changed = [&]()
     {
-        QString log = "LC history mode button changed: " + ( ( LibraryControl * )sender() )->SelectedHistoryModeButton();
+        QString log = "history mode button changed: " + ( ( LibraryControl * )sender() )->SelectedHistoryModeButton();
 
         LogEvent( log );
     };
 
     const auto slot_library_button_changed = [&]()
     {
-        QString log = "LC library button changed: ";
+        QString log = "library button changed: ";
         auto button = ( ( LibraryControl * )sender() )->SelectedLibraryButton();
 
         log += QString( "text: %1, title: %2" ).arg( button.text ).arg( button.title );
@@ -360,7 +360,7 @@ void MainWindow::ConnectLibraryEvent()
 
     const auto slot_history_button_changed = [&]()
     {
-        QString log = "LC history button changed: ";
+        QString log = "history button changed: ";
         auto button = ( ( LibraryControl * )sender() )->SelectedHistoryButton();
 
         log += QString( "text: %1, title: %2" ).arg( button.text ).arg( button.title );
@@ -370,13 +370,13 @@ void MainWindow::ConnectLibraryEvent()
 
     const auto slot_return_button_clicked = [&]()
     {
-        QString log = "LC return button clicked";
+        QString log = "return button clicked";
 
         LogEvent( log );
     };
     const auto slot_footer_button_changed = [&]()
     {
-        QString log = "LC footer button changed: " + ( ( LibraryControl * )sender() )->SelectedFooterButton();
+        QString log = "footer button changed: " + ( ( LibraryControl * )sender() )->SelectedFooterButton();
 
         LogEvent( log );
     };

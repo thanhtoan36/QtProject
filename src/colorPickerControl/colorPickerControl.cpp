@@ -408,7 +408,7 @@ void ColorPickerControl::OnPickerTypeChanged()
 //--------------------------------------------------------------------------
 //  [ 関数名  ] : OnPickerTypeButtonClicked
 //  [ 機能名  ] : ヘッダーボタンのクリックイベントを処理する
-//  [ 引数         ] : void
+//  [ 引数    ] : void
 //  [ 戻り値   ] : void
 //--------------------------------------------------------------------------
 void ColorPickerControl::OnPickerTypeButtonClicked()
