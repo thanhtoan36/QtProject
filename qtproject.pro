@@ -80,9 +80,6 @@ HEADERS += \
     include/encoderControl/encoderControlHorizon.h \
     include/encoderControl/encoderControl_datatypes.h \
     include/encoderControl/encoderControl_define.h \
-    include/groupLibContol/groupLibControl.h \
-    include/groupLibContol/groupLibControl_define.h \
-    include/encoderControl/encoderSlider.h \
     include/groupControl/groupControl.h \
     include/groupControl/groupControlHorizon.h \
     include/groupControl/groupControl_datatypes.h \
