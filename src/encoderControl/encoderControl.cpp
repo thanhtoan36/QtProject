@@ -189,7 +189,7 @@ void EncoderControl::OnModeChanged()
 {
     m_button_mode_percent.setChecked( Mode() == ENCODER_MODE_PERCENT );
     m_button_mode_255.setChecked( Mode() == ENCODER_MODE_255 );
-    m_button_mode_angle.setChecked( Mode() == ENCODER_MODE_255 );
+    m_button_mode_angle.setChecked( Mode() == ENCODER_MODE_ANGLE );
 
     Q_ASSERT( m_params.length() == m_encoders.length() );
     Q_ASSERT( m_params.length() == m_encoder_labels.length() );
