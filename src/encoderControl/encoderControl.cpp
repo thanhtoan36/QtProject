@@ -54,7 +54,6 @@ EncoderControl::EncoderControl( QWidget *parent )
     m_button_mode_255.setText( "255" );
     m_button_mode_angle.setGeometry( EC_BUTTON_ANGLE_GEOMETRY );
     m_button_mode_angle.setText( "°角度" );
-    m_button_mode_angle.setEnabled( false );
     m_button_mode_angle.setVisible( false );
 
     m_button_previous_page.setGeometry( EC_BUTTON_PREVIOUS_GEOMETRY );
@@ -235,6 +234,10 @@ void EncoderControl::OnModeChanged()
 //--------------------------------------------------------------------------
 void EncoderControl::OnTypeChanged()
 {
+    if ( m_button_mode_angle.isChecked() )
+    {
+        SetMode( ENCODER_MODE_255 );
+    }
     m_button_mode_angle.setVisible( Type() == ENCODER_TYPE_POSITION );
 }
 

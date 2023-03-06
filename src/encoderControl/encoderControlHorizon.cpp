@@ -36,15 +36,15 @@ EncoderControlHorizon::EncoderControlHorizon( QWidget *parent )
 
     m_button_switch_panel_picker.setGeometry( EC_HORIZON_BUTTON_PICKER_GEOMETRY );
     m_button_switch_panel_picker.setText( "ピッカー" );
-    m_button_switch_panel_picker.SetTextPixelSize(14);
+    m_button_switch_panel_picker.SetTextPixelSize( 14 );
 
     m_button_switch_panel_encoder.setGeometry( EC_HORIZON_BUTTON_ENCODER_GEOMETRY );
     m_button_switch_panel_encoder.setText( "エンコーダ" );
-    m_button_switch_panel_encoder.SetTextPixelSize(14);
+    m_button_switch_panel_encoder.SetTextPixelSize( 14 );
 
     m_button_switch_panel_input_num.setGeometry( EC_HORIZON_BUTTON_INPUT_NUM_GEOMETRY );
     m_button_switch_panel_input_num.setText( "数値" );
-    m_button_switch_panel_input_num.SetTextPixelSize(14);
+    m_button_switch_panel_input_num.SetTextPixelSize( 14 );
 
     connect( &m_button_switch_panel_picker, &QAbstractButton::clicked, this, &EncoderControlHorizon::OnPanelSwitchButtonClicked );
     connect( &m_button_switch_panel_encoder, &QAbstractButton::clicked, this, &EncoderControlHorizon::OnPanelSwitchButtonClicked );

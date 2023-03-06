@@ -41,7 +41,7 @@ LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
     m_title_label.setText( "ライブラリ" );
 
     m_history_button.setGeometry( LC_HISTORY_GEOMETRY );
-    m_history_button.SetTextPixelSize(12);
+    m_history_button.SetTextPixelSize( 14 );
     m_history_button.setText( "最近使った\nもの" );
 
     m_up_button.setGeometry( LC_UP_GEOMETRY );

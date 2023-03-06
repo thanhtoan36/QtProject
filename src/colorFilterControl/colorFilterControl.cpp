@@ -66,7 +66,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     m_button_previous_header_buttons_page.setVisible( false );
 
     m_history_button.setGeometry( CFC_HISTORY_GEOMETRY );
-    m_history_button.SetTextPixelSize(12);
+    m_history_button.SetTextPixelSize( 14 );
     m_history_button.setText( "最近使った\nもの" );
 
     m_button_next_filter_buttons_page.setGeometry( CFC_UP_BUTTON_GEOMETRY );

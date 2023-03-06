@@ -35,15 +35,15 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
     m_button_absolute.setVisible( false );
 
     m_button_switch_panel_encoder.setGeometry( IC_HORIZON_ENCODER_GEOMETRY );
-    m_button_switch_panel_encoder.SetTextPixelSize(14);
+    m_button_switch_panel_encoder.SetTextPixelSize( 14 );
     m_button_switch_panel_encoder.setText( "エンコーダ" );
 
     m_button_switch_panel_picker.setGeometry( IC_HORIZON_PICKER_GEOMETRY );
-    m_button_switch_panel_picker.SetTextPixelSize(14);
+    m_button_switch_panel_picker.SetTextPixelSize( 14 );
     m_button_switch_panel_picker.setText( "ピッカー" );
 
     m_button_switch_panel_input_num.setGeometry( IC_HORIZON_NUMBER_GEOMETRY );
-    m_button_switch_panel_input_num.SetTextPixelSize(14);
+    m_button_switch_panel_input_num.SetTextPixelSize( 14 );
     m_button_switch_panel_input_num.setChecked( true );
     m_button_switch_panel_input_num.setText( "数値" );
 
