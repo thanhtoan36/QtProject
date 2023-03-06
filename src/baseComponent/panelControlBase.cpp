@@ -8,9 +8,6 @@
 
 #include "baseComponent/panelControlBase.h"
 
-#ifdef LOAD_STYLESHEET_FROM_FILE
-#include <QFile>
-#else
 static const char *g_stylesheet = R"(
 QWidget {
     font-size: 16px;
@@ -91,7 +88,6 @@ QLabel#playback_header {
     background-color: rgb(51, 63, 79);
 }
 )";
-#endif
 
 PanelControlBase::PanelControlBase( QWidget *parent )
     : QWidget{parent},
@@ -103,13 +99,7 @@ PanelControlBase::PanelControlBase( QWidget *parent )
     m_background.SetBackgroundColor( SCREEN_BACKGROUND_COLOR );
     m_background.SetGridLineColor( Qt::transparent );
 
-#ifdef LOAD_STYLESHEET_FROM_FILE
-    QFile style( ":/resources/style.css" );
-    style.open( QFile::ReadOnly );
-    setStyleSheet( style.readAll() );
-#else
     setStyleSheet( g_stylesheet );
-#endif
 }
 
 //--------------------------------------------------------------------------
