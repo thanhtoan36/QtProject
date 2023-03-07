@@ -11,6 +11,7 @@
 
 class GroupControlHorizon : public GroupControl
 {
+    Q_OBJECT
 public:
     explicit GroupControlHorizon( QWidget *parent = nullptr );
     virtual void SetDispParamData( GROUP_DISP_PARAM *param ) override;
