@@ -45,7 +45,6 @@ TrackControl::TrackControl( QWidget *parent )
 
     m_button_mode_angle.setGeometry( TC_BUTTON_MODE_ANGLE_GEOMETRY );
     m_button_mode_angle.setText( "°角度" );
-    m_button_mode_angle.setEnabled( false );
 
     m_button_value_mode_relative.setGeometry( TC_BUTTON_VALUEMODE_RELATIVE_GEOMETRY );
     m_button_value_mode_relative.setText( "相対" );
@@ -218,9 +217,27 @@ QVector<TRACK_PARAM_GROUP> TrackControl::TrackPoints() const
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const
 {
-    float scale = Mode() == TRACK_MODE_PERCENT
-                  ? ( TC_TRACK_RESOLUTION / 100.0 ) // map from 0..100% to 0..TC_TRACK_RESOLUTION
-                  : ( TC_TRACK_RESOLUTION / 255.0 ); // map from 0..255 to 0..TC_TRACK_RESOLUTION
+    float scale = 1.0;
+
+    switch( Mode() )
+    {
+        case TRACK_MODE_PERCENT:
+            scale = TC_TRACK_RESOLUTION / 100.0;
+            break;
+
+        case TRACK_MODE_255:
+            scale = TC_TRACK_RESOLUTION / 255.0;
+            break;
+
+        case TRACK_MODE_ANGLE:
+            // TODO: ここで角度スケールを更新します, max angle = 360?
+            scale = TC_TRACK_RESOLUTION / 360.0;
+            break;
+
+        default:
+            break;
+    }
+
     QVector<PantiltControl::TrackPointFloatParamGroup> result;
 
     for( auto p : points )
@@ -245,9 +262,27 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen( co
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToValue( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const
 {
-    float scale = Mode() == TRACK_MODE_PERCENT
-                  ? ( TC_TRACK_RESOLUTION / 100.0 ) // map from 0..TC_TRACK_RESOLUTION to 0..100%
-                  : ( TC_TRACK_RESOLUTION / 255.0 ); // map from 0..TC_TRACK_RESOLUTION to 0..255
+    float scale = 1.0;
+
+    switch( Mode() )
+    {
+        case TRACK_MODE_PERCENT:
+            scale = TC_TRACK_RESOLUTION / 100.0;
+            break;
+
+        case TRACK_MODE_255:
+            scale = TC_TRACK_RESOLUTION / 255.0;
+            break;
+
+        case TRACK_MODE_ANGLE:
+            // TODO: ここで角度スケールを更新します, max angle = 360?
+            scale = TC_TRACK_RESOLUTION / 360.0;
+            break;
+
+        default:
+            break;
+    }
+
     QVector<PantiltControl::TrackPointFloatParamGroup> result;
 
     for( auto p : points )

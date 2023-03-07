@@ -33,7 +33,7 @@ PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
 
     m_title_label.setGeometry( PC_TITLE_GEOMETRY );
     m_title_label.setObjectName( "title_label" );
-    m_title_label.setText( "パレット" );
+    // m_title_label.setText( "ゴボ" );
 
     m_button_previous_palette_page.setGeometry( PC_UP_GEOMETRY );
     m_button_previous_palette_page.setText( "▲" );
@@ -167,6 +167,7 @@ void PaletteControl::SetDispParamData( PALETTE_DISP_PARAM *param )
     SetCurrentModePage( 0 );
     SetCurrentPalettePage( 0 );
     UpdateModePages();
+    OnTypeChanged();
 
     SetSelectedMode( selected_mode );
     SetSelectedPalette( selected_palette );
