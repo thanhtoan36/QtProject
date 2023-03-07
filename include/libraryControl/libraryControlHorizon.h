@@ -11,6 +11,7 @@
 
 class LibraryControlHorizon : public LibraryControl
 {
+    Q_OBJECT
 public:
     explicit LibraryControlHorizon( QWidget *parent = nullptr );
 };

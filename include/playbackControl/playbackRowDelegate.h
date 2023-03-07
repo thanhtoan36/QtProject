@@ -11,6 +11,7 @@
 
 class PlaybackRowDelegate : public QStyledItemDelegate
 {
+    Q_OBJECT
 public:
     enum Roles
     {

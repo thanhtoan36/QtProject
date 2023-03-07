@@ -11,6 +11,7 @@
 
 class TrackControlHorizon : public TrackControl
 {
+    Q_OBJECT
 public:
     TrackControlHorizon( QWidget *parent = nullptr );
 

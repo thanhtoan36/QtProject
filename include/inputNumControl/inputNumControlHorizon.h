@@ -10,6 +10,7 @@
 
 class InputNumControlHorizon : public InputNumControl
 {
+    Q_OBJECT
 public:
     explicit InputNumControlHorizon( QWidget *parent = nullptr );
 
