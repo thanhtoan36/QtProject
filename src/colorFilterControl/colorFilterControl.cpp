@@ -138,13 +138,11 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     {
         if( m_history_button.isChecked() )
         {
-            SetMode( COLOR_FILTER_MODE_HISTORY );
-            m_title_label.setText( "カラーフィルタ (最近使ったもの)" );
+            SetMode( COLOR_FILTER_MODE_HISTORY );            
         }
         else
         {
-            SetMode( m_previous_tab );
-            m_title_label.setText( "カラーフィルタ" );
+            SetMode( m_previous_tab );            
         }
     } );
 
@@ -419,6 +417,7 @@ void ColorFilterControl::OnModeChanged()
 
     if( Mode() == COLOR_FILTER_MODE_TB )
     {
+        m_title_label.setText( "カラーフィルタ" );
         UpdateTBTabPage();
         m_history_button.setChecked( false );
         m_button_next_filter_buttons_page.setEnabled( CurrentTBTabPage() > 0 );
@@ -429,6 +428,7 @@ void ColorFilterControl::OnModeChanged()
     }
     else if( Mode() == COLOR_FILTER_MODE_CUSTOM )
     {
+        m_title_label.setText( "カラーフィルタ" );
         UpdateCustomTabPage();
         m_history_button.setChecked( false );
         m_button_next_filter_buttons_page.setEnabled( CurrentCustomTabPage() > 0 );
@@ -439,6 +439,7 @@ void ColorFilterControl::OnModeChanged()
     }
     else if( Mode() == COLOR_FILTER_MODE_HISTORY )
     {
+        m_title_label.setText( "カラーフィルタ (最近使ったもの)" );
         m_history_button.setChecked( true );
         UpdateHistoryPage();
 
