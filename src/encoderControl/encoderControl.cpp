@@ -142,12 +142,6 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
 
         connect( encoder.get(), &CustomEncoder::sliderMoved, this, [&]( int value )
         {
-            // TODO: 角度モードの計算の指定なし
-            if( Mode() == ENCODER_MODE_ANGLE )
-            {
-                return;
-            }
-
             auto encoder = std::find( m_encoders.begin(), m_encoders.end(), ( CustomEncoder * )sender() );
 
             if( !encoder )
@@ -264,6 +258,13 @@ void EncoderControl::OnEncoderValueChanged( int index, int value )
 {
     auto &param = m_params[index];
     param.level = value / EC_FLOAT_TO_INT_SCALE;
+
+    // TODO: 角度モードの計算の指定なし
+    if( Mode() == ENCODER_MODE_ANGLE )
+    {
+        return;
+    }
+
     UpdateEncoderLabelValue( index );
     emit EncoderValueChanged( index, param.name, param.level );
 }
