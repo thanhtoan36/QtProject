@@ -7,6 +7,12 @@
 #include "paletteControl/paletteControlHorizon.h"
 #include "paletteControl/paletteControl_define.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PaletteControlHorizon
+//  [ 機　能 ] : Constructor for PaletteControlHorizon
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PaletteControlHorizon::PaletteControlHorizon( QWidget *parent ) : PaletteControl( parent )
 {
     setFixedSize( PC_HORIZON_SCREEN_SIZE );

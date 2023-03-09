@@ -11,9 +11,14 @@
 #include <QDebug>
 #include "utility.h"
 
-#define TRACK_POINT_SIZE QSize(12, 12)
-#define TRACK_UI_PADDING 10
+#define TRACK_POINT_SIZE QSize(12, 12)  // トラック ポイントのサイズ
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : TrackPoint
+//  [ 機　能 ] : Constructor for TrackPoint
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 TrackPoint::TrackPoint( QWidget *parent )
     : QWidget{parent}
 {
@@ -48,6 +53,12 @@ void TrackPoint::SetCoordinate( QPoint pos )
     move( pos );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : paintEvent
+//  [ 機　能 ] : paint the widget
+//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void TrackPoint::paintEvent( QPaintEvent *event )
 {
     QPainter p( this );
@@ -56,6 +67,12 @@ void TrackPoint::paintEvent( QPaintEvent *event )
     p.drawEllipse( QRect( QPoint( 0, 0 ), geometry().size() ) );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PantiltControl
+//  [ 機　能 ] : Constructor for PantiltControl
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PantiltControl::PantiltControl( QWidget *parent )
     : QWidget{parent},
       m_label_tilt( this ), m_label_pan( this ),
@@ -131,6 +148,12 @@ QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::TrackPoints()
     return result;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : paintEvent
+//  [ 機　能 ] : paint the widget
+//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::paintEvent( QPaintEvent *event )
 {
     Q_UNUSED( event );
@@ -162,6 +185,12 @@ void PantiltControl::paintEvent( QPaintEvent *event )
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : resizeEvent
+//  [ 機　能 ] : Event when resize
+//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::resizeEvent( QResizeEvent *event )
 {
     QWidget::resizeEvent( event );
@@ -169,6 +198,12 @@ void PantiltControl::resizeEvent( QResizeEvent *event )
     m_label_tilt.setGeometry( QRect( geometry().width() / 2 + 10, 0, 50, 22 ) );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : mousePressEvent
+//  [ 機　能 ] : Event when press
+//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::mousePressEvent( QMouseEvent *event )
 {
     m_pressed = true;
@@ -186,6 +221,12 @@ void PantiltControl::mousePressEvent( QMouseEvent *event )
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : mouseReleaseEvent
+//  [ 機　能 ] : Event when release mouse
+//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::mouseReleaseEvent( QMouseEvent *event )
 {
     m_pressed = false;
@@ -196,6 +237,12 @@ void PantiltControl::mouseReleaseEvent( QMouseEvent *event )
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : mouseMoveEvent
+//  [ 機　能 ] : Event when move mouse
+//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PantiltControl::mouseMoveEvent( QMouseEvent *event )
 {
     if( !m_pressed )

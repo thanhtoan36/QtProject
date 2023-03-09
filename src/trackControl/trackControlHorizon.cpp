@@ -7,6 +7,12 @@
 #include "trackControl/trackControlHorizon.h"
 #include "trackControl/trackControl_define.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : TrackControlHorizon
+//  [ 機　能 ] : Constructor for TrackControlHorizon
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 TrackControlHorizon::TrackControlHorizon( QWidget *parent )
     : TrackControl( parent ),
       m_button_emply_field_2( this )

@@ -7,6 +7,12 @@
 #include "trackControl/trackControl.h"
 #include "trackControl/trackControl_define.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : TrackControl
+//  [ 機　能 ] : Constructor for TrackControl
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 TrackControl::TrackControl( QWidget *parent )
     : PanelControlBase( parent ),
       m_label_title( this ),

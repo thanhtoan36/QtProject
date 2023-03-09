@@ -23,6 +23,12 @@ CustomToggleButtonBase:checked {
 
 )~";
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CustomToggleButtonBase
+//  [ 機　能 ] : Constructor for CustomToggleButtonBase
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 CustomToggleButtonBase::CustomToggleButtonBase( QWidget *parent ) : CustomButtonBase( parent ),
     m_selected_background_color(),
     m_selected_border_color(),

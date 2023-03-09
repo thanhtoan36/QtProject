@@ -40,6 +40,12 @@ CustomButtonBase:disabled {
 
 )~";
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CustomButtonBase
+//  [ 機　能 ] : Constructor for CustomButtonBase
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 CustomButtonBase::CustomButtonBase( QWidget *parent ) : QPushButton( parent ),
     m_styler( this ),
     m_background_color(),

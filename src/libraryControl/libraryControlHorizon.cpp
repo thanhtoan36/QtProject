@@ -9,6 +9,12 @@
 #define BASE_BUTTON_WIDTH LC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
 #define BASE_BUTTON_HEIGHT LC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : LibraryControlHorizon
+//  [ 機　能 ] : Constructor for LibraryControlHorizon
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 LibraryControlHorizon::LibraryControlHorizon( QWidget *parent ) : LibraryControl( parent )
 {
     setFixedSize( LC_HORIZON_SCREENSIZE );

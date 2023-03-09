@@ -10,6 +10,12 @@
 #define BASE_BUTTON_WIDTH LC_FIRST_BUTTON_GEOMETRY.width()
 #define BASE_BUTTON_HEIGHT LC_FIRST_BUTTON_GEOMETRY.height()
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : LibraryControl
+//  [ 機　能 ] : Constructor for LibraryControl
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
     m_title_label( this ),
@@ -445,31 +451,67 @@ void LibraryControl::OnHistoryLibButtonClicked()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ModeStartPoint
+//  [ 機　能   ] : Upper left corner of mode buttons
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : QPoint : coordinates
+//--------------------------------------------------------------------------
 QPoint LibraryControl::ModeStartPoint() const
 {
     return m_mode_start_point;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetModeStartPoint
+//  [ 機　能   ] : Set Upper left corner of mode buttons
+//  [ 引　数   ] : QPoint point : coordinates
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetModeStartPoint( QPoint point )
 {
     m_mode_start_point = point;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MaxGroupPages
+//  [ 機　能   ] : Get number of group pages
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : int : group pages
+//--------------------------------------------------------------------------
 int LibraryControl::MaxGroupPages() const
 {
     return CalulateNumberOfPages( m_current_group_lib_buttons.size(), LibraryButtonsPerPage() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MaxHistoryPages
+//  [ 機　能   ] : Get number of history pages
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : int : history pages
+//--------------------------------------------------------------------------
 int LibraryControl::MaxHistoryPages() const
 {
     return CalulateNumberOfPages( m_current_history_lib_buttons.size(), LibraryButtonsPerPage() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ModeButtonsPerPage
+//  [ 機　能   ] : Get number of mode buttons in each page
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : int : number of buttons
+//--------------------------------------------------------------------------
 int LibraryControl::ModeButtonsPerPage() const
 {
     return m_mode_buttons_grid_size.width() * m_mode_buttons_grid_size.height();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : LibraryButtonsPerPage
+//  [ 機　能   ] : Get number of library buttons in each page
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : int : number of buttons
+//--------------------------------------------------------------------------
 int LibraryControl::LibraryButtonsPerPage() const
 {
     return m_lib_buttons_grid_size.width() * m_lib_buttons_grid_size.height();
@@ -599,22 +641,45 @@ void LibraryControl::UpdateHistoryTab()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : LibraryStartPoint
+//  [ 機　能   ] : Upper left corner of library buttons
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : QPoint : coordinates
+//--------------------------------------------------------------------------
 QPoint LibraryControl::LibraryStartPoint() const
 {
     return m_library_start_point;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetLibraryStartPoint
+//  [ 機　能   ] : Set Upper left corner of library buttons
+//  [ 引　数   ] : QPoint point : coordinates
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetLibraryStartPoint( QPoint point )
 {
     m_library_start_point = point;
 }
 
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentGroupPage
+//  [ 機　能   ] : Get the current group page
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : int : current page
+//--------------------------------------------------------------------------
 int LibraryControl::CurrentGroupPage() const
 {
     return m_current_group_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentGroupPage
+//  [ 機　能   ] : Set the current group page
+//  [ 引　数   ] : int page: current page
+//  [ 戻り値    ] : int : current page
+//--------------------------------------------------------------------------
 void LibraryControl::SetCurrentGroupPage( int page )
 {
     page = qBound( 0, page, MaxGroupPages() );
@@ -628,11 +693,23 @@ void LibraryControl::SetCurrentGroupPage( int page )
     emit CurrentGroupPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentHistoryPage
+//  [ 機　能   ] : Get the current history page
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : int : current page
+//--------------------------------------------------------------------------
 int LibraryControl::CurrentHistoryPage() const
 {
     return m_current_history_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentHistoryPage
+//  [ 機　能   ] : Set the current history page
+//  [ 引　数   ] : int page: current page
+//  [ 戻り値    ] : int : current page
+//--------------------------------------------------------------------------
 void LibraryControl::SetCurrentHistoryPage( int page )
 {
     page = qBound( 0, page, MaxHistoryPages() );
@@ -646,11 +723,23 @@ void LibraryControl::SetCurrentHistoryPage( int page )
     emit CurrentHistoryPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedGroupMode
+//  [ 機　能   ] : Get the selected group mode
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : QString : selected mode name
+//--------------------------------------------------------------------------
 QString LibraryControl::SelectedGroupMode() const
 {
     return m_selected_group_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedGroupMode
+//  [ 機　能   ] : Set the selected group mode
+//  [ 引　数   ] : const QString &mode : selected mode
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedGroupMode( const QString &mode )
 {
     if( m_selected_group_mode == mode )
@@ -662,11 +751,23 @@ void LibraryControl::SetSelectedGroupMode( const QString &mode )
     emit SelectedGroupModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedHistoryMode
+//  [ 機　能   ] : Get the selected history mode
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : QString : selected mode name
+//--------------------------------------------------------------------------
 QString LibraryControl::SelectedHistoryMode() const
 {
     return m_selected_history_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedHistoryMode
+//  [ 機　能   ] : Set the selected history mode
+//  [ 引　数   ] : const QString &mode : selected mode
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedHistoryMode( const QString &mode )
 {
     if( m_selected_history_mode == mode )
@@ -678,12 +779,23 @@ void LibraryControl::SetSelectedHistoryMode( const QString &mode )
     emit SelectedHistoryModeChanged();
 }
 
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedLibraryButton
+//  [ 機　能   ] : Get the selected library button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : const LibraryControlButton & : selected button
+//--------------------------------------------------------------------------
 const LibraryControlButton &LibraryControl::SelectedLibraryButton() const
 {
     return m_selected_library_button;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedLibraryButton
+//  [ 機　能   ] : Set the selected library button
+//  [ 引　数   ] : const LibraryControlButton &button : selected button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedLibraryButton( const LibraryControlButton &button )
 {
     if( m_selected_library_button == button )
@@ -695,11 +807,23 @@ void LibraryControl::SetSelectedLibraryButton( const LibraryControlButton &butto
     emit SelectedLibraryButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedHistoryButton
+//  [ 機　能   ] : Get the selected history button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : const LibraryControlButton & : selected button
+//--------------------------------------------------------------------------
 const LibraryControlButton &LibraryControl::SelectedHistoryButton() const
 {
     return m_selected_historybutton;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedHistoryButton
+//  [ 機　能   ] : Set the selected history button
+//  [ 引　数   ] : const LibraryControlButton &button : selected button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedHistoryButton( const LibraryControlButton &button )
 {
     if( m_selected_historybutton == button )
@@ -711,11 +835,23 @@ void LibraryControl::SetSelectedHistoryButton( const LibraryControlButton &butto
     emit SelectedHistoryButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedFooterButton
+//  [ 機　能   ] : Get the selected footer button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : const QString & : selected button
+//--------------------------------------------------------------------------
 const QString &LibraryControl::SelectedFooterButton() const
 {
     return m_selected_footer_button;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedFooterButton
+//  [ 機　能   ] : Set the selected footer button
+//  [ 引　数   ] : const QString &button : selected button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedFooterButton( const QString &button )
 {
     if( m_selected_footer_button == button )
@@ -727,11 +863,23 @@ void LibraryControl::SetSelectedFooterButton( const QString &button )
     emit SelectedFooterButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedModeButton
+//  [ 機　能   ] : Get the selected mode button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : const QString & : selected button
+//--------------------------------------------------------------------------
 const QString &LibraryControl::SelectedModeButton() const
 {
     return m_selected_mode_button;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedModeButton
+//  [ 機　能   ] : Set the selected mode button
+//  [ 引　数   ] : const QString &button : selected button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedModeButton( const QString &button )
 {
     if( m_selected_mode_button == button )
@@ -743,11 +891,23 @@ void LibraryControl::SetSelectedModeButton( const QString &button )
     emit SelectedModeButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedHistoryModeButton
+//  [ 機　能   ] : Get the selected history mode button
+//  [ 引　数   ] : void
+//  [ 戻り値    ] : const QString & : selected button
+//--------------------------------------------------------------------------
 const QString &LibraryControl::SelectedHistoryModeButton() const
 {
     return m_selected_history_mode_button;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedHistoryModeButton
+//  [ 機　能   ] : Set the selected history mode button
+//  [ 引　数   ] : const QString &button : selected button
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void LibraryControl::SetSelectedHistoryModeButton( const QString &button )
 {
     if( m_selected_history_mode_button == button )

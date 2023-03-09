@@ -8,6 +8,12 @@
 #include <QDebug>
 #include <QTimer>
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ToggleButton
+//  [ 機　能 ] : Constructor for ToggleButton
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 ToggleButton::ToggleButton( QWidget *parent )
     : CustomToggleButtonBase( parent ),
       m_check_label( this )

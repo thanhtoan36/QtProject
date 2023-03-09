@@ -89,6 +89,12 @@ QLabel#playback_header {
 }
 )";
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PanelControlBase
+//  [ 機　能 ] : Constructor for PanelControlBase
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PanelControlBase::PanelControlBase( QWidget *parent )
     : QWidget{parent},
       m_background( this )
@@ -137,6 +143,12 @@ int PanelControlBase::CalculateNumberOfVisibleItems( int item_count, int items_p
     return ( std::min( ( page_index + 1 ) * items_per_page, item_count ) - 1 ) % items_per_page + 1;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : resizeEvent
+//  [ 機　能 ] : Event when resize
+//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PanelControlBase::resizeEvent( QResizeEvent *event )
 {
     Q_UNUSED( event );

@@ -8,6 +8,12 @@
 #include <QWidget>
 #include <QDebug>
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : DynamicStyleSheet
+//  [ 機　能 ] : Constructor for DynamicStyleSheet
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 DynamicStyleSheet::DynamicStyleSheet( QWidget *parent )
     : QObject( ( QObject * )parent ),
       m_stylesheet_template(),

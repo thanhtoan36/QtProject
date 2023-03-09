@@ -12,9 +12,15 @@
 #include <baseComponent/panelControlBase.h>
 
 #define SCREEN_BACKGROUND_COLOR QColor(34, 43, 53) // 画面の背景色
-#define PLC_PICKER_CELL_SIZE    QSize(78, 48)
-#define PLC_PICKER_GRID_SIZE    QSize(2, 5)
+#define PLC_PICKER_CELL_SIZE    QSize(78, 48)      // ピッカーのセル サイズ
+#define PLC_PICKER_GRID_SIZE    QSize(2, 5)        // ピッカー グリッド サイズ
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MarkingPickerPopup
+//  [ 機　能 ] : Constructor for MarkingPickerPopup
+//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 MarkingPickerPopup::MarkingPickerPopup( QWidget *parent )
     : QWidget{parent}
 {

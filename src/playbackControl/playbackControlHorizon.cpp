@@ -8,6 +8,12 @@
 #include "playbackControl/playbackControl_define.h"
 #include "utility.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PlaybackControlHorizon
+//  [ 機　能 ] : Constructor for PlaybackControlHorizon
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PlaybackControlHorizon::PlaybackControlHorizon( QWidget *parent )
     : PlaybackControl( parent )
 {

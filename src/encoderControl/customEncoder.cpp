@@ -11,8 +11,14 @@
 #include <QMouseEvent>
 #include "utility.h"
 
-#define EC_BUTTON_HEIGHT 25
+#define EC_BUTTON_HEIGHT 25 // 上下ボタンの高さ
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CustomEncoder
+//  [ 機　能 ] : Constructor for CustomEncoder
+//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 CustomEncoder::CustomEncoder( QWidget *parent )
     : QAbstractSlider( parent ),
       m_button_decrease( this ),
@@ -43,6 +49,12 @@ CustomEncoder::CustomEncoder( QWidget *parent )
     } );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : paintEvent
+//  [ 機　能 ] : paint the widget
+//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomEncoder::paintEvent( QPaintEvent *event )
 {
     Q_UNUSED( event );
@@ -78,6 +90,12 @@ void CustomEncoder::paintEvent( QPaintEvent *event )
     p.drawRect( QRect( m_slider_boundary.left(), m_slider_boundary.bottom() - yellowBarHeight, EC_YELLOW_SLIDER_WIDTH, yellowBarHeight ) );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : mousePressEvent
+//  [ 機　能 ] : Event when press
+//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomEncoder::mousePressEvent( QMouseEvent *event )
 {
     if( !m_slider_boundary.contains( event->pos() ) )
@@ -91,6 +109,12 @@ void CustomEncoder::mousePressEvent( QMouseEvent *event )
     emit sliderMoved( value() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : resizeEvent
+//  [ 機　能 ] : Event when resize
+//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CustomEncoder::resizeEvent( QResizeEvent *event )
 {
     SetupChildComponents();

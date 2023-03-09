@@ -6,6 +6,12 @@
 
 #include "baseComponent/customPushButton.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CustomPushButton
+//  [ 機　能 ] : Constructor for CustomPushButton
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 CustomPushButton::CustomPushButton( QWidget *parent ) : CustomButtonBase( parent )
 {
 }

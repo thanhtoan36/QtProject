@@ -18,12 +18,24 @@ std::vector<CPointF> g_cie_curve{{0.172787, 0.004800}, {0.170806, 0.005472}, {0.
     {0.575132, 0.424252}, {0.602914, 0.396516}, {0.627018, 0.372510}, {0.648215, 0.351413}, {0.665746, 0.334028}, {0.680061, 0.319765}, {0.691487, 0.308359},
     {0.700589, 0.299317}, {0.707901, 0.292044}, {0.714015, 0.285945}, {0.719017, 0.280951}, {0.723016, 0.276964}, {0.734674, 0.265326/*red*/}};
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : GetCieCurve
+//  [ 機　能 ] : Get CIE curve
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : std::vector<CPointF> : The curve
+//--------------------------------------------------------------------------
 std::vector<CPointF> &GetCieCurve()
 {
     return g_cie_curve;
 }
 
-// ***************************** CIE Maker *****************************
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CIEMaker
+//  [ 機　能 ] : Constructor for CIEMaker
+//  [ 引　数 ] : Qint interp_num : number of interpolations
+//              double brightness : brightness
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 CIEMaker::CIEMaker( int interp_num, double brightness ):
     m_interp_num( interp_num ),
     m_brightness( brightness )
@@ -31,6 +43,12 @@ CIEMaker::CIEMaker( int interp_num, double brightness ):
     InitData();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : InitData
+//  [ 機　能 ] : Init CIE data
+//  [ 引　数 ] : void
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void CIEMaker::InitData()
 {
     static size_t color_idx[9] {7, 16, 33, 47, 61, 0, 21, 33, 61};
@@ -98,6 +116,12 @@ void CIEMaker::InitData()
     CLineF::AddSegment( CLineF( g_cie_curve.back(), g_cie_curve.front() ), m_cie_curve_points, m_color_lines[4], bottom_point_num );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : GetColor
+//  [ 機　能 ] : Get color at a point
+//  [ 引　数 ] : QPointF xy : The point to get color
+//  [ 戻り値 ] : QColor : color
+//--------------------------------------------------------------------------
 QColor CIEMaker::GetColor( QPointF xy ) const
 {
     QColor out;
@@ -144,6 +168,12 @@ QColor CIEMaker::GetColor( QPointF xy ) const
     return out;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : DrawCIEDiagram
+//  [ 機　能 ] : Draw CIE into an image
+//  [ 引　数 ] : int pic_size : image size
+//  [ 戻り値 ] : QImage : result
+//--------------------------------------------------------------------------
 QImage CIEMaker::DrawCIEDiagram( int pic_size )
 {
     QImage image( QSize( pic_size, pic_size ), QImage::Format_ARGB32 );
@@ -161,6 +191,14 @@ QImage CIEMaker::DrawCIEDiagram( int pic_size )
     return image;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : GetCrossPoint
+//  [ 機　能 ] : Get cross point
+//  [ 引　数 ] : const CLineF &l : line
+//              int start : start index
+//              int end : end index
+//  [ 戻り値 ] : CPointF : the cross point
+//--------------------------------------------------------------------------
 CPointF CIEMaker::GetCrossPoint( const CLineF &l, int start, int end ) const
 {
     double min_dist = INT_MAX;
@@ -181,6 +219,12 @@ CPointF CIEMaker::GetCrossPoint( const CLineF &l, int start, int end ) const
     return m_cie_curve_points[min_idx];
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : CrossArea
+//  [ 機　能 ] : Get cross area
+//  [ 引　数 ] : const CPointF &p: the point to calculate
+//  [ 戻り値 ] : AreaFlag : which area is being returned
+//--------------------------------------------------------------------------
 CIEMaker::AreaFlag CIEMaker::CrossArea( const CPointF &p ) const
 {
     if( p.Y() >= m_white_lines[0].Y( p.X() ) &&
@@ -199,6 +243,12 @@ CIEMaker::AreaFlag CIEMaker::CrossArea( const CPointF &p ) const
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : IsPointInsideBound
+//  [ 機　能 ] : Check if a point is inside the boundary
+//  [ 引　数 ] : const CPointF &p: the point to check
+//  [ 戻り値 ] : bool : True if the point is inside bound, otherwise False
+//--------------------------------------------------------------------------
 bool CIEMaker::IsPointInsideBound( const CPointF &p ) const
 {
     bool rect_condition = p.Y() < m_color_points[TOP].Y() &&
@@ -223,6 +273,14 @@ bool CIEMaker::IsPointInsideBound( const CPointF &p ) const
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : IsPointInsideBound
+//  [ 機　能 ] : Check if a point is inside the boundary
+//  [ 引　数 ] : const CPointF &p: the point to check
+//              int start : start index
+//              int end : end index
+//  [ 戻り値 ] : bool : True if the point is inside bound, otherwise False
+//--------------------------------------------------------------------------
 bool CIEMaker::IsPointInsideBound( const CPointF &p, int start, int end ) const
 {
     double min_dist1 = INT_MAX;

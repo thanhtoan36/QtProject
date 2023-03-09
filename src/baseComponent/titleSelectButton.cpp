@@ -9,6 +9,12 @@
 
 #define TITLE_PADDING 1
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : TitleSelectButton
+//  [ 機　能 ] : Constructor for TitleSelectButton
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 TitleSelectButton::TitleSelectButton( QWidget *parent ) : SelectButton( parent ),
     m_title_visible( true ),
     m_title(),
@@ -82,6 +88,12 @@ void TitleSelectButton::SetTitle( const QString &value )
     m_title_label.setText( value );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : resizeEvent
+//  [ 機　能 ] : Event when resize
+//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void TitleSelectButton::resizeEvent( QResizeEvent *event )
 {
     SelectButton::resizeEvent( event );

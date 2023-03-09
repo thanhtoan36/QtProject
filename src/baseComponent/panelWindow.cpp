@@ -6,10 +6,16 @@
 
 #include "baseComponent/panelWindow.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PanelWindow
+//  [ 機　能 ] : Constructor for PanelWindow
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PanelWindow::PanelWindow( QWidget *parent )
     : QDialog{parent}
 {
-    // Turn off window border and default buttons
+    // ウィンドウの境界線とデフォルトのボタンをオフにする
     setWindowFlags( Qt::CustomizeWindowHint | Qt::FramelessWindowHint );
 }
 

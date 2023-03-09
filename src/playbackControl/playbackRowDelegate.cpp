@@ -8,6 +8,12 @@
 #include <QPainter>
 #include <QDebug>
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PlaybackRowDelegate
+//  [ 機　能 ] : Constructor for PlaybackRowDelegate
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PlaybackRowDelegate::PlaybackRowDelegate( QObject *parent )
     : QStyledItemDelegate( parent ),
       m_columns_width()
@@ -15,6 +21,14 @@ PlaybackRowDelegate::PlaybackRowDelegate( QObject *parent )
 
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : paint
+//  [ 機　能 ] : paint the widget
+//  [ 引　数 ] : QPainter *painter : painter
+//              const QStyleOptionViewItem &option : paint options
+//              const QModelIndex &index : index of this item
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void PlaybackRowDelegate::paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const
 {
     QPen text_pen, border_pen;
@@ -83,6 +97,13 @@ void PlaybackRowDelegate::paint( QPainter *painter, const QStyleOptionViewItem &
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : sizeHint
+//  [ 機　能 ] : Hint for item size
+//  [ 引　数 ] : const QStyleOptionViewItem &option : view options
+//              const QModelIndex &index : index of this item
+//  [ 戻り値 ] : QSize : size hint
+//--------------------------------------------------------------------------
 QSize PlaybackRowDelegate::sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const
 {
     return QSize( 0, 36 );

@@ -10,6 +10,12 @@
 
 #include <QListWidgetItem>
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PlaybackControl
+//  [ 機　能 ] : Constructor for PlaybackControl
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PlaybackControl::PlaybackControl( QWidget *parent )
     : PanelControlBase( parent ),
       m_list_view( this ),

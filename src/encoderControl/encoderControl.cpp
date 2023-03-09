@@ -16,6 +16,12 @@
 
 static const char *g_encoder_label_format = "%1\n%2";
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : EncoderControl
+//  [ 機　能 ] : Constructor for EncoderControl
+//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 EncoderControl::EncoderControl( QWidget *parent )
     : PanelControlBase( parent ),
       m_encoder_background( this ),

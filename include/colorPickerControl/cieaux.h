@@ -66,8 +66,6 @@ public:
     CPointF P( double pos ) const;
 
     rgb_t GetInterColor( const CPointF &p ) const;
-    rgb_t GetInterColor( double p ) const;
-    CPointF GetCrossPoint( const CLineF &l );
     static void AddSegment( const CLineF &l, std::vector<CPointF> &points, const CLineF &colorLine, int n );
 
 private:

@@ -8,6 +8,12 @@
 #include "paletteControl/paletteControl_define.h"
 #include "utility.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : PaletteControl
+//  [ 機　能 ] : Constructor for PaletteControl
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
     m_title_label( this ),

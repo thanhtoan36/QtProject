@@ -8,6 +8,12 @@
 #include <QPainter>
 #include <QDebug>
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : GridBackground
+//  [ 機　能 ] : Constructor for GridBackground
+//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 GridBackground::GridBackground( QWidget *parent )
     : QWidget( parent ),
       m_gridSize( 0, 0 ),
@@ -22,6 +28,12 @@ GridBackground::GridBackground( QWidget *parent )
     setAttribute( Qt::WA_TransparentForMouseEvents );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : paintEvent
+//  [ 機　能 ] : paint the widget
+//  [ 引　数 ] : QPaintEvent *e : paint event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void GridBackground::paintEvent( QPaintEvent *e )
 {
     Q_UNUSED( e );

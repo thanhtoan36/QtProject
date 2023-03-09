@@ -7,6 +7,12 @@
 #include "playbackControl/listWidgetGridLineOverlay.h"
 #include <QPainter>
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : ListWidgetGridLineOverlay
+//  [ 機　能 ] : Constructor for ListWidgetGridLineOverlay
+//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 ListWidgetGridLineOverlay::ListWidgetGridLineOverlay( QWidget *parent )
     : QWidget( parent ),
       m_columns_width()
@@ -25,6 +31,12 @@ void ListWidgetGridLineOverlay::SetColumnsWidth( const QVector<int> &value )
     m_columns_width = value;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : paintEvent
+//  [ 機　能 ] : paint the widget
+//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 void ListWidgetGridLineOverlay::paintEvent( QPaintEvent *e )
 {
     Q_UNUSED( e );

@@ -7,6 +7,12 @@
 #include "encoderControl/encoderControlHorizon.h"
 #include "encoderControl/encoderControl_define.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : EncoderControlHorizon
+//  [ 機　能 ] : Constructor for EncoderControlHorizon
+//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 戻り値 ] : void
+//--------------------------------------------------------------------------
 EncoderControlHorizon::EncoderControlHorizon( QWidget *parent )
     : EncoderControl( parent ),
       m_button_switch_panel_picker( this ),
