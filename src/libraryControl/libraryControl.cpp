@@ -12,8 +12,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : LibraryControl
-//  [ 機　能 ] : Constructor for LibraryControl
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : ライブラリコントロールのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 LibraryControl::LibraryControl( QWidget *parent ) : PanelControlBase( parent ),
@@ -453,9 +453,9 @@ void LibraryControl::OnHistoryLibButtonClicked()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : ModeStartPoint
-//  [ 機　能   ] : Upper left corner of mode buttons
+//  [ 機　能   ] : モードボタンの左上隅
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : QPoint : coordinates
+//  [ 戻り値    ] : QPoint : 座標
 //--------------------------------------------------------------------------
 QPoint LibraryControl::ModeStartPoint() const
 {
@@ -464,8 +464,8 @@ QPoint LibraryControl::ModeStartPoint() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetModeStartPoint
-//  [ 機　能   ] : Set Upper left corner of mode buttons
-//  [ 引　数   ] : QPoint point : coordinates
+//  [ 機　能   ] : モードボタンの左上隅の設定
+//  [ 引　数   ] : QPoint point : 座標
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetModeStartPoint( QPoint point )
@@ -475,9 +475,9 @@ void LibraryControl::SetModeStartPoint( QPoint point )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : MaxGroupPages
-//  [ 機　能   ] : Get number of group pages
+//  [ 機　能   ] : グループページ数の取得
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : int : group pages
+//  [ 戻り値    ] : int : グループページ
 //--------------------------------------------------------------------------
 int LibraryControl::MaxGroupPages() const
 {
@@ -486,9 +486,9 @@ int LibraryControl::MaxGroupPages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : MaxHistoryPages
-//  [ 機　能   ] : Get number of history pages
+//  [ 機　能   ] : 最近使ったもののページ数の取得
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : int : history pages
+//  [ 戻り値    ] : int : 最近使ったもののページ
 //--------------------------------------------------------------------------
 int LibraryControl::MaxHistoryPages() const
 {
@@ -497,9 +497,9 @@ int LibraryControl::MaxHistoryPages() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : ModeButtonsPerPage
-//  [ 機　能   ] : Get number of mode buttons in each page
+//  [ 機　能   ] : 各ページのモードボタンの数を取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : int : number of buttons
+//  [ 戻り値    ] : int : ボタンの数
 //--------------------------------------------------------------------------
 int LibraryControl::ModeButtonsPerPage() const
 {
@@ -508,9 +508,9 @@ int LibraryControl::ModeButtonsPerPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : LibraryButtonsPerPage
-//  [ 機　能   ] : Get number of library buttons in each page
+//  [ 機　能   ] : 各ページのライブラリボタンの数を取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : int : number of buttons
+//  [ 戻り値    ] : int : ボタンの数
 //--------------------------------------------------------------------------
 int LibraryControl::LibraryButtonsPerPage() const
 {
@@ -643,9 +643,9 @@ void LibraryControl::UpdateHistoryTab()
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : LibraryStartPoint
-//  [ 機　能   ] : Upper left corner of library buttons
+//  [ 機　能   ] : ライブラリボタンの左上隅
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : QPoint : coordinates
+//  [ 戻り値    ] : QPoint : 座標
 //--------------------------------------------------------------------------
 QPoint LibraryControl::LibraryStartPoint() const
 {
@@ -654,8 +654,8 @@ QPoint LibraryControl::LibraryStartPoint() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetLibraryStartPoint
-//  [ 機　能   ] : Set Upper left corner of library buttons
-//  [ 引　数   ] : QPoint point : coordinates
+//  [ 機　能   ] : ライブラリボタンの左上隅を設定する
+//  [ 引　数   ] : QPoint point : 座標
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetLibraryStartPoint( QPoint point )
@@ -665,9 +665,9 @@ void LibraryControl::SetLibraryStartPoint( QPoint point )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : CurrentGroupPage
-//  [ 機　能   ] : Get the current group page
+//  [ 機　能   ] : 現在のグループページを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : int : current page
+//  [ 戻り値    ] : int : 現在のページ
 //--------------------------------------------------------------------------
 int LibraryControl::CurrentGroupPage() const
 {
@@ -676,9 +676,9 @@ int LibraryControl::CurrentGroupPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetCurrentGroupPage
-//  [ 機　能   ] : Set the current group page
-//  [ 引　数   ] : int page: current page
-//  [ 戻り値    ] : int : current page
+//  [ 機　能   ] : 現在のグループページを設定する
+//  [ 引　数   ] : int page: 現在のページ
+//  [ 戻り値    ] : int : 現在のページ
 //--------------------------------------------------------------------------
 void LibraryControl::SetCurrentGroupPage( int page )
 {
@@ -695,9 +695,9 @@ void LibraryControl::SetCurrentGroupPage( int page )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : CurrentHistoryPage
-//  [ 機　能   ] : Get the current history page
+//  [ 機　能   ] : 現在の最近使ったもののページを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : int : current page
+//  [ 戻り値    ] : int : 現在のページ
 //--------------------------------------------------------------------------
 int LibraryControl::CurrentHistoryPage() const
 {
@@ -706,9 +706,9 @@ int LibraryControl::CurrentHistoryPage() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetCurrentHistoryPage
-//  [ 機　能   ] : Set the current history page
-//  [ 引　数   ] : int page: current page
-//  [ 戻り値    ] : int : current page
+//  [ 機　能   ] : 現在の最近使ったもののページを設定する
+//  [ 引　数   ] : int page: 現在のページ
+//  [ 戻り値    ] : int : 現在のページ
 //--------------------------------------------------------------------------
 void LibraryControl::SetCurrentHistoryPage( int page )
 {
@@ -725,9 +725,9 @@ void LibraryControl::SetCurrentHistoryPage( int page )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedGroupMode
-//  [ 機　能   ] : Get the selected group mode
+//  [ 機　能   ] : 選択したグループモードを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : QString : selected mode name
+//  [ 戻り値    ] : QString : 選択したモード名
 //--------------------------------------------------------------------------
 QString LibraryControl::SelectedGroupMode() const
 {
@@ -736,8 +736,8 @@ QString LibraryControl::SelectedGroupMode() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedGroupMode
-//  [ 機　能   ] : Set the selected group mode
-//  [ 引　数   ] : const QString &mode : selected mode
+//  [ 機　能   ] : 選択したグループモードを設定する
+//  [ 引　数   ] : const QString &mode : 選択したモード
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedGroupMode( const QString &mode )
@@ -753,9 +753,9 @@ void LibraryControl::SetSelectedGroupMode( const QString &mode )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedHistoryMode
-//  [ 機　能   ] : Get the selected history mode
+//  [ 機　能   ] : 選択した最近使ったもののモードを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : QString : selected mode name
+//  [ 戻り値    ] : QString : 選択したモード名
 //--------------------------------------------------------------------------
 QString LibraryControl::SelectedHistoryMode() const
 {
@@ -764,8 +764,8 @@ QString LibraryControl::SelectedHistoryMode() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedHistoryMode
-//  [ 機　能   ] : Set the selected history mode
-//  [ 引　数   ] : const QString &mode : selected mode
+//  [ 機　能   ] : 選択した最近使ったもののモードを設定する
+//  [ 引　数   ] : const QString &mode : 選択したモード
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedHistoryMode( const QString &mode )
@@ -781,9 +781,9 @@ void LibraryControl::SetSelectedHistoryMode( const QString &mode )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedLibraryButton
-//  [ 機　能   ] : Get the selected library button
+//  [ 機　能   ] : 選択したライブラリボタンを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : const LibraryControlButton & : selected button
+//  [ 戻り値    ] : const LibraryControlButton & : 選択したボタン
 //--------------------------------------------------------------------------
 const LibraryControlButton &LibraryControl::SelectedLibraryButton() const
 {
@@ -792,8 +792,8 @@ const LibraryControlButton &LibraryControl::SelectedLibraryButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedLibraryButton
-//  [ 機　能   ] : Set the selected library button
-//  [ 引　数   ] : const LibraryControlButton &button : selected button
+//  [ 機　能   ] : 選択したライブラリボタンを設定する
+//  [ 引　数   ] : const LibraryControlButton &button : 選択したボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedLibraryButton( const LibraryControlButton &button )
@@ -809,9 +809,9 @@ void LibraryControl::SetSelectedLibraryButton( const LibraryControlButton &butto
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedHistoryButton
-//  [ 機　能   ] : Get the selected history button
+//  [ 機　能   ] : 選択した最近使ったもののボタンを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : const LibraryControlButton & : selected button
+//  [ 戻り値    ] : const LibraryControlButton & : 選択したボタン
 //--------------------------------------------------------------------------
 const LibraryControlButton &LibraryControl::SelectedHistoryButton() const
 {
@@ -820,8 +820,8 @@ const LibraryControlButton &LibraryControl::SelectedHistoryButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedHistoryButton
-//  [ 機　能   ] : Set the selected history button
-//  [ 引　数   ] : const LibraryControlButton &button : selected button
+//  [ 機　能   ] : 選択した最近使ったもののボタンを設定する
+//  [ 引　数   ] : const LibraryControlButton &button : 選択したボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedHistoryButton( const LibraryControlButton &button )
@@ -837,9 +837,9 @@ void LibraryControl::SetSelectedHistoryButton( const LibraryControlButton &butto
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedFooterButton
-//  [ 機　能   ] : Get the selected footer button
+//  [ 機　能   ] : 選択したフッターボタンを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : const QString & : selected button
+//  [ 戻り値    ] : const QString & : 選択したボタン
 //--------------------------------------------------------------------------
 const QString &LibraryControl::SelectedFooterButton() const
 {
@@ -848,8 +848,8 @@ const QString &LibraryControl::SelectedFooterButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedFooterButton
-//  [ 機　能   ] : Set the selected footer button
-//  [ 引　数   ] : const QString &button : selected button
+//  [ 機　能   ] : 選択したフッターボタンを設定する
+//  [ 引　数   ] : const QString &button : 選択したボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedFooterButton( const QString &button )
@@ -865,9 +865,9 @@ void LibraryControl::SetSelectedFooterButton( const QString &button )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedModeButton
-//  [ 機　能   ] : Get the selected mode button
+//  [ 機　能   ] : 選択したモードボタンを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : const QString & : selected button
+//  [ 戻り値    ] : const QString & : 選択したボタン
 //--------------------------------------------------------------------------
 const QString &LibraryControl::SelectedModeButton() const
 {
@@ -876,8 +876,8 @@ const QString &LibraryControl::SelectedModeButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedModeButton
-//  [ 機　能   ] : Set the selected mode button
-//  [ 引　数   ] : const QString &button : selected button
+//  [ 機　能   ] : 選択したモードボタンを設定する
+//  [ 引　数   ] : const QString &button : 選択したボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedModeButton( const QString &button )
@@ -893,9 +893,9 @@ void LibraryControl::SetSelectedModeButton( const QString &button )
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SelectedHistoryModeButton
-//  [ 機　能   ] : Get the selected history mode button
+//  [ 機　能   ] : 選択した最近使ったもののモードボタンを取得する
 //  [ 引　数   ] : void
-//  [ 戻り値    ] : const QString & : selected button
+//  [ 戻り値    ] : const QString & : 選択したボタン
 //--------------------------------------------------------------------------
 const QString &LibraryControl::SelectedHistoryModeButton() const
 {
@@ -904,8 +904,8 @@ const QString &LibraryControl::SelectedHistoryModeButton() const
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : SetSelectedHistoryModeButton
-//  [ 機　能   ] : Set the selected history mode button
-//  [ 引　数   ] : const QString &button : selected button
+//  [ 機　能   ] : 選択した最近使ったもののモードボタンを設定する
+//  [ 引　数   ] : const QString &button : 選択したボタン
 //  [ 戻り値    ] : void
 //--------------------------------------------------------------------------
 void LibraryControl::SetSelectedHistoryModeButton( const QString &button )

@@ -9,8 +9,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SelectButton
-//  [ 機　能 ] : Constructor for SelectButton
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : SelectButtonのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 SelectButton::SelectButton( QWidget *parent ) : ToggleButton( parent )
@@ -21,7 +21,7 @@ SelectButton::SelectButton( QWidget *parent ) : ToggleButton( parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : OnClicked
-//  [ 機　能 ] : Event when clicked
+//  [ 機　能 ] : クリック時のイベント
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------

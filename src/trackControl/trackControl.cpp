@@ -9,8 +9,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TrackControl
-//  [ 機　能 ] : Constructor for TrackControl
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : トラックコントロールのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 TrackControl::TrackControl( QWidget *parent )

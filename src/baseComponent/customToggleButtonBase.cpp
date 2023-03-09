@@ -25,8 +25,8 @@ CustomToggleButtonBase:checked {
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CustomToggleButtonBase
-//  [ 機　能 ] : Constructor for CustomToggleButtonBase
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : CustomToggleButtonBaseのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 CustomToggleButtonBase::CustomToggleButtonBase( QWidget *parent ) : CustomButtonBase( parent ),

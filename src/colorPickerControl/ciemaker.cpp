@@ -20,9 +20,9 @@ std::vector<CPointF> g_cie_curve{{0.172787, 0.004800}, {0.170806, 0.005472}, {0.
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GetCieCurve
-//  [ 機　能 ] : Get CIE curve
+//  [ 機　能 ] : CIEカーブを取得する
 //  [ 引　数 ] : void
-//  [ 戻り値 ] : std::vector<CPointF> : The curve
+//  [ 戻り値 ] : std::vector<CPointF> : カーブ
 //--------------------------------------------------------------------------
 std::vector<CPointF> &GetCieCurve()
 {
@@ -31,9 +31,9 @@ std::vector<CPointF> &GetCieCurve()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CIEMaker
-//  [ 機　能 ] : Constructor for CIEMaker
-//  [ 引　数 ] : Qint interp_num : number of interpolations
-//              double brightness : brightness
+//  [ 機　能 ] : CIEMakerのコンストラクター
+//  [ 引　数 ] : Qint interp_num : 内挿の数
+//              double brightness : 輝度
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 CIEMaker::CIEMaker( int interp_num, double brightness ):
@@ -45,7 +45,7 @@ CIEMaker::CIEMaker( int interp_num, double brightness ):
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : InitData
-//  [ 機　能 ] : Init CIE data
+//  [ 機　能 ] : CIEデータの初期化
 //  [ 引　数 ] : void
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
@@ -118,9 +118,9 @@ void CIEMaker::InitData()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GetColor
-//  [ 機　能 ] : Get color at a point
-//  [ 引　数 ] : QPointF xy : The point to get color
-//  [ 戻り値 ] : QColor : color
+//  [ 機　能 ] : ポイントで色を取得する
+//  [ 引　数 ] : QPointF xy : カラーを取得するポイント
+//  [ 戻り値 ] : QColor : カラー
 //--------------------------------------------------------------------------
 QColor CIEMaker::GetColor( QPointF xy ) const
 {
@@ -170,9 +170,9 @@ QColor CIEMaker::GetColor( QPointF xy ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : DrawCIEDiagram
-//  [ 機　能 ] : Draw CIE into an image
-//  [ 引　数 ] : int pic_size : image size
-//  [ 戻り値 ] : QImage : result
+//  [ 機　能 ] : CIEを画像に描画する
+//  [ 引　数 ] : int pic_size : 画像サイズ
+//  [ 戻り値 ] : QImage : リザルト
 //--------------------------------------------------------------------------
 QImage CIEMaker::DrawCIEDiagram( int pic_size )
 {
@@ -193,11 +193,11 @@ QImage CIEMaker::DrawCIEDiagram( int pic_size )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GetCrossPoint
-//  [ 機　能 ] : Get cross point
-//  [ 引　数 ] : const CLineF &l : line
-//              int start : start index
-//              int end : end index
-//  [ 戻り値 ] : CPointF : the cross point
+//  [ 機　能 ] : クロスポイントの取得
+//  [ 引　数 ] : const CLineF &l : ライン
+//              int start : スタートインデックス
+//              int end : エンドインデックス
+//  [ 戻り値 ] : CPointF : クロスポイント
 //--------------------------------------------------------------------------
 CPointF CIEMaker::GetCrossPoint( const CLineF &l, int start, int end ) const
 {
@@ -221,9 +221,9 @@ CPointF CIEMaker::GetCrossPoint( const CLineF &l, int start, int end ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CrossArea
-//  [ 機　能 ] : Get cross area
-//  [ 引　数 ] : const CPointF &p: the point to calculate
-//  [ 戻り値 ] : AreaFlag : which area is being returned
+//  [ 機　能 ] : クロスエリアの取得
+//  [ 引　数 ] : const CPointF &p: 計算するポイント
+//  [ 戻り値 ] : AreaFlag : どのエリアがリターンされているか
 //--------------------------------------------------------------------------
 CIEMaker::AreaFlag CIEMaker::CrossArea( const CPointF &p ) const
 {
@@ -245,9 +245,9 @@ CIEMaker::AreaFlag CIEMaker::CrossArea( const CPointF &p ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : IsPointInsideBound
-//  [ 機　能 ] : Check if a point is inside the boundary
-//  [ 引　数 ] : const CPointF &p: the point to check
-//  [ 戻り値 ] : bool : True if the point is inside bound, otherwise False
+//  [ 機　能 ] : ポイントが境界内にあるかどうかを確認する
+//  [ 引　数 ] : const CPointF &p: チェックするポイント
+//  [ 戻り値 ] : bool : ポイントが境界内にある場合は True、そうでない場合は False
 //--------------------------------------------------------------------------
 bool CIEMaker::IsPointInsideBound( const CPointF &p ) const
 {
@@ -275,11 +275,11 @@ bool CIEMaker::IsPointInsideBound( const CPointF &p ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : IsPointInsideBound
-//  [ 機　能 ] : Check if a point is inside the boundary
-//  [ 引　数 ] : const CPointF &p: the point to check
-//              int start : start index
-//              int end : end index
-//  [ 戻り値 ] : bool : True if the point is inside bound, otherwise False
+//  [ 機　能 ] : ポイントが境界内にあるかどうかを確認する
+//  [ 引　数 ] : const CPointF &p: チェックするポイント
+//              int start : スタートインデックス
+//              int end : エンドインデックス
+//  [ 戻り値 ] : bool : ポイントが境界内にある場合は True、そうでない場合は False
 //--------------------------------------------------------------------------
 bool CIEMaker::IsPointInsideBound( const CPointF &p, int start, int end ) const
 {

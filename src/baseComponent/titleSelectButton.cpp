@@ -11,8 +11,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TitleSelectButton
-//  [ 機　能 ] : Constructor for TitleSelectButton
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : TitleSelectButtonのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 TitleSelectButton::TitleSelectButton( QWidget *parent ) : SelectButton( parent ),
@@ -90,8 +90,8 @@ void TitleSelectButton::SetTitle( const QString &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : resizeEvent
-//  [ 機　能 ] : Event when resize
-//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 機　能 ] : リサイズ時のイベント
+//  [ 引　数 ] : QResizeEvent *event: リサイズイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TitleSelectButton::resizeEvent( QResizeEvent *event )

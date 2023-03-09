@@ -17,8 +17,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : MarkingPickerPopup
-//  [ 機　能 ] : Constructor for MarkingPickerPopup
-//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 機　能 ] : MarkingPickerPopupのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 MarkingPickerPopup::MarkingPickerPopup( QWidget *parent )

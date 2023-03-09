@@ -9,8 +9,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ListWidgetGridLineOverlay
-//  [ 機　能 ] : Constructor for ListWidgetGridLineOverlay
-//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 機　能 ] : ListWidgetGridLineOverlayのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 ListWidgetGridLineOverlay::ListWidgetGridLineOverlay( QWidget *parent )
@@ -33,8 +33,8 @@ void ListWidgetGridLineOverlay::SetColumnsWidth( const QVector<int> &value )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : paintEvent
-//  [ 機　能 ] : paint the widget
-//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 機　能 ] : ウィジェットをペイントする
+//  [ 引　数 ] : QPaintEvent *event : ペイントイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void ListWidgetGridLineOverlay::paintEvent( QPaintEvent *e )

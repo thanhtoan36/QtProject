@@ -15,8 +15,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TrackPoint
-//  [ 機　能 ] : Constructor for TrackPoint
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : トラックポイントのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 TrackPoint::TrackPoint( QWidget *parent )
@@ -55,8 +55,8 @@ void TrackPoint::SetCoordinate( QPoint pos )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : paintEvent
-//  [ 機　能 ] : paint the widget
-//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 機　能 ] : ウィジェットをペイントする
+//  [ 引　数 ] : QPaintEvent *event : ペイントイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void TrackPoint::paintEvent( QPaintEvent *event )
@@ -69,8 +69,8 @@ void TrackPoint::paintEvent( QPaintEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PantiltControl
-//  [ 機　能 ] : Constructor for PantiltControl
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : パンチルトコントロールのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PantiltControl::PantiltControl( QWidget *parent )
@@ -150,8 +150,8 @@ QVector<PantiltControl::TrackPointFloatParamGroup> PantiltControl::TrackPoints()
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : paintEvent
-//  [ 機　能 ] : paint the widget
-//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 機　能 ] : ウィジェットをペイントする
+//  [ 引　数 ] : QPaintEvent *event : ペイントイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::paintEvent( QPaintEvent *event )
@@ -187,8 +187,8 @@ void PantiltControl::paintEvent( QPaintEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : resizeEvent
-//  [ 機　能 ] : Event when resize
-//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 機　能 ] : リサイズ時のイベント
+//  [ 引　数 ] : QResizeEvent *event: リサイズイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::resizeEvent( QResizeEvent *event )
@@ -200,8 +200,8 @@ void PantiltControl::resizeEvent( QResizeEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : mousePressEvent
-//  [ 機　能 ] : Event when press
-//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 機　能 ] : 押したときのイベント
+//  [ 引　数 ] : QMouseEvent *event: マウスイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::mousePressEvent( QMouseEvent *event )
@@ -223,8 +223,8 @@ void PantiltControl::mousePressEvent( QMouseEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : mouseReleaseEvent
-//  [ 機　能 ] : Event when release mouse
-//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 機　能 ] : マウスを離したときのイベント
+//  [ 引　数 ] : QMouseEvent *event: マウスイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::mouseReleaseEvent( QMouseEvent *event )
@@ -239,8 +239,8 @@ void PantiltControl::mouseReleaseEvent( QMouseEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : mouseMoveEvent
-//  [ 機　能 ] : Event when move mouse
-//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 機　能 ] : マウス移動時のイベント
+//  [ 引　数 ] : QMouseEvent *event: マウスイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PantiltControl::mouseMoveEvent( QMouseEvent *event )

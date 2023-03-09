@@ -10,8 +10,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PaletteControl
-//  [ 機　能 ] : Constructor for PaletteControl
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : パレットコントロールのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PaletteControl::PaletteControl( QWidget *parent ) : PanelControlBase( parent ),

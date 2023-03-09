@@ -91,8 +91,8 @@ QLabel#playback_header {
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PanelControlBase
-//  [ 機　能 ] : Constructor for PanelControlBase
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : PanelControlBaseのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PanelControlBase::PanelControlBase( QWidget *parent )
@@ -145,8 +145,8 @@ int PanelControlBase::CalculateNumberOfVisibleItems( int item_count, int items_p
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : resizeEvent
-//  [ 機　能 ] : Event when resize
-//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 機　能 ] : リサイズ時のイベント
+//  [ 引　数 ] : QResizeEvent *event: リサイズイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PanelControlBase::resizeEvent( QResizeEvent *event )

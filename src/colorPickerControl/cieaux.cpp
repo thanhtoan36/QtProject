@@ -9,11 +9,11 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GetInterpPoint
-//  [ 機　能 ] : Get the interpolation point
-//  [ 引　数 ] : const CPointF &p1: The 1st point
-//              const CPointF &p2: The 2nd point
-//              double pos: The position to check
-//  [ 戻り値 ] : CPointF : Interpolation point
+//  [ 機　能 ] : 内挿ポイントを取得する
+//  [ 引　数 ] : const CPointF &p1: 1点目
+//              const CPointF &p2: 2点目
+//              double pos: チェックするポジション
+//  [ 戻り値 ] : CPointF : 内挿ポイント
 //--------------------------------------------------------------------------
 CPointF CPointF::GetInterpPoint( const CPointF &p1, const CPointF &p2, double pos )
 {
@@ -28,9 +28,9 @@ CPointF CPointF::GetInterpPoint( const CPointF &p1, const CPointF &p2, double po
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : SetInterpColor
-//  [ 機　能 ] : Set the interpolation color
-//  [ 引　数 ] : const CPointF &p1: The 1st point
-//              const CPointF &p2: The 2nd point
+//  [ 機　能 ] : 内挿カラーを設定する
+//  [ 引　数 ] : const CPointF &p1: 1点目
+//              const CPointF &p2: 2点目
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CPointF::SetInterpColor( const CPointF &p1, const CPointF &p2 )
@@ -47,9 +47,9 @@ void CPointF::SetInterpColor( const CPointF &p1, const CPointF &p2 )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GetPointDist
-//  [ 機　能 ] : Set point distance
-//  [ 引　数 ] : const CPointF &p : the point to calculate
-//  [ 戻り値 ] : double: distance
+//  [ 機　能 ] : ポイント距離の設定
+//  [ 引　数 ] : const CPointF &p : 計算するポイント
+//  [ 戻り値 ] : double: 距離
 //--------------------------------------------------------------------------
 double CPointF::GetPointDist( const CPointF &p ) const
 {
@@ -58,9 +58,9 @@ double CPointF::GetPointDist( const CPointF &p ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CLineF
-//  [ 機　能 ] : Constructor for CLineF
-//  [ 引　数 ] : const CPointF &p1: The 1st point
-//              const CPointF &p2: The 2nd point
+//  [ 機　能 ] : CLineFのコンストラクター
+//  [ 引　数 ] : const CPointF &p1: 1点目
+//              const CPointF &p2: 2点目
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 CLineF::CLineF( const CPointF &p1, const CPointF &p2 )
@@ -73,9 +73,9 @@ CLineF::CLineF( const CPointF &p1, const CPointF &p2 )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : P
-//  [ 機　能 ] : Helper function for calculation
-//  [ 引　数 ] : double pos : position
-//  [ 戻り値 ] : CPointF : point
+//  [ 機　能 ] : 計算用ヘルパー関数
+//  [ 引　数 ] : double pos : ポジション
+//  [ 戻り値 ] : CPointF : ポイント
 //--------------------------------------------------------------------------
 CPointF CLineF::P( double pos ) const
 {
@@ -86,9 +86,9 @@ CPointF CLineF::P( double pos ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GetInterColor
-//  [ 機　能 ] : Get color at a point
-//  [ 引　数 ] : const CPointF &p : position
-//  [ 戻り値 ] : rgb_t : RGB color
+//  [ 機　能 ] : ポイントで色を取得する
+//  [ 引　数 ] : const CPointF &p : ポジション
+//  [ 戻り値 ] : rgb_t : RGBカラー
 //--------------------------------------------------------------------------
 rgb_t CLineF::GetInterColor( const CPointF &p ) const
 {
@@ -99,11 +99,11 @@ rgb_t CLineF::GetInterColor( const CPointF &p ) const
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : AddSegment
-//  [ 機　能 ] : Add segment to a line
-//  [ 引　数 ] : const CLineF &l : the line
-//              std::vector<CPointF> &points : list of points
-//              const CLineF &colorLine : the line with color
-//              int n : number of steps
+//  [ 機　能 ] : ラインにセグメントを追加する
+//  [ 引　数 ] : const CLineF &l : ライン
+//              std::vector<CPointF> &points : ポイントのリスト
+//              const CLineF &colorLine : 色のあるライン
+//              int n : ステップ数
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CLineF::AddSegment( const CLineF &l, std::vector<CPointF> &points, const CLineF &colorLine, int n )

@@ -9,8 +9,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : EncoderControlHorizon
-//  [ 機　能 ] : Constructor for EncoderControlHorizon
-//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 機　能 ] : エンコーダーコントロー平水のコンストラクター
+//  [ 引　数 ] : QWidget * parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 EncoderControlHorizon::EncoderControlHorizon( QWidget *parent )

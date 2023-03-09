@@ -12,8 +12,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PlaybackControl
-//  [ 機　能 ] : Constructor for PlaybackControl
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : プレイバックコントロールのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PlaybackControl::PlaybackControl( QWidget *parent )

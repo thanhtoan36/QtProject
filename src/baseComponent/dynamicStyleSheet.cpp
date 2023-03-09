@@ -10,8 +10,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : DynamicStyleSheet
-//  [ 機　能 ] : Constructor for DynamicStyleSheet
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : DynamicStyleSheetのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 DynamicStyleSheet::DynamicStyleSheet( QWidget *parent )

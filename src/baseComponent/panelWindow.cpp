@@ -8,8 +8,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PanelWindow
-//  [ 機　能 ] : Constructor for PanelWindow
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : PanelWindowのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PanelWindow::PanelWindow( QWidget *parent )

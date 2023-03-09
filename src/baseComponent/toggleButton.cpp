@@ -11,7 +11,7 @@
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : ToggleButton
 //  [ 機　能 ] : Constructor for ToggleButton
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 ToggleButton::ToggleButton( QWidget *parent )

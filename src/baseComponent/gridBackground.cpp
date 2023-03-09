@@ -10,8 +10,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : GridBackground
-//  [ 機　能 ] : Constructor for GridBackground
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : GridBackgroundのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 GridBackground::GridBackground( QWidget *parent )
@@ -30,8 +30,8 @@ GridBackground::GridBackground( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : paintEvent
-//  [ 機　能 ] : paint the widget
-//  [ 引　数 ] : QPaintEvent *e : paint event data
+//  [ 機　能 ] : ウィジェットをペイントする
+//  [ 引　数 ] : QPaintEvent *e : ペイントイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void GridBackground::paintEvent( QPaintEvent *e )

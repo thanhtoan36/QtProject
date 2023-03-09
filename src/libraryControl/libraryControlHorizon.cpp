@@ -11,8 +11,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : LibraryControlHorizon
-//  [ 機　能 ] : Constructor for LibraryControlHorizon
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : ライブラリコントロール水平のコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 LibraryControlHorizon::LibraryControlHorizon( QWidget *parent ) : LibraryControl( parent )

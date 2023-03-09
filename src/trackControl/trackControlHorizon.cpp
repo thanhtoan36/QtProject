@@ -9,8 +9,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : TrackControlHorizon
-//  [ 機　能 ] : Constructor for TrackControlHorizon
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : トラックコントロール水平のコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 TrackControlHorizon::TrackControlHorizon( QWidget *parent )

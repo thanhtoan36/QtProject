@@ -9,8 +9,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PaletteControlHorizon
-//  [ 機　能 ] : Constructor for PaletteControlHorizon
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : パレットコントロール水平のコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PaletteControlHorizon::PaletteControlHorizon( QWidget *parent ) : PaletteControl( parent )

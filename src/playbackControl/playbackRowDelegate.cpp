@@ -10,8 +10,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : PlaybackRowDelegate
-//  [ 機　能 ] : Constructor for PlaybackRowDelegate
-//  [ 引　数 ] : QWidget *parent : parent widget
+//  [ 機　能 ] : PlaybackRowDelegateのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 PlaybackRowDelegate::PlaybackRowDelegate( QObject *parent )
@@ -23,10 +23,10 @@ PlaybackRowDelegate::PlaybackRowDelegate( QObject *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : paint
-//  [ 機　能 ] : paint the widget
-//  [ 引　数 ] : QPainter *painter : painter
-//              const QStyleOptionViewItem &option : paint options
-//              const QModelIndex &index : index of this item
+//  [ 機　能 ] : ウィジェットをペイントする
+//  [ 引　数 ] : QPainter *painter : ペインター
+//              const QStyleOptionViewItem &option : ペイントオプション
+//              const QModelIndex &index : このアイテムのインデックス
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void PlaybackRowDelegate::paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const
@@ -99,10 +99,10 @@ void PlaybackRowDelegate::paint( QPainter *painter, const QStyleOptionViewItem &
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : sizeHint
-//  [ 機　能 ] : Hint for item size
-//  [ 引　数 ] : const QStyleOptionViewItem &option : view options
-//              const QModelIndex &index : index of this item
-//  [ 戻り値 ] : QSize : size hint
+//  [ 機　能 ] : 商品サイズのヒント
+//  [ 引　数 ] : const QStyleOptionViewItem &option : ビューオプション
+//              const QModelIndex &index : このアイテムのインデックス
+//  [ 戻り値 ] : QSize : サイズヒント
 //--------------------------------------------------------------------------
 QSize PlaybackRowDelegate::sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const
 {

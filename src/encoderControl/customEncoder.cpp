@@ -15,8 +15,8 @@
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : CustomEncoder
-//  [ 機　能 ] : Constructor for CustomEncoder
-//  [ 引　数 ] : QWidget * parent : parent widget
+//  [ 機　能 ] : カスタム エンコーダーのコンストラクター
+//  [ 引　数 ] : QWidget *parent : 親ウィジェット
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 CustomEncoder::CustomEncoder( QWidget *parent )
@@ -51,8 +51,8 @@ CustomEncoder::CustomEncoder( QWidget *parent )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : paintEvent
-//  [ 機　能 ] : paint the widget
-//  [ 引　数 ] : QPaintEvent *event : paint event data
+//  [ 機　能 ] : ウィジェットをペイントする
+//  [ 引　数 ] : QPaintEvent *event : ペイントイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomEncoder::paintEvent( QPaintEvent *event )
@@ -92,8 +92,8 @@ void CustomEncoder::paintEvent( QPaintEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : mousePressEvent
-//  [ 機　能 ] : Event when press
-//  [ 引　数 ] : QMouseEvent *event: mouse event data
+//  [ 機　能 ] : 押したときのイベント
+//  [ 引　数 ] : QMouseEvent *event: マウスイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomEncoder::mousePressEvent( QMouseEvent *event )
@@ -111,8 +111,8 @@ void CustomEncoder::mousePressEvent( QMouseEvent *event )
 
 //--------------------------------------------------------------------------
 //  [ 関数名 ] : resizeEvent
-//  [ 機　能 ] : Event when resize
-//  [ 引　数 ] : QResizeEvent *event: resize event data
+//  [ 機　能 ] : リサイズ時のイベント
+//  [ 引　数 ] : QResizeEvent *event: リサイズイベントのデータ
 //  [ 戻り値 ] : void
 //--------------------------------------------------------------------------
 void CustomEncoder::resizeEvent( QResizeEvent *event )
