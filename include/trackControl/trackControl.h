@@ -42,6 +42,8 @@ protected:
     void SetMode( TrackMode value );
     void SetValueMode( TrackValueMode value );
 
+    static float MaxValue( TrackMode mode );
+
     QVector<PantiltControl::TrackPointFloatParamGroup> MapToScreen( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const;
     QVector<PantiltControl::TrackPointFloatParamGroup> MapToValue( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const;
 

@@ -36,7 +36,8 @@ EncoderControl::EncoderControl( QWidget *parent )
       m_encoder_labels(),
       m_encoders(),
       m_current_encoder_page( 0 ),
-      m_mode()
+      m_mode(),
+      m_previous_mode()
 {
     setFixedSize( EC_SCREENSIZE );
     m_encoders_per_page = 4;
@@ -113,6 +114,8 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
     SetMode( param->mode );
     SetType( param->type );
 
+    m_previous_mode = m_mode;
+
     m_params.clear();
     m_encoder_labels.clear();
     m_encoders.clear();
@@ -139,6 +142,12 @@ void EncoderControl::SetDispParamData( ENCODER_DISP_PARAM *param )
 
         connect( encoder.get(), &CustomEncoder::sliderMoved, this, [&]( int value )
         {
+            // TODO: 角度モードの計算の指定なし
+            if( Mode() == ENCODER_MODE_ANGLE )
+            {
+                return;
+            }
+
             auto encoder = std::find( m_encoders.begin(), m_encoders.end(), ( CustomEncoder * )sender() );
 
             if( !encoder )
@@ -199,34 +208,22 @@ void EncoderControl::OnModeChanged()
     Q_ASSERT( m_params.length() == m_encoders.length() );
     Q_ASSERT( m_params.length() == m_encoder_labels.length() );
 
-    if( Mode() == ENCODER_MODE_255 )
+    float scale = MaxValue( Mode() ) / MaxValue( m_previous_mode );
+    m_previous_mode = Mode();
+
+    for( int i = 0; i < m_params.length(); ++i )
     {
-        for( int i = 0; i < m_params.length(); ++i )
+
+        m_params[i].level *= ( scale );
+        m_params[i].max_level *= ( scale );
+
+        m_encoders[i]->setMaximum( MaxValue( Mode() ) * EC_FLOAT_TO_INT_SCALE );
+        m_encoders[i]->SetUpperRestrictValue( m_params[i].max_level * EC_FLOAT_TO_INT_SCALE );
+        m_encoders[i]->setValue( m_params[i].level * EC_FLOAT_TO_INT_SCALE );
+
+        // TODO: 角度モード計算が指定されていません。ラベルを更新しません
+        if( Mode() != ENCODER_MODE_ANGLE )
         {
-
-            m_params[i].level *= ( 255.0 / 100.0 );
-            m_params[i].max_level *= ( 255.0 / 100.0 );
-
-            m_encoders[i]->setMaximum( 255 * EC_FLOAT_TO_INT_SCALE );
-            m_encoders[i]->SetUpperRestrictValue( m_params[i].max_level * EC_FLOAT_TO_INT_SCALE );
-            m_encoders[i]->setValue( m_params[i].level * EC_FLOAT_TO_INT_SCALE );
-
-            UpdateEncoderLabelValue( i );
-        }
-    }
-
-    if( Mode() == ENCODER_MODE_PERCENT )
-    {
-        for( int i = 0; i < m_params.length(); ++i )
-        {
-
-            m_params[i].level *= ( 100.0 / 255.0 );
-            m_params[i].max_level *= ( 100.0 / 255.0 );
-
-            m_encoders[i]->setMaximum( 100 * EC_FLOAT_TO_INT_SCALE );
-            m_encoders[i]->SetUpperRestrictValue( m_params[i].max_level * EC_FLOAT_TO_INT_SCALE );
-            m_encoders[i]->setValue( m_params[i].level * EC_FLOAT_TO_INT_SCALE );
-
             UpdateEncoderLabelValue( i );
         }
     }
@@ -240,10 +237,6 @@ void EncoderControl::OnModeChanged()
 //--------------------------------------------------------------------------
 void EncoderControl::OnTypeChanged()
 {
-    if ( m_button_mode_angle.isChecked() )
-    {
-        SetMode( ENCODER_MODE_255 );
-    }
     m_button_mode_angle.setVisible( Type() == ENCODER_TYPE_POSITION );
 }
 
@@ -365,6 +358,12 @@ QVector<ENCODER_PARAM> EncoderControl::Encoders() const
 {
     QVector<ENCODER_PARAM> encoders;
 
+    if( Mode() == ENCODER_MODE_ANGLE )
+    {
+        // TODO: 計算の指定なし、空のリストを返す
+        return encoders;
+    }
+
     for( int i = 0; i < m_encoders.length(); ++i )
     {
         ENCODER_PARAM p;
@@ -392,4 +391,31 @@ void EncoderControl::SetType( EncoderType value )
 
     m_type = value;
     emit TypeChanged();
+}
+
+//--------------------------------------------------------------------------
+//  [ 関数名 ] : MaxValue
+//  [ 機　能 ] : モードの最大値
+//  [ 引　数 ] : EncoderMode mode : エンコーダ表示モード
+//  [ 戻り値 ] : float : モードの最大値
+//--------------------------------------------------------------------------
+float EncoderControl::MaxValue( EncoderMode mode )
+{
+    switch( mode )
+    {
+        case ENCODER_MODE_PERCENT:
+            return 100.0f;
+
+        case ENCODER_MODE_255:
+            return 255.0f;
+
+        case ENCODER_MODE_ANGLE:
+            // TODO: ここで角度スケールを更新します, max angle = 360?
+            return 360.0f;
+
+        default:
+            break;
+    }
+
+    return 1.0;
 }

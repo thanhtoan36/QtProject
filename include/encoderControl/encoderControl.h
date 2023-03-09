@@ -46,6 +46,8 @@ protected:
     void SetMode( EncoderMode value );
     void SetType( EncoderType value );
 
+    static float MaxValue( EncoderMode mode );
+
 protected slots:
     void OnModeChanged();
     virtual void OnTypeChanged();
@@ -83,6 +85,7 @@ protected:
 
     EncoderType m_type;
     EncoderMode m_mode;
+    EncoderMode m_previous_mode;
 };
 
 #endif // ENCODERCONTROL_H

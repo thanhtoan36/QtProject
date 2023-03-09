@@ -91,7 +91,7 @@ TrackControl::TrackControl( QWidget *parent )
         }
 
         SetMode( TRACK_MODE_ANGLE );
-        emit TrackPointsChanged();
+        // emit TrackPointsChanged();
     } );
     connect( &m_button_value_mode_relative, &SelectButton::toggled, this, [&]( bool checked )
     {
@@ -115,6 +115,12 @@ TrackControl::TrackControl( QWidget *parent )
     } );
     connect( &m_pantilt_control, &PantiltControl::TrackPointsUpdated, this, [&]()
     {
+        // TODO: 角度モードの計算の指定なし
+        if( Mode() == TRACK_MODE_ANGLE )
+        {
+            return;
+        }
+
         emit TrackPointsChanged();
     } );
     connect( this, &TrackControl::ModeChanged, this, &TrackControl::OnModeChanged );
@@ -205,6 +211,33 @@ void TrackControl::SetValueMode( TrackValueMode value )
 }
 
 //--------------------------------------------------------------------------
+//  [ 関数名 ] : MaxValue
+//  [ 機　能 ] : モードの最大値
+//  [ 引　数 ] : TrackMode mode : トラック表示モード
+//  [ 戻り値 ] : float : モードの最大値
+//--------------------------------------------------------------------------
+float TrackControl::MaxValue( TrackMode mode )
+{
+    switch( mode )
+    {
+        case TRACK_MODE_PERCENT:
+            return 100.0f;
+
+        case TRACK_MODE_255:
+            return 255.0f;
+
+        case TRACK_MODE_ANGLE:
+            // TODO: ここで角度スケールを更新します, max angle = 360?
+            return 360.0f;
+
+        default:
+            break;
+    }
+
+    return 1.0;
+}
+
+//--------------------------------------------------------------------------
 //  [ 関数名 ] : TrackPoints
 //  [ 機　能 ] : トラックポイントを取得する
 //  [ 引　数 ] : void
@@ -212,6 +245,12 @@ void TrackControl::SetValueMode( TrackValueMode value )
 //--------------------------------------------------------------------------
 QVector<TRACK_PARAM_GROUP> TrackControl::TrackPoints() const
 {
+    if( Mode() == TRACK_MODE_ANGLE )
+    {
+        // TODO: 計算の指定なし、空のリストを返す
+        return QVector<TRACK_PARAM_GROUP>();
+    }
+
     return FloatParam2IntParam( MapToValue( m_pantilt_control.TrackPoints() ) );
 }
 
@@ -223,26 +262,7 @@ QVector<TRACK_PARAM_GROUP> TrackControl::TrackPoints() const
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const
 {
-    float scale = 1.0;
-
-    switch( Mode() )
-    {
-        case TRACK_MODE_PERCENT:
-            scale = TC_TRACK_RESOLUTION / 100.0;
-            break;
-
-        case TRACK_MODE_255:
-            scale = TC_TRACK_RESOLUTION / 255.0;
-            break;
-
-        case TRACK_MODE_ANGLE:
-            // TODO: ここで角度スケールを更新します, max angle = 360?
-            scale = TC_TRACK_RESOLUTION / 360.0;
-            break;
-
-        default:
-            break;
-    }
+    float scale = TC_TRACK_RESOLUTION / MaxValue( Mode() );
 
     QVector<PantiltControl::TrackPointFloatParamGroup> result;
 
@@ -268,26 +288,7 @@ QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToScreen( co
 //--------------------------------------------------------------------------
 QVector<PantiltControl::TrackPointFloatParamGroup> TrackControl::MapToValue( const QVector<PantiltControl::TrackPointFloatParamGroup> &points ) const
 {
-    float scale = 1.0;
-
-    switch( Mode() )
-    {
-        case TRACK_MODE_PERCENT:
-            scale = TC_TRACK_RESOLUTION / 100.0;
-            break;
-
-        case TRACK_MODE_255:
-            scale = TC_TRACK_RESOLUTION / 255.0;
-            break;
-
-        case TRACK_MODE_ANGLE:
-            // TODO: ここで角度スケールを更新します, max angle = 360?
-            scale = TC_TRACK_RESOLUTION / 360.0;
-            break;
-
-        default:
-            break;
-    }
+    float scale = TC_TRACK_RESOLUTION / MaxValue( Mode() );
 
     QVector<PantiltControl::TrackPointFloatParamGroup> result;
 
