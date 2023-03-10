@@ -6,15 +6,15 @@
 #include "colorFilterControl/colorFilterControlHorizon.h"
 #include "colorFilterControl/colorFilterControl_define.h"
 
-#define BUTTONS_GRID_SIZE QSize(4, 4)
-#define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height())
+#define BUTTONS_GRID_SIZE QSize(4, 4) //グリッドサイズ
+#define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height()) //ページあたりのボタンの数
 
-#define BASE_BUTTON_X CFC_HORIZON_FIRST_BUTTON_GEOMETRY.x()
-#define BASE_BUTTON_Y CFC_HORIZON_FIRST_BUTTON_GEOMETRY.y()
-
-#define BASE_BUTTON_WIDTH CFC_HORIZON_FIRST_BUTTON_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT CFC_HORIZON_FIRST_BUTTON_GEOMETRY.height()
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ColorFilterControlHorizon
+//  [ 機能名   ] : カラーフィルターコントロール水平のコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 ColorFilterControlHorizon::ColorFilterControlHorizon( QWidget *parent ) : ColorFilterControl( parent )
 {
     setFixedSize( CFC_HORIZON_SCREENSIZE );

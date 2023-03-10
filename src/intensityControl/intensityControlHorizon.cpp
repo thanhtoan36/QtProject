@@ -8,6 +8,12 @@
 #include "utility.h"
 #include <QDebug>
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : IntensityControlHorizon
+//  [ 機能名   ] : インテンシティコントロール水平のコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 IntensityControlHorizon::IntensityControlHorizon( QWidget *parent )
     : IntensityControl( parent )
 {

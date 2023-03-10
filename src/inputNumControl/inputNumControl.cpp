@@ -7,10 +7,12 @@
 #include "inputNumControl/inputNumControl_define.h"
 #include "utility.h"
 
-#define MODE_ROW 1
-#define MODE_COLUMN 4
-#define MODE_POS_COLUMN 3
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : InputNumControl
+//  [ 機能名   ] : 数値入力コントロールのコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 InputNumControl::InputNumControl( QWidget *parent )  : PanelControlBase( parent ),
     m_grid( this ),
     m_label_title( this ),
@@ -195,7 +197,7 @@ void InputNumControl::SetDispParamData( INPUT_NUM_DISP_PARAM *param )
     }
 
 
-    PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( MODE_COLUMN, 1 ) );
+    PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( 4, 1 ) );
     SetType( param->type );
     SetMode( param->mode );
 
@@ -246,11 +248,23 @@ void InputNumControl::OnTypeChanged()
     PlaceChildrenIntoPanel( m_group_buttons, IC_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( GroupButtonsPerPage(), 1 ) );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Mode
+//  [ 機能名   ] : 現在のモードを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : InputNumMode: 255 または % または 角度のモード
+//--------------------------------------------------------------------------
 InputNumMode InputNumControl::Mode() const
 {
     return m_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetMode
+//  [ 機能名   ] : 入力数値モードの設定
+//  [ 引数     ] : InputNumMode newMode: 要設定のモード
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetMode( InputNumMode newMode )
 {
     if( m_mode == newMode )
@@ -262,11 +276,23 @@ void InputNumControl::SetMode( InputNumMode newMode )
     emit ModeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Type
+//  [ 機能名   ] : 現在のタイプを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : InputNumType: カラー、または、ポジション、または、ゴボ、または、ビームシャッター、または、コントロールのタイプ
+//--------------------------------------------------------------------------
 InputNumType InputNumControl::Type() const
 {
     return m_type;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetType
+//  [ 機能名   ] : タイプを設定する
+//  [ 引数     ] : InputNumType newType: 要設定のタイプ
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetType( InputNumType newType )
 {
     if( m_type == newType )
@@ -294,11 +320,23 @@ void InputNumControl::OnGroupButtonClicked()
     SetSelectedModeButton( ( ( SelectButton * )sender() )->text() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ValueMode
+//  [ 機能名   ] : モード値の取得
+//  [ 引数     ] : void
+//  [ 戻り値    ] : InputNumValueMode: 絶対または相対モード
+//--------------------------------------------------------------------------
 InputNumValueMode InputNumControl::ValueMode() const
 {
     return m_valueMode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetValueMode
+//  [ 機能名   ] : モード値の設定
+//  [ 引数     ] : InputNumValueMode &mode: 要設定のモード
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetValueMode( const InputNumValueMode &mode )
 {
     if( m_valueMode == mode )
@@ -324,11 +362,23 @@ void InputNumControl::SetupGroupButtonPages()
     UpdateChildrenVisibility( m_group_buttons, CurrentGroupButtonsPage(), GroupButtonsPerPage() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentGroupButtonsPage
+//  [ 機能名   ] : 現在のグループボタンページを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ページのインデックス
+//--------------------------------------------------------------------------
 int InputNumControl::CurrentGroupButtonsPage() const
 {
     return m_current_group_buttons_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentGroupButtonsPage
+//  [ 機能名   ] : 現在のグループボタンページを設定する
+//  [ 引数     ] : int page: 要設定の値
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetCurrentGroupButtonsPage( int page )
 {
     page = qBound( 0, page, MaxGroupButtonPages() - 1 );
@@ -342,11 +392,23 @@ void InputNumControl::SetCurrentGroupButtonsPage( int page )
     emit CurrentGroupButtonsPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MaxGroupButtonPages
+//  [ 機能名   ] : 最大ボタンページ数を取得する·
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ページ数
+//--------------------------------------------------------------------------
 int InputNumControl::MaxGroupButtonPages() const
 {
     return CalulateNumberOfPages( m_group_buttons.length(), GroupButtonsPerPage() );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : GroupButtonsPerPage
+//  [ 機能名   ] : ページごとにボタン番号を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ボタンの数
+//--------------------------------------------------------------------------
 int InputNumControl::GroupButtonsPerPage() const
 {
     if( Type() == INPUT_NUM_TYPE_POSITION )
@@ -357,11 +419,23 @@ int InputNumControl::GroupButtonsPerPage() const
     return 4;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedModeButton
+//  [ 機能名   ] : 選択したモードボタンを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : QString: ボタン名
+//--------------------------------------------------------------------------
 const QString &InputNumControl::SelectedModeButton() const
 {
     return m_selected_mode_button;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedModeButton
+//  [ 機能名   ] : 選択したモードボタンを設定する
+//  [ 引数     ] : const QString &mode: 要設定のモード
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void InputNumControl::SetSelectedModeButton( const QString &mode )
 {
     if( m_selected_mode_button == mode )

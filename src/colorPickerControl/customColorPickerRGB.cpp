@@ -16,6 +16,12 @@
 #define S_MAX 255
 #define V_MAX 255
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CustomColorPickerRGB
+//  [ 機能名   ] : カスタムカラーピッカーRGBのコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 CustomColorPickerRGB::CustomColorPickerRGB( QWidget *parent ) : QWidget( parent ),
     m_plot_area( QRectF( 0, 0, PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT ) ),
     m_img( PICKER_RGB_WIDTH, PICKER_RGB_HEIGHT, QImage::Format_RGB32 )
@@ -33,6 +39,12 @@ CustomColorPickerRGB::CustomColorPickerRGB( QWidget *parent ) : QWidget( parent 
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : HSV
+//  [ 機能名   ] : HSV取得
+//  [ 引数     ] : void
+//  [ 戻り値    ] : hsv_t: hsv結果
+//--------------------------------------------------------------------------
 hsv_t CustomColorPickerRGB::HSV() const
 {
     return m_hsv;
@@ -82,6 +94,12 @@ void CustomColorPickerRGB::SetColor( const QColor &color )
     emit ColorChanged( m_color );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Color
+//  [ 機能名   ] : カラー取得
+//  [ 引数     ] : void
+//  [ 戻り値    ] : QColor: カラーリザルト
+//--------------------------------------------------------------------------
 QColor CustomColorPickerRGB::Color() const
 {
     return m_color;

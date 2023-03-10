@@ -8,6 +8,12 @@
 #include "utility.h"
 #include <QDebug>
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : IntensityControl
+//  [ 機能名   ] : インテンシティコントロールのコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 IntensityControl::IntensityControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid_background( this ),
     m_label_title( this ),

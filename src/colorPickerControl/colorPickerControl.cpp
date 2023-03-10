@@ -10,6 +10,12 @@
 #include <QDebug>
 #include <QColorDialog>
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ColorPickerControl
+//  [ 機能名   ] : カラーピッカーコントロールのコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 ColorPickerControl::ColorPickerControl( QWidget *parent )
     : PanelControlBase( parent ),
       m_menu_background( this ),
@@ -323,11 +329,24 @@ QVector<QSharedPointer<SelectButton>> ColorPickerControl::HeaderButtons() const
     return buttons;
 }
 
+
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : PickerType
+//  [ 機能名   ] : ピッカータイプ取得
+//  [ 引数     ] : void
+//  [ 戻り値    ] : ColorPickerType: xyタイプ、または、rgbタイプ
+//--------------------------------------------------------------------------
 ColorPickerType ColorPickerControl::PickerType() const
 {
     return m_picker_type;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetPickerType
+//  [ 機能名   ] : ピッカータイプ設定
+//  [ 引数     ] : ColorPickerType type: 要設定のピッカータイプ
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorPickerControl::SetPickerType( ColorPickerType type )
 {
     if( m_picker_type == type )
@@ -339,19 +358,31 @@ void ColorPickerControl::SetPickerType( ColorPickerType type )
     emit PickerTypeChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : PickerColor
+//  [ 機能名   ] : 選んだ色の取得
+//  [ 引数     ] : void
+//  [ 戻り値    ] : QColor: 選んだ色
+//--------------------------------------------------------------------------
 QColor ColorPickerControl::PickerColor() const
 {
     return m_picker_color;
 }
 
-void ColorPickerControl::SetPickerColor( const QColor &type )
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetPickerColor
+//  [ 機能名   ] : 選んだ色を設定する
+//  [ 引数     ] : const QColor &color: 要設定の色
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
+void ColorPickerControl::SetPickerColor( const QColor &color )
 {
-    if( m_picker_color == type )
+    if( m_picker_color == color )
     {
         return;
     }
 
-    m_picker_color = type;
+    m_picker_color = color;
     emit PickerColorChanged();
 }
 
@@ -438,11 +469,23 @@ void ColorPickerControl::SetupHeaderButtonPages()
     UpdateChildrenVisibility( HeaderButtons(), CurrentHeaderButtonsPage(), m_header_buttons_per_page );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentHeaderButtonsPage
+//  [ 機能名   ] : 現在のヘッダーボタンを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: 現在のページ
+//--------------------------------------------------------------------------
 int ColorPickerControl::CurrentHeaderButtonsPage() const
 {
     return m_current_header_buttons_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentHeaderButtonsPage
+//  [ 機能名   ] : 現在のヘッダーボタンを設定する
+//  [ 引数     ] : int new_button_page: ボタンのインデックス
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorPickerControl::SetCurrentHeaderButtonsPage( int new_button_page )
 {
     new_button_page = qBound( 0, new_button_page, CalulateNumberOfPages( m_header_buttons.length(), m_header_buttons_per_page ) - 1 );

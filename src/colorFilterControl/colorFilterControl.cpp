@@ -10,15 +10,15 @@
 #include "utility.h"
 
 
-#define BUTTONS_GRID_SIZE QSize(4, 4)
-#define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height())
+#define BUTTONS_GRID_SIZE QSize(4, 4) //グリッドサイズ
+#define BUTTONS_PER_PAGE (BUTTONS_GRID_SIZE.width() * BUTTONS_GRID_SIZE.height()) //ページあたりのボタンの数
 
-#define BASE_BUTTON_X CFC_FIRST_BUTTON_GEOMETRY.x()
-#define BASE_BUTTON_Y CFC_FIRST_BUTTON_GEOMETRY.y()
-
-#define BASE_BUTTON_WIDTH CFC_FIRST_BUTTON_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT CFC_FIRST_BUTTON_GEOMETRY.height()
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ColorFilterControl
+//  [ 機能名   ] : カラーフィルターコントロールのコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( parent ),
     m_grid( this ),
     m_title_label( this ),
@@ -50,7 +50,7 @@ ColorFilterControl::ColorFilterControl( QWidget *parent ) : PanelControlBase( pa
     m_back_button.SetTextColor( Qt::yellow );
 
     m_grid.SetGridSize( QSize( 6, 6 ) );
-    m_grid.SetCellSize( QSize( BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT ) );
+    m_grid.SetCellSize( CFC_FIRST_BUTTON_GEOMETRY.size() );
     m_grid.move( 0, 32 );
 
     m_title_label.setGeometry( CFC_TITLE_GEOMETRY );
@@ -311,11 +311,23 @@ void ColorFilterControl::ScrollDown()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentTBTabPage
+//  [ 機能名   ] : 現在のTBタブページを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: 現在のTBタブページ
+//--------------------------------------------------------------------------
 int ColorFilterControl::CurrentTBTabPage() const
 {
     return m_current_tb_tab_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentTBTabPage
+//  [ 機能名   ] : 現在のTBタブページを設定する
+//  [ 引数     ] : int value: 要設定の値
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetCurrentTBTabPage( int value )
 {
     if( m_current_tb_tab_page == value )
@@ -327,11 +339,23 @@ void ColorFilterControl::SetCurrentTBTabPage( int value )
     emit CurrentTBTabPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentCustomTabPage
+//  [ 機能名   ] : 現在のカスタムタブページを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: 現在のカスタムタブページ
+//--------------------------------------------------------------------------
 int ColorFilterControl::CurrentCustomTabPage() const
 {
     return m_current_custom_tab_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentCustomTabPage
+//  [ 機能名   ] : 現在のカスタムタブページを設定する
+//  [ 引数     ] : int: 要設定の値
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetCurrentCustomTabPage( int value )
 {
     if( m_current_custom_tab_page == value )
@@ -343,11 +367,23 @@ void ColorFilterControl::SetCurrentCustomTabPage( int value )
     emit CurrentCustomTabPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentHistoryPage
+//  [ 機能名   ] : 現在の最近使ったもののページを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: 現在の最近使ったもののページ
+//--------------------------------------------------------------------------
 int ColorFilterControl::CurrentHistoryPage() const
 {
     return m_current_history_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentHistoryPage
+//  [ 機能名   ] : 現在の最近使ったもののページを設定する
+//  [ 引数     ] : int: 要設定の値
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetCurrentHistoryPage( int value )
 {
     if( m_current_history_page == value )
@@ -359,11 +395,23 @@ void ColorFilterControl::SetCurrentHistoryPage( int value )
     emit CurrentHistoryPageChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Mode
+//  [ 機能名   ] : 現在のモードを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : ColorFilterDisplayMode: TB　カスタム、または、最近使ったもののモード
+//--------------------------------------------------------------------------
 ColorFilterDisplayMode ColorFilterControl::Mode() const
 {
     return m_mode;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetMode
+//  [ 機能名   ] : モードを設定する
+//  [ 引数     ] : ColorFilterDisplayMode value: 要設定のモード
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetMode( ColorFilterDisplayMode value )
 {
     if( m_mode == value )
@@ -568,11 +616,23 @@ void ColorFilterControl::OnDisplayTabButtonClicked()
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SelectedFooterButton
+//  [ 機能名   ] : 選択したフッターボタン名を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : QString: ボタン名
+//--------------------------------------------------------------------------
 const QString &ColorFilterControl::SelectedFooterButton() const
 {
     return m_current_footer_button_active;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetSelectedFooterButton
+//  [ 機能名   ] : 選択したフッターボタンを設定する
+//  [ 引数     ] : QString &value: 要設定の名前
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetSelectedFooterButton( const QString &value )
 {
     if( m_current_footer_button_active == value )
@@ -584,16 +644,34 @@ void ColorFilterControl::SetSelectedFooterButton( const QString &value )
     emit SelectedFooterButtonChanged();
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MaxTBTabPages
+//  [ 機能名   ] : 最大TBタブページ数を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ページ数
+//--------------------------------------------------------------------------
 int ColorFilterControl::MaxTBTabPages() const
 {
     return CalulateNumberOfPages( m_tb_tab_buttons.length(), BUTTONS_PER_PAGE );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MaxCustomTabPages
+//  [ 機能名   ] : 最大カスタムタブページ数を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ページ数
+//--------------------------------------------------------------------------
 int ColorFilterControl::MaxCustomTabPages() const
 {
     return CalulateNumberOfPages( m_custom_tab_buttons.length(), BUTTONS_PER_PAGE );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : MaxHistoryPages
+//  [ 機能名   ] : 最大最近使ったものページ数を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ページ数
+//--------------------------------------------------------------------------
 int ColorFilterControl::MaxHistoryPages() const
 {
     return CalulateNumberOfPages( m_history_buttons.length(), BUTTONS_PER_PAGE );
@@ -701,11 +779,23 @@ void ColorFilterControl::AddButtonToHistory( QSharedPointer<SelectButton> button
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CurrentHeaderButtonsPage
+//  [ 機能名   ] : 現在のヘッダーボタンを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ボタンのインデックス
+//--------------------------------------------------------------------------
 int ColorFilterControl::CurrentHeaderButtonsPage() const
 {
     return m_current_header_buttons_page;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : SetCurrentHeaderButtonsPage
+//  [ 機能名   ] : 現在のヘッダーボタンを設定する
+//  [ 引数     ] : int value : 要設定の値
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 void ColorFilterControl::SetCurrentHeaderButtonsPage( int value )
 {
     value = qBound( 0, value, CalulateNumberOfPages( m_header_buttons.length(), m_header_buttons_per_page ) - 1 );

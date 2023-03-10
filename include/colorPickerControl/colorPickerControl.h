@@ -55,7 +55,7 @@ protected:
     void AddHeaderButton( ColorPickerType type, const QString &text );
     QVector<QSharedPointer<SelectButton> > HeaderButtons() const;
     void SetPickerType( ColorPickerType type );
-    void SetPickerColor( const QColor &type );
+    void SetPickerColor( const QColor &color );
 
 protected:
     struct PickerButton

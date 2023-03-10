@@ -6,6 +6,12 @@
 #include "groupControl/groupControlHorizon.h"
 #include "groupControl/groupControl_define.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : GroupControlHorizon
+//  [ 機能名   ] : グループ制御の水平コンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 GroupControlHorizon::GroupControlHorizon( QWidget *parent ) : GroupControl( parent )
 {
     setFixedSize( GC_HORIZON_SCREEN_SIZE );

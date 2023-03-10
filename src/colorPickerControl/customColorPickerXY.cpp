@@ -16,7 +16,12 @@
     (((t) <= 0.0404482362771076) ? ((t) / 12.92)                               \
      : pow(((t) + 0.055) / 1.055, 2.4))
 
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : CustomColorPickerXY
+//  [ 機能名   ] : カスタムカラーピッカーXYのコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 CustomColorPickerXY::CustomColorPickerXY( QWidget *parent ) : QWidget( parent ),
     m_plot_area( QRectF( 36, 0, CPC_PICKER_XY_GEOMETRY.height(), CPC_PICKER_XY_GEOMETRY.height() ) )
 {
@@ -60,16 +65,34 @@ void CustomColorPickerXY::SetXy( const QPointF &xy )
     }
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Xy
+//  [ 機能名   ] : 有効なxy値を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : QPointF: xyリザルト
+//--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::Xy() const
 {
     return m_valid_xy;
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : Color
+//  [ 機能名   ] : xyからカラーを取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : QColor: 有効なカラー
+//--------------------------------------------------------------------------
 QColor CustomColorPickerXY::Color() const
 {
     return GetColor( m_valid_xy );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : GetColor
+//  [ 機能名   ] : xyからカラーを取得する
+//  [ 引数     ] : QPointF xy: xy値
+//  [ 戻り値    ] : QColor: 有効なカラー
+//--------------------------------------------------------------------------
 QColor CustomColorPickerXY::GetColor( QPointF xy ) const
 {
     return m_cie_maker.GetColor( xy );
@@ -136,7 +159,7 @@ void CustomColorPickerXY::mousePressEvent( QMouseEvent *event )
 //  [ 関数名   ] : MapToPosition
 //  [ 機能名   ] : CIE xyの値をウィジェットの座標に変換する
 //  [ 引数          ] : const QPointF &p : xy座標
-//  [ 戻り値    ] : void
+//  [ 戻り値    ] : QPointF
 //--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::MapToPosition( const QPointF &p )
 {
@@ -148,7 +171,7 @@ QPointF CustomColorPickerXY::MapToPosition( const QPointF &p )
 //  [ 関数名   ] : MapToValue
 //  [ 機能名   ] : マウスプレスポイントをCIE xyに変換する
 //  [ 引数          ] : const QPointF &p : xy座標
-//  [ 戻り値    ] : void
+//  [ 戻り値    ] : QPointF
 //--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::MapToValue( const QPoint &p )
 {
@@ -184,9 +207,9 @@ void CustomColorPickerXY::RBG2XY( float R, float G, float B, float &x, float &y,
 
 //--------------------------------------------------------------------------
 //  [ 関数名   ] : FindNearestXy
-//  [ 機能名   ] : find nereast xy when out of boudary
-//  [ 引数      ] : QPointF target : target coordinate
-//  [ 戻り値    ] : QPointF: nearest xy
+//  [ 機能名   ] : 座標内から外れた場合、最も近いxyを探す
+//  [ 引数      ] : QPointF target : ターゲット座標
+//  [ 戻り値    ] : QPointF: 最も近いxy
 //--------------------------------------------------------------------------
 QPointF CustomColorPickerXY::FindNearestXy( QPointF target )
 {

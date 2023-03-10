@@ -6,6 +6,12 @@
 #include "colorPickerControl/colorPickerControlHorizon.h"
 #include "colorPickerControl/colorPickerControl_define.h"
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : ColorPickerControlHorizon
+//  [ 機能名   ] : カラーピッカーコントロール水平のコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 ColorPickerControlHorizon::ColorPickerControlHorizon( QWidget *parent ) : ColorPickerControl( parent ),
     m_button_switch_panel_picker( this ),
     m_button_switch_panel_encoder( this ),

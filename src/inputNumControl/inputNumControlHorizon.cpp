@@ -7,12 +7,12 @@
 #include "inputNumControl/inputNumControl_define.h"
 #include "utility.h"
 
-
-#define BASE_BUTTON_WIDTH IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.width()
-#define BASE_BUTTON_HEIGHT IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.height()
-#define MODE_ROW 1
-#define MODE_COLUMN 5
-
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : InputNumControlHorizon
+//  [ 機能名   ] : 数値入力コントロール平水のコンストラクター
+//  [ 引数     ] : QWidget *parent: 親ウィジェット
+//  [ 戻り値    ] : void
+//--------------------------------------------------------------------------
 InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumControl( parent ),
     m_button_switch_panel_picker( this ),
     m_button_switch_panel_encoder( this ),
@@ -21,7 +21,7 @@ InputNumControlHorizon::InputNumControlHorizon( QWidget *parent ) : InputNumCont
     setFixedSize( IC_HORIZON_SCREEN_SIZE );
 
     m_grid.SetGridSize( QSize( 6, 5 ) );
-    m_grid.SetCellSize( QSize( BASE_BUTTON_WIDTH, BASE_BUTTON_HEIGHT ) );
+    m_grid.SetCellSize( IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.size() );
     m_grid.move( 0, 34 );
 
     m_label_title.setGeometry( IC_HORIZON_TITLE_GEOMETRY );
@@ -132,6 +132,12 @@ void InputNumControlHorizon::OnTypeChanged()
     PlaceChildrenIntoPanel( m_group_buttons, IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.size(), IC_HORIZON_FIRST_MODE_BUTTON_GEOMETRY.topLeft(), QSize( GroupButtonsPerPage(), 1 ) );
 }
 
+//--------------------------------------------------------------------------
+//  [ 関数名   ] : GroupButtonsPerPage
+//  [ 機能名   ] : ページごとにボタン番号を取得する
+//  [ 引数     ] : void
+//  [ 戻り値    ] : int: ボタン数
+//--------------------------------------------------------------------------
 int InputNumControlHorizon::GroupButtonsPerPage() const
 {
     return 5;
