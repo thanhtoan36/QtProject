@@ -271,6 +271,12 @@ void MainWindow::ConnectEncoderEvent()
 
 void MainWindow::ConnectTrackEvent()
 {
+    const auto slot_mode_changed = [&]()
+    {
+        QStringList modes = { "TRACK_MODE_PERCENT", "TRACK_MODE_255", "TRACK_MODE_ANGLE", };
+        LogEvent( "mode changed: " + modes[( ( TrackControl * )sender() )->Mode()] );
+    };
+
     const auto slot_track_points_changed = [&]()
     {
         QString log = "track points changed\n";
@@ -284,7 +290,10 @@ void MainWindow::ConnectTrackEvent()
         LogEvent( log );
     };
 
+    connect( m_track_control.get(), &TrackControl::ModeChanged, this, slot_mode_changed );
     connect( m_track_control.get(), &TrackControl::TrackPointsChanged, this, slot_track_points_changed );
+
+    connect( m_track_control_horizon.get(), &TrackControl::ModeChanged, this, slot_mode_changed );
     connect( m_track_control_horizon.get(), &TrackControl::TrackPointsChanged, this, slot_track_points_changed );
 }
 
