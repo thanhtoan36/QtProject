@@ -25,7 +25,6 @@ TrackControlHorizon::TrackControlHorizon( QWidget *parent )
     m_button_mode_255.setGeometry( TC_HORIZON_BUTTON_MODE_255_GEOMETRY );
 
     m_button_mode_angle.setGeometry( TC_HORIZON_BUTTON_MODE_ANGLE_GEOMETRY );
-    m_button_mode_angle.setEnabled( false );
 
     m_button_value_mode_relative.setGeometry( TC_HORIZON_BUTTON_VALUEMODE_RELATIVE_GEOMETRY );
     m_button_value_mode_absolute.setGeometry( TC_HORIZON_BUTTON_VALUEMODE_ABSOLUTE_GEOMETRY );
